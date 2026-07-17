@@ -121,6 +121,14 @@ export async function loadMarkdownPosts(contentDirectory) {
     if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error(`${entry.name}: slug는 영문 소문자·숫자·하이픈만 사용할 수 있습니다.`);
     if (!/^\d{4}-\d{2}-\d{2}$/.test(metadata.date)) throw new Error(`${entry.name}: date는 YYYY-MM-DD 형식이어야 합니다.`);
     if (!body) throw new Error(`${entry.name}: 본문이 비어 있습니다.`);
+    const faq = Object.keys(metadata)
+      .filter((key) => /^faq\d+Question$/.test(key))
+      .sort((a, b) => Number(a.match(/\d+/)[0]) - Number(b.match(/\d+/)[0]))
+      .map((questionKey) => ({
+        question: metadata[questionKey],
+        answer: metadata[questionKey.replace(/Question$/, "Answer")],
+      }))
+      .filter((item) => item.question && item.answer);
     posts.push({
       file: `${slug}.html`,
       slug,
@@ -132,6 +140,7 @@ export async function loadMarkdownPosts(contentDirectory) {
       modified: metadata.modified || metadata.date,
       cover: metadata.cover.replace(/^\/?assets\/blog\//, ""),
       keywords: (metadata.keywords || "").split(",").map((keyword) => keyword.trim()).filter(Boolean),
+      faq,
       sourceType: "markdown",
       articleHtml: `<article class="blog-markdown">${markdownToHtml(body)}</article>`,
     });

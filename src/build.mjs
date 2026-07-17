@@ -457,7 +457,15 @@ async function blogPostPage(post) {
     ["홈", "/"],
     ["골프·숙소 정보", "/blog/"],
     [post.title, `/blog/${post.file}`],
-  ])];
+  ]), ...(post.faq?.length ? [{
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: post.faq.map(({ question, answer }) => ({
+      "@type": "Question",
+      name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  }] : [])];
   return layout({ title: post.title, description: post.description, pathname: `/blog/${post.file}`, active: "blog", image: `blog/${post.cover}`, schema, content, pageType: "article", publishedTime: post.date, modifiedTime: post.modified || site.lastUpdated, keywords: post.keywords });
 }
 
