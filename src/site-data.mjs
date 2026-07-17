@@ -1,4 +1,4 @@
-const siteUrl = (process.env.SITE_URL || "https://xinchaohochiminh.vercel.app").trim().replace(/\/+$/, "");
+const siteUrl = (process.env.SITE_URL || "https://xinchao-golf.vercel.app").trim().replace(/\/+$/, "");
 
 if (!/^https:\/\/[a-z0-9.-]+(?::\d+)?$/i.test(siteUrl)) {
   throw new Error("SITE_URL은 경로와 마지막 슬래시가 없는 https 주소여야 합니다.");
@@ -167,6 +167,20 @@ export const courses = [
     image: "course-harmony.webp",
     summary: "현대적인 시설과 전략적인 코스 구성으로 호치민 근교 라운드에 검토할 수 있습니다.",
     points: ["18홀", "현대적인 시설", "빈즈엉 동선"],
+  },
+  {
+    slug: "west-lakes-golf-villas",
+    legacy: "golf-detail_hcm_7.html",
+    name: "웨스트레이크 골프 앤 빌라스",
+    englishName: "West Lakes Golf & Villas",
+    shortName: "웨스트레이크CC",
+    region: "호치민 근교",
+    location: "롱안·호치민 서부 방면",
+    holes: "예약 시 코스 확인",
+    access: "호치민 서부 이동시간과 교통상황을 함께 확인",
+    image: "hero-golf.webp",
+    summary: "호치민 서부 롱안 방면에서 검토할 수 있는 골프장으로, 일정과 티오프에 맞춘 차량 상담이 필요합니다.",
+    points: ["호치민 서부 동선", "롱안 일정 연계", "티오프·차량 사전 확인"],
   },
 ];
 

@@ -8,9 +8,9 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const failures = [];
 const markdownPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"));
-const expectedContentPages = 44 + markdownPosts.length;
-const expectedSitemapUrls = 43 + markdownPosts.length;
-const expectedRedirects = 41 + markdownPosts.length;
+const expectedContentPages = 45 + markdownPosts.length;
+const expectedSitemapUrls = 44 + markdownPosts.length;
+const expectedRedirects = 42 + markdownPosts.length;
 
 async function collect(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -124,8 +124,8 @@ if (contentPages.length !== expectedContentPages) failures.push(`콘텐츠 페�
 if (!files.some((file) => file.endsWith("sitemap.xml"))) failures.push("sitemap.xml 누락");
 if (!files.some((file) => file.endsWith("robots.txt"))) failures.push("robots.txt 누락");
 if (!files.some((file) => file.endsWith("manifest.webmanifest"))) failures.push("manifest.webmanifest 누락");
-if (!files.some((file) => file.endsWith("server/index.js"))) failures.push("Sites 서버 엔트리 누락");
-if (!files.some((file) => file.endsWith(".openai/hosting.json"))) failures.push("Sites 호스팅 매니페스트 누락");
+if (!await exists(path.join(dist, "server", "index.js"))) failures.push("Sites 서버 엔트리 누락");
+if (!await exists(path.join(dist, ".openai", "hosting.json"))) failures.push("Sites 호스팅 매니페스트 누락");
 if (!await exists(path.join(dist, "client/index.html"))) failures.push("Sites 정적 클라이언트 결과 누락");
 for (const icon of ["xinchao-golf-logo-192.webp", "xinchao-golf-logo-512.webp"]) {
   if (!files.some((file) => file.endsWith(icon))) failures.push(`브랜드 아이콘 누락: ${icon}`);

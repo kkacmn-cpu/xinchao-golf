@@ -36,6 +36,11 @@
       "permanent": true
     },
     {
+      "source": "/hochiminh-golf-travel-guide.html",
+      "destination": "/blog/hochiminh-golf-travel-guide.html",
+      "permanent": true
+    },
+    {
       "source": "/ho-chi-minh-4-room-pool-villa-guide.html",
       "destination": "/blog/ho-chi-minh-4-room-pool-villa-guide.html",
       "permanent": true
@@ -113,6 +118,11 @@
     {
       "source": "/golf-detail_dongnai_5.html",
       "destination": "/golf/harmony-golf-park.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf-detail_hcm_7.html",
+      "destination": "/golf/west-lakes-golf-villas.html",
       "permanent": true
     },
     {

@@ -80,7 +80,7 @@ const breadcrumbSchema = (items) => ({
   })),
 });
 
-function head({ title, description, pathname, image = "hero-golf.webp", schema = [], robots = "index,follow,max-image-preview:large", pageType = "website", publishedTime, modifiedTime }) {
+function head({ title, description, pathname, image = "hero-golf.webp", schema = [], robots = "index,follow,max-image-preview:large", pageType = "website", publishedTime, modifiedTime, keywords = [] }) {
   const canonical = `${site.siteUrl}${pathname}`;
   const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
   const socialImage = image.startsWith("blog/") ? `${site.siteUrl}/assets/${image}` : `${site.siteUrl}/assets/images/${image}`;
@@ -89,6 +89,7 @@ function head({ title, description, pathname, image = "hero-golf.webp", schema =
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${escapeHtml(fullTitle)}</title>
     <meta name="description" content="${escapeHtml(description)}">
+    ${keywords.length ? `<meta name="keywords" content="${escapeHtml(keywords.join(", "))}">` : ""}
     <meta name="robots" content="${robots}">
     <meta name="theme-color" content="#0f5138">
     <link rel="canonical" href="${canonical}">
@@ -184,7 +185,7 @@ function footer() {
     <script src="/assets/js/site.js" defer></script>`;
 }
 
-function layout({ title, description, pathname, active, content, image, schema = [], robots, pageType, publishedTime, modifiedTime }) {
+function layout({ title, description, pathname, active, content, image, schema = [], robots, pageType, publishedTime, modifiedTime, keywords = [] }) {
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -213,7 +214,7 @@ function layout({ title, description, pathname, active, content, image, schema =
   const pageSchema = pathname === "/" ? [organization, website, ...schema] : schema;
   return `<!doctype html>
 <html lang="ko">
-  <head>${head({ title, description, pathname, image, schema: pageSchema, robots, pageType, publishedTime, modifiedTime })}</head>
+  <head>${head({ title, description, pathname, image, schema: pageSchema, robots, pageType, publishedTime, modifiedTime, keywords })}</head>
   <body>${header(active)}<main id="main">${content}</main>${footer()}</body>
 </html>`;
 }
@@ -343,6 +344,16 @@ function courseDetailPage(course) {
     active: "golf",
     image: course.image,
     schema,
+    keywords: [
+      course.name,
+      `${course.name} 예약`,
+      `${course.name} 가격`,
+      `${course.name} 후기`,
+      `${course.name} 위치`,
+      `${course.name} 골프여행`,
+      `${course.name} 티오프`,
+      `${course.name} 한국인 예약`,
+    ],
     content,
   });
 }
@@ -447,7 +458,7 @@ async function blogPostPage(post) {
     ["골프·숙소 정보", "/blog/"],
     [post.title, `/blog/${post.file}`],
   ])];
-  return layout({ title: post.title, description: post.description, pathname: `/blog/${post.file}`, active: "blog", image: `blog/${post.cover}`, schema, content, pageType: "article", publishedTime: post.date, modifiedTime: post.modified || site.lastUpdated });
+  return layout({ title: post.title, description: post.description, pathname: `/blog/${post.file}`, active: "blog", image: `blog/${post.cover}`, schema, content, pageType: "article", publishedTime: post.date, modifiedTime: post.modified || site.lastUpdated, keywords: post.keywords });
 }
 
 function notFoundPage() {
