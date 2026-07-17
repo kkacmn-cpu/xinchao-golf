@@ -1,0 +1,22 @@
+# 신짜오골프 블로그 작성 방법
+
+## 작성 위치
+
+새 글은 `src/content/blog/영문-주소.md`에 작성합니다. `_template.md`를 복사해 사용합니다.
+
+대표 이미지는 `public/assets/blog/영문-주소/cover.webp`, 본문 이미지는 같은 폴더에 WebP로 저장합니다.
+
+## 발행 순서
+
+1. 마크다운 글과 이미지를 추가합니다.
+2. 글 상단의 `draft: true`를 `draft: false`로 변경합니다.
+3. `npm run check`를 실행합니다.
+4. 검수 통과 후 배포합니다.
+
+빌드하면 블로그 목록, 상세 페이지, canonical, Open Graph, Article 구조화 데이터와 sitemap이 자동 갱신됩니다.
+
+## Codex에 줄 짧은 지시
+
+> 호치민 골프 SEO 글 1개 작성. 키워드 중복을 확인하고 `src/content/blog/`에 저장한 뒤 이미지 경로·SEO·내부 링크·빌드 검수까지 완료해. 검수 전에는 배포하지 마.
+
+기존 숙소·풀빌라 자료는 `src/legacy-blog/`에 보존되며 새 글과 함께 노출됩니다.

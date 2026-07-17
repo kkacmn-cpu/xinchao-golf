@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">신짜오골프 XG 로고</title>
+  <desc id="desc">짙은 초록색 바탕에 흰색 XG 글자와 노란색 골프공을 표현한 로고</desc>
+  <rect width="512" height="512" rx="112" fill="#0f5138"/>
+  <circle cx="418" cy="96" r="34" fill="#f9d73c"/>
+  <g fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="54">
+    <path d="M90 156l130 200M220 156L90 356"/>
+    <path d="M418 190c-24-31-57-46-94-46-68 0-118 50-118 112s50 112 118 112c38 0 72-15 96-43v-65h-83"/>
+  </g>
+</svg>

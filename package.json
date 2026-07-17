@@ -1,0 +1,12 @@
+{
+  "name": "xinchao-golf-renewal",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "test": "node src/test.mjs",
+    "check": "npm run build && npm run test",
+    "blog:check": "npm run check"
+  }
+}

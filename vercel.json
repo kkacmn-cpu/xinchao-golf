@@ -1,0 +1,242 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "cleanUrls": false,
+  "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/home.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/golf.html",
+      "destination": "/golf/",
+      "permanent": true
+    },
+    {
+      "source": "/apartment.html",
+      "destination": "/services/apartments.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa.html",
+      "destination": "/services/villas.html",
+      "permanent": true
+    },
+    {
+      "source": "/car-rental.html",
+      "destination": "/services/vehicle.html",
+      "permanent": true
+    },
+    {
+      "source": "/blog.html",
+      "destination": "/blog/",
+      "permanent": true
+    },
+    {
+      "source": "/ho-chi-minh-4-room-pool-villa-guide.html",
+      "destination": "/blog/ho-chi-minh-4-room-pool-villa-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/ho-chi-minh-8-room-pool-villa-guide.html",
+      "destination": "/blog/ho-chi-minh-8-room-pool-villa-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/ho-chi-minh-lexington-apartment-guide.html",
+      "destination": "/blog/ho-chi-minh-lexington-apartment-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/ho-chi-minh-the-sun-avenue-q2-apartment-guide.html",
+      "destination": "/blog/ho-chi-minh-the-sun-avenue-q2-apartment-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/ho-chi-minh-y4-6-room-pool-villa.html",
+      "destination": "/blog/ho-chi-minh-y4-6-room-pool-villa.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf-detail_hcm_1.html",
+      "destination": "/golf/thu-duc-country-club.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf-detail_hcm_2.html",
+      "destination": "/golf/tan-son-nhat-golf-course.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf-detail_hcm_3.html",
+      "destination": "/golf/twin-doves-golf-club.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf-detail_hcm_4.html",
+      "destination": "/golf/leman-golf-club.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf-detail_hcm_5.html",
+      "destination": "/golf/vung-tau-paradise-golf.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf-detail_hcm_6.html",
+      "destination": "/golf/the-bluffs-grand-ho-tram.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf-detail_dongnai_1.html",
+      "destination": "/golf/taekwang-jeongsan-country-club.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf-detail_dongnai_2.html",
+      "destination": "/golf/long-thanh-golf-club.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf-detail_dongnai_3.html",
+      "destination": "/golf/song-be-golf-resort.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf-detail_dongnai_4.html",
+      "destination": "/golf/dong-nai-golf-resort.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf-detail_dongnai_5.html",
+      "destination": "/golf/harmony-golf-park.html",
+      "permanent": true
+    },
+    {
+      "source": "/apartment-detail_1.html",
+      "destination": "/services/apartment/vinhomes-central-park.html",
+      "permanent": true
+    },
+    {
+      "source": "/apartment-detail_2.html",
+      "destination": "/services/apartment/lumiere-riverside.html",
+      "permanent": true
+    },
+    {
+      "source": "/apartment-detail_3.html",
+      "destination": "/services/apartment/metropole-thu-thiem.html",
+      "permanent": true
+    },
+    {
+      "source": "/apartment-detail_4.html",
+      "destination": "/services/apartment/sunrise-city.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_1.html",
+      "destination": "/services/villa/villa-9a.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_2.html",
+      "destination": "/services/villa/villa-109.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_3.html",
+      "destination": "/services/villa/villa-1f.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_4.html",
+      "destination": "/services/villa/villa-b7.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_5.html",
+      "destination": "/services/villa/villa-cadina.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_6.html",
+      "destination": "/services/villa/villa-cadina-1.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_7.html",
+      "destination": "/services/villa/villa-cadina-2.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_8.html",
+      "destination": "/services/villa/villa-cadina-3.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_9.html",
+      "destination": "/services/villa/villa-cadina-9.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_10.html",
+      "destination": "/services/villa/villa-yolo-b.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_11.html",
+      "destination": "/services/villa/villa-yolo-c.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_12.html",
+      "destination": "/services/villa/villa-yolo-d.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_13.html",
+      "destination": "/services/villa/villa-yolo-e.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_14.html",
+      "destination": "/services/villa/grass-pool-villa-5room.html",
+      "permanent": true
+    },
+    {
+      "source": "/villa-detail_hcm_15.html",
+      "destination": "/services/villa/mango-pool-villa-4room.html",
+      "permanent": true
+    }
+  ],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        }
+      ]
+    }
+  ]
+}
