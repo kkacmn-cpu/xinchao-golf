@@ -36,6 +36,16 @@
       "permanent": true
     },
     {
+      "source": "/hochiminh-golf-36-hole-guide.html",
+      "destination": "/blog/hochiminh-golf-36-hole-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/hochiminh-golf-course-price-guide.html",
+      "destination": "/blog/hochiminh-golf-course-price-guide.html",
+      "permanent": true
+    },
+    {
       "source": "/hochiminh-golf-booking-guide.html",
       "destination": "/blog/hochiminh-golf-booking-guide.html",
       "permanent": true
