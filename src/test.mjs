@@ -34,6 +34,7 @@ const exists = async (target) => { try { await access(target); return true; } ca
 
 for (const file of htmlFiles) {
   const relative = path.relative(dist, file);
+  if (/^google[^/]+\.html$/i.test(relative)) continue;
   const html = await readFile(file, "utf8");
   const redirect = /http-equiv="refresh"/i.test(html);
   if (!redirect) {
