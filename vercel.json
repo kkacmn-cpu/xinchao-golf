@@ -36,6 +36,11 @@
       "permanent": true
     },
     {
+      "source": "/hochiminh-golf-booking-guide.html",
+      "destination": "/blog/hochiminh-golf-booking-guide.html",
+      "permanent": true
+    },
+    {
       "source": "/hochiminh-golf-rental-car-guide.html",
       "destination": "/blog/hochiminh-golf-rental-car-guide.html",
       "permanent": true
