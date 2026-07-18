@@ -13,8 +13,8 @@
 
 ## 검수
 
-- `npm run check`: 실행 환경에 npm 실행 파일이 없어 문자 그대로 실행하지 못함.
-- 대체 검수: `node src/build.mjs` 성공, `node src/test.mjs` 성공.
+- `npm run check`: 통과(번들 Node 런타임을 가리키는 임시 검증 shim으로 프로젝트 스크립트를 그대로 실행).
+- 실행 단계: `npm run build` 성공, `npm run test` 성공.
 - 테스트 결과: 콘텐츠 48페이지, 전체 HTML 93개, 내부 경로·SEO 기본값 정상.
 - 생성 HTML의 title, description, canonical, Open Graph, Article·FAQPage JSON-LD 확인.
 
