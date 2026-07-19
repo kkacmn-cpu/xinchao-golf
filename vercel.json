@@ -36,6 +36,16 @@
       "permanent": true
     },
     {
+      "source": "/hochiminh-golf-two-player-booking.html",
+      "destination": "/blog/hochiminh-golf-two-player-booking.html",
+      "permanent": true
+    },
+    {
+      "source": "/hochiminh-golf-weekend-booking.html",
+      "destination": "/blog/hochiminh-golf-weekend-booking.html",
+      "permanent": true
+    },
+    {
       "source": "/hochiminh-golf-36-hole-guide.html",
       "destination": "/blog/hochiminh-golf-36-hole-guide.html",
       "permanent": true
