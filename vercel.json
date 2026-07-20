@@ -36,6 +36,16 @@
       "permanent": true
     },
     {
+      "source": "/hochiminh-dongnai-golf-booking.html",
+      "destination": "/blog/hochiminh-dongnai-golf-booking.html",
+      "permanent": true
+    },
+    {
+      "source": "/hochiminh-long-thanh-golf-booking.html",
+      "destination": "/blog/hochiminh-long-thanh-golf-booking.html",
+      "permanent": true
+    },
+    {
       "source": "/hochiminh-golf-two-player-booking.html",
       "destination": "/blog/hochiminh-golf-two-player-booking.html",
       "permanent": true
