@@ -46,6 +46,16 @@
       "permanent": true
     },
     {
+      "source": "/hochiminh-tan-son-nhat-golf-booking.html",
+      "destination": "/blog/hochiminh-tan-son-nhat-golf-booking.html",
+      "permanent": true
+    },
+    {
+      "source": "/hochiminh-thu-duc-golf-booking.html",
+      "destination": "/blog/hochiminh-thu-duc-golf-booking.html",
+      "permanent": true
+    },
+    {
       "source": "/hochiminh-golf-two-player-booking.html",
       "destination": "/blog/hochiminh-golf-two-player-booking.html",
       "permanent": true
