@@ -36,6 +36,11 @@
       "permanent": true
     },
     {
+      "source": "/hochiminh-golf-clothing-guide.html",
+      "destination": "/blog/hochiminh-golf-clothing-guide.html",
+      "permanent": true
+    },
+    {
       "source": "/hochiminh-dongnai-golf-booking.html",
       "destination": "/blog/hochiminh-dongnai-golf-booking.html",
       "permanent": true
