@@ -182,7 +182,8 @@ function footer() {
     <button class="floating-consult js-consult" type="button" data-interest="빠른 상담" aria-label="카카오톡 빠른 상담">상담</button>
     ${consultationDialog()}
     <script>window.XINCHAO_KAKAO_URL=${JSON.stringify(site.kakaoUrl)};</script>
-    <script src="/assets/js/site.js" defer></script>`;
+    <script src="/assets/js/site.js" defer></script>
+    <script src="https://company-site-live-monitor.kkacmn.chatgpt.site/tracker.js?site=xinchao-golf" defer></script>`;
 }
 
 function layout({ title, description, pathname, active, content, image, schema = [], robots, pageType, publishedTime, modifiedTime, keywords = [] }) {
