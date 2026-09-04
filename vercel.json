@@ -36,6 +36,11 @@
       "permanent": true
     },
     {
+      "source": "/hochiminh-golf-rainy-season-guide.html",
+      "destination": "/blog/hochiminh-golf-rainy-season-guide.html",
+      "permanent": true
+    },
+    {
       "source": "/hochiminh-golf-clothing-guide.html",
       "destination": "/blog/hochiminh-golf-clothing-guide.html",
       "permanent": true
