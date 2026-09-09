@@ -12,7 +12,7 @@
     },
     {
       "source": "/golf.html",
-      "destination": "/golf/",
+      "destination": "/golf",
       "permanent": true
     },
     {
@@ -32,7 +32,32 @@
     },
     {
       "source": "/blog.html",
-      "destination": "/blog/",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/hochiminh-golf-clubhouse-checkin-order.html",
+      "destination": "/blog/hochiminh-golf-clubhouse-checkin-order.html",
+      "permanent": true
+    },
+    {
+      "source": "/hochiminh-golf-day-before-final-contact.html",
+      "destination": "/blog/hochiminh-golf-day-before-final-contact.html",
+      "permanent": true
+    },
+    {
+      "source": "/hochiminh-golf-voucher-final-check.html",
+      "destination": "/blog/hochiminh-golf-voucher-final-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/hochiminh-golf-departure-time-checklist.html",
+      "destination": "/blog/hochiminh-golf-departure-time-checklist.html",
+      "permanent": true
+    },
+    {
+      "source": "/hochiminh-golf-tee-time-change-request.html",
+      "destination": "/blog/hochiminh-golf-tee-time-change-request.html",
       "permanent": true
     },
     {

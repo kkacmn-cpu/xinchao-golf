@@ -116,10 +116,10 @@ function head({ title, description, pathname, image = "hero-golf.webp", schema =
 
 function header(active = "") {
   const items = [
-    ["golf", "/golf/", "호치민 골프"],
-    ["regions", "/regions/", "지역별 골프"],
-    ["services", "/services/", "숙소·차량"],
-    ["blog", "/blog/", "골프정보"],
+    ["golf", "/golf", "호치민 골프"],
+    ["regions", "/regions", "지역별 골프"],
+    ["services", "/services", "숙소·차량"],
+    ["blog", "/blog", "골프정보"],
   ];
   return `
     <a class="skip-link" href="#main">본문 바로가기</a>
@@ -175,7 +175,7 @@ function footer() {
     <footer class="site-footer">
       <div class="shell footer-grid">
         <div><strong>${site.name}</strong><p>베트남 골프장·차량·숙소 한국어 상담</p></div>
-        <div><p>홈페이지에서는 상품을 판매하거나 결제받지 않습니다.</p><button class="text-button js-consult" type="button" data-interest="홈페이지 상담">카카오톡 상담하기 →</button></div>
+        <div><p>홈페이지에서는 상품을 판매하거나 결제받지 않습니다.</p><p><a href="/about.html">브랜드 소개</a> · <a href="/editorial-policy.html">편집 원칙</a> · <a href="/source-policy.html">출처 원칙</a></p><button class="text-button js-consult" type="button" data-interest="홈페이지 상담">카카오톡 상담하기 →</button></div>
       </div>
       <div class="shell copyright">© ${new Date().getFullYear()} ${site.englishName}. All rights reserved.</div>
     </footer>
@@ -249,7 +249,7 @@ function homePage() {
           <h1>베트남 골프장 예약,<br><span>현지 확인부터 정확하게</span></h1>
           <p class="hero-lead">호치민 골프장을 중심으로 일정에 맞는 차량과 숙소까지 한국어로 상담합니다.</p>
           <div class="hero-actions">
-            <a class="button" href="/golf/">호치민 골프장 보기</a>
+            <a class="button" href="/golf">호치민 골프장 보기</a>
             <button class="button button-outline js-consult" type="button" data-interest="호치민 골프 일정 상담">일정 상담하기</button>
           </div>
           <ul class="trust-list" aria-label="상담 서비스 특징"><li>한국어 상담</li><li>현지 일정 확인</li><li>부킹 후 바우처 안내</li></ul>
@@ -262,13 +262,13 @@ function homePage() {
     </section>
     <section class="quick-paths" aria-label="빠른 메뉴">
       <div class="shell quick-grid">
-        <a href="/golf/"><strong>골프장 찾기</strong><span>호치민 중심 골프장 정보</span></a>
+        <a href="/golf"><strong>골프장 찾기</strong><span>호치민 중심 골프장 정보</span></a>
         <button class="js-consult" type="button" data-interest="골프 일정 상담"><strong>일정 상담</strong><span>날짜와 인원부터 간단히</span></button>
-        <a href="/services/"><strong>차량·숙소</strong><span>골프 일정과 함께 상담</span></a>
+        <a href="/services"><strong>차량·숙소</strong><span>골프 일정과 함께 상담</span></a>
       </div>
     </section>
     <section class="section shell">
-      <div class="section-heading"><div><p class="eyebrow">가장 많이 찾는 지역</p><h2>호치민 골프장부터 확인하세요</h2></div><a class="text-link" href="/golf/">전체 골프장 보기 →</a></div>
+      <div class="section-heading"><div><p class="eyebrow">가장 많이 찾는 지역</p><h2>호치민 골프장부터 확인하세요</h2></div><a class="text-link" href="/golf">전체 골프장 보기 →</a></div>
       <div class="course-grid">${featured.map(courseCard).join("")}</div>
     </section>
     <section class="section section-tint">
@@ -278,7 +278,7 @@ function homePage() {
       </div>
     </section>
     <section class="section shell">
-      <div class="section-heading"><div><p class="eyebrow">함께 준비하기</p><h2>숙소와 차량도 따로 찾지 마세요</h2></div><a class="text-link" href="/services/">서비스 전체 보기 →</a></div>
+      <div class="section-heading"><div><p class="eyebrow">함께 준비하기</p><h2>숙소와 차량도 따로 찾지 마세요</h2></div><a class="text-link" href="/services">서비스 전체 보기 →</a></div>
       <div class="service-grid">${services.map((service) => `<article class="service-card"><img src="/assets/images/${service.image}" width="1200" height="700" loading="lazy" decoding="async" alt="${service.name} 상담"><div><h3>${service.name}</h3><p>${service.text}</p><button class="text-button js-consult" type="button" data-interest="${service.name} 상담">${service.name} 상담하기 →</button></div></article>`).join("")}</div>
     </section>
     <section class="section process-section"><div class="shell"><div class="section-heading"><div><p class="eyebrow">진행 과정</p><h2>상담부터 바우처까지</h2></div></div><ol class="process-list"><li><span>01</span><strong>일정 상담</strong><p>날짜·인원·희망 지역을 확인합니다.</p></li><li><span>02</span><strong>가능 여부 확인</strong><p>골프장과 차량·숙소 일정을 확인합니다.</p></li><li><span>03</span><strong>예약 진행</strong><p>안내된 조건을 확인한 뒤 예약을 진행합니다.</p></li><li><span>04</span><strong>바우처 안내</strong><p>부킹 완료 후 필요한 내용을 전달합니다.</p></li></ol></div></section>
@@ -305,7 +305,7 @@ function golfIndexPage() {
   return layout({
     title: "호치민 골프장 안내와 상담",
     description: "투득, 탄손넛, 트윈도브, 롱탄 등 호치민과 근교 골프장 정보를 비교하고 한국어로 상담하세요.",
-    pathname: "/golf/",
+    pathname: "/golf",
     active: "golf",
     content,
   });
@@ -313,7 +313,7 @@ function golfIndexPage() {
 
 function courseDetailPage(course) {
   const content = `
-    <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf/">호치민 골프</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
+    <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf">호치민 골프</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
     <section class="detail-hero shell">
       <div class="detail-media"><img src="/assets/images/${course.image}" width="1200" height="800" fetchpriority="high" alt="${course.name} 골프장 전경"></div>
       <div class="detail-summary"><p class="eyebrow">${course.region} 골프장</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="fact-list"><div><dt>지역</dt><dd>${course.location}</dd></div><div><dt>규모</dt><dd>${course.holes}</dd></div><div><dt>이동</dt><dd>${course.access}</dd></div></dl><button class="button button-block js-consult" type="button" data-interest="${course.name} 상담">이 골프장 상담하기</button><small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div>
@@ -322,7 +322,7 @@ function courseDetailPage(course) {
       <article><p class="eyebrow">선택 포인트</p><h2>${course.shortName}, 이런 일정에 검토하세요</h2><ul class="point-list">${course.points.map((point) => `<li>${point}</li>`).join("")}</ul><h2>상담 전에 알려주시면 좋은 내용</h2><p>희망 날짜, 인원, 선호 티오프 시간과 함께 차량·숙소 필요 여부를 알려주시면 일정 확인이 빨라집니다.</p></article>
       <aside class="side-consult"><strong>빠른 상담</strong><p>${course.shortName} 가능 여부와 이동 일정을 확인해드립니다.</p><button class="button button-block js-consult" type="button" data-interest="${course.name} 티오프 및 차량 상담">일정 확인하기</button></aside>
     </section>
-    <section class="section section-tint"><div class="shell"><div class="section-heading"><div><p class="eyebrow">함께 보기</p><h2>다른 호치민 골프장</h2></div><a class="text-link" href="/golf/">전체 보기 →</a></div><div class="course-grid">${courses.filter((item) => item.slug !== course.slug).slice(0, 3).map(courseCard).join("")}</div></div></section>`;
+    <section class="section section-tint"><div class="shell"><div class="section-heading"><div><p class="eyebrow">함께 보기</p><h2>다른 호치민 골프장</h2></div><a class="text-link" href="/golf">전체 보기 →</a></div><div class="course-grid">${courses.filter((item) => item.slug !== course.slug).slice(0, 3).map(courseCard).join("")}</div></div></section>`;
   const schema = [{
     "@context": "https://schema.org",
     "@type": "GolfCourse",
@@ -335,7 +335,7 @@ function courseDetailPage(course) {
     mainEntityOfPage: `${site.siteUrl}/golf/${course.slug}.html`,
   }, breadcrumbSchema([
     ["홈", "/"],
-    ["호치민 골프", "/golf/"],
+    ["호치민 골프", "/golf"],
     [course.shortName, `/golf/${course.slug}.html`],
   ])];
   return layout({
@@ -361,13 +361,13 @@ function courseDetailPage(course) {
 
 function regionsPage() {
   const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">VIETNAM GOLF</p><h1>지역별 베트남 골프 상담</h1><p>호치민을 중심으로 하노이, 다낭, 나트랑, 푸꾸옥 일정도 상담합니다.</p></div></section><section class="section shell"><div class="region-list">${regions.map((region, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><div><p class="eyebrow">${region.emphasis}</p><h2>${region.name}</h2><p>${region.text}</p></div><button class="button button-quiet js-consult" type="button" data-interest="${region.name} 골프 상담">상담하기</button></article>`).join("")}</div></section>`;
-  return layout({ title: "지역별 베트남 골프 상담", description: "호치민, 하노이, 다낭, 나트랑, 푸꾸옥 골프 일정 한국어 상담.", pathname: "/regions/", active: "regions", content });
+  return layout({ title: "지역별 베트남 골프 상담", description: "호치민, 하노이, 다낭, 나트랑, 푸꾸옥 골프 일정 한국어 상담.", pathname: "/regions", active: "regions", content });
 }
 
 function servicesPage() {
   const links = { apartment: "/services/apartments.html", villa: "/services/villas.html", vehicle: "/services/vehicle.html" };
   const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">STAY & TRANSPORT</p><h1>골프 숙소·차량 상담</h1><p>기존 아파트·풀빌라·차량 자료를 유지하고 골프 일정과 함께 상담합니다.</p></div></section><section class="section shell"><div class="service-list">${services.map((service) => `<article id="${service.slug}"><img src="/assets/images/${service.image}" width="1200" height="700" loading="lazy" decoding="async" alt="${service.name} 상담"><div><p class="eyebrow">연계 서비스</p><h2>${service.name}</h2><p>${service.text}</p><p class="muted">인원, 이용 날짜와 골프 일정을 알려주시면 적합한 조건을 함께 확인합니다.</p><div class="inline-actions"><a class="button" href="${links[service.slug]}">자료 보기</a><button class="button button-outline js-consult" type="button" data-interest="${service.name} 상담">상담하기</button></div></div></article>`).join("")}</div></section>`;
-  return layout({ title: "호치민 골프 숙소와 차량 상담", description: "호치민 골프여행에 필요한 아파트, 풀빌라, 차량을 일정과 함께 한국어로 상담하세요.", pathname: "/services/", active: "services", content });
+  return layout({ title: "호치민 골프 숙소와 차량 상담", description: "호치민 골프여행에 필요한 아파트, 풀빌라, 차량을 일정과 함께 한국어로 상담하세요.", pathname: "/services", active: "services", content });
 }
 
 function propertyCard(item, type) {
@@ -392,11 +392,11 @@ function propertyDetailPage(item, type) {
   const facts = isApartment
     ? [["지역", item.area], ["영문명", item.englishName], ["상담", "날짜·인원 확인 필요"]]
     : [["구성", item.spec], ["지역", "호치민"], ["상담", "날짜·인원 확인 필요"]];
-  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/services/">숙소·차량</a><span>›</span><span aria-current="page">${item.name}</span></nav><section class="detail-hero shell"><div class="detail-media"><img src="/assets/images/${item.image}" width="1200" height="800" fetchpriority="high" alt="${escapeHtml(item.name)}"></div><div class="detail-summary"><p class="eyebrow">호치민 ${category}</p><h1>${escapeHtml(item.name)}</h1>${item.englishName ? `<p class="english-name large">${escapeHtml(item.englishName)}</p>` : ""}<p class="detail-lead">${escapeHtml(item.text || `${item.spec} 구성의 호치민 풀빌라입니다. 골프 인원과 숙박 일정에 맞춰 상담합니다.`)}</p><dl class="fact-list">${facts.map(([key, value]) => `<div><dt>${key}</dt><dd>${escapeHtml(value)}</dd></div>`).join("")}</dl><button class="button button-block js-consult" type="button" data-interest="${escapeHtml(item.name)} 상담">이 숙소 상담하기</button><small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div></section><section class="section section-tint"><div class="shell compact-copy"><p class="eyebrow">상담 안내</p><h2>골프 일정과 함께 확인하세요</h2><p>숙소 가능 여부는 이용 날짜와 인원에 따라 달라집니다. 골프장, 차량, 공항 이동이 함께 필요하면 한 번에 알려주세요.</p><button class="button js-consult" type="button" data-interest="${escapeHtml(item.name)} 및 골프 일정 상담">일정 상담하기</button></div></section>`;
+  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/services">숙소·차량</a><span>›</span><span aria-current="page">${item.name}</span></nav><section class="detail-hero shell"><div class="detail-media"><img src="/assets/images/${item.image}" width="1200" height="800" fetchpriority="high" alt="${escapeHtml(item.name)}"></div><div class="detail-summary"><p class="eyebrow">호치민 ${category}</p><h1>${escapeHtml(item.name)}</h1>${item.englishName ? `<p class="english-name large">${escapeHtml(item.englishName)}</p>` : ""}<p class="detail-lead">${escapeHtml(item.text || `${item.spec} 구성의 호치민 풀빌라입니다. 골프 인원과 숙박 일정에 맞춰 상담합니다.`)}</p><dl class="fact-list">${facts.map(([key, value]) => `<div><dt>${key}</dt><dd>${escapeHtml(value)}</dd></div>`).join("")}</dl><button class="button button-block js-consult" type="button" data-interest="${escapeHtml(item.name)} 상담">이 숙소 상담하기</button><small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div></section><section class="section section-tint"><div class="shell compact-copy"><p class="eyebrow">상담 안내</p><h2>골프 일정과 함께 확인하세요</h2><p>숙소 가능 여부는 이용 날짜와 인원에 따라 달라집니다. 골프장, 차량, 공항 이동이 함께 필요하면 한 번에 알려주세요.</p><button class="button js-consult" type="button" data-interest="${escapeHtml(item.name)} 및 골프 일정 상담">일정 상담하기</button></div></section>`;
   const pathname = `/services/${type}/${item.slug}.html`;
   const schema = [breadcrumbSchema([
     ["홈", "/"],
-    ["숙소·차량", "/services/"],
+    ["숙소·차량", "/services"],
     [item.name, pathname],
   ])];
   return layout({ title: `${item.name} 골프여행 숙소 상담`, description: `${item.name} ${isApartment ? item.englishName : item.spec} 정보와 호치민 골프여행 숙소 한국어 상담.`, pathname, active: "services", image: item.image, schema, content });
@@ -416,7 +416,7 @@ function vehiclePage() {
 function blogPage() {
   const cards = blogPosts.map((post) => `<article class="post-card"><a href="/blog/${post.file}"><img src="/assets/blog/${post.cover}" width="1200" height="800" loading="lazy" decoding="async" alt="${escapeHtml(post.title)}"></a><div><span>${post.category}</span><h2><a href="/blog/${post.file}">${escapeHtml(post.title)}</a></h2><p>${escapeHtml(post.description)}</p><a class="text-link" href="/blog/${post.file}">내용 보기 →</a></div></article>`).join("");
   const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">GOLF & STAY GUIDE</p><h1>베트남 골프·숙소 정보</h1><p>기존 숙소 자료를 보존하면서 앞으로 골프장 선택과 일정 준비에 필요한 정보를 함께 정리합니다.</p></div></section><section class="section shell"><div class="post-grid">${cards}</div></section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">찾는 정보가 없나요?</p><h2>날짜와 인원만 알려주세요</h2><p>골프장과 숙소·차량을 함께 확인합니다.</p></div><button class="button button-light js-consult" type="button" data-interest="골프 및 숙소 상담">상담하기</button></div></section>`;
-  return layout({ title: "베트남 골프·숙소 정보", description: "호치민을 중심으로 베트남 골프장 선택, 풀빌라와 아파트 이용에 필요한 정보를 제공합니다.", pathname: "/blog/", active: "blog", content });
+  return layout({ title: "베트남 골프·숙소 정보", description: "호치민을 중심으로 베트남 골프장 선택, 풀빌라와 아파트 이용에 필요한 정보를 제공합니다.", pathname: "/blog", active: "blog", content });
 }
 
 async function blogPostPage(post) {
@@ -441,7 +441,7 @@ async function blogPostPage(post) {
   }
 
   const relatedUrl = post.category === "아파트" ? "/services/apartments.html" : "/services/villas.html";
-  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/blog/">골프·숙소 정보</a><span>›</span><span aria-current="page">${escapeHtml(post.title)}</span></nav><section class="article-hero shell"><p class="eyebrow">${post.category}</p><h1>${escapeHtml(post.title)}</h1><p>${escapeHtml(post.description)}</p><div><time datetime="${post.date}">${post.date}</time><span>신짜오골프 편집부</span></div></section><div class="article-layout shell"><div class="article-body">${article}</div><aside class="side-consult"><strong>관련 상담</strong><p>골프 일정과 숙소·차량을 함께 확인해드립니다.</p><a class="side-link" href="${relatedUrl}">${post.category} 자료 보기 →</a><button class="button button-block js-consult" type="button" data-interest="${escapeHtml(post.title)} 관련 상담">상담하기</button></aside></div>`;
+  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/blog">골프·숙소 정보</a><span>›</span><span aria-current="page">${escapeHtml(post.title)}</span></nav><section class="article-hero shell"><p class="eyebrow">${post.category}</p><h1>${escapeHtml(post.title)}</h1><p>${escapeHtml(post.description)}</p><div><time datetime="${post.date}">${post.date}</time><span>신짜오골프 편집부</span></div></section><div class="article-layout shell"><div class="article-body">${article}</div><aside class="side-consult"><strong>관련 상담</strong><p>골프 일정과 숙소·차량을 함께 확인해드립니다.</p><a class="side-link" href="${relatedUrl}">${post.category} 자료 보기 →</a><button class="button button-block js-consult" type="button" data-interest="${escapeHtml(post.title)} 관련 상담">상담하기</button></aside></div>`;
   const schema = [{
     "@context": "https://schema.org",
     "@type": "Article",
@@ -456,7 +456,7 @@ async function blogPostPage(post) {
     inLanguage: "ko-KR",
   }, breadcrumbSchema([
     ["홈", "/"],
-    ["골프·숙소 정보", "/blog/"],
+    ["골프·숙소 정보", "/blog"],
     [post.title, `/blog/${post.file}`],
   ]), ...(post.faq?.length ? [{
     "@context": "https://schema.org",
@@ -471,8 +471,18 @@ async function blogPostPage(post) {
 }
 
 function notFoundPage() {
-  const content = `<section class="page-hero error-page"><div class="shell"><p class="eyebrow">404 ERROR</p><h1>페이지를 찾을 수 없습니다</h1><p>주소가 변경됐거나 존재하지 않는 페이지입니다. 골프장 목록으로 이동하거나 바로 상담할 수 있습니다.</p><div class="hero-actions"><a class="button" href="/golf/">호치민 골프장 보기</a><button class="button button-outline js-consult" type="button" data-interest="페이지를 찾지 못한 고객 상담">상담하기</button></div></div></section>`;
+  const content = `<section class="page-hero error-page"><div class="shell"><p class="eyebrow">404 ERROR</p><h1>페이지를 찾을 수 없습니다</h1><p>주소가 변경됐거나 존재하지 않는 페이지입니다. 골프장 목록으로 이동하거나 바로 상담할 수 있습니다.</p><div class="hero-actions"><a class="button" href="/golf">호치민 골프장 보기</a><button class="button button-outline js-consult" type="button" data-interest="페이지를 찾지 못한 고객 상담">상담하기</button></div></div></section>`;
   return layout({ title: "페이지를 찾을 수 없습니다", description: "요청한 페이지를 찾을 수 없습니다. 신짜오골프 주요 메뉴를 이용해 주세요.", pathname: "/404.html", content, robots: "noindex,nofollow" });
+}
+
+function trustPage({ title, description, pathname, content }) {
+  return layout({
+    title,
+    description,
+    pathname,
+    schema: [breadcrumbSchema([["홈", "/"], [title, pathname]])],
+    content: `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><span aria-current="page">${escapeHtml(title)}</span></nav><article class="section shell compact-copy"><p class="eyebrow">XIN CHAO GOLF</p><h1>${escapeHtml(title)}</h1>${content}</article>`,
+  });
 }
 
 async function write(relativePath, html) {
@@ -497,6 +507,24 @@ async function build() {
   for (const villa of villas) await write(`services/villa/${villa.slug}.html`, propertyDetailPage(villa, "villa"));
   await write("blog/index.html", blogPage());
   for (const post of blogPosts) await write(`blog/${post.file}`, await blogPostPage(post));
+  await write("about.html", trustPage({
+    title: "신짜오골프 소개",
+    description: "신짜오골프가 제공하는 베트남 골프장·차량·숙소 한국어 상담 범위와 운영 원칙을 안내합니다.",
+    pathname: "/about.html",
+    content: "<h2>한국어로 확인하는 베트남 골프 일정</h2><p>신짜오골프는 호치민을 중심으로 베트남 골프장 정보와 차량·숙소 준비 정보를 정리하고 한국어 상담으로 연결합니다.</p><h2>서비스 범위</h2><p>사이트의 정보는 후보를 비교하고 문의를 준비하기 위한 안내입니다. 티오프, 가격, 포함 항목과 이용 가능 여부는 날짜와 인원에 따라 달라질 수 있어 상담 시점에 다시 확인합니다.</p><h2>결제 안내</h2><p>이 홈페이지 안에서는 상품을 판매하거나 결제를 받지 않습니다. 상담은 공식 카카오톡 연결을 통해 진행합니다.</p>",
+  }));
+  await write("editorial-policy.html", trustPage({
+    title: "편집 원칙",
+    description: "신짜오골프의 콘텐츠 작성, 사실 확인, 수정과 최신성 관리 원칙입니다.",
+    pathname: "/editorial-policy.html",
+    content: "<h2>검색 질문에 먼저 답합니다</h2><p>각 글은 골프장 선택, 이동 동선, 예약 준비처럼 실제 고객 질문에 직접 답하도록 작성합니다. 같은 키워드를 반복해 분량을 늘리지 않습니다.</p><h2>확인되지 않은 경험은 쓰지 않습니다</h2><p>직접 확인하지 않은 체험을 실제 이용 후기처럼 표현하지 않으며, 변동 가능한 가격·티오프·운영 조건은 확정 사실처럼 안내하지 않습니다.</p><h2>수정과 최신성</h2><p>출처가 바뀌거나 운영 조건이 달라진 사실을 확인하면 해당 내용을 다시 검토합니다. 중요한 예약 조건은 게시 날짜와 무관하게 상담 시점에 재확인합니다.</p>",
+  }));
+  await write("source-policy.html", trustPage({
+    title: "출처 원칙",
+    description: "신짜오골프가 골프장·차량·숙소 정보를 확인하고 표시하는 기준입니다.",
+    pathname: "/source-policy.html",
+    content: "<h2>출처 우선순위</h2><p>골프장과 서비스 운영 주체가 제공하는 공식 안내처럼 원정보에 가까운 출처를 우선합니다. 제3자 자료는 비교와 발견을 돕는 보조 자료로 사용합니다.</p><h2>변동 정보</h2><p>가격, 티오프, 포함 항목, 휴장과 차량 가능 여부는 수시로 달라질 수 있습니다. 확인 시점이 오래됐거나 출처가 서로 다르면 확정 정보로 표시하지 않고 상담 시점에 다시 확인합니다.</p><h2>표시하지 않는 정보</h2><p>근거가 부족한 최저가, 보장되지 않은 예약 가능 여부, 검증되지 않은 평점과 후기는 구조화 데이터나 본문에 넣지 않습니다.</p>",
+  }));
   await write("404.html", notFoundPage());
 
   for (const course of courses) {
@@ -510,11 +538,11 @@ async function build() {
   }
   const legacyRedirects = {
     "home.html": "/",
-    "golf.html": "/golf/",
+    "golf.html": "/golf",
     "apartment.html": "/services/apartments.html",
     "villa.html": "/services/villas.html",
     "car-rental.html": "/services/vehicle.html",
-    "blog.html": "/blog/",
+    "blog.html": "/blog",
     ...Object.fromEntries(blogPosts.map((post) => [post.file, `/blog/${post.file}`])),
   };
   for (const [file, target] of Object.entries(legacyRedirects)) {
@@ -522,7 +550,7 @@ async function build() {
   }
 
   const urls = [
-    "/", "/golf/", "/regions/", "/services/", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/blog/",
+    "/", "/golf", "/regions", "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/blog", "/about.html", "/editorial-policy.html", "/source-policy.html",
     ...courses.map((course) => `/golf/${course.slug}.html`),
     ...apartments.map((item) => `/services/apartment/${item.slug}.html`),
     ...villas.map((item) => `/services/villa/${item.slug}.html`),
