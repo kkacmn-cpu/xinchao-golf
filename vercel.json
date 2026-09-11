@@ -36,6 +36,11 @@
       "permanent": true
     },
     {
+      "source": "/hochiminh-golf-club-rental-checklist.html",
+      "destination": "/blog/hochiminh-golf-club-rental-checklist.html",
+      "permanent": true
+    },
+    {
       "source": "/hochiminh-golf-after-round-evening-plan.html",
       "destination": "/blog/hochiminh-golf-after-round-evening-plan.html",
       "permanent": true
