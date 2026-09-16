@@ -36,6 +36,11 @@
       "permanent": true
     },
     {
+      "source": "/hoiana-shores-golf-club-booking-guide.html",
+      "destination": "/blog/hoiana-shores-golf-club-booking-guide.html",
+      "permanent": true
+    },
+    {
       "source": "/the-bluffs-grand-ho-tram-golf-booking-guide.html",
       "destination": "/blog/the-bluffs-grand-ho-tram-golf-booking-guide.html",
       "permanent": true
