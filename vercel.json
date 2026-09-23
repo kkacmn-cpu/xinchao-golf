@@ -36,6 +36,16 @@
       "permanent": true
     },
     {
+      "source": "/ho-chi-minh-golf-group-booking-payment-check.html",
+      "destination": "/blog/ho-chi-minh-golf-group-booking-payment-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/long-thanh-golf-booking-tee-time-transfer.html",
+      "destination": "/blog/long-thanh-golf-booking-tee-time-transfer.html",
+      "permanent": true
+    },
+    {
       "source": "/vinpearl-golf-phu-quoc-booking-checklist.html",
       "destination": "/blog/vinpearl-golf-phu-quoc-booking-checklist.html",
       "permanent": true
