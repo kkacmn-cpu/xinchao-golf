@@ -150,6 +150,7 @@ function consultationDialog() {
         <p class="muted" id="consult-description">결제나 온라인 예약은 진행하지 않습니다. 입력 내용은 상담 메시지 작성에만 사용됩니다.</p>
         <form id="consult-form">
           <label>문의 내용<input id="consult-interest" name="interest" autocomplete="off" required></label>
+          <label>희망 지역<select name="region"><option value="">미정</option>${regions.map((region) => `<option value="${region.name}">${region.name}</option>`).join("")}</select></label>
           <div class="form-grid">
             <label>방문 예정일<input name="date" type="date"></label>
             <label>인원<input name="people" inputmode="numeric" placeholder="예: 4명"></label>
@@ -216,7 +217,7 @@ function layout({ title, description, pathname, active, content, image, schema =
   return `<!doctype html>
 <html lang="ko">
   <head>${head({ title, description, pathname, image, schema: pageSchema, robots, pageType, publishedTime, modifiedTime, keywords })}</head>
-  <body>${header(active)}<main id="main">${content}</main>${footer()}</body>
+  <body class="${pathname === "/" ? "home-page" : ""}">${header(active)}<main id="main">${content}</main>${footer()}</body>
 </html>`;
 }
 
@@ -248,6 +249,24 @@ function homePage() {
           <p class="eyebrow">호치민 골프 상담 중심</p>
           <h1>베트남 골프장 예약,<br><span>현지 확인부터 정확하게</span></h1>
           <p class="hero-lead">호치민 골프장을 중심으로 일정에 맞는 차량과 숙소까지 한국어로 상담합니다.</p>
+          <form class="home-prep-form" id="home-prep-form" aria-label="골프 상담 준비표 만들기">
+            <p class="home-prep-heading">상담 전에 네 가지만 정하세요</p>
+            <div class="home-prep-fields">
+              <label>희망 지역<select name="region" required><option value="">지역 선택</option>${regions.map((region) => `<option value="${region.name}">${region.name}</option>`).join("")}</select></label>
+              <label>희망 날짜<input name="date" type="date" required></label>
+              <label>인원<input name="people" type="number" min="1" max="40" inputmode="numeric" placeholder="예: 4" required></label>
+              <label>상담 목적<select name="purpose" required><option value="">목적 선택</option><option value="골프장 후보">골프장 후보</option><option value="골프·차량">골프·차량</option><option value="골프·숙소">골프·숙소</option><option value="골프·차량·숙소">골프·차량·숙소</option></select></label>
+            </div>
+            <button class="button" type="submit">상담 준비 요약 보기 →</button>
+            <p class="home-prep-caveat">예약 가능 여부·티오프·가격은 확정 정보가 아닙니다. 상담 시 확인합니다.</p>
+          </form>
+          <div class="home-prep-result" id="home-prep-result" hidden aria-live="polite">
+            <h2>상담 준비 요약</h2>
+            <p id="home-prep-summary"></p>
+            <div id="home-prep-candidates" hidden><strong>호치민 지역 정보 후보</strong><p>아래는 상세 정보가 있는 골프장입니다. 선택한 날짜의 예약 가능 여부나 추천 순위가 아닙니다.</p><ul>${featured.map((course) => `<li><a href="/golf/${course.slug}.html">${escapeHtml(course.name)}</a></li>`).join("")}</ul></div>
+            <p id="home-prep-other-region" hidden>선택한 지역의 골프장 후보는 이 사이트에서 확인되지 않았습니다. <a href="/regions">지역 상담 범위</a>를 보고 상담 시 후보 확인을 요청하세요.</p>
+            <button class="button button-outline" id="home-prep-continue" type="button">이 내용으로 상담 준비 →</button>
+          </div>
           <div class="hero-actions">
             <a class="button" href="/golf">호치민 골프장 보기</a>
             <button class="button button-outline js-consult" type="button" data-interest="호치민 골프 일정 상담">일정 상담하기</button>
