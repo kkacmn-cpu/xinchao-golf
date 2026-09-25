@@ -115,6 +115,12 @@ try { new Function(script); } catch (error) { failures.push(`site.js 문법 오�
 for (const required of ["navigator.clipboard", "document.execCommand", "consult-summary", "consult-kakao"]) {
   if (!script.includes(required)) failures.push(`상담 스크립트 필수 처리 누락: ${required}`);
 }
+const home = await readFile(path.join(dist, "index.html"), "utf8");
+for (const required of ["id=\"home-prep-form\"", "name=\"region\"", "name=\"date\"", "name=\"people\"", "name=\"purpose\"", "id=\"home-prep-result\"", "id=\"home-prep-candidates\""]) {
+  if (!home.includes(required)) failures.push(`홈 상담 준비표 누락: ${required}`);
+}
+if (!home.includes("예약 가능 여부·티오프·가격은 확정 정보가 아닙니다")) failures.push("홈 상담 준비표의 미확정 조건 안내 누락");
+if (!script.includes('`지역: ${data.get("region") || "미정"}`')) failures.push("상담 메시지의 지역 정보 누락");
 
 const css = await readFile(path.join(dist, "assets/css/site.css"), "utf8");
 for (const breakpoint of ["@media (max-width: 760px)", "@media (max-width: 390px)"]) {

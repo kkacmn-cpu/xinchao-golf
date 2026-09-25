@@ -9,6 +9,8 @@
   const summaryArea = document.querySelector("#consult-summary");
   const copyButton = document.querySelector("#consult-copy");
   const kakaoLink = document.querySelector("#consult-kakao");
+  const homePrepForm = document.querySelector("#home-prep-form");
+  const homePrepResult = document.querySelector("#home-prep-result");
 
   const closeMenu = () => {
     menu?.classList.remove("is-open");
@@ -31,17 +33,45 @@
     }
   });
 
+  const openConsult = (interest) => {
+    if (!dialog || !interestInput) return;
+    closeMenu();
+    interestInput.value = interest || "골프 일정 상담";
+    if (status) status.textContent = "";
+    if (result) result.hidden = true;
+    if (!dialog.open) dialog.showModal();
+    document.body.classList.add("dialog-open");
+    requestAnimationFrame(() => interestInput.focus());
+  };
+
   document.querySelectorAll(".js-consult").forEach((button) => {
-    button.addEventListener("click", () => {
-      if (!dialog || !interestInput) return;
-      closeMenu();
-      interestInput.value = button.dataset.interest || "골프 일정 상담";
-      if (status) status.textContent = "";
-      if (result) result.hidden = true;
-      if (!dialog.open) dialog.showModal();
-      document.body.classList.add("dialog-open");
-      requestAnimationFrame(() => interestInput.focus());
-    });
+    button.addEventListener("click", () => openConsult(button.dataset.interest));
+  });
+
+  homePrepForm?.addEventListener("input", () => { if (homePrepResult) homePrepResult.hidden = true; });
+  homePrepForm?.addEventListener("change", () => { if (homePrepResult) homePrepResult.hidden = true; });
+  homePrepForm?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const data = new FormData(homePrepForm);
+    const region = String(data.get("region") || "");
+    const date = String(data.get("date") || "");
+    const people = Number(data.get("people"));
+    const purpose = String(data.get("purpose") || "");
+    if (!homePrepForm.reportValidity() || !["호치민", "하노이", "다낭", "나트랑", "푸꾸옥"].includes(region) || !Number.isInteger(people) || people < 1 || people > 40) return;
+    document.querySelector("#home-prep-summary").textContent = `${region} · ${date} · ${people}명 · ${purpose}. 티오프와 예약 가능 여부는 상담 시 확인합니다.`;
+    document.querySelector("#home-prep-candidates").hidden = region !== "호치민";
+    document.querySelector("#home-prep-other-region").hidden = region === "호치민";
+    if (homePrepResult) homePrepResult.hidden = false;
+  });
+
+  document.querySelector("#home-prep-continue")?.addEventListener("click", () => {
+    if (!consultForm || !homePrepForm || homePrepResult?.hidden) return;
+    const data = new FormData(homePrepForm);
+    consultForm.elements.namedItem("region").value = String(data.get("region") || "");
+    consultForm.elements.namedItem("date").value = String(data.get("date") || "");
+    consultForm.elements.namedItem("people").value = String(data.get("people") || "");
+    consultForm.elements.namedItem("note").value = "";
+    openConsult(String(data.get("purpose") || "골프 일정 상담"));
   });
 
   dialog?.addEventListener("close", () => document.body.classList.remove("dialog-open"));
@@ -73,6 +103,7 @@
     const lines = [
       `[신짜오골프 상담]`,
       `문의: ${data.get("interest") || "골프 일정"}`,
+      `지역: ${data.get("region") || "미정"}`,
       `예정일: ${data.get("date") || "미정"}`,
       `인원: ${data.get("people") || "미정"}`,
       `추가 요청: ${data.get("note") || "없음"}`,
