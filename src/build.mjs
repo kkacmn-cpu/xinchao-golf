@@ -574,6 +574,7 @@ async function build() {
   }, null, 2)}\n`);
 
   const redirects = [
+    { source: "/golf/compare-regions", destination: "/regions", permanent: true },
     ...Object.entries(legacyRedirects).map(([source, destination]) => ({ source: `/${source}`, destination, permanent: true })),
     ...courses.map((course) => ({ source: `/${course.legacy}`, destination: `/golf/${course.slug}.html`, permanent: true })),
     ...apartments.map((item) => ({ source: `/${item.legacy}`, destination: `/services/apartment/${item.slug}.html`, permanent: true })),
