@@ -6,6 +6,11 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/golf/compare-regions",
+      "destination": "/regions",
+      "permanent": true
+    },
+    {
       "source": "/home.html",
       "destination": "/",
       "permanent": true

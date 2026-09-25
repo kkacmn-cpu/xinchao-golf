@@ -10,7 +10,7 @@ const failures = [];
 const markdownPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"));
 const expectedContentPages = 48 + markdownPosts.length;
 const expectedSitemapUrls = 47 + markdownPosts.length;
-const expectedRedirects = 42 + markdownPosts.length;
+const expectedRedirects = 43 + markdownPosts.length;
 
 async function collect(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -136,6 +136,7 @@ const vercel = JSON.parse(await readFile(path.join(root, "vercel.json"), "utf8")
 if (vercel.buildCommand !== "npm run build") failures.push("Vercel 빌드 명령 오류");
 if (vercel.outputDirectory !== "dist") failures.push("Vercel 결과 폴더 오류");
 if (!Array.isArray(vercel.redirects) || vercel.redirects.length !== expectedRedirects) failures.push(`301 이전 규칙 ${vercel.redirects?.length ?? 0}개 (예상 ${expectedRedirects}개)`);
+if (vercel.redirects?.filter((rule) => rule.source === "/golf/compare-regions" && rule.destination === "/regions" && rule.permanent === true).length !== 1) failures.push("이전 지역 비교 URL의 영구 이전 규칙 누락 또는 중복");
 if (!Array.isArray(vercel.headers) || vercel.headers.length < 2) failures.push("배포 보안·캐시 헤더 누락");
 if (await exists(path.join(dist, "vercel.json"))) failures.push("배포 설정이 공개 결과물 안에 포함됨");
 const notFound = await readFile(path.join(dist, "404.html"), "utf8");
