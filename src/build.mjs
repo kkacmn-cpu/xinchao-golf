@@ -1,4 +1,5 @@
 import { cp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadMarkdownPosts } from "./blog-content.mjs";
@@ -6,6 +7,11 @@ import { apartments, courses, regions, services, site, villas } from "./site-dat
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
+const assetVersion = async (relative) => createHash("sha256")
+  .update(await readFile(path.join(root, "public/assets", relative)))
+  .digest("hex").slice(0, 12);
+const styleVersion = await assetVersion("css/site.css");
+const scriptVersion = await assetVersion("js/site.js");
 
 const legacyBlogPosts = [
   {
@@ -110,7 +116,7 @@ function head({ title, description, pathname, image = "hero-golf.webp", schema =
     <link rel="icon" href="/assets/images/xinchao-golf-logo-192.webp" type="image/webp">
     <link rel="apple-touch-icon" href="/assets/images/xinchao-golf-logo-192.webp">
     <link rel="manifest" href="/manifest.webmanifest">
-    <link rel="stylesheet" href="/assets/css/site.css">
+    <link rel="stylesheet" href="/assets/css/site.css?v=${styleVersion}">
     ${schema.map(jsonLd).join("\n")}`;
 }
 
@@ -183,7 +189,7 @@ function footer() {
     <button class="floating-consult js-consult" type="button" data-interest="빠른 상담" aria-label="카카오톡 빠른 상담">상담</button>
     ${consultationDialog()}
     <script>window.XINCHAO_KAKAO_URL=${JSON.stringify(site.kakaoUrl)};</script>
-    <script src="/assets/js/site.js" defer></script>
+    <script src="/assets/js/site.js?v=${scriptVersion}" defer></script>
     <script src="https://company-site-live-monitor.kkacmn.chatgpt.site/tracker.js?site=xinchao-golf" defer></script>`;
 }
 
