@@ -1,4 +1,5 @@
 import { access, readFile, readdir } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadMarkdownPosts } from "./blog-content.mjs";
@@ -121,6 +122,10 @@ for (const required of ["id=\"home-prep-form\"", "name=\"region\"", "name=\"date
 }
 if (!home.includes("예약 가능 여부·티오프·가격은 확정 정보가 아닙니다")) failures.push("홈 상담 준비표의 미확정 조건 안내 누락");
 if (!script.includes('`지역: ${data.get("region") || "미정"}`')) failures.push("상담 메시지의 지역 정보 누락");
+for (const relative of ["css/site.css", "js/site.js"]) {
+  const version = createHash("sha256").update(await readFile(path.join(root, "public/assets", relative))).digest("hex").slice(0, 12);
+  if (!home.includes(`/assets/${relative}?v=${version}`)) failures.push(`브라우저 캐시 우회용 콘텐츠 버전 누락: ${relative}`);
+}
 
 const css = await readFile(path.join(dist, "assets/css/site.css"), "utf8");
 for (const breakpoint of ["@media (max-width: 760px)", "@media (max-width: 390px)"]) {
