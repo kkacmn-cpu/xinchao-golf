@@ -41,6 +41,11 @@
       "permanent": true
     },
     {
+      "source": "/hochiminh-golf-solo-booking.html",
+      "destination": "/blog/hochiminh-golf-solo-booking.html",
+      "permanent": true
+    },
+    {
       "source": "/tan-son-nhat-golf-course-a-b-c-d-selection.html",
       "destination": "/blog/tan-son-nhat-golf-course-a-b-c-d-selection.html",
       "permanent": true
