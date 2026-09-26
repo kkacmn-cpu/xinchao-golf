@@ -34,7 +34,7 @@ const count = (text, regex) => [...text.matchAll(regex)].length;
 const exists = async (target) => { try { await access(target); return true; } catch { return false; } };
 
 for (const file of htmlFiles) {
-  const relative = path.relative(dist, file);
+  const relative = path.relative(dist, file).split(path.sep).join("/");
   if (/^google[^/]+\.html$/i.test(relative)) continue;
   const html = await readFile(file, "utf8");
   const redirect = /http-equiv="refresh"/i.test(html);

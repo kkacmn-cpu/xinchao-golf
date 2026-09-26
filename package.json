@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "node src/build.mjs",
-    "test": "node src/test.mjs",
+    "test": "node src/test.mjs && node --test src/course-guides.test.mjs",
     "check": "npm run build && npm run test",
     "blog:check": "npm run check"
   }
