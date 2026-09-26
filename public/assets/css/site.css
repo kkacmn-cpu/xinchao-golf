@@ -345,6 +345,16 @@ h3 { font-size: 1.3rem; }
   .consult-result-actions .button { margin-top: 8px; }
 }
 
+.course-guide { margin-top: 32px; overflow-wrap: anywhere; }
+.course-guide section { padding: 18px 0; border-bottom: 1px solid var(--line); }
+.course-guide h3 { margin: 18px 0 10px; font-size: 1.1rem; line-height: 1.5; }
+.course-guide p, .course-guide li { line-height: 1.85; }
+.course-guide ul { padding-left: 22px; }
+.course-guide li + li { margin-top: 8px; }
+.course-guide a { color: var(--green, #0f5138); text-decoration: underline; text-underline-offset: 3px; }
+.course-sources { margin-top: 28px; padding: 22px; background: #f2f7f4; border: 1px solid var(--line); border-radius: 14px; }
+.course-sources h3 { margin-top: 0; }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
 }

@@ -4,6 +4,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadMarkdownPosts } from "./blog-content.mjs";
 import { apartments, courses, regions, services, site, villas } from "./site-data.mjs";
+import { courseGuides } from "./course-guides.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -336,7 +337,24 @@ function golfIndexPage() {
   });
 }
 
+function courseGuideContent(course, guide) {
+  if (!guide) throw new Error(`공식 출처 안내 누락: ${course.slug}`);
+  const related = guide.related.map(file => {
+    const post = blogPosts.find(item => item.file === file);
+    if (!post) throw new Error(`골프장 관련 글 누락: ${file}`);
+    return `<li><a href="/blog/${file}">${escapeHtml(post.title)}</a></li>`;
+  }).join("");
+  return `<section class="course-guide" aria-labelledby="course-guide-title">
+    <h2 id="course-guide-title">${escapeHtml(course.shortName)} 예약 전에 알아둘 질문</h2>
+    ${guide.faqs.map(([q, a]) => `<section><h3>${escapeHtml(q)}</h3><p>${escapeHtml(a)}</p></section>`).join("")}
+    <h3>같은 조건으로 견적을 받으려면</h3><p>이용일·인원·홀 수·희망 티타임을 먼저 맞추고, 그린피·캐디·카트·팁·식사·차량·대여 장비·세금과 취소 조건을 나눠 확인하세요. 문의 접수는 예약 확정이나 최종 요금 안내가 아닙니다.</p>
+    <h3>예약 준비에 이어서 읽기</h3><ul>${related}</ul><p><a href="/services/vehicle.html">골프장 왕복 차량 상담</a> · <a href="/regions">베트남 지역별 골프 상담</a></p>
+    <aside class="course-sources" aria-label="공식 출처와 확인 범위"><h3>공식 출처와 확인 범위</h3><p>자료 확인: <time datetime="${guide.checkedAt}">${guide.checkedAt}</time></p><ul>${guide.sources.map(([title, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a></li>`).join("")}</ul><p>${escapeHtml(guide.sourceNote || "공식 소개의 명칭·코스 구성만 대조했습니다. 티타임·요금·당일 운영·교통·사진의 최신 상태는 확인 범위에 포함되지 않습니다.")}</p><a href="/source-policy.html">정보 출처 원칙</a></aside>
+  </section>`;
+}
+
 function courseDetailPage(course) {
+  const guide = courseGuides[course.slug];
   const content = `
     <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf">호치민 골프</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
     <section class="detail-hero shell">
@@ -344,7 +362,7 @@ function courseDetailPage(course) {
       <div class="detail-summary"><p class="eyebrow">${course.region} 골프장</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="fact-list"><div><dt>지역</dt><dd>${course.location}</dd></div><div><dt>규모</dt><dd>${course.holes}</dd></div><div><dt>이동</dt><dd>${course.access}</dd></div></dl><button class="button button-block js-consult" type="button" data-interest="${course.name} 상담">이 골프장 상담하기</button><small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div>
     </section>
     <section class="section shell detail-content">
-      <article><p class="eyebrow">선택 포인트</p><h2>${course.shortName}, 이런 일정에 검토하세요</h2><ul class="point-list">${course.points.map((point) => `<li>${point}</li>`).join("")}</ul><h2>상담 전에 알려주시면 좋은 내용</h2><p>희망 날짜, 인원, 선호 티오프 시간과 함께 차량·숙소 필요 여부를 알려주시면 일정 확인이 빨라집니다.</p></article>
+      <article><p class="eyebrow">선택 포인트</p><h2>${course.shortName}, 이런 일정에 검토하세요</h2><ul class="point-list">${course.points.map((point) => `<li>${point}</li>`).join("")}</ul>${courseGuideContent(course, guide)}</article>
       <aside class="side-consult"><strong>빠른 상담</strong><p>${course.shortName} 가능 여부와 이동 일정을 확인해드립니다.</p><button class="button button-block js-consult" type="button" data-interest="${course.name} 티오프 및 차량 상담">일정 확인하기</button></aside>
     </section>
     <section class="section section-tint"><div class="shell"><div class="section-heading"><div><p class="eyebrow">함께 보기</p><h2>다른 호치민 골프장</h2></div><a class="text-link" href="/golf">전체 보기 →</a></div><div class="course-grid">${courses.filter((item) => item.slug !== course.slug).slice(0, 3).map(courseCard).join("")}</div></div></section>`;
@@ -353,6 +371,7 @@ function courseDetailPage(course) {
     "@type": "GolfCourse",
     name: course.name,
     alternateName: course.englishName,
+    sameAs: guide.sources[0][1],
     description: course.summary,
     url: `${site.siteUrl}/golf/${course.slug}.html`,
     image: `${site.siteUrl}/assets/images/${course.image}`,
@@ -362,7 +381,13 @@ function courseDetailPage(course) {
     ["홈", "/"],
     ["호치민 골프", "/golf"],
     [course.shortName, `/golf/${course.slug}.html`],
-  ])];
+  ]), {
+    "@context": "https://schema.org", "@type": "FAQPage",
+    mainEntity: guide.faqs.map(([question, answer]) => ({
+      "@type": "Question", name: question,
+      acceptedAnswer: { "@type": "Answer", text: answer },
+    })),
+  }];
   return layout({
     title: `${course.name} 정보와 상담`,
     description: `${course.name}(${course.englishName}) 위치, 규모, 이동 정보와 한국어 골프 일정 상담 안내.`,
@@ -582,6 +607,7 @@ async function build() {
     ...blogPosts.map((post) => `/blog/${post.file}`),
   ];
   const blogLastModified = new Map(blogPosts.map((post) => [`/blog/${post.file}`, post.modified || post.date]));
+  for (const course of courses) blogLastModified.set(`/golf/${course.slug}.html`, courseGuides[course.slug].checkedAt);
   await writeFile(path.join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((url) => `  <url><loc>${site.siteUrl}${url}</loc><lastmod>${blogLastModified.get(url) || site.lastUpdated}</lastmod></url>`).join("\n")}\n</urlset>\n`);
   await writeFile(path.join(dist, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${site.siteUrl}/sitemap.xml\n`);
   await writeFile(path.join(dist, "manifest.webmanifest"), `${JSON.stringify({
