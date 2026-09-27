@@ -98,6 +98,7 @@ function head({ title, description, pathname, image = "hero-golf.webp", schema =
     <meta name="description" content="${escapeHtml(description)}">
     ${keywords.length ? `<meta name="keywords" content="${escapeHtml(keywords.join(", "))}">` : ""}
     <meta name="robots" content="${robots}">
+    ${pathname === "/" ? '<meta name="google-site-verification" content="-k-E0u84LV0aNcr4V98z4TuLgwzxHWbOmGMCDDxsLzg" />' : ""}
     <meta name="theme-color" content="#0f5138">
     <link rel="canonical" href="${canonical}">
     <meta property="og:type" content="${pageType}">
