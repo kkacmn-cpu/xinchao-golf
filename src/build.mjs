@@ -221,7 +221,33 @@ function layout({ title, description, pathname, active, content, image, schema =
     inLanguage: "ko-KR",
     publisher: { "@id": `${site.siteUrl}/#organization` },
   };
-  const pageSchema = pathname === "/" ? [organization, website, ...schema] : schema;
+  const collectionPaths = ["/golf", "/regions", "/services", "/services/apartments.html", "/services/villas.html", "/blog"];
+  const isVehicle = pathname === "/services/vehicle.html";
+  const pageSchema = pathname === "/" ? [organization, website, ...schema] : [...schema];
+  if (collectionPaths.includes(pathname) || isVehicle) {
+    const url = `${site.siteUrl}${pathname}`;
+    pageSchema.push({
+      "@context": "https://schema.org",
+      "@type": isVehicle ? "WebPage" : "CollectionPage",
+      "@id": `${url}#webpage`,
+      url,
+      name: title,
+      description,
+      inLanguage: "ko-KR",
+      isPartOf: { "@id": website["@id"] },
+      publisher: { "@id": organization["@id"] },
+      ...(isVehicle ? { mainEntity: {
+        "@type": "Service",
+        "@id": `${url}#service`,
+        url,
+        name: title,
+        description,
+        serviceType: title,
+        areaServed: { "@type": "City", name: "호치민" },
+        provider: { "@id": organization["@id"] },
+      } } : {}),
+    });
+  }
   return `<!doctype html>
 <html lang="ko">
   <head>${head({ title, description, pathname, image, schema: pageSchema, robots, pageType, publishedTime, modifiedTime, keywords })}</head>

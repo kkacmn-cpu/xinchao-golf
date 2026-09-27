@@ -90,6 +90,24 @@ for (const file of htmlFiles) {
       catch (error) { failures.push(`${relative}: JSON-LD 문법 오류 (${error.message})`); }
     }
     const schemaTypes = schemas.map((schema) => schema["@type"]);
+    const collectionPages = ["golf/index.html", "regions/index.html", "services/index.html", "services/apartments.html", "services/villas.html", "blog/index.html"];
+    if (collectionPages.includes(relative) || relative === "services/vehicle.html") {
+      const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
+      const expectedType = relative === "services/vehicle.html" ? "WebPage" : "CollectionPage";
+      const pages = schemas.filter((schema) => schema["@type"] === expectedType);
+      if (pages.length !== 1) failures.push(`${relative}: ${expectedType} 구조화 데이터 정확히 1개 필요`);
+      const page = pages[0];
+      if (page?.url !== canonical || page?.["@id"] !== `${canonical}#webpage`) failures.push(`${relative}: 구조화 페이지 URL 불일치`);
+      if (page?.publisher?.["@id"] !== `${site.siteUrl}/#organization` || page?.isPartOf?.["@id"] !== `${site.siteUrl}/#website`) failures.push(`${relative}: 브랜드 연결 누락`);
+      const plainTitle = title?.split(" | ")[0];
+      if (page?.name !== plainTitle || page?.inLanguage !== "ko-KR") failures.push(`${relative}: 구조화 제목·언어 불일치`);
+      if (relative === "services/vehicle.html") {
+        const service = page?.mainEntity;
+        if (service?.["@type"] !== "Service" || service?.name !== plainTitle || service?.url !== canonical || service?.provider?.["@id"] !== `${site.siteUrl}/#organization` || service?.areaServed?.name !== "호치민") failures.push(`${relative}: 차량 상담 서비스 계약 불일치`);
+      }
+      if (/(?:"offers"|"aggregateRating"|"review"|"price"|"availability")\s*:/.test(JSON.stringify(page))) failures.push(`${relative}: 미확인 판매·평점 구조화 데이터`);
+    }
+    if (relative === "404.html" && schemaTypes.some((type) => ["WebPage", "CollectionPage", "Service"].includes(type))) failures.push(`${relative}: 오류 페이지를 공개 서비스로 표기`);
     if (relative === "index.html" && !schemaTypes.includes("Organization")) failures.push(`${relative}: Organization 구조화 데이터 누락`);
     if (relative === "index.html" && !schemaTypes.includes("WebSite")) failures.push(`${relative}: WebSite 구조화 데이터 누락`);
     if (/^golf\/.+\.html$/.test(relative) && relative !== "golf/index.html" && !schemaTypes.includes("GolfCourse")) failures.push(`${relative}: GolfCourse 구조화 데이터 누락`);
