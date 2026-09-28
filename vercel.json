@@ -41,6 +41,16 @@
       "permanent": true
     },
     {
+      "source": "/dai-lai-golf-booking-27-holes.html",
+      "destination": "/blog/dai-lai-golf-booking-27-holes.html",
+      "permanent": true
+    },
+    {
+      "source": "/dalat-1200-invitation-booking-guide.html",
+      "destination": "/blog/dalat-1200-invitation-booking-guide.html",
+      "permanent": true
+    },
+    {
       "source": "/hochiminh-golf-solo-booking.html",
       "destination": "/blog/hochiminh-golf-solo-booking.html",
       "permanent": true
