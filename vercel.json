@@ -11,6 +11,16 @@
       "permanent": true
     },
     {
+      "source": "/blog/vietnam-golf-caddie-tip-checklist.html",
+      "destination": "/blog/hochiminh-golf-stay-selection-checklist.html",
+      "permanent": true
+    },
+    {
+      "source": "/vietnam-golf-caddie-tip-checklist.html",
+      "destination": "/blog/hochiminh-golf-stay-selection-checklist.html",
+      "permanent": true
+    },
+    {
       "source": "/home.html",
       "destination": "/",
       "permanent": true
@@ -41,8 +51,8 @@
       "permanent": true
     },
     {
-      "source": "/vietnam-golf-caddie-tip-checklist.html",
-      "destination": "/blog/vietnam-golf-caddie-tip-checklist.html",
+      "source": "/hochiminh-golf-stay-selection-checklist.html",
+      "destination": "/blog/hochiminh-golf-stay-selection-checklist.html",
       "permanent": true
     },
     {
