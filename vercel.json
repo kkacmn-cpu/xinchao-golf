@@ -51,6 +51,16 @@
       "permanent": true
     },
     {
+      "source": "/tam-dao-golf-booking-rules-tee-time.html",
+      "destination": "/blog/tam-dao-golf-booking-rules-tee-time.html",
+      "permanent": true
+    },
+    {
+      "source": "/montana-golf-course-october-booking-check.html",
+      "destination": "/blog/montana-golf-course-october-booking-check.html",
+      "permanent": true
+    },
+    {
       "source": "/hochiminh-golf-stay-selection-checklist.html",
       "destination": "/blog/hochiminh-golf-stay-selection-checklist.html",
       "permanent": true
