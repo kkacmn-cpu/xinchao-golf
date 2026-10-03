@@ -51,6 +51,11 @@
       "permanent": true
     },
     {
+      "source": "/song-be-golf-18-hole-course-selection.html",
+      "destination": "/blog/song-be-golf-18-hole-course-selection.html",
+      "permanent": true
+    },
+    {
       "source": "/tam-dao-golf-booking-rules-tee-time.html",
       "destination": "/blog/tam-dao-golf-booking-rules-tee-time.html",
       "permanent": true
