@@ -51,6 +51,11 @@
       "permanent": true
     },
     {
+      "source": "/emerald-country-club-jeongsan-name-access-confirmation.html",
+      "destination": "/blog/emerald-country-club-jeongsan-name-access-confirmation.html",
+      "permanent": true
+    },
+    {
       "source": "/twin-doves-guest-tee-time-request-confirmation.html",
       "destination": "/blog/twin-doves-guest-tee-time-request-confirmation.html",
       "permanent": true
