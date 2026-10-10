@@ -77,12 +77,9 @@ for (const file of htmlFiles) {
       const attrs = `${link[1]} ${link[2]}`;
       if (!/\brel="[^"]*noopener[^"]*"/i.test(attrs)) failures.push(`${relative}: 새 창 링크 noopener 누락`);
     }
-    for (const consult of html.matchAll(/<button\b([^>]*\bjs-consult\b[^>]*)>/gi)) {
-      if (!/\bdata-interest="[^"]+"/i.test(consult[1])) failures.push(`${relative}: 상담 버튼 문의 주제 누락`);
-    }
-    if (!/id="consult-dialog"/.test(html) || !/id="consult-form"/.test(html)) failures.push(`${relative}: 상담창 누락`);
-    if (!/id="consult-summary"[^>]*readonly/.test(html)) failures.push(`${relative}: 문의 내용 복구 영역 누락`);
-    if (!/id="consult-kakao"[^>]*target="_blank"[^>]*rel="noopener noreferrer"/.test(html)) failures.push(`${relative}: 카카오톡 직접 연결 누락`);
+    if (/\bjs-consult\b|id="consult-dialog"|id="consult-form"/.test(html)) failures.push(`${relative}: 중간 상담창 경로 잔존`);
+    if (html.includes("_FXwxkG/chat")) failures.push(`${relative}: 종합 상담 채널 혼용`);
+    if (!html.includes(`href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer"`)) failures.push(`${relative}: 골프 상담 직접 연결 누락`);
 
     const schemas = [];
     for (const block of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)) {
@@ -131,15 +128,13 @@ for (const file of htmlFiles) {
 
 const script = await readFile(path.join(dist, "assets/js/site.js"), "utf8");
 try { new Function(script); } catch (error) { failures.push(`site.js 문법 오류: ${error.message}`); }
-for (const required of ["navigator.clipboard", "document.execCommand", "consult-summary", "consult-kakao"]) {
-  if (!script.includes(required)) failures.push(`상담 스크립트 필수 처리 누락: ${required}`);
-}
+if (/navigator\.clipboard|document\.execCommand|consult-dialog|consult-form|js-consult/.test(script)) failures.push("상담 스크립트에 중간 입력·복사 경로 잔존");
 const home = await readFile(path.join(dist, "index.html"), "utf8");
 for (const required of ["id=\"home-prep-form\"", "name=\"region\"", "name=\"date\"", "name=\"people\"", "name=\"purpose\"", "id=\"home-prep-result\"", "id=\"home-prep-candidates\""]) {
   if (!home.includes(required)) failures.push(`홈 상담 준비표 누락: ${required}`);
 }
 if (!home.includes("예약 가능 여부·티오프·가격은 확정 정보가 아닙니다")) failures.push("홈 상담 준비표의 미확정 조건 안내 누락");
-if (!script.includes('`지역: ${data.get("region") || "미정"}`')) failures.push("상담 메시지의 지역 정보 누락");
+if (!home.includes(`id="home-prep-continue" href="${site.kakaoUrl}"`)) failures.push("홈 상담 준비표의 골프 상담 직접 연결 누락");
 for (const relative of ["css/site.css", "js/site.js"]) {
   const version = createHash("sha256").update(await readFile(path.join(root, "public/assets", relative))).digest("hex").slice(0, 12);
   if (!home.includes(`/assets/${relative}?v=${version}`)) failures.push(`브라우저 캐시 우회용 콘텐츠 버전 누락: ${relative}`);

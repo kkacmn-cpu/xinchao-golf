@@ -8,7 +8,7 @@ export const site = {
   name: "신짜오골프",
   englishName: "XIN CHAO GOLF",
   siteUrl,
-  kakaoUrl: "https://pf.kakao.com/_FXwxkG/chat",
+  kakaoUrl: "https://pf.kakao.com/_xdBALn/chat",
   lastUpdated: "2026-07-17",
   description: "호치민을 중심으로 베트남 골프장, 차량, 아파트와 풀빌라 상담을 연결하는 한국어 골프 전문 안내 사이트",
 };

@@ -32,6 +32,7 @@ for (const course of courses) test(`${course.slug}: HTML and FAQ agree; canonica
     assert.ok((await readFile(new URL(`../dist/blog/${file}`, import.meta.url), "utf8")).includes("<h1"));
   }
   assert.ok(html.includes(`rel="canonical" href="${site.siteUrl}/golf/${course.slug}.html"`));
-  assert.ok(visible.includes(`data-interest="${course.name} 상담"`));
+  assert.ok(visible.includes(`href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer"`));
+  assert.ok(!visible.includes("_FXwxkG/chat"));
   assert.ok(visible.includes("예약 확정이나 최종 요금 안내가 아닙니다"));
 });

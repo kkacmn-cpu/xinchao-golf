@@ -74,6 +74,22 @@ const escapeHtml = (value = "") => String(value)
   .replaceAll('"', "&quot;")
   .replaceAll("'", "&#039;");
 
+function directInquiryLinks(markup) {
+  return markup
+    .replaceAll("https://pf.kakao.com/_FXwxkG/chat", site.kakaoUrl)
+    .replaceAll("http://pf.kakao.com/_FXwxkG/chat", site.kakaoUrl)
+    .replace(/<button\b([^>]*\bclass="[^"]*\bjs-consult\b[^"]*"[^>]*)>([\s\S]*?)<\/button>/g, (_, attributes, label) => {
+      const classes = attributes.match(/\bclass="([^"]*)"/)?.[1];
+      if (!classes) throw new Error("상담 버튼의 class 속성이 없습니다.");
+      const otherAttributes = attributes
+        .replace(/\s*class="[^"]*"/, "")
+        .replace(/\s*type="button"/, "")
+        .replace(/\s*data-interest="[^"]*"/, "");
+      const linkClasses = classes.split(/\s+/).filter((name) => name !== "js-consult").join(" ");
+      return `<a class="${linkClasses}" href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer"${otherAttributes}>${label}</a>`;
+    });
+}
+
 const jsonLd = (data) => `<script type="application/ld+json">${JSON.stringify(data).replaceAll("<", "\\u003c")}</script>`;
 
 const breadcrumbSchema = (items) => ({
@@ -146,39 +162,6 @@ function header(active = "") {
     </header>`;
 }
 
-function consultationDialog() {
-  return `
-    <dialog class="consult-dialog" id="consult-dialog" aria-labelledby="consult-title" aria-describedby="consult-description">
-      <form method="dialog" class="dialog-close-row">
-        <button class="icon-button" type="submit" value="cancel" aria-label="상담창 닫기">×</button>
-      </form>
-      <div class="dialog-body">
-        <p class="eyebrow">빠른 상담</p>
-        <h2 id="consult-title">필요한 내용만 알려주세요</h2>
-        <p class="muted" id="consult-description">결제나 온라인 예약은 진행하지 않습니다. 입력 내용은 상담 메시지 작성에만 사용됩니다.</p>
-        <form id="consult-form">
-          <label>문의 내용<input id="consult-interest" name="interest" autocomplete="off" required></label>
-          <label>희망 지역<select name="region"><option value="">미정</option>${regions.map((region) => `<option value="${region.name}">${region.name}</option>`).join("")}</select></label>
-          <div class="form-grid">
-            <label>방문 예정일<input name="date" type="date"></label>
-            <label>인원<input name="people" inputmode="numeric" placeholder="예: 4명"></label>
-          </div>
-          <label>추가 요청<textarea name="note" rows="3" placeholder="희망 티오프, 차량, 숙소 등"></textarea></label>
-          <button class="button button-block" type="submit">문의 복사 후 카카오톡 열기</button>
-          <p class="form-status" id="consult-status" aria-live="polite"></p>
-        </form>
-        <div class="consult-result" id="consult-result" hidden>
-          <label for="consult-summary">전달할 문의 내용</label>
-          <textarea id="consult-summary" rows="7" readonly></textarea>
-          <div class="consult-result-actions">
-            <button class="button button-outline" id="consult-copy" type="button">문의 다시 복사</button>
-            <a class="button" id="consult-kakao" href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer">카카오톡 직접 열기</a>
-          </div>
-        </div>
-      </div>
-    </dialog>`;
-}
-
 function footer() {
   return `
     <footer class="site-footer">
@@ -189,8 +172,6 @@ function footer() {
       <div class="shell copyright">© ${new Date().getFullYear()} ${site.englishName}. All rights reserved.</div>
     </footer>
     <button class="floating-consult js-consult" type="button" data-interest="빠른 상담" aria-label="카카오톡 빠른 상담">상담</button>
-    ${consultationDialog()}
-    <script>window.XINCHAO_KAKAO_URL=${JSON.stringify(site.kakaoUrl)};</script>
     <script src="/assets/js/site.js?v=${scriptVersion}" defer></script>
     <script src="https://company-site-live-monitor.kkacmn.chatgpt.site/tracker.js?site=xinchao-golf" defer></script>`;
 }
@@ -248,11 +229,11 @@ function layout({ title, description, pathname, active, content, image, schema =
       } } : {}),
     });
   }
-  return `<!doctype html>
+  return directInquiryLinks(`<!doctype html>
 <html lang="ko">
   <head>${head({ title, description, pathname, image, schema: pageSchema, robots, pageType, publishedTime, modifiedTime, keywords })}</head>
   <body class="${pathname === "/" ? "home-page" : ""}">${header(active)}<main id="main">${content}</main>${footer()}</body>
-</html>`;
+</html>`);
 }
 
 function courseCard(course) {
@@ -299,7 +280,7 @@ function homePage() {
             <p id="home-prep-summary"></p>
             <div id="home-prep-candidates" hidden><strong>호치민 지역 정보 후보</strong><p>아래는 상세 정보가 있는 골프장입니다. 선택한 날짜의 예약 가능 여부나 추천 순위가 아닙니다.</p><ul>${featured.map((course) => `<li><a href="/golf/${course.slug}.html">${escapeHtml(course.name)}</a></li>`).join("")}</ul></div>
             <p id="home-prep-other-region" hidden>선택한 지역의 골프장 후보는 이 사이트에서 확인되지 않았습니다. <a href="/regions">지역 상담 범위</a>를 보고 상담 시 후보 확인을 요청하세요.</p>
-            <button class="button button-outline" id="home-prep-continue" type="button">이 내용으로 상담 준비 →</button>
+            <a class="button button-outline" id="home-prep-continue" href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer">카카오톡 상담 바로하기 →</a>
           </div>
           <div class="hero-actions">
             <a class="button" href="/golf">호치민 골프장 보기</a>
