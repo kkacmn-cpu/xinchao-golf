@@ -359,3 +359,26 @@ h3 { font-size: 1.3rem; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
 }
+
+/* 2026-11-11 골프 4개 사이트 통합: 예약 가이드 */
+.guide-jump { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.guide-group { margin-bottom: 56px; }
+.guide-group h2 { display: flex; align-items: baseline; gap: 10px; margin-bottom: 18px; font-size: clamp(1.5rem, 2.6vw, 2rem); }
+.guide-group h2 span { color: var(--muted); font-size: .95rem; font-weight: 700; }
+.guide-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.guide-list a { height: 100%; display: flex; flex-direction: column; gap: 6px; padding: 18px 20px; border: 1px solid var(--line); border-radius: 14px; background: white; transition: .2s ease; }
+.guide-list a:hover { border-color: var(--green); box-shadow: var(--shadow); }
+.guide-list strong { font-size: 1.02rem; line-height: 1.4; }
+.guide-list span { color: var(--muted); font-size: .86rem; line-height: 1.55; }
+.guide-list em { color: var(--green); font-size: .74rem; font-style: normal; font-weight: 800; }
+.guide-list-home { grid-template-columns: repeat(3, 1fr); }
+.guide-article .notice { margin: 0 0 28px; padding: 16px 18px; border-radius: 12px; background: var(--green-soft); color: var(--green-dark); font-size: .92rem; }
+.guide-article h3 { margin: 28px 0 10px; font-size: 1.12rem; }
+.guide-article p, .guide-article li { line-height: 1.85; }
+.guide-article a { color: var(--green); text-decoration: underline; text-underline-offset: 3px; }
+.guide-article table { width: 100%; border-collapse: collapse; margin: 18px 0; font-size: .92rem; }
+.guide-article th, .guide-article td { padding: 10px; border: 1px solid var(--line); text-align: left; vertical-align: top; }
+@media (max-width: 760px) {
+  .guide-list, .guide-list-home { grid-template-columns: 1fr; }
+  .guide-article table { display: block; overflow-x: auto; }
+}

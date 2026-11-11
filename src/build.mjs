@@ -63,6 +63,8 @@ const legacyBlogPosts = [
 ];
 
 const markdownBlogPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"));
+const guides = JSON.parse(await readFile(path.join(root, "src/content/guides.json"), "utf8")).sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.title, "ko"));
+const guideCategories = ["예약 준비", "일정 짜기", "비용 확인"];
 const blogPosts = [...legacyBlogPosts, ...markdownBlogPosts].sort((a, b) => b.date.localeCompare(a.date));
 const duplicatePostFiles = blogPosts.filter((post, index) => blogPosts.findIndex((item) => item.file === post.file) !== index);
 if (duplicatePostFiles.length) throw new Error(`중복 블로그 주소: ${[...new Set(duplicatePostFiles.map((post) => post.file))].join(", ")}`);
@@ -143,6 +145,7 @@ function header(active = "") {
   const items = [
     ["golf", "/golf", "호치민 골프"],
     ["regions", "/regions", "지역별 골프"],
+    ["guide", "/guide", "예약 가이드"],
     ["services", "/services", "숙소·차량"],
     ["blog", "/blog", "골프정보"],
   ];
@@ -203,7 +206,7 @@ function layout({ title, description, pathname, active, content, image, schema =
     inLanguage: "ko-KR",
     publisher: { "@id": `${site.siteUrl}/#organization` },
   };
-  const collectionPaths = ["/golf", "/regions", "/services", "/services/apartments.html", "/services/villas.html", "/blog"];
+  const collectionPaths = ["/golf", "/regions", "/guide", "/services", "/services/apartments.html", "/services/villas.html", "/blog"];
   const isVehicle = pathname === "/services/vehicle.html";
   const pageSchema = pathname === "/" ? [organization, website, ...schema] : [...schema];
   if (collectionPaths.includes(pathname) || isVehicle) {
@@ -311,6 +314,10 @@ function homePage() {
         <div class="section-heading"><div><p class="eyebrow">지역별 상담</p><h2>베트남 주요 골프 지역</h2></div></div>
         <div class="region-grid">${regions.map((region, index) => `<button class="region-card js-consult${index === 0 ? " primary" : ""}" type="button" data-interest="${region.name} 골프 상담"><span>${region.emphasis}</span><strong>${region.name}</strong><p>${region.text}</p><em>상담하기 →</em></button>`).join("")}</div>
       </div>
+    </section>
+    <section class="section shell">
+      <div class="section-heading"><div><p class="eyebrow">예약 전에 읽어보세요</p><h2>베트남 골프 예약 가이드</h2></div><a class="text-link" href="/guide">가이드 전체 보기 →</a></div>
+      <ul class="guide-list guide-list-home">${guideCategories.flatMap((category) => guides.filter((guide) => guide.category === category).slice(0, 2)).map((guide) => `<li><a href="/guide/${guide.slug}.html"><em>${guide.category}</em><strong>${escapeHtml(guide.title)}</strong><span>${escapeHtml(guide.sub)}</span></a></li>`).join("")}</ul>
     </section>
     <section class="section shell">
       <div class="section-heading"><div><p class="eyebrow">함께 준비하기</p><h2>숙소와 차량도 따로 찾지 마세요</h2></div><a class="text-link" href="/services">서비스 전체 보기 →</a></div>
@@ -472,6 +479,33 @@ function vehiclePage() {
   return layout({ title: "호치민 골프 차량 상담", description: "호치민 골프장 왕복, 공항 픽업, 당일 전용, 시외 이동 차량 한국어 상담.", pathname: "/services/vehicle.html", active: "services", image: "service-vehicle.webp", content });
 }
 
+function guideIndexPage() {
+  const sections = guideCategories.map((category) => {
+    const items = guides.filter((guide) => guide.category === category);
+    return `<section class="guide-group" id="guide-${guideCategories.indexOf(category) + 1}"><h2>${category} <span>${items.length}</span></h2><ul class="guide-list">${items.map((guide) => `<li><a href="/guide/${guide.slug}.html"><strong>${escapeHtml(guide.title)}</strong><span>${escapeHtml(guide.sub)}</span></a></li>`).join("")}</ul></section>`;
+  }).join("");
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">예약 가이드</p><h1>베트남 골프 예약 가이드</h1><p>예약 준비, 일정 짜기, 비용 확인까지 상담 전에 알아두면 좋은 내용을 모았습니다.</p><div class="guide-jump">${guideCategories.map((category, index) => `<a class="button button-quiet" href="#guide-${index + 1}">${category}</a>`).join("")}</div></div></section><section class="section shell">${sections}</section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">찾는 내용이 없나요?</p><h2>날짜와 인원만 알려주세요</h2><p>골프장과 차량·숙소를 함께 확인합니다.</p></div><button class="button button-light js-consult" type="button" data-interest="골프 예약 가이드 상담">상담하기</button></div></section>`;
+  return layout({ title: "베트남 골프 예약 가이드", description: "베트남 골프 예약 준비, 항공·라운드 일정 짜기, 견적 포함 항목 확인까지 상담 전에 알아둘 내용을 정리했습니다.", pathname: "/guide", active: "guide", content });
+}
+
+function guidePage(guide) {
+  const related = guides.filter((item) => item.category === guide.category && item.slug !== guide.slug).slice(0, 4);
+  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/guide">예약 가이드</a><span>›</span><span aria-current="page">${escapeHtml(guide.title)}</span></nav><section class="article-hero shell"><p class="eyebrow">${guide.category}</p><h1>${escapeHtml(guide.title)}</h1><p>${escapeHtml(guide.sub)}</p><div><time datetime="${guide.date}">${guide.date}</time><span>신짜오골프 편집부</span></div></section><div class="article-layout shell"><div class="article-body guide-article">${guide.body}${related.length ? `<h2>같이 보면 좋은 글</h2><ul>${related.map((item) => `<li><a href="/guide/${item.slug}.html">${escapeHtml(item.title)}</a></li>`).join("")}</ul>` : ""}</div><aside class="side-consult"><strong>예약 상담</strong><p>날짜·인원·희망 골프장을 알려주시면 가능 여부를 확인해드립니다.</p><a class="side-link" href="/guide">예약 가이드 전체 →</a><button class="button button-block js-consult" type="button" data-interest="${escapeHtml(guide.title)} 관련 상담">상담하기</button></aside></div>`;
+  const schema = [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: guide.title,
+    description: guide.description,
+    datePublished: guide.date,
+    dateModified: guide.date,
+    author: { "@id": `${site.siteUrl}/#organization` },
+    publisher: { "@id": `${site.siteUrl}/#organization` },
+    mainEntityOfPage: `${site.siteUrl}/guide/${guide.slug}.html`,
+    inLanguage: "ko-KR",
+  }, breadcrumbSchema([["홈", "/"], ["예약 가이드", "/guide"], [guide.title, `/guide/${guide.slug}.html`]])];
+  return layout({ title: guide.title, description: guide.description, pathname: `/guide/${guide.slug}.html`, active: "guide", schema, content, pageType: "article", publishedTime: guide.date, modifiedTime: guide.date });
+}
+
 function blogPage() {
   const cards = blogPosts.map((post) => `<article class="post-card"><a href="/blog/${post.file}"><img src="/assets/blog/${post.cover}" width="1200" height="800" loading="lazy" decoding="async" alt="${escapeHtml(post.title)}"></a><div><span>${post.category}</span><h2><a href="/blog/${post.file}">${escapeHtml(post.title)}</a></h2><p>${escapeHtml(post.description)}</p><a class="text-link" href="/blog/${post.file}">내용 보기 →</a></div></article>`).join("");
   const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">골프·숙소 정보</p><h1>베트남 골프·숙소 정보</h1><p>기존 숙소 자료를 보존하면서 앞으로 골프장 선택과 일정 준비에 필요한 정보를 함께 정리합니다.</p></div></section><section class="section shell"><div class="post-grid">${cards}</div></section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">찾는 정보가 없나요?</p><h2>날짜와 인원만 알려주세요</h2><p>골프장과 숙소·차량을 함께 확인합니다.</p></div><button class="button button-light js-consult" type="button" data-interest="골프 및 숙소 상담">상담하기</button></div></section>`;
@@ -564,6 +598,8 @@ async function build() {
   await write("services/vehicle.html", vehiclePage());
   for (const apartment of apartments) await write(`services/apartment/${apartment.slug}.html`, propertyDetailPage(apartment, "apartment"));
   for (const villa of villas) await write(`services/villa/${villa.slug}.html`, propertyDetailPage(villa, "villa"));
+  await write("guide/index.html", guideIndexPage());
+  for (const guide of guides) await write(`guide/${guide.slug}.html`, guidePage(guide));
   await write("blog/index.html", blogPage());
   for (const post of blogPosts) await write(`blog/${post.file}`, await blogPostPage(post));
   await write("about.html", trustPage({
@@ -614,8 +650,11 @@ async function build() {
     ...apartments.map((item) => `/services/apartment/${item.slug}.html`),
     ...villas.map((item) => `/services/villa/${item.slug}.html`),
     ...blogPosts.map((post) => `/blog/${post.file}`),
+    "/guide",
+    ...guides.map((guide) => `/guide/${guide.slug}.html`),
   ];
   const blogLastModified = new Map(blogPosts.map((post) => [`/blog/${post.file}`, post.modified || post.date]));
+  for (const guide of guides) blogLastModified.set(`/guide/${guide.slug}.html`, guide.date);
   for (const course of courses) blogLastModified.set(`/golf/${course.slug}.html`, courseGuides[course.slug].checkedAt);
   await writeFile(path.join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((url) => `  <url><loc>${site.siteUrl}${url}</loc><lastmod>${blogLastModified.get(url) || site.lastUpdated}</lastmod></url>`).join("\n")}\n</urlset>\n`);
   await writeFile(path.join(dist, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${site.siteUrl}/sitemap.xml\n`);
