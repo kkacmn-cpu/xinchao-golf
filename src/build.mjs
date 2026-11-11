@@ -103,7 +103,7 @@ const breadcrumbSchema = (items) => ({
   })),
 });
 
-function head({ title, description, pathname, image = "hero-golf.webp", schema = [], robots = "index,follow,max-image-preview:large", pageType = "website", publishedTime, modifiedTime, keywords = [] }) {
+function head({ title, description, pathname, image = "hero-golf-longthanh.webp", schema = [], robots = "index,follow,max-image-preview:large", pageType = "website", publishedTime, modifiedTime, keywords = [] }) {
   const canonical = `${site.siteUrl}${pathname}`;
   const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
   const socialImage = image.startsWith("blog/") ? `${site.siteUrl}/assets/${image}` : `${site.siteUrl}/assets/images/${image}`;
@@ -290,8 +290,8 @@ function homePage() {
           <ul class="trust-list" aria-label="상담 서비스 특징"><li>한국어 상담</li><li>현지 일정 확인</li><li>부킹 후 바우처 안내</li></ul>
         </div>
         <figure class="hero-media">
-          <img src="/assets/images/hero-golf.webp" width="1600" height="914" fetchpriority="high" alt="베트남 호치민 골프장 풍경">
-          <figcaption><strong>HO CHI MINH</strong><span>골프장·차량·숙소 상담</span></figcaption>
+          <img src="/assets/images/hero-golf-longthanh.webp" width="1366" height="896" fetchpriority="high" alt="호치민 근교 롱탄 골프장 코스 전경">
+          <figcaption><strong>롱탄 골프장</strong><span>호치민 근교 · 골프장·차량·숙소 상담</span></figcaption>
         </figure>
       </div>
     </section>
@@ -328,7 +328,7 @@ function homePage() {
 
 function golfIndexPage() {
   const content = `
-    <section class="page-hero"><div class="shell"><p class="eyebrow">HO CHI MINH GOLF</p><h1>호치민 골프장 안내</h1><p>호치민 도심과 근교 골프장을 비교하고, 원하는 골프장 페이지에서 바로 상담하세요.</p><button class="button js-consult" type="button" data-interest="호치민 골프장 추천 상담">골프장 추천받기</button></div></section>
+    <section class="page-hero"><div class="shell"><p class="eyebrow">호치민 골프</p><h1>호치민 골프장 안내</h1><p>호치민 도심과 근교 골프장을 비교하고, 원하는 골프장 페이지에서 바로 상담하세요.</p><button class="button js-consult" type="button" data-interest="호치민 골프장 추천 상담">골프장 추천받기</button></div></section>
     <section class="section shell">
       <div class="filter-bar" role="group" aria-label="골프장 지역 필터">
         <button class="filter-button is-active" type="button" data-filter="all">전체</button>
@@ -419,13 +419,13 @@ function courseDetailPage(course) {
 }
 
 function regionsPage() {
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">VIETNAM GOLF</p><h1>지역별 베트남 골프 상담</h1><p>호치민을 중심으로 하노이, 다낭, 나트랑, 푸꾸옥 일정도 상담합니다.</p></div></section><section class="section shell"><div class="region-list">${regions.map((region, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><div><p class="eyebrow">${region.emphasis}</p><h2>${region.name}</h2><p>${region.text}</p></div><button class="button button-quiet js-consult" type="button" data-interest="${region.name} 골프 상담">상담하기</button></article>`).join("")}</div></section>`;
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">베트남 골프</p><h1>지역별 베트남 골프 상담</h1><p>호치민을 중심으로 하노이, 다낭, 나트랑, 푸꾸옥 일정도 상담합니다.</p></div></section><section class="section shell"><div class="region-list">${regions.map((region, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><div><p class="eyebrow">${region.emphasis}</p><h2>${region.name}</h2><p>${region.text}</p></div><button class="button button-quiet js-consult" type="button" data-interest="${region.name} 골프 상담">상담하기</button></article>`).join("")}</div></section>`;
   return layout({ title: "지역별 베트남 골프 상담", description: "호치민, 하노이, 다낭, 나트랑, 푸꾸옥 골프 일정 한국어 상담.", pathname: "/regions", active: "regions", content });
 }
 
 function servicesPage() {
   const links = { apartment: "/services/apartments.html", villa: "/services/villas.html", vehicle: "/services/vehicle.html" };
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">STAY & TRANSPORT</p><h1>골프 숙소·차량 상담</h1><p>기존 아파트·풀빌라·차량 자료를 유지하고 골프 일정과 함께 상담합니다.</p></div></section><section class="section shell"><div class="service-list">${services.map((service) => `<article id="${service.slug}"><img src="/assets/images/${service.image}" width="1200" height="700" loading="lazy" decoding="async" alt="${service.name} 상담"><div><p class="eyebrow">연계 서비스</p><h2>${service.name}</h2><p>${service.text}</p><p class="muted">인원, 이용 날짜와 골프 일정을 알려주시면 적합한 조건을 함께 확인합니다.</p><div class="inline-actions"><a class="button" href="${links[service.slug]}">자료 보기</a><button class="button button-outline js-consult" type="button" data-interest="${service.name} 상담">상담하기</button></div></div></article>`).join("")}</div></section>`;
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">숙소·차량</p><h1>골프 숙소·차량 상담</h1><p>기존 아파트·풀빌라·차량 자료를 유지하고 골프 일정과 함께 상담합니다.</p></div></section><section class="section shell"><div class="service-list">${services.map((service) => `<article id="${service.slug}"><img src="/assets/images/${service.image}" width="1200" height="700" loading="lazy" decoding="async" alt="${service.name} 상담"><div><p class="eyebrow">연계 서비스</p><h2>${service.name}</h2><p>${service.text}</p><p class="muted">인원, 이용 날짜와 골프 일정을 알려주시면 적합한 조건을 함께 확인합니다.</p><div class="inline-actions"><a class="button" href="${links[service.slug]}">자료 보기</a><button class="button button-outline js-consult" type="button" data-interest="${service.name} 상담">상담하기</button></div></div></article>`).join("")}</div></section>`;
   return layout({ title: "호치민 골프 숙소와 차량 상담", description: "호치민 골프여행에 필요한 아파트, 풀빌라, 차량을 일정과 함께 한국어로 상담하세요.", pathname: "/services", active: "services", content });
 }
 
@@ -436,12 +436,12 @@ function propertyCard(item, type) {
 }
 
 function apartmentsPage() {
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">APARTMENT</p><h1>호치민 아파트 안내</h1><p>골프 인원과 체류 일정에 맞춰 기존 아파트 자료를 확인하고 상담하세요.</p></div></section><section class="section shell"><div class="property-grid">${apartments.map((item) => propertyCard(item, "apartment")).join("")}</div></section>`;
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">아파트</p><h1>호치민 아파트 안내</h1><p>골프 인원과 체류 일정에 맞춰 기존 아파트 자료를 확인하고 상담하세요.</p></div></section><section class="section shell"><div class="property-grid">${apartments.map((item) => propertyCard(item, "apartment")).join("")}</div></section>`;
   return layout({ title: "호치민 골프 아파트 안내", description: "빈홈 센트럴파크, 루미에르 리버사이드, 메트로폴 투티엠, 선라이즈 시티 아파트 상담.", pathname: "/services/apartments.html", active: "services", content });
 }
 
 function villasPage() {
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">POOL VILLA</p><h1>호치민 풀빌라 안내</h1><p>단체 골프여행 인원과 객실 수에 맞춰 기존 풀빌라 자료를 확인하고 상담하세요.</p></div></section><section class="section shell"><div class="property-grid">${villas.map((item) => propertyCard(item, "villa")).join("")}</div></section>`;
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">풀빌라</p><h1>호치민 풀빌라 안내</h1><p>단체 골프여행 인원과 객실 수에 맞춰 기존 풀빌라 자료를 확인하고 상담하세요.</p></div></section><section class="section shell"><div class="property-grid">${villas.map((item) => propertyCard(item, "villa")).join("")}</div></section>`;
   return layout({ title: "호치민 골프 풀빌라 안내", description: "호치민 단체 골프여행을 위한 4룸부터 7룸 풀빌라 자료와 한국어 상담.", pathname: "/services/villas.html", active: "services", content });
 }
 
@@ -468,13 +468,13 @@ function vehiclePage() {
     ["당일 전용 차량", "골프와 식사·관광 일정을 함께 이동할 때 상담합니다."],
     ["시외·장거리", "호치민에서 붕따우·호트람·무이네 등 장거리 이동을 확인합니다."],
   ];
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">GOLF TRANSPORT</p><h1>호치민 골프 차량 상담</h1><p>4·7·16인승과 리무진 등 인원과 골프백 수량에 맞는 차량을 상담합니다.</p><button class="button js-consult" type="button" data-interest="호치민 골프 차량 상담">차량 상담하기</button></div></section><section class="section shell"><div class="option-grid">${options.map(([name, text]) => `<article><span>차량 서비스</span><h2>${name}</h2><p>${text}</p><button class="text-button js-consult" type="button" data-interest="${name} 차량 상담">상담하기 →</button></article>`).join("")}</div></section><section class="section section-tint"><div class="shell compact-copy"><p class="eyebrow">상담 전에 확인</p><h2>인원뿐 아니라 골프백 수량도 중요합니다</h2><p>이용 날짜, 탑승 인원, 골프백과 캐리어 수량, 출발지와 도착지를 알려주시면 차량 확인이 빨라집니다.</p></div></section>`;
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">골프 차량</p><h1>호치민 골프 차량 상담</h1><p>4·7·16인승과 리무진 등 인원과 골프백 수량에 맞는 차량을 상담합니다.</p><button class="button js-consult" type="button" data-interest="호치민 골프 차량 상담">차량 상담하기</button></div></section><section class="section shell"><div class="option-grid">${options.map(([name, text]) => `<article><span>차량 서비스</span><h2>${name}</h2><p>${text}</p><button class="text-button js-consult" type="button" data-interest="${name} 차량 상담">상담하기 →</button></article>`).join("")}</div></section><section class="section section-tint"><div class="shell compact-copy"><p class="eyebrow">상담 전에 확인</p><h2>인원뿐 아니라 골프백 수량도 중요합니다</h2><p>이용 날짜, 탑승 인원, 골프백과 캐리어 수량, 출발지와 도착지를 알려주시면 차량 확인이 빨라집니다.</p></div></section>`;
   return layout({ title: "호치민 골프 차량 상담", description: "호치민 골프장 왕복, 공항 픽업, 당일 전용, 시외 이동 차량 한국어 상담.", pathname: "/services/vehicle.html", active: "services", image: "service-vehicle.webp", content });
 }
 
 function blogPage() {
   const cards = blogPosts.map((post) => `<article class="post-card"><a href="/blog/${post.file}"><img src="/assets/blog/${post.cover}" width="1200" height="800" loading="lazy" decoding="async" alt="${escapeHtml(post.title)}"></a><div><span>${post.category}</span><h2><a href="/blog/${post.file}">${escapeHtml(post.title)}</a></h2><p>${escapeHtml(post.description)}</p><a class="text-link" href="/blog/${post.file}">내용 보기 →</a></div></article>`).join("");
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">GOLF & STAY GUIDE</p><h1>베트남 골프·숙소 정보</h1><p>기존 숙소 자료를 보존하면서 앞으로 골프장 선택과 일정 준비에 필요한 정보를 함께 정리합니다.</p></div></section><section class="section shell"><div class="post-grid">${cards}</div></section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">찾는 정보가 없나요?</p><h2>날짜와 인원만 알려주세요</h2><p>골프장과 숙소·차량을 함께 확인합니다.</p></div><button class="button button-light js-consult" type="button" data-interest="골프 및 숙소 상담">상담하기</button></div></section>`;
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">골프·숙소 정보</p><h1>베트남 골프·숙소 정보</h1><p>기존 숙소 자료를 보존하면서 앞으로 골프장 선택과 일정 준비에 필요한 정보를 함께 정리합니다.</p></div></section><section class="section shell"><div class="post-grid">${cards}</div></section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">찾는 정보가 없나요?</p><h2>날짜와 인원만 알려주세요</h2><p>골프장과 숙소·차량을 함께 확인합니다.</p></div><button class="button button-light js-consult" type="button" data-interest="골프 및 숙소 상담">상담하기</button></div></section>`;
   return layout({ title: "베트남 골프·숙소 정보", description: "호치민을 중심으로 베트남 골프장 선택, 풀빌라와 아파트 이용에 필요한 정보를 제공합니다.", pathname: "/blog", active: "blog", content });
 }
 

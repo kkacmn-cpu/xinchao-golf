@@ -27,7 +27,7 @@ body.dialog-open { overflow: hidden; }
 a { color: inherit; text-decoration: none; }
 button, input, textarea, select { font: inherit; }
 button { color: inherit; }
-img { display: block; max-width: 100%; }
+img { display: block; max-width: 100%; height: auto; }
 h1, h2, h3, p { margin-top: 0; }
 h1, h2, h3 { line-height: 1.25; letter-spacing: -.035em; }
 h1 { font-size: clamp(2.35rem, 5vw, 4.75rem); }
@@ -46,8 +46,8 @@ h3 { font-size: 1.3rem; }
 .brand strong { display: block; font-size: 1.08rem; line-height: 1.1; }
 .brand small { display: block; margin-top: 3px; color: var(--muted); font-size: .63rem; letter-spacing: .12em; }
 .site-nav { display: flex; align-items: center; gap: 30px; }
-.site-nav > a { padding: 25px 0 22px; border-bottom: 2px solid transparent; color: #34433c; font-size: .92rem; font-weight: 700; }
-.site-nav > a:hover, .site-nav > a[aria-current="page"] { color: var(--green); border-color: var(--green); }
+.site-nav > a:not(.button) { padding: 25px 0 22px; border-bottom: 2px solid transparent; color: #34433c; font-size: .92rem; font-weight: 700; }
+.site-nav > a:not(.button):hover, .site-nav > a:not(.button)[aria-current="page"] { color: var(--green); border-color: var(--green); }
 .menu-button { display: none; border: 0; background: transparent; font-weight: 800; }
 
 .button { min-height: 48px; display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 0 22px; border: 1px solid var(--green); border-radius: 999px; background: var(--green); color: white; cursor: pointer; font-weight: 800; transition: .2s ease; }
@@ -62,7 +62,7 @@ h3 { font-size: 1.3rem; }
 
 .hero { padding: 52px 0 28px; overflow: hidden; background: linear-gradient(120deg, #f6f7f3 0%, #fff 60%); }
 .hero-grid { min-height: 560px; display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 64px; }
-.hero-copy h1 { margin-bottom: 24px; }
+.hero-copy h1 { margin-bottom: 24px; font-size: clamp(2.35rem, 3.9vw, 3.5rem); }
 .hero-copy h1 span { color: var(--green); }
 .hero-lead { max-width: 540px; color: #526059; font-size: 1.14rem; }
 .home-prep-form { margin-top: 22px; padding: 18px; border: 1px solid #cdded2; border-radius: 18px; background: white; box-shadow: 0 8px 30px rgba(15,81,56,.08); }
@@ -293,7 +293,8 @@ h3 { font-size: 1.3rem; }
   .hero-lead { font-size: 1rem; }
   .hero-actions { display: grid; grid-template-columns: 1fr 1fr; }
   .hero-actions .button { padding-inline: 12px; font-size: .86rem; }
-  .hero-media img { aspect-ratio: 1.25; border-radius: 20px; }
+  .hero-media { order: -1; }
+  .hero-media img { aspect-ratio: 1.8; border-radius: 20px; }
   .hero-media figcaption { right: 10px; bottom: 10px; min-width: 175px; padding: 12px 14px; }
   .quick-paths { padding-top: 22px; }
   .quick-grid { grid-template-columns: 1fr; }
