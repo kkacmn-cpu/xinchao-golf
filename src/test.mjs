@@ -10,8 +10,8 @@ const dist = path.join(root, "dist");
 const failures = [];
 const markdownPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"));
 const guideCount = JSON.parse(await readFile(path.join(root, "src/content/guides.json"), "utf8")).length;
-const expectedContentPages = 48 + markdownPosts.length + 1 + guideCount;
-const expectedSitemapUrls = 47 + markdownPosts.length + 1 + guideCount;
+const expectedContentPages = 54 + markdownPosts.length + 1 + guideCount;
+const expectedSitemapUrls = 53 + markdownPosts.length + 1 + guideCount;
 const expectedRedirects = 45 + markdownPosts.length;
 
 async function collect(dir) {

@@ -425,9 +425,35 @@ function courseDetailPage(course) {
   });
 }
 
+const regionBoards = [
+  { key: "hochiminh", name: "호치민", lead: "호치민 시내와 동나이·빈즈엉·롱안·붕따우·호트람 골프장 예약, 일정, 이동 글을 모았습니다.", words: ["호치민", "롱탄", "송베", "동나이", "빈즈엉", "붕따우", "호트람", "탄손넛", "투득", "트윈도브", "롱안", "떠이닌", "에메랄드", "정산", "하모니", "블러프스", "레만", "웨스트레이크", "몬타나", "다이라이"] },
+  { key: "hanoi", name: "하노이", lead: "하노이와 근교 골프장 예약, 단체 조편성, 공항·숙소 차량 연결 글을 모았습니다.", words: ["하노이", "롱비엔", "스카이레이크", "반찌", "땀다오", "탐다오", "하롱"] },
+  { key: "danang", name: "다낭·호이안", lead: "다낭·호이안 골프장 예약과 티오프 확인, 가족·단체 일정 글을 모았습니다.", words: ["다낭", "호이안", "호이아나", "몽고메리", "바나힐"] },
+  { key: "nhatrang", name: "나트랑", lead: "나트랑·캄란 리조트 골프 예약과 일정 글을 모았습니다.", words: ["나트랑", "캄란"] },
+  { key: "phuquoc", name: "푸꾸옥", lead: "푸꾸옥 골프 예약, 항공 도착과 티오프 연결, 포함 항목 확인 글을 모았습니다.", words: ["푸꾸옥"] },
+  { key: "dalat", name: "달랏", lead: "달랏 골프장 예약과 일정 글을 모았습니다.", words: ["달랏"] },
+];
+
+function regionBoardItems(board) {
+  const hit = (text) => board.words.some((word) => text.includes(word));
+  const items = [
+    ...guides.filter((guide) => hit(`${guide.title} ${guide.description}`)).map((guide) => ({ href: `/guide/${guide.slug}.html`, title: guide.title, text: guide.sub || guide.description, date: guide.date })),
+    ...blogPosts.filter((post) => hit(`${post.title} ${post.description}`)).map((post) => ({ href: `/blog/${post.file}`, title: post.title, text: post.description, date: post.date })),
+  ];
+  return items.sort((a, b) => String(b.date).localeCompare(String(a.date)));
+}
+
+function regionBoardPage(board) {
+  const items = regionBoardItems(board);
+  const others = regionBoards.filter((item) => item.key !== board.key).map((item) => `<a class="button button-quiet" href="/regions/${item.key}.html">${item.name}</a>`).join("");
+  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/regions">지역별 골프</a><span>›</span><span aria-current="page">${board.name}</span></nav><section class="page-hero"><div class="shell"><p class="eyebrow">지역별 골프 게시판</p><h1>${board.name} 골프 예약·일정 안내</h1><p>${board.lead}</p><div class="guide-jump">${others}</div></div></section><section class="section shell"><section class="guide-group"><h2>${board.name} 골프 글 <span>${items.length}</span></h2>${items.length ? `<ul class="guide-list">${items.map((item) => `<li><a href="${item.href}"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.text || "")}</span></a></li>`).join("")}</ul>` : `<p>아직 이 지역 글을 준비 중입니다. 원하는 골프장과 날짜를 알려주시면 상담으로 먼저 안내해 드립니다.</p>`}</section></section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">${board.name} 골프 상담</p><h2>날짜·인원·희망 골프장을 알려주세요</h2><p>골프장 예약과 숙소·차량까지 일정에 맞춰 한 번에 안내해 드립니다.</p></div><button class="button js-consult" type="button" data-interest="${board.name} 골프 상담">${board.name} 골프 상담하기</button></div></section>`;
+  return layout({ title: `${board.name} 골프 예약·일정 안내`, description: `${board.lead} 날짜·인원·희망 골프장을 알려주시면 골프장 예약과 숙소·차량까지 한국어로 상담합니다.`, pathname: `/regions/${board.key}.html`, active: "regions", content, schema: [breadcrumbSchema([["홈", "/"], ["지역별 골프", "/regions"], [board.name, `/regions/${board.key}.html`]])] });
+}
+
 function regionsPage() {
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">베트남 골프</p><h1>지역별 베트남 골프 상담</h1><p>호치민을 중심으로 하노이, 다낭, 나트랑, 푸꾸옥 일정도 상담합니다.</p></div></section><section class="section shell"><div class="region-list">${regions.map((region, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><div><p class="eyebrow">${region.emphasis}</p><h2>${region.name}</h2><p>${region.text}</p></div><button class="button button-quiet js-consult" type="button" data-interest="${region.name} 골프 상담">상담하기</button></article>`).join("")}</div></section>`;
-  return layout({ title: "지역별 베트남 골프 상담", description: "호치민, 하노이, 다낭, 나트랑, 푸꾸옥 지역별 골프장 선택과 일정 짜기, 숙소·차량 연결까지 한국어로 상담합니다.", pathname: "/regions", active: "regions", content });
+  const boardCards = regionBoards.map((board) => `<li><a href="/regions/${board.key}.html"><strong>${board.name} 골프 게시판 <em>${regionBoardItems(board).length}개 글</em></strong><span>${board.lead}</span></a></li>`).join("");
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">베트남 골프</p><h1>지역별 베트남 골프 상담</h1><p>호치민을 중심으로 하노이, 다낭·호이안, 나트랑, 푸꾸옥, 달랏 골프 일정도 상담합니다. 지역을 누르면 그 지역 골프 글만 모아 볼 수 있습니다.</p><div class="guide-jump">${regionBoards.map((board) => `<a class="button button-quiet" href="/regions/${board.key}.html">${board.name}</a>`).join("")}</div></div></section><section class="section shell"><section class="guide-group"><h2>지역별 골프 게시판</h2><ul class="guide-list">${boardCards}</ul></section><div class="region-list">${regions.map((region, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><div><p class="eyebrow">${region.emphasis}</p><h2>${region.name}</h2><p>${region.text}</p></div><button class="button button-quiet js-consult" type="button" data-interest="${region.name} 골프 상담">상담하기</button></article>`).join("")}</div></section>`;
+  return layout({ title: "지역별 베트남 골프 상담", description: "호치민, 하노이, 다낭·호이안, 나트랑, 푸꾸옥, 달랏 지역별 골프장 예약과 일정 글을 모아 보고, 숙소·차량 연결까지 한국어로 상담합니다.", pathname: "/regions", active: "regions", content });
 }
 
 function servicesPage() {
@@ -592,6 +618,7 @@ async function build() {
   await write("golf/index.html", golfIndexPage());
   for (const course of courses) await write(`golf/${course.slug}.html`, courseDetailPage(course));
   await write("regions/index.html", regionsPage());
+  for (const board of regionBoards) await write(`regions/${board.key}.html`, regionBoardPage(board));
   await write("services/index.html", servicesPage());
   await write("services/apartments.html", apartmentsPage());
   await write("services/villas.html", villasPage());
@@ -645,7 +672,7 @@ async function build() {
   }
 
   const urls = [
-    "/", "/golf", "/regions", "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/blog", "/about.html", "/editorial-policy.html", "/source-policy.html",
+    "/", "/golf", "/regions", ...regionBoards.map((board) => `/regions/${board.key}.html`), "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/blog", "/about.html", "/editorial-policy.html", "/source-policy.html",
     ...courses.map((course) => `/golf/${course.slug}.html`),
     ...apartments.map((item) => `/services/apartment/${item.slug}.html`),
     ...villas.map((item) => `/services/villa/${item.slug}.html`),
