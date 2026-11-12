@@ -18,7 +18,7 @@ const legacyBlogPosts = [
   {
     file: "ho-chi-minh-4-room-pool-villa-guide.html",
     title: "호치민 4룸 풀빌라 예약 전 확인사항",
-    description: "호치민 4룸 풀빌라를 알아볼 때 확인해야 할 임시 거주자 등록, 숙소 구조와 상담 안내.",
+    description: "호치민 4룸 풀빌라를 알아볼 때 확인해야 할 임시 거주자 등록, 침실과 공용 공간 구조, 골프 일정에 맞춘 숙소 상담 방법을 정리했습니다.",
     category: "풀빌라",
     date: "2025-12-18",
     cover: "18_12_1/1 (1).webp",
@@ -27,7 +27,7 @@ const legacyBlogPosts = [
   {
     file: "ho-chi-minh-8-room-pool-villa-guide.html",
     title: "호치민 8룸 꿈 풀빌라 안내",
-    description: "호치민 단체여행을 위한 8룸 꿈 풀빌라 공간 구성과 예약 전 확인사항.",
+    description: "호치민 단체여행을 위한 8룸 꿈 풀빌라의 공간 구성과 방 나누기, 골프 일행이 예약 전에 확인해야 할 사항을 정리했습니다.",
     category: "풀빌라",
     date: "2025-12-18",
     cover: "18_12_2/1 (7).webp",
@@ -36,7 +36,7 @@ const legacyBlogPosts = [
   {
     file: "ho-chi-minh-lexington-apartment-guide.html",
     title: "호치민 렉싱턴 아파트 안내",
-    description: "호치민 2군 렉싱턴 아파트의 객실 구성과 체류 전 확인사항.",
+    description: "호치민 2군 렉싱턴 아파트의 객실 구성과 체류 전 확인사항, 골프장 이동을 함께 생각한 숙소 선택 기준을 정리했습니다.",
     category: "아파트",
     date: "2025-12-18",
     cover: "19_12_2/p1 (1).webp",
@@ -45,7 +45,7 @@ const legacyBlogPosts = [
   {
     file: "ho-chi-minh-the-sun-avenue-q2-apartment-guide.html",
     title: "호치민 더 썬 에비뉴 Q2 아파트 안내",
-    description: "호치민 2군 더 썬 에비뉴 아파트 객실 유형과 체류 전 확인사항.",
+    description: "호치민 2군 더 썬 에비뉴 아파트의 객실 유형과 체류 전 확인사항, 골프 일정에 맞춘 숙소 선택 기준을 정리했습니다.",
     category: "아파트",
     date: "2025-12-18",
     cover: "19_12_1/tn (1).webp",
@@ -54,7 +54,7 @@ const legacyBlogPosts = [
   {
     file: "ho-chi-minh-y4-6-room-pool-villa.html",
     title: "호치민 Y4 6룸 풀빌라 안내",
-    description: "타오디엔 Y4 6룸 풀빌라의 객실, 수영장과 단체여행 상담 안내.",
+    description: "타오디엔 Y4 6룸 풀빌라의 객실과 수영장, 단체 골프여행 일행이 예약 전에 확인할 방 배정과 상담 방법을 안내합니다.",
     category: "풀빌라",
     date: "2025-12-18",
     cover: "18_12_3/z7300994846764_e68cccb1267513b8c1f894d22df62f5d.webp",
@@ -427,13 +427,13 @@ function courseDetailPage(course) {
 
 function regionsPage() {
   const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">베트남 골프</p><h1>지역별 베트남 골프 상담</h1><p>호치민을 중심으로 하노이, 다낭, 나트랑, 푸꾸옥 일정도 상담합니다.</p></div></section><section class="section shell"><div class="region-list">${regions.map((region, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><div><p class="eyebrow">${region.emphasis}</p><h2>${region.name}</h2><p>${region.text}</p></div><button class="button button-quiet js-consult" type="button" data-interest="${region.name} 골프 상담">상담하기</button></article>`).join("")}</div></section>`;
-  return layout({ title: "지역별 베트남 골프 상담", description: "호치민, 하노이, 다낭, 나트랑, 푸꾸옥 골프 일정 한국어 상담.", pathname: "/regions", active: "regions", content });
+  return layout({ title: "지역별 베트남 골프 상담", description: "호치민, 하노이, 다낭, 나트랑, 푸꾸옥 지역별 골프장 선택과 일정 짜기, 숙소·차량 연결까지 한국어로 상담합니다.", pathname: "/regions", active: "regions", content });
 }
 
 function servicesPage() {
   const links = { apartment: "/services/apartments.html", villa: "/services/villas.html", vehicle: "/services/vehicle.html" };
   const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">숙소·차량</p><h1>골프 숙소·차량 상담</h1><p>기존 아파트·풀빌라·차량 자료를 유지하고 골프 일정과 함께 상담합니다.</p></div></section><section class="section shell"><div class="service-list">${services.map((service) => `<article id="${service.slug}"><img src="/assets/images/${service.image}" width="1200" height="700" loading="lazy" decoding="async" alt="${service.name} 상담"><div><p class="eyebrow">연계 서비스</p><h2>${service.name}</h2><p>${service.text}</p><p class="muted">인원, 이용 날짜와 골프 일정을 알려주시면 적합한 조건을 함께 확인합니다.</p><div class="inline-actions"><a class="button" href="${links[service.slug]}">자료 보기</a><button class="button button-outline js-consult" type="button" data-interest="${service.name} 상담">상담하기</button></div></div></article>`).join("")}</div></section>`;
-  return layout({ title: "호치민 골프 숙소와 차량 상담", description: "호치민 골프여행에 필요한 아파트, 풀빌라, 차량을 일정과 함께 한국어로 상담하세요.", pathname: "/services", active: "services", content });
+  return layout({ title: "호치민 골프 숙소와 차량 상담", description: "호치민 골프여행에 필요한 아파트, 풀빌라, 차량을 라운드 일정과 인원에 맞춰 한국어로 함께 상담하세요. 숙소와 이동을 한 번에 정리합니다.", pathname: "/services", active: "services", content });
 }
 
 function propertyCard(item, type) {
@@ -444,12 +444,12 @@ function propertyCard(item, type) {
 
 function apartmentsPage() {
   const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">아파트</p><h1>호치민 아파트 안내</h1><p>골프 인원과 체류 일정에 맞춰 기존 아파트 자료를 확인하고 상담하세요.</p></div></section><section class="section shell"><div class="property-grid">${apartments.map((item) => propertyCard(item, "apartment")).join("")}</div></section>`;
-  return layout({ title: "호치민 골프 아파트 안내", description: "빈홈 센트럴파크, 루미에르 리버사이드, 메트로폴 투티엠, 선라이즈 시티 아파트 상담.", pathname: "/services/apartments.html", active: "services", content });
+  return layout({ title: "호치민 골프 아파트 안내", description: "빈홈 센트럴파크, 루미에르 리버사이드, 메트로폴 투티엠, 선라이즈 시티 등 호치민 골프여행 아파트를 위치와 객실 기준으로 상담합니다.", pathname: "/services/apartments.html", active: "services", content });
 }
 
 function villasPage() {
   const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">풀빌라</p><h1>호치민 풀빌라 안내</h1><p>단체 골프여행 인원과 객실 수에 맞춰 기존 풀빌라 자료를 확인하고 상담하세요.</p></div></section><section class="section shell"><div class="property-grid">${villas.map((item) => propertyCard(item, "villa")).join("")}</div></section>`;
-  return layout({ title: "호치민 골프 풀빌라 안내", description: "호치민 단체 골프여행을 위한 4룸부터 7룸 풀빌라 자료와 한국어 상담.", pathname: "/services/villas.html", active: "services", content });
+  return layout({ title: "호치민 골프 풀빌라 안내", description: "호치민 단체 골프여행을 위한 4룸부터 7룸 풀빌라 자료. 인원과 방 수, 골프장 이동을 기준으로 고르는 방법을 한국어로 상담합니다.", pathname: "/services/villas.html", active: "services", content });
 }
 
 function propertyDetailPage(item, type) {
@@ -465,7 +465,7 @@ function propertyDetailPage(item, type) {
     ["숙소·차량", "/services"],
     [item.name, pathname],
   ])];
-  return layout({ title: `${item.name} 골프여행 숙소 상담`, description: `${item.name} ${isApartment ? item.englishName : item.spec} 정보와 호치민 골프여행 숙소 한국어 상담.`, pathname, active: "services", image: item.image, schema, content });
+  return layout({ title: `${item.name} 골프여행 숙소 상담`, description: `${item.name} ${isApartment ? item.englishName : item.spec} 정보와 객실 구성, 호치민 골프여행 일정에 맞춘 숙소 선택을 한국어로 상담합니다.`, pathname, active: "services", image: item.image, schema, content });
 }
 
 function vehiclePage() {
@@ -476,7 +476,7 @@ function vehiclePage() {
     ["시외·장거리", "호치민에서 붕따우·호트람·무이네 등 장거리 이동을 확인합니다."],
   ];
   const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">골프 차량</p><h1>호치민 골프 차량 상담</h1><p>4·7·16인승과 리무진 등 인원과 골프백 수량에 맞는 차량을 상담합니다.</p><button class="button js-consult" type="button" data-interest="호치민 골프 차량 상담">차량 상담하기</button></div></section><section class="section shell"><div class="option-grid">${options.map(([name, text]) => `<article><span>차량 서비스</span><h2>${name}</h2><p>${text}</p><button class="text-button js-consult" type="button" data-interest="${name} 차량 상담">상담하기 →</button></article>`).join("")}</div></section><section class="section section-tint"><div class="shell compact-copy"><p class="eyebrow">상담 전에 확인</p><h2>인원뿐 아니라 골프백 수량도 중요합니다</h2><p>이용 날짜, 탑승 인원, 골프백과 캐리어 수량, 출발지와 도착지를 알려주시면 차량 확인이 빨라집니다.</p></div></section>`;
-  return layout({ title: "호치민 골프 차량 상담", description: "호치민 골프장 왕복, 공항 픽업, 당일 전용, 시외 이동 차량 한국어 상담.", pathname: "/services/vehicle.html", active: "services", image: "service-vehicle.webp", content });
+  return layout({ title: "호치민 골프 차량 상담", description: "호치민 골프장 왕복, 공항 픽업, 당일 전용, 시외 이동 차량을 인원과 골프백 수에 맞춰 한국어로 상담합니다.", pathname: "/services/vehicle.html", active: "services", image: "service-vehicle.webp", content });
 }
 
 function guideIndexPage() {
@@ -509,7 +509,7 @@ function guidePage(guide) {
 function blogPage() {
   const cards = blogPosts.map((post) => `<article class="post-card"><a href="/blog/${post.file}"><img src="/assets/blog/${post.cover}" width="1200" height="800" loading="lazy" decoding="async" alt="${escapeHtml(post.title)}"></a><div><span>${post.category}</span><h2><a href="/blog/${post.file}">${escapeHtml(post.title)}</a></h2><p>${escapeHtml(post.description)}</p><a class="text-link" href="/blog/${post.file}">내용 보기 →</a></div></article>`).join("");
   const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">골프·숙소 정보</p><h1>베트남 골프·숙소 정보</h1><p>기존 숙소 자료를 보존하면서 앞으로 골프장 선택과 일정 준비에 필요한 정보를 함께 정리합니다.</p></div></section><section class="section shell"><div class="post-grid">${cards}</div></section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">찾는 정보가 없나요?</p><h2>날짜와 인원만 알려주세요</h2><p>골프장과 숙소·차량을 함께 확인합니다.</p></div><button class="button button-light js-consult" type="button" data-interest="골프 및 숙소 상담">상담하기</button></div></section>`;
-  return layout({ title: "베트남 골프·숙소 정보", description: "호치민을 중심으로 베트남 골프장 선택, 풀빌라와 아파트 이용에 필요한 정보를 제공합니다.", pathname: "/blog", active: "blog", content });
+  return layout({ title: "베트남 골프·숙소 정보", description: "호치민을 중심으로 베트남 골프장 선택, 풀빌라와 아파트 이용, 이동과 일정 짜기에 필요한 정보를 한국어로 정리했습니다.", pathname: "/blog", active: "blog", content });
 }
 
 async function blogPostPage(post) {
@@ -610,13 +610,13 @@ async function build() {
   }));
   await write("editorial-policy.html", trustPage({
     title: "편집 원칙",
-    description: "신짜오골프의 콘텐츠 작성, 사실 확인, 수정과 최신성 관리 원칙입니다.",
+    description: "신짜오골프가 골프장·숙소·차량 글을 쓸 때 지키는 작성 원칙과 사실 확인, 수정 요청 처리, 최신 정보 관리 방법을 안내합니다.",
     pathname: "/editorial-policy.html",
     content: "<h2>검색 질문에 먼저 답합니다</h2><p>각 글은 골프장 선택, 이동 동선, 예약 준비처럼 실제 고객 질문에 직접 답하도록 작성합니다. 같은 키워드를 반복해 분량을 늘리지 않습니다.</p><h2>확인되지 않은 경험은 쓰지 않습니다</h2><p>직접 확인하지 않은 체험을 실제 이용 후기처럼 표현하지 않으며, 변동 가능한 가격·티오프·운영 조건은 확정 사실처럼 안내하지 않습니다.</p><h2>수정과 최신성</h2><p>출처가 바뀌거나 운영 조건이 달라진 사실을 확인하면 해당 내용을 다시 검토합니다. 중요한 예약 조건은 게시 날짜와 무관하게 상담 시점에 재확인합니다.</p>",
   }));
   await write("source-policy.html", trustPage({
     title: "출처 원칙",
-    description: "신짜오골프가 골프장·차량·숙소 정보를 확인하고 표시하는 기준입니다.",
+    description: "신짜오골프가 골프장·차량·숙소 정보를 어디서 확인하고 어떻게 표시하는지, 정보가 바뀌었을 때 고치는 기준을 안내합니다.",
     pathname: "/source-policy.html",
     content: "<h2>출처 우선순위</h2><p>골프장과 서비스 운영 주체가 제공하는 공식 안내처럼 원정보에 가까운 출처를 우선합니다. 제3자 자료는 비교와 발견을 돕는 보조 자료로 사용합니다.</p><h2>변동 정보</h2><p>가격, 티오프, 포함 항목, 휴장과 차량 가능 여부는 수시로 달라질 수 있습니다. 확인 시점이 오래됐거나 출처가 서로 다르면 확정 정보로 표시하지 않고 상담 시점에 다시 확인합니다.</p><h2>표시하지 않는 정보</h2><p>근거가 부족한 최저가, 보장되지 않은 예약 가능 여부, 검증되지 않은 평점과 후기는 구조화 데이터나 본문에 넣지 않습니다.</p>",
   }));
