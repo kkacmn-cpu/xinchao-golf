@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="신짜오골프">
+  <rect width="64" height="64" rx="16" fill="#0F5138"/>
+  <ellipse cx="32" cy="48" rx="18" ry="5" fill="#2E8B57"/>
+  <ellipse cx="32" cy="48" rx="3.2" ry="1.4" fill="#0A3A28"/>
+  <path d="M32 47V13" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+  <path d="M33.5 13.5 49 19.5 33.5 25.5Z" fill="#F9D73C"/>
+  <circle cx="43" cy="44" r="3.4" fill="#fff"/>
+</svg>

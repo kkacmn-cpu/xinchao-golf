@@ -154,7 +154,7 @@ function header(active = "") {
     <header class="site-header">
       <div class="shell header-inner">
         <a class="brand" href="/" aria-label="신짜오골프 홈">
-          <span class="brand-mark" aria-hidden="true">XG</span>
+          <span class="brand-mark" aria-hidden="true"></span>
           <span><strong>${site.name}</strong><small>${site.englishName}</small></span>
         </a>
         <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu">메뉴</button>

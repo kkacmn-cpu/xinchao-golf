@@ -382,3 +382,7 @@ h3 { font-size: 1.3rem; }
   .guide-list, .guide-list-home { grid-template-columns: 1fr; }
   .guide-article table { display: block; overflow-x: auto; }
 }
+
+/* 새 로고 2026-11-12 */
+.brand-mark{width:40px;height:40px;border-radius:0;background:url("/assets/images/brand-mark.svg") center/contain no-repeat;font-size:0}
+.brand strong{color:#0F5138;font-weight:800;letter-spacing:-.02em}
