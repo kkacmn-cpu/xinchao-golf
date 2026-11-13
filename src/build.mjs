@@ -529,6 +529,9 @@ function guidePage(guide) {
     mainEntityOfPage: `${site.siteUrl}/guide/${guide.slug}.html`,
     inLanguage: "ko-KR",
   }, breadcrumbSchema([["홈", "/"], ["예약 가이드", "/guide"], [guide.title, `/guide/${guide.slug}.html`]])];
+  if (Array.isArray(guide.faq) && guide.faq.length) {
+    schema.push({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: guide.faq.map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })) });
+  }
   return layout({ title: guide.title, description: guide.description, pathname: `/guide/${guide.slug}.html`, active: "guide", schema, content, pageType: "article", publishedTime: guide.date, modifiedTime: guide.date });
 }
 
