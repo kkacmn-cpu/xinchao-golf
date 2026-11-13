@@ -42,7 +42,7 @@ h3 { font-size: 1.3rem; }
 .site-header { position: sticky; z-index: 50; top: 0; border-bottom: 1px solid rgba(223,228,225,.8); background: rgba(255,255,255,.94); backdrop-filter: blur(14px); }
 .header-inner { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .brand { display: flex; align-items: center; gap: 11px; }
-.brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--green); color: white; font-size: .72rem; font-weight: 900; letter-spacing: .04em; }
+.brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: var(--green); color: white; font-size: .78rem; font-weight: 900; letter-spacing: .04em; }
 .brand strong { display: block; font-size: 1.08rem; line-height: 1.1; }
 .brand small { display: block; margin-top: 3px; color: var(--muted); font-size: .63rem; letter-spacing: .12em; }
 .site-nav { display: flex; align-items: center; gap: 30px; }
@@ -71,7 +71,7 @@ h3 { font-size: 1.3rem; }
 .home-prep-fields label { display: grid; gap: 5px; min-width: 0; font-size: .75rem; font-weight: 800; }
 .home-prep-fields input, .home-prep-fields select { width: 100%; min-width: 0; min-height: 43px; padding: 8px 10px; border: 1px solid #b8c8be; border-radius: 9px; background: white; color: var(--ink); font-size: .87rem; }
 .home-prep-form .button { width: 100%; margin-top: 13px; }
-.home-prep-caveat { margin: 9px 0 0; color: var(--muted); font-size: .72rem; line-height: 1.5; }
+.home-prep-caveat { margin: 9px 0 0; color: var(--muted); font-size: .78rem; line-height: 1.5; }
 .home-prep-result { margin-top: 12px; padding: 16px 18px; border: 1px solid #a7c9b4; border-radius: 16px; background: #f0f8f2; font-size: .83rem; }
 .home-prep-result[hidden], .home-prep-result [hidden] { display: none; }
 .home-prep-result h2 { margin: 0 0 7px; font-size: 1.08rem; }
@@ -119,7 +119,7 @@ h3 { font-size: 1.3rem; }
 .region-card { min-height: 260px; display: flex; flex-direction: column; align-items: flex-start; padding: 24px; border: 1px solid #dcded9; border-radius: var(--radius); background: white; cursor: pointer; text-align: left; }
 .region-card:hover { border-color: var(--green); }
 .region-card.primary { background: var(--green); color: white; }
-.region-card > span { margin-bottom: 38px; color: var(--green); font-size: .72rem; font-weight: 800; }
+.region-card > span { margin-bottom: 38px; color: var(--green); font-size: .78rem; font-weight: 800; }
 .region-card.primary > span { color: #b9dbc9; }
 .region-card strong { font-size: 1.4rem; }
 .region-card p { color: var(--muted); font-size: .84rem; }
@@ -370,7 +370,7 @@ h3 { font-size: 1.3rem; }
 .guide-list a:hover { border-color: var(--green); box-shadow: var(--shadow); }
 .guide-list strong { font-size: 1.02rem; line-height: 1.4; }
 .guide-list span { color: var(--muted); font-size: .86rem; line-height: 1.55; }
-.guide-list em { color: var(--green); font-size: .74rem; font-style: normal; font-weight: 800; }
+.guide-list em { color: var(--green); font-size: .78rem; font-style: normal; font-weight: 800; }
 .guide-list-home { grid-template-columns: repeat(3, 1fr); }
 .guide-article .notice { margin: 0 0 28px; padding: 16px 18px; border-radius: 12px; background: var(--green-soft); color: var(--green-dark); font-size: .92rem; }
 .guide-article h3 { margin: 28px 0 10px; font-size: 1.12rem; }
