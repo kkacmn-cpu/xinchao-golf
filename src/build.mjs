@@ -308,7 +308,7 @@ function homePage() {
     </section>
     <section class="quick-paths" aria-label="빠른 메뉴">
       <div class="shell quick-grid">
-        <a href="/golf"><strong>골프장 찾기</strong><span>베트남 6개 지역 ${courses.length}곳</span></a>
+        <a href="/golf"><strong>골프장 찾기</strong><span>베트남 ${golfAreas.length}개 지역 ${courses.length}곳</span></a>
         <button class="js-consult" type="button" data-interest="골프 일정 상담"><strong>일정 상담</strong><span>날짜와 인원부터 간단히</span></button>
         <a href="/services"><strong>차량·숙소</strong><span>골프 일정과 함께 상담</span></a>
       </div>
@@ -335,7 +335,7 @@ function homePage() {
     <section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">복잡하게 찾지 마세요</p><h2>베트남 어디든 골프 일정부터 상담해보세요</h2><p>홈페이지에서 결제하지 않습니다. 필요한 내용만 확인하고 상담으로 연결합니다.</p></div><button class="button button-light js-consult" type="button" data-interest="베트남 골프 빠른 상담">빠른 상담 시작</button></div></section>`;
   return layout({
     title: "베트남 골프장 상담 전문 신짜오골프",
-    description: "호치민·하노이·다낭·나트랑·달랏·푸꾸옥 베트남 골프장 정보와 공항 이동시간. 골프장 예약과 차량, 아파트, 풀빌라를 한국어로 한 번에 상담하세요.",
+    description: "호치민·하노이·다낭·하롱·나트랑·달랏·푸꾸옥 베트남 골프장 정보와 공항 이동시간. 골프장 예약과 차량, 아파트, 풀빌라를 한국어로 한 번에 상담하세요.",
     pathname: "/",
     content,
   });
@@ -352,7 +352,7 @@ function golfIndexPage() {
   }).join("");
   const airportRows = golfAreas.flatMap((area) => courses.filter((course) => course.area === area.key).map((course) => `<tr><th scope="row"><a href="/golf/${course.slug}.html">${escapeHtml(course.name)}</a></th><td>${escapeHtml(area.name)}</td><td>${escapeHtml(airportShort(course))}</td><td><strong>${escapeHtml(course.drive)}</strong>${course.driveKm ? ` <small>(약 ${escapeHtml(course.driveKm)})</small>` : ""}</td></tr>`)).join("");
   const content = `
-    <section class="page-hero"><div class="shell"><p class="eyebrow">베트남 전역 골프</p><h1>베트남 골프장 안내</h1><p>호치민·하노이·다낭·나트랑·달랏·푸꾸옥 골프장 ${courses.length}곳을 지역별로 모았습니다. 골프장마다 가장 가까운 공항에서 차로 얼마나 걸리는지 함께 적었습니다.</p><button class="button js-consult" type="button" data-interest="베트남 골프장 추천 상담">골프장 추천받기</button></div></section>
+    <section class="page-hero"><div class="shell"><p class="eyebrow">베트남 전역 골프</p><h1>베트남 골프장 안내</h1><p>호치민·판티엣·하노이·하이퐁·하롱·다낭·나트랑·달랏·푸꾸옥 골프장 ${courses.length}곳을 지역별로 모았습니다. 골프장마다 가장 가까운 공항에서 차로 얼마나 걸리는지 함께 적었습니다.</p><button class="button js-consult" type="button" data-interest="베트남 골프장 추천 상담">골프장 추천받기</button></div></section>
     <section class="section shell">
       <div class="filter-bar" role="group" aria-label="골프장 지역 필터">
         <button class="filter-button is-active" type="button" data-filter="all">전체 ${courses.length}</button>
@@ -373,8 +373,8 @@ function golfIndexPage() {
     itemListElement: courses.map((course, index) => ({ "@type": "ListItem", position: index + 1, url: `${site.siteUrl}/golf/${course.slug}.html`, name: course.name })),
   };
   return layout({
-    title: "베트남 골프장 안내: 호치민·하노이·다낭·나트랑·달랏·푸꾸옥",
-    description: `베트남 골프장 ${courses.length}곳을 지역별로 비교하세요. 호치민·하노이·다낭·나트랑·달랏·푸꾸옥 골프장과 공항에서 걸리는 차량 시간을 한국어로 안내하고 바로 상담합니다.`,
+    title: `베트남 골프장 ${courses.length}곳 안내: 호치민·하노이·다낭·하롱·나트랑·푸꾸옥`,
+    description: `베트남 골프장 ${courses.length}곳을 지역별로 비교하세요. 호치민·판티엣·하노이·하이퐁·하롱·다낭·나트랑·달랏·푸꾸옥 골프장과 공항에서 걸리는 차량 시간을 한국어로 안내하고 바로 상담합니다.`,
     pathname: "/golf",
     active: "golf",
     content,
@@ -395,7 +395,7 @@ function courseGuideContent(course, guide) {
     <h2 id="course-guide-title">${escapeHtml(course.shortName)} 예약 전에 알아둘 질문</h2>
     ${courseFaqs(course).map(([q, a]) => `<section><h3>${escapeHtml(q)}</h3><p>${escapeHtml(a)}</p></section>`).join("")}
     <h3>같은 조건으로 견적을 받으려면</h3><p>이용일·인원·홀 수·희망 티타임을 먼저 맞추고, 그린피·캐디·카트·팁·식사·차량·대여 장비·세금과 취소 조건을 나눠 확인하세요. 문의 접수는 예약 확정이나 최종 요금 안내가 아닙니다.</p>
-    <h3>예약 준비에 이어서 읽기</h3><ul>${related}</ul><p><a href="/services/vehicle.html">골프장 왕복 차량 상담</a> · <a href="/regions/${areaOf(course).board}.html">${escapeHtml(areaOf(course).name)} 골프 글 모음</a> · <a href="/golf#airport-times">공항→골프장 시간표</a></p>
+    <h3>예약 준비에 이어서 읽기</h3><ul>${related}</ul><p><a href="/services/vehicle.html">골프장 왕복 차량 상담</a> · ${areaOf(course).board ? `<a href="/regions/${areaOf(course).board}.html">${escapeHtml(areaOf(course).name)} 골프 글 모음</a>` : `<a href="/regions">지역별 골프 글</a>`} · <a href="/golf#airport-times">공항→골프장 시간표</a></p>
     <aside class="course-sources" aria-label="공식 출처와 확인 범위"><h3>공식 출처와 확인 범위</h3><p>자료 확인: <time datetime="${guide.checkedAt}">${guide.checkedAt}</time></p><ul>${guide.sources.map(([title, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a></li>`).join("")}</ul><p>${escapeHtml(guide.sourceNote || "공식 소개의 명칭·코스 구성만 대조했습니다. 티타임·요금·당일 운영·교통·사진의 최신 상태는 확인 범위에 포함되지 않습니다.")}</p><a href="/source-policy.html">정보 출처 원칙</a></aside>
   </section>`;
 }
@@ -405,7 +405,7 @@ function courseDetailPage(course) {
   const content = `
     <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf">베트남 골프장</a><span>›</span><a href="/golf#area-${course.area}">${escapeHtml(areaOf(course).name)}</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
     <section class="detail-hero shell">
-      <div class="detail-media">${courseVisual(course, "course-plate-detail", "eager")}</div>
+      <div class="detail-media">${courseVisual(course, "course-plate-detail", "eager")}${course.gallery?.length ? `<div class="detail-gallery" aria-label="${escapeHtml(course.name)} 사진">${course.gallery.map((file, index) => `<a href="/assets/images/${file}" target="_blank" rel="noopener"><img src="/assets/images/${file}" width="1200" height="800" loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 코스 사진 ${index + 2}"></a>`).join("")}</div>` : ""}</div>
       <div class="detail-summary"><p class="eyebrow">${course.region} 골프장</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="fact-list"><div><dt>지역</dt><dd>${course.location}</dd></div><div><dt>규모</dt><dd>${course.holes}</dd></div><div><dt>공항</dt><dd>${escapeHtml(course.airport || areaOf(course).airport)}에서 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (약 ${escapeHtml(course.driveKm)})` : ""}</dd></div><div><dt>이동</dt><dd>${course.access}</dd></div></dl><p class="drive-note">공항 시간은 평소 교통 기준입니다. 출퇴근·주말·우천 시 더 걸릴 수 있습니다.</p><button class="button button-block js-consult" type="button" data-interest="${course.name} 상담">이 골프장 상담하기</button><small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div>
     </section>
     <section class="section shell detail-content">
@@ -457,8 +457,8 @@ function courseDetailPage(course) {
 }
 
 const regionBoards = [
-  { key: "hochiminh", name: "호치민", lead: "호치민 시내와 동나이·빈즈엉·롱안·붕따우·호트람 골프장 예약, 일정, 이동 글을 모았습니다.", words: ["호치민", "롱탄", "송베", "동나이", "빈즈엉", "붕따우", "호트람", "탄손넛", "투득", "트윈도브", "롱안", "떠이닌", "에메랄드", "정산", "하모니", "블러프스", "레만", "웨스트레이크", "로얄롱안"] },
-  { key: "hanoi", name: "하노이", lead: "하노이와 근교 골프장 예약, 단체 조편성, 공항·숙소 차량 연결 글을 모았습니다.", words: ["하노이", "몬타나", "다이라이", "땀다오", "킹스아일랜드", "탄라인", "롱비엔", "스카이레이크", "반찌", "땀다오", "탐다오", "하롱"] },
+  { key: "hochiminh", name: "호치민", lead: "호치민 시내와 동나이·빈즈엉·롱안·붕따우·호트람 골프장 예약, 일정, 이동 글을 모았습니다.", words: ["호치민", "롱탄", "송베", "동나이", "빈즈엉", "붕따우", "호트람", "탄손넛", "투득", "트윈도브", "롱안", "떠이닌", "에메랄드", "정산", "하모니", "블러프스", "레만", "웨스트레이크", "로얄롱안", "판티엣", "무이네", "쩌우득"] },
+  { key: "hanoi", name: "하노이", lead: "하노이와 근교 골프장 예약, 단체 조편성, 공항·숙소 차량 연결 글을 모았습니다.", words: ["하노이", "하이퐁", "하롱", "도선", "찌린", "속선", "호아빈", "몬타나", "다이라이", "땀다오", "킹스아일랜드", "탄라인", "롱비엔", "스카이레이크", "반찌", "땀다오", "탐다오", "하롱"] },
   { key: "danang", name: "다낭·호이안", lead: "다낭·호이안 골프장 예약과 티오프 확인, 가족·단체 일정 글을 모았습니다.", words: ["다낭", "호이안", "호이아나", "몽고메리", "바나힐"] },
   { key: "nhatrang", name: "나트랑", lead: "나트랑·캄란 리조트 골프 예약과 일정 글을 모았습니다.", words: ["나트랑", "캄란"] },
   { key: "phuquoc", name: "푸꾸옥", lead: "푸꾸옥 골프 예약, 항공 도착과 티오프 연결, 포함 항목 확인 글을 모았습니다.", words: ["푸꾸옥"] },

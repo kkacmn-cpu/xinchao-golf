@@ -115,7 +115,7 @@ h3 { font-size: 1.3rem; }
 .card-body > p:not(.english-name) { min-height: 78px; color: #59665f; font-size: .9rem; }
 .card-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; border-top: 1px solid var(--line); }
 
-.region-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; }
+.region-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
 .region-card { min-height: 260px; display: flex; flex-direction: column; align-items: flex-start; padding: 24px; border: 1px solid #dcded9; border-radius: var(--radius); background: white; cursor: pointer; text-align: left; }
 .region-card:hover { border-color: var(--green); }
 .region-card.primary { background: var(--green); color: white; }
@@ -401,9 +401,13 @@ h3 { font-size: 1.3rem; }
 .course-plate[data-area="danang"]{background:linear-gradient(150deg,#155e75,#0c3f50 65%,#072a36)}
 .course-plate[data-area="nhatrang"]{background:linear-gradient(150deg,#1e5aa8,#123b73 65%,#0a254a)}
 .course-plate[data-area="dalat"]{background:linear-gradient(150deg,#4b5d2a,#2f3b19 65%,#1d250f)}
+.course-plate[data-area="phanthiet"]{background:linear-gradient(150deg,#b4541a,#7a3610 65%,#4a1f08)}
+.course-plate[data-area="haiphong"]{background:linear-gradient(150deg,#3f4f8a,#283463 65%,#171f3d)}
 .course-plate[data-area="phuquoc"]{background:linear-gradient(150deg,#9a5b12,#6b3d0a 65%,#422505)}
 .course-plate-detail{aspect-ratio:1.25;border-radius:24px;padding:34px}
 .course-plate-detail strong{font-size:2rem}
+.detail-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.detail-gallery img{width:100%;aspect-ratio:1.5;object-fit:cover;border-radius:12px;display:block}
 .drive-note{margin:-14px 0 20px;color:var(--muted);font-size:.8rem}
 .area-section{margin-bottom:56px;scroll-margin-top:90px}
 .area-section[hidden]{display:none}

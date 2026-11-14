@@ -311,5 +311,405 @@ export const courseGuides = {
       ["빈펄 푸꾸옥은 몇 홀인가요?", "빈펄 골프 푸꾸옥은 27홀로 운영됩니다. 18홀로 적은 오래된 자료도 있으니 예약할 때 실제 배정 코스와 이용 홀 수를 확정서에서 확인하세요."]
     ],
     related: ["vinpearl-golf-phu-quoc-booking-checklist.html", "guide/vinpearl-phu-quoc-arrival-day-3pm-tee-window.html"]
+  },
+  "novaworld-phan-thiet-golf": {
+    "checkedAt": "2026-11-14",
+    "sources": [
+      [
+        "노바월드 판티엣 공식 사이트",
+        "https://novaworldphanthiet.com.vn/"
+      ]
+    ],
+    "faqs": [
+      [
+        "노바월드 판티엣 오션 코스와 가든 코스는 어떻게 다른가요?",
+        "두 코스 모두 그렉 노먼 설계의 18홀 파72입니다. 오션 코스가 먼저 2021년에 열렸고 뒤쪽 티 기준 약 7,400야드로 더 길며, 가든 코스는 2022년에 열렸고 약 7,100야드입니다. 오션 코스는 2022년 베트남 최우수 신규 골프장 상을 받았습니다."
+      ],
+      [
+        "노바월드 판티엣 판티엣 공항으로 바로 갈 수 있나요?",
+        "아직은 안 됩니다. 판티엣 공항 민간 터미널은 2026년 4월에 착공했고 여객 운항 개시일은 정해지지 않았습니다. 현재는 호치민 떤선녓 공항에 내려 고속도로로 이동하는 방법이 일반적입니다."
+      ]
+    ],
+    "related": [
+      "hochiminh-golf-rental-car-guide.html",
+      "guide/multi-city-transfer-day-plan.html"
+    ]
+  },
+  "sea-links-golf": {
+    "checkedAt": "2026-11-14",
+    "sources": [
+      [
+        "Sea Links 공식 골프 안내",
+        "https://www.sealinkscity.com/golf/"
+      ]
+    ],
+    "faqs": [
+      [
+        "씨링크스 골프는 어떤 코스인가요?",
+        "골프플랜의 로널드 프림이 설계한 18홀 파72 코스로, 바다를 내려다보는 언덕 위에 있어 대부분 홀에서 바다가 보입니다. 바람의 영향을 많이 받는 링크스 스타일 코스로 소개됩니다."
+      ],
+      [
+        "씨링크스 골프장 안에 숙소가 있나요?",
+        "같은 씨링크스 시티 단지 안에 씨링크스 비치 호텔, 씨링크스 빌라, 오션 비스타 아파트 등이 있어 숙박과 라운드를 한곳에서 해결할 수 있습니다. 판티엣 시내와 무이네 사이에 있습니다."
+      ]
+    ],
+    "related": [
+      "hochiminh-golf-rental-car-guide.html",
+      "guide/multi-city-transfer-day-plan.html"
+    ]
+  },
+  "sonadezi-chau-duc-golf": {
+    "checkedAt": "2026-11-14",
+    "sources": [
+      [
+        "Chau Duc Golf Course 공식 사이트",
+        "https://chauducgolfcourse.com.vn/"
+      ]
+    ],
+    "faqs": [
+      [
+        "쩌우득CC 36홀 골프장인가요?",
+        "계획은 리조트 코스와 토너먼트 코스를 합한 36홀이지만, 공식 사이트에는 현재 A·B 9홀씩 18홀로 안내돼 있습니다. 2023년 11월 18일 정식 개장했고 그 전에 시범 운영을 했습니다."
+      ],
+      [
+        "쩌우득CC 붕따우 시내에서 가까운가요?",
+        "붕따우 해변이 아니라 내륙 쩌우득 지역의 산업·도시 단지 안에 있습니다. 호치민에서 붕따우로 가는 길 중간쯤이라 호치민 출발 당일 라운드로도 다녀올 수 있습니다."
+      ]
+    ],
+    "related": [
+      "hochiminh-golf-rental-car-guide.html",
+      "hochiminh-golf-departure-time-checklist.html"
+    ]
+  },
+  "anara-binh-tien-golf": {
+    "checkedAt": "2026-11-14",
+    "sources": [
+      [
+        "ANARA Golf Club 공식 안내",
+        "https://anarabinhtien.com/anara-golf-club/"
+      ]
+    ],
+    "faqs": [
+      [
+        "나라 빈띠엔과 아나라 빈띠엔은 같은 곳인가요?",
+        "같은 곳입니다. 2022년 Nara Binh Tien이라는 이름으로 문을 열었고 2023년 10월 ANARA Binh Tien Golf Club으로 이름을 바꿨습니다. 예약 사이트에 옛 이름이 남아 있는 경우가 있으니 주의하세요."
+      ],
+      [
+        "아나라 빈띠엔 나트랑 시내에서 가깝나요?",
+        "아닙니다. 골프장은 나트랑이 아니라 깜란 공항 남쪽 옛 닌투언 지역 해안에 있습니다. 깜란 공항에서 약 45km라 공항에서 바로 가기 좋고, 나트랑 시내에서는 이동 시간이 더 걸립니다."
+      ]
+    ],
+    "related": [
+      "guide/nha-trang-golf-stay-area-cam-ranh-city-island.html",
+      "guide/cam-ranh-airport-kn-golf-nha-trang-route-plan.html"
+    ]
+  },
+  "diamond-bay-golf": {
+    "checkedAt": "2026-11-14",
+    "sources": [
+      [
+        "Diamond Bay Golf & Villas 공식 사이트",
+        "https://diamondbaygolfvillas.com/"
+      ]
+    ],
+    "faqs": [
+      [
+        "다이아몬드베이 골프는 누가 설계했나요?",
+        "공식 사이트에 미국 설계가 앤디 다이(Andy Dye)의 작품으로 나와 있습니다. 바다를 끼고 있는 18홀 챔피언십 코스이며, 닉 팔도 설계로 잘못 소개되는 경우가 있으니 주의하세요."
+      ],
+      [
+        "다이아몬드베이 공항에서 가까운가요?",
+        "나트랑 시내보다 남쪽, 깜란 공항 방향에 있어 공항에서 차로 30분 안팎이면 닿는 편입니다. 시내 호텔보다 공항에서 바로 가기 좋은 위치입니다."
+      ]
+    ],
+    "related": [
+      "guide/nha-trang-golf-stay-area-cam-ranh-city-island.html",
+      "guide/cam-ranh-airport-kn-golf-nha-trang-route-plan.html"
+    ]
+  },
+  "eschuri-vung-bau-golf": {
+    "checkedAt": "2026-11-14",
+    "sources": [
+      [
+        "Eschuri Vung Bau 공식 사이트",
+        "https://eschurivungbau.com.vn/en"
+      ]
+    ],
+    "faqs": [
+      [
+        "에스츄리 붕바우 야간 라운드가 가능한가요?",
+        "가능합니다. 공식 사이트는 조명 시설을 갖춘 야간 골프를 이 골프장의 특징으로 소개합니다. 바닷가 코스라 해 질 녘 일몰을 보며 치는 라운드도 인기입니다."
+      ],
+      [
+        "에스츄리 붕바우 썬그룹 리조트 숙박객 혜택이 있나요?",
+        "공식 사이트에 푸꾸옥의 썬그룹 계열 리조트에 묵는 손님을 위한 Stay & Play 패키지가 안내돼 있습니다. 조건은 시기마다 바뀌니 예약 전에 확인하세요."
+      ]
+    ],
+    "related": [
+      "guide/phu-quoc-golf-group-flight-stay-plan.html",
+      "guide/vinpearl-phu-quoc-arrival-day-3pm-tee-window.html"
+    ]
+  },
+  "dragon-golf-links": {
+    "checkedAt": "2026-11-14",
+    "sources": [
+      [
+        "Dragon Golf Links 공식 사이트",
+        "https://dragongolflinks.vn/"
+      ]
+    ],
+    "faqs": [
+      [
+        "드래곤 골프링크스 27홀이 모두 열려 있나요?",
+        "그렇습니다. 2023년 1단계로 문을 연 뒤 2단계 공사를 마치고 2025년 8월 23일 27홀 완공 행사를 열었습니다. 9홀씩 세 코스를 조합해 18홀을 칩니다."
+      ],
+      [
+        "드래곤 골프링크스 공항과 하롱에서 얼마나 먼가요?",
+        "공식 사이트에 깟비 국제공항에서 27km, 하롱 시내에서 60km, 하노이에서 123km로 나와 있습니다. 하이퐁 도착 당일 라운드나 하롱 일정과 묶기에 좋은 위치입니다."
+      ]
+    ],
+    "related": [
+      "guide/vinpearl-golf-hai-phong-2026-price-check.html",
+      "guide/multi-city-transfer-day-plan.html"
+    ]
+  },
+  "ruby-tree-golf": {
+    "checkedAt": "2026-11-14",
+    "sources": [
+      [
+        "Ruby Tree Golf Resort 공식 사이트",
+        "https://rubytreegolf.vn/"
+      ]
+    ],
+    "faqs": [
+      [
+        "루비트리 도선 시사이드 골프와 같은 곳인가요?",
+        "같은 곳입니다. 예전에는 Do Son Seaside Golf Resort라는 이름이었고 BRG 그룹이 인수한 뒤 Ruby Tree Golf Resort로 바뀌었습니다. 같은 도선 지역의 드래곤 골프 링크스와는 다른 골프장입니다."
+      ],
+      [
+        "루비트리 코스는 어떤가요?",
+        "공식 사이트 기준 18홀 파72, 전장 6,836m입니다. 바다를 앞에 두고 산을 등진 해변 코스로, 홀을 따라 자연 워터해저드가 이어집니다. 하이퐁 시내에서 약 15분 거리입니다."
+      ]
+    ],
+    "related": [
+      "guide/vinpearl-golf-hai-phong-2026-price-check.html",
+      "guide/multi-city-transfer-day-plan.html"
+    ]
+  },
+  "sono-felice-country-club": {
+    "checkedAt": "2026-11-14",
+    "sources": [
+      [
+        "Sono Felice CC 공식 위치 안내",
+        "https://www.sonofelicecchp.com/content/about_location"
+      ]
+    ],
+    "faqs": [
+      [
+        "소노펠리체 송지아, 소노벨과 같은 골프장인가요?",
+        "같은 곳입니다. 송지아 골프 리조트로 알려졌다가 한국 소노 계열이 맡으며 소노벨 하이퐁, 지금은 소노펠리체 CC 하이퐁이라는 이름을 씁니다. 위치는 하롱이 아니라 하이퐁 투이응우옌입니다."
+      ],
+      [
+        "소노펠리체 공항에서 얼마나 걸리나요?",
+        "공식 안내에 깟비 공항에서 15km, 차로 약 35분으로 나와 있습니다. 하노이에서는 약 100km로 고속도로 이용 시 1시간 40분 정도 걸립니다. 하롱베이 관광과 함께 묶기 좋습니다."
+      ]
+    ],
+    "related": [
+      "guide/vinpearl-golf-hai-phong-2026-price-check.html",
+      "guide/multi-city-transfer-day-plan.html"
+    ]
+  },
+  "tuan-chau-golf": {
+    "checkedAt": "2026-11-14",
+    "sources": [
+      [
+        "Tuan Chau Golf Resort 공식 사이트",
+        "https://tuanchaugolfresort.vn/"
+      ]
+    ],
+    "faqs": [
+      [
+        "뚜언쩌우 야간 골프가 되나요?",
+        "됩니다. 모든 홀에 조명이 설치돼 있어 늦은 오후 티오프나 야간 라운드가 가능합니다. 하롱베이 일정 중 낮 관광을 하고 저녁에 치는 방식도 가능합니다."
+      ],
+      [
+        "뚜언쩌우 코스 규모는 어떤가요?",
+        "공식 사이트 기준 145ha가 넘는 부지에 18홀 파72, 7,338야드입니다. 퍼시픽 코스트 디자인이 하롱베이 바다 풍경을 살려 설계했고 국내외 대회를 열 수 있는 규모라고 소개합니다."
+      ]
+    ],
+    "related": [
+      "guide/vinpearl-golf-hai-phong-2026-price-check.html",
+      "guide/multi-city-transfer-day-plan.html"
+    ]
+  },
+  "flc-ha-long-golf": {
+    "checkedAt": "2026-11-14",
+    "sourceNote": "골프장 전용 사이트가 열리지 않아 운영사 FLC 그룹의 프로젝트 안내를 대조했습니다. 티타임·요금·당일 운영은 확인 범위에 포함되지 않습니다.",
+    "sources": [
+      [
+        "FLC 그룹 하롱 프로젝트 안내",
+        "https://www.flc.vn/du-an/quan-the-du-lich-nghi-duong-sinh-thai-flc-ha-long-quang-ninh/"
+      ]
+    ],
+    "faqs": [
+      [
+        "FLC 하롱 골프는 지금도 운영하나요?",
+        "운영 중입니다. 2026년에도 FLC Ha Long 이름을 그대로 쓰고 있으며, 2026년 8월에는 세계 아마추어 골프 선수권(WAGC) 측과 협약식을 이곳에서 열었습니다. 이름이 바뀌었다는 공식 발표는 없습니다."
+      ],
+      [
+        "FLC 하롱 코스 특징은 무엇인가요?",
+        "하롱 시내 언덕에 있어 많은 홀에서 하롱베이 바다가 보입니다. 슈미트-컬리가 설계한 18홀로, 같은 단지에 FLC 그랜드 호텔 하롱과 빌라가 있어 숙박과 묶기 쉽습니다."
+      ]
+    ],
+    "related": [
+      "guide/vinpearl-golf-hai-phong-2026-price-check.html",
+      "guide/multi-city-transfer-day-plan.html"
+    ]
+  },
+  "chi-linh-golf": {
+    "checkedAt": "2026-11-14",
+    "sourceNote": "골프장 공식 사이트가 응답하지 않아 골프장 정보 사이트로 코스 구성과 위치만 대조했습니다. 티타임·요금·당일 운영은 확인 범위에 포함되지 않습니다.",
+    "sources": [
+      [
+        "Chi Linh Star Golf 골프장 정보(where2golf)",
+        "https://www.where2golf.com/vietnam/chi-linh-star-golf-country-club"
+      ]
+    ],
+    "faqs": [
+      [
+        "찌린 스타 몇 홀인가요?",
+        "힐(A)·밸리(B)·레이크(C) 9홀 세 코스, 모두 27홀로 운영됩니다. 2003년 9홀로 시작해 차례로 늘렸고, 36홀로 적은 자료도 있지만 확인된 운영 홀 수는 27홀입니다."
+      ],
+      [
+        "찌린 스타 하노이와 하롱 중 어디서 가기 좋나요?",
+        "하노이에서 하롱으로 가는 길 중간의 찌린에 있어 하노이·하이퐁·하롱 어디서든 1~2시간대로 닿습니다. 하롱 이동 일정 중간에 들르는 라운드로 많이 씁니다."
+      ]
+    ],
+    "related": [
+      "guide/hanoi-golf-group-course-transport-plan.html",
+      "guide/multi-city-transfer-day-plan.html"
+    ]
+  },
+  "hanoi-golf-club": {
+    "checkedAt": "2026-11-14",
+    "sources": [
+      [
+        "Hanoi Golf Club 공식 사이트",
+        "https://hanoigolfclub.com/"
+      ]
+    ],
+    "faqs": [
+      [
+        "하노이GC 공항에서 얼마나 가깝나요?",
+        "공식 사이트에 노이바이 공항에서 약 15분, 하노이 시내에서 차로 약 40분으로 나와 있습니다. 하노이 도착일이나 출국일에 라운드를 넣기 좋은 위치입니다."
+      ],
+      [
+        "하노이GC 어떤 점이 특별한가요?",
+        "일본인이 건설하고 관리하는 골프장으로 소개되며, 108ha 산자락에 27홀을 갖춰 하노이에서 드문 27홀 코스입니다. 설계는 일본의 후지와라 스스무로 알려져 있습니다."
+      ]
+    ],
+    "related": [
+      "guide/hanoi-golf-group-course-transport-plan.html",
+      "guide/arrival-day-airport-hotel-golfbag-plan.html"
+    ]
+  },
+  "legend-hill-country-club": {
+    "checkedAt": "2026-11-14",
+    "sourceNote": "골프장 공식 사이트를 확인하지 못해 베트남 골프 매체의 소개로 설계·규모만 대조했습니다. 티타임·요금·당일 운영은 확인 범위에 포함되지 않습니다.",
+    "sources": [
+      [
+        "Vietnam Golf Magazine 레전드힐 소개",
+        "https://vietnamgolfmagazine.net/en/brg-legend-hills-golf-resort-18-holes"
+      ]
+    ],
+    "faqs": [
+      [
+        "BRG 레전드힐과 같은 곳인가요?",
+        "같은 곳입니다. 2015년 BRG Legend Hill Golf Resort로 문을 열었고, 최근에는 Legend Hill Country Club 이름을 씁니다. 닌빈에 있는 레전드 밸리와는 다른 골프장입니다."
+      ],
+      [
+        "레전드힐 코스 특징은 무엇인가요?",
+        "니클라우스 디자인의 베트남 첫 작품으로, 한 홀에 그린을 두 개 둔 트윈 그린 방식을 처음 도입한 코스입니다. 속선 언덕 지대에 있어 노이바이 공항과 가깝습니다."
+      ]
+    ],
+    "related": [
+      "guide/hanoi-golf-group-course-transport-plan.html",
+      "guide/arrival-day-airport-hotel-golfbag-plan.html"
+    ]
+  },
+  "heron-lake-golf": {
+    "checkedAt": "2026-11-14",
+    "sourceNote": "골프장 공식 사이트를 확인하지 못해 골프장 정보 사이트로 코스 구성과 위치만 대조했습니다. 티타임·요금·당일 운영은 확인 범위에 포함되지 않습니다.",
+    "sources": [
+      [
+        "Heron Lake 골프장 정보(where2golf)",
+        "https://where2golf.com/vietnam/heron-lake-golf-course-resort"
+      ]
+    ],
+    "faqs": [
+      [
+        "헤론레이크 담박 골프장과 같은 곳인가요?",
+        "같은 곳입니다. 베트남어로는 담박(Đầm Vạc) 호수 이름을 따 Sân golf Đầm Vạc으로도 부릅니다. 호수와 작은 연못이 많은 평지형 18홀 파72 코스입니다."
+      ],
+      [
+        "헤론레이크 하노이에서 당일로 다녀올 수 있나요?",
+        "하노이 시내에서 약 45km, 노이바이 공항에서는 30km 안팎이라 당일 라운드가 충분히 가능합니다. 2025년 행정 통합 뒤 주소는 푸토성으로 바뀌었습니다."
+      ]
+    ],
+    "related": [
+      "guide/hanoi-golf-group-course-transport-plan.html",
+      "guide/arrival-day-airport-hotel-golfbag-plan.html"
+    ]
+  },
+  "hilltop-valley-golf": {
+    "checkedAt": "2026-11-14",
+    "sources": [
+      [
+        "Hilltop Valley Golf Club 공식 사이트",
+        "https://hilltopvalleygolf.com/"
+      ]
+    ],
+    "faqs": [
+      [
+        "힐탑밸리 코스 난도는 어떤가요?",
+        "설계사 IMG가 매우 언덕이 많은 부지라고 설명할 만큼 고저차가 큰 산악 코스입니다. 공식 사이트도 베트남에서 가장 도전적이고 재미있는 코스로 소개합니다."
+      ],
+      [
+        "힐탑밸리 몇 홀인가요?",
+        "모두 27홀입니다. 첫 18홀은 2019년 9월에 문을 열었고, 세 번째 9홀은 2020년 10월 공사를 마치고 추가로 열었습니다. 운영사는 드래곤 골프 링크스와 같은 Geleximco 계열입니다."
+      ]
+    ],
+    "related": [
+      "guide/hanoi-golf-group-course-transport-plan.html",
+      "guide/multi-city-transfer-day-plan.html"
+    ]
+  },
+  "phoenix-golf-resort": {
+    "checkedAt": "2026-11-14",
+    "sourceNote": "골프장 공식 사이트를 확인하지 못해 2026년 보도자료와 언론 기사로 규모·소유·재단장 내용만 대조했습니다. 티타임·요금·당일 운영은 확인 범위에 포함되지 않습니다.",
+    "sources": [
+      [
+        "피닉스 CV 골프 리조트 2026 보도자료(IAGTO)",
+        "https://iagto.com/press-releases/c53bd1fa-1f3d-4260-97b1-4af1868142a7"
+      ],
+      [
+        "VnEconomy 피닉스 CV 재단장 기사",
+        "https://vneconomy.vn/phoenix-cv-golf-resort-dau-an-tai-dinh-vi-trong-chien-luoc-phat-trien-he-sinh-thai-toan-dien-cua-cv-resort.htm"
+      ]
+    ],
+    "faqs": [
+      [
+        "피닉스 코스가 몇 개인가요?",
+        "피닉스, 드래곤, 챔피언 세 코스로 각 18홀, 모두 54홀입니다. 코스마다 설계자가 다르며 피닉스 코스는 골프플랜의 로널드 프림이 설계했습니다."
+      ],
+      [
+        "피닉스 최근에 바뀐 점이 있나요?",
+        "한국 CV그룹이 Phoenix CV Golf & Resort로 이름을 새로 하고 새 클럽하우스를 열었으며 코스 전체를 개보수했습니다. 2026년 2~3월에는 재개장 기념 대회를 열었습니다."
+      ]
+    ],
+    "related": [
+      "guide/hanoi-golf-group-course-transport-plan.html",
+      "guide/multi-city-transfer-day-plan.html"
+    ]
   }
 };
