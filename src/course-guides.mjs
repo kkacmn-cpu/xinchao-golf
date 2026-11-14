@@ -1,4 +1,17 @@
 // Official-source facts and consultation questions, not live inventory or prices.
+import { golfAreas } from "./site-data.mjs";
+
+// 골프장마다 공통으로 붙는 공항 이동시간 질문(2026-11-14). 시간은 평소 교통 기준 안내값.
+export function courseFaqs(course) {
+  const area = golfAreas.find((item) => item.key === course.area);
+  const airport = course.airport || area.airport;
+  const distance = course.driveKm ? ` 거리는 약 ${course.driveKm}입니다.` : "";
+  const extra = course.driveNote ? ` ${course.driveNote}` : "";
+  return [
+    ...courseGuides[course.slug].faqs,
+    [`${airport}에서 ${course.shortName}까지 얼마나 걸리나요?`, `평소 교통 기준 차량으로 약 ${course.drive} 걸립니다.${distance}${extra} 출퇴근 시간·주말·비 오는 날에는 더 걸릴 수 있으니, 도착일 라운드라면 입국 심사와 짐 찾기 시간까지 더해 티오프를 잡으세요.`],
+  ];
+}
 export const courseGuides = {
   "thu-duc-country-club": {
     checkedAt: "2026-09-26",
@@ -108,5 +121,195 @@ export const courseGuides = {
       ["웨스트레이크를 선택할 때 어떤 동선을 비교하나요?", "공식 소개는 호치민 서부의 Thomson Perrett 설계 코스로 안내합니다. 동부·동나이 방면 코스와 같은 방향으로 취급하지 말고, 출발 숙소와 다음 목적지를 기준으로 왕복·편도 차량 조건을 비교하세요."]
     ],
     related: ["hochiminh-golf-rental-car-guide.html", "hochiminh-golf-departure-time-checklist.html"]
+  },
+  // 2026-11-14 베트남 전역 확장: 기존 가이드 글의 공식 출처와 골프장 공식 사이트 기준.
+  "royal-long-an-golf": {
+    checkedAt: "2026-11-14",
+    sources: [["Royal Long An 공식 사이트", "https://royallongangolfandcountryclub.com/en/home/"], ["Royal Long An 공식 셔틀 안내", "https://royallongangolfandcountryclub.com/en/tien-ich/shuttle-bus/"]],
+    faqs: [
+      ["로얄롱안은 27홀을 모두 칠 수 있나요?", "로얄롱안은 27홀 규모로 소개되지만 개장은 단계적으로 이뤄졌습니다. 예약일에 실제로 운영하는 코스와 이용할 홀 수를 확정서에서 따로 확인하고, 18홀과 27홀 견적을 섞어 비교하지 마세요."],
+      ["로얄롱안 무료 셔틀만 믿고 일정을 짜도 되나요?", "공식 사이트에 호치민 왕복 셔틀 안내가 있지만 출발 시각·탑승 위치·좌석은 날짜마다 다를 수 있습니다. 셔틀 예약이 확정되지 않았다면 티오프에 맞춘 개별 차량을 함께 비교해 두는 편이 안전합니다."]
+    ],
+    related: ["royal-long-an-golf-shuttle-booking-check.html", "guide/royal-long-an-27-hole-hochiminh-day-trip-plan.html"]
+  },
+  "long-bien-golf-course": {
+    checkedAt: "2026-11-14",
+    sources: [["Long Bien Golf Course 공식 사이트", "https://www.longbiengolf.vn"]],
+    faqs: [
+      ["롱비엔 골프장은 하노이 시내에서 가깝나요?", "롱비엔은 하노이 시내 안에 있는 27홀 골프장이라 시내 호텔에서 이동 부담이 적은 편입니다. 다만 출퇴근 시간 다리 구간이 막힐 수 있으니 숙소 주소와 티오프를 함께 보내 차량 시간을 맞추세요."],
+      ["롱비엔 야간 라운드는 아무 날이나 되나요?", "공식 소개에 조명 시설이 있지만 모든 날짜·시간의 야간 티오프를 보장하지는 않습니다. 희망일의 마지막 출발 시간, A·B·C 코스 배정과 귀가 차량을 같은 확정서에서 확인하세요."]
+    ],
+    related: ["guide/long-bien-golf-course-night-round-booking.html", "guide/long-bien-golf-course-price-included-check.html"]
+  },
+  "sky-lake-golf": {
+    checkedAt: "2026-11-14",
+    sources: [["스카이레이크CC 공식 한국어 예약 안내", "https://skylakegolfclub.vn/Kor/Reservation/ReservationGuide.aspx"]],
+    faqs: [
+      ["스카이레이크 Sky 코스와 Lake 코스는 어떻게 다른가요?", "스카이레이크는 Sky 18홀과 Lake 18홀, 두 코스로 운영됩니다. 같은 골프장이라도 배정 코스에 따라 라운드 느낌이 달라지므로 희망 코스를 적고 실제 배정 코스를 확정서에서 확인하세요."],
+      ["스카이레이크 예약은 언제까지 해야 하나요?", "공식 한국어 예약 안내는 마감 시한과 확인 전화 절차를 따로 안내합니다. 출발이 가까울수록 원하는 시간이 없을 수 있으니 날짜·인원·희망 티오프를 미리 정해 문의하세요."]
+    ],
+    related: ["guide/sky-lake-online-booking-48-hour-confirmation-call.html", "guide/hanoi-golf-group-course-transport-plan.html"]
+  },
+  "brg-kings-island": {
+    checkedAt: "2026-11-14",
+    sources: [["킹스아일랜드 공식 플레이 규정", "https://kingsislandgolf.vn/1/277/B-REGULATIONS-OF-GOLF-PLAY"], ["킹스아일랜드 공식 위치·문의", "https://kingsislandgolf.vn/1/34/Lien-he"]],
+    faqs: [
+      ["킹스아일랜드의 세 코스는 어떻게 고르나요?", "킹스아일랜드는 레이크사이드·마운틴뷰·킹스 세 코스, 총 54홀입니다. 호수 건너 코스는 보트로 이동하므로 배정 코스에 따라 체크인 후 출발까지 걸리는 시간이 달라집니다. 희망 코스와 실제 배정을 함께 확인하세요."],
+      ["킹스아일랜드 예약은 며칠 전까지 해야 하나요?", "공식 규정에 예약 가능 기간과 한 조 인원 기준이 있습니다. 단체는 조 수가 늘수록 같은 시간대 확보가 어려우니 날짜·인원·대체 시간을 먼저 정해 문의하세요."]
+    ],
+    related: ["guide/kings-island-booking-window-player-limit-check.html", "guide/hanoi-golf-group-course-transport-plan.html"]
+  },
+  "tam-dao-golf": {
+    checkedAt: "2026-11-14",
+    sources: [["땀다오 공식 예약 규정", "https://tamdaogolf.com/booking-regulations.html"], ["땀다오 공식 소개", "https://tamdaogolf.com/page/gioi-thieu.html"]],
+    faqs: [
+      ["땀다오 골프장은 노이바이 공항에서 바로 갈 수 있나요?", "땀다오는 하노이 시내보다 노이바이 공항 쪽에 가까워 도착일이나 출국일에 라운드를 넣는 일정이 많습니다. 항공 도착 뒤 입국·짐 찾기 시간을 더해 티오프를 잡고, 골프백을 실을 차량을 미리 정하세요."],
+      ["땀다오 여름에는 티오프 시간이 바뀌나요?", "땀다오는 계절에 따라 티오프 시간 변경을 공지한 적이 있습니다. 예전 일정표를 그대로 쓰지 말고 예약일 기준 운영 시간과 확정 티오프를 다시 확인하세요."]
+    ],
+    related: ["tam-dao-golf-booking-rules-tee-time.html", "guide/tam-dao-noi-bai-airport-tee-time-transfer-plan.html"]
+  },
+  "thanh-lanh-valley-golf": {
+    checkedAt: "2026-11-14",
+    sources: [["탄라잉 공식 코스 소개", "https://thanhlanhgolf.com/vi/ve-chung-toi"], ["탄라잉 공식 연락처", "https://thanhlanhgolf.com/vi/lien-he"]],
+    faqs: [
+      ["탄라잉 골프장은 어떤 곳인가요?", "탄라잉 밸리는 하노이 북서쪽 탄라잉 호수 계곡에 있는 18홀 골프장으로, 닉 팔도 설계로 소개됩니다. 산과 호수가 둘러싼 지형이라 하노이 시내 코스와 다른 풍경을 원하는 분들이 많이 찾습니다."],
+      ["탄라잉 차량은 무엇을 기사에게 보내야 하나요?", "비슷한 이름의 장소가 있어 골프장 공식 주소와 지도 핀을 함께 보내야 합니다. 숙소 주소, 인원·골프백 수, 확정 티오프와 라운드 뒤 목적지까지 한 번에 전달하세요."]
+    ],
+    related: ["guide/thanh-lanh-hanoi-day-trip-address-route-check.html", "guide/hanoi-golf-group-course-transport-plan.html"]
+  },
+  "dai-lai-golf": {
+    checkedAt: "2026-11-14",
+    sources: [["다이라이 골프클럽 공식 코스 설명", "https://dailaigolf.com.vn/mo-ta-18-ho-gon.html"], ["다이라이 골프클럽 공식 사이트", "https://dailaigolf.com.vn/"]],
+    faqs: [
+      ["다이라이 골프장은 몇 홀인가요?", "다이라이 골프클럽 공식 코스 설명은 A·B·C 세 구간, 27홀을 안내합니다. 18홀을 칠 때 어느 두 구간이 배정되는지는 예약일에 따라 다르니 확정서에서 확인하세요."],
+      ["다이라이 호수에 골프장이 여러 곳인가요?", "다이라이 호수 주변에는 이름이 비슷한 다른 골프장도 있습니다. 예약서와 차량 목적지에 Dai Lai Golf Club이라는 정확한 이름과 공식 주소를 함께 적어야 엉뚱한 곳으로 가는 일을 막을 수 있습니다."]
+    ],
+    related: ["dai-lai-golf-booking-27-holes.html", "guide/hanoi-golf-group-course-transport-plan.html"]
+  },
+  "montana-golf-course": {
+    checkedAt: "2026-11-14",
+    sources: [["Montaña Golf Course 공식 사이트", "https://montana.grandline.com.vn/"]],
+    faqs: [
+      ["몬타냐 골프장은 지금 몇 홀을 칠 수 있나요?", "몬타냐는 전체 36홀로 계획된 새 골프장이고, 2026년 East 코스 18홀부터 운영을 시작했습니다. 전체 개발 규모와 예약일에 실제로 열리는 코스를 구분해 확인하세요."],
+      ["몬타냐 골프장 위치는 어디인가요?", "공식 예약 안내는 푸토성 틴민을 위치로 표시합니다. 행정구역 통합 전 지명과 섞여 혼동이 생길 수 있으니 차량에는 공식 지도 위치를 보내고, 산길 이동 시간을 넉넉하게 잡으세요."]
+    ],
+    related: ["montana-golf-course-october-booking-check.html", "guide/hanoi-golf-group-course-transport-plan.html"]
+  },
+  "vinpearl-golf-hai-phong": {
+    checkedAt: "2026-11-14",
+    sources: [["Vinpearl Golf Hai Phong 공식 소개", "https://vinpearl.com/en/vinpearl-golf-hai-phong"]],
+    faqs: [
+      ["빈펄 골프 하이퐁은 하노이에서 당일로 갈 수 있나요?", "하노이에서 고속도로로 약 2시간 거리라 당일 왕복도 가능하지만, 이른 티오프라면 하이퐁에서 1박하는 편이 여유롭습니다. 하롱베이 일정과 묶으면 이동을 한 번에 줄일 수 있습니다."],
+      ["빈펄 하이퐁 36홀은 어떻게 나뉘나요?", "빈펄 골프 하이퐁은 두 개의 18홀 코스, 총 36홀로 소개됩니다. 희망 코스를 적어도 배정은 날짜마다 달라질 수 있으니 확정서의 코스명과 티오프를 함께 확인하세요."]
+    ],
+    related: ["guide/vinpearl-golf-hai-phong-2026-price-check.html", "guide/vinpearl-golf-online-request-confirmation-check.html"]
+  },
+  "montgomerie-links-vietnam": {
+    checkedAt: "2026-11-14",
+    sources: [["몽고메리 링크스 공식 오시는 길", "https://www.montgomerielinks.com/how-to-get-here"], ["몽고메리 링크스 공식 클럽 규정", "https://www.montgomerielinks.com/news/club-regulations"]],
+    faqs: [
+      ["몽고메리 링크스는 다낭 도착일에 칠 수 있나요?", "공식 안내는 다낭 공항에서 20분이라고 적고 있지만, 이것은 차량 이동만의 시간입니다. 착륙 뒤 입국 심사, 짐·골프백 찾기, 체크인 시간까지 더해 티오프를 잡아야 도착일 라운드가 무리 없이 진행됩니다."],
+      ["몽고메리 링크스 복장 규정이 있나요?", "공식 클럽 규정에 복장과 플레이 규칙이 안내돼 있습니다. 깃 있는 상의와 골프화 등 기본 규정을 출발 전에 확인하고, 대여 장비가 필요하면 예약할 때 함께 요청하세요."]
+    ],
+    related: ["guide/montgomerie-links-vietnam-tee-time-dress-code-booking.html", "guide/danang-airport-montgomerie-links-arrival-day-plan.html"]
+  },
+  "legend-danang-golf-resort": {
+    checkedAt: "2026-11-14",
+    sources: [["Legend Danang Golf Resort 공식 사이트", "https://dananggolfclub.com"]],
+    faqs: [
+      ["레전드 다낭과 BRG 다낭은 같은 골프장인가요?", "네. 예전 BRG 다낭 골프 리조트가 지금 Legend Danang Golf Resort라는 이름을 쓰고 있습니다. 예전 일정표나 기사 안내에 BRG라는 이름이 남아 있다면 현재 이름과 같은 곳인지 함께 확인하세요."],
+      ["레전드 다낭 노먼 코스와 니클라우스 코스 중 어디를 고르나요?", "그렉 노먼 코스와 잭 니클라우스 코스, 두 개의 18홀이 있습니다. 풍경과 경기 부담을 같은 질문으로 비교해 고르고, 희망 시간에 자리가 없을 때 다른 코스도 괜찮은지 미리 정해 두세요."]
+    ],
+    related: ["guide/danang-legend-norman-nicklaus-course-differences.html", "guide/brg-da-nang-golf-booking-tee-time-check.html"]
+  },
+  "ba-na-hills-golf-club": {
+    checkedAt: "2026-11-14",
+    sources: [["바나힐스 골프클럽 공식 코스 안내", "https://banahillsgolf.com/the-course/"], ["바나힐스 공식 야간 골프 안내", "https://banahillsgolf.com/floodlit-golf/"]],
+    faqs: [
+      ["바나힐스 골프클럽은 야간에도 칠 수 있나요?", "공식 안내에 조명 시설을 갖춘 야간 골프가 소개돼 있습니다. 다만 날짜마다 야간 티오프 운영이 다를 수 있으니 희망일의 마지막 출발 시간과 다낭 시내로 돌아오는 차량을 함께 확인하세요."],
+      ["바나힐스 골프장과 바나힐 관광지는 같은 곳인가요?", "골프장은 바나힐 산기슭에 있고, 케이블카로 올라가는 관광지와는 출입구가 다릅니다. 기사에게 Ba Na Hills Golf Club이라는 정확한 이름으로 목적지를 보내세요."]
+    ],
+    related: ["guide/ba-na-hills-golf-club-night-tee-time-booking.html", "guide/ba-na-hills-october-night-golf-return-transfer-plan.html"]
+  },
+  "hoiana-shores-golf-club": {
+    checkedAt: "2026-11-14",
+    sources: [["호이아나 쇼어스 공식 골프 안내", "https://hoiana.com/golf/"], ["호이아나 쇼어스 공식 예약 페이지", "https://golf.hoiana.com/golf"]],
+    faqs: [
+      ["호이아나 쇼어스 단체 예약은 몇 명까지 온라인으로 되나요?", "공식 온라인 예약에는 한 번에 신청할 수 있는 인원 제한이 있어, 그보다 많은 단체는 따로 문의해야 합니다. 조 수와 희망 티오프 간격을 정해 한 번에 요청하세요."],
+      ["호이아나 쇼어스는 다낭 시내에서 멀지 않나요?", "공식 안내는 다낭 공항에서 차로 45분이라고 적고 있습니다. 다낭 시내 숙소라면 왕복 이동 시간이 길어지므로, 호이안이나 호이아나 리조트 숙박과 묶는 일정도 함께 비교해 보세요."]
+    ],
+    related: ["hoiana-shores-golf-club-booking-guide.html", "guide/hoiana-shores-golf-group-over-eight-booking.html"]
+  },
+  "vinpearl-golf-nam-hoi-an": {
+    checkedAt: "2026-11-14",
+    sources: [["Vinpearl Golf Nam Hoi An 공식 소개", "https://vinpearl.com/en/nam-hoi-an/discovery-and-activies/vinpearl-golf-nam-hoi-an"]],
+    faqs: [
+      ["빈펄 남호이안은 다낭 공항에서 얼마나 먼가요?", "빈펄 공식 안내는 다낭 공항에서 약 30km라고 적고 있으며, 숙소 위치에 따라 차량 시간이 달라집니다. 다낭 시내보다 호이안 남쪽에 가까워 리조트 숙박과 묶는 일정이 편합니다."],
+      ["빈펄 남호이안 티오프는 어떻게 확정하나요?", "온라인 요청을 보낸 것과 확정은 다릅니다. 날짜·인원·홀 수·희망 시간을 보낸 뒤 예약번호와 확정 티오프가 적힌 회신을 받아야 일정표에 넣을 수 있습니다."]
+    ],
+    related: ["guide/vinpearl-nam-hoi-an-tee-time-arrival-check.html", "guide/vinpearl-golf-nam-hoi-an-price-included-check.html"]
+  },
+  "laguna-golf-lang-co": {
+    checkedAt: "2026-11-14",
+    sources: [["라구나 골프 랑꼬 공식 소개", "https://www.lagunalangco.com/golf/"], ["라구나 골프 랑꼬 공식 예약", "https://www.lagunalangco.com/golf/booking/"]],
+    faqs: [
+      ["라구나 랑꼬는 다낭에서 어떻게 가나요?", "다낭에서 하이반 터널을 지나 북쪽으로 약 1시간 거리입니다. 후에 푸바이 공항에서도 비슷한 거리라 다낭과 후에 일정을 잇는 중간 지점으로 많이 씁니다."],
+      ["라구나 랑꼬 예약을 취소하면 언제부터 비용이 생기나요?", "공식 예약 안내는 인원과 취소 시점에 따라 취소 기준을 나눠 둡니다. 결제 전에 취소 기한과 비용이 생기는 시점을 확정서에서 확인하세요."]
+    ],
+    related: ["guide/laguna-lang-co-golf-booking-caddie-cart-check.html", "guide/laguna-lang-co-golf-airport-hue-route-plan.html"]
+  },
+  "kn-golf-links-cam-ranh": {
+    checkedAt: "2026-11-14",
+    sources: [["KN 골프링크스 공식 코스 안내", "https://www.kngolflinks.com/golf-courses"]],
+    faqs: [
+      ["KN 골프링크스 27홀은 어떻게 나뉘나요?", "KN 골프링크스는 그렉 노먼이 설계한 링크스 18홀과 오아시스 9홀, 총 27홀로 소개됩니다. 18홀만 칠지, 9홀을 더할지 정해 같은 조건으로 견적을 받으세요."],
+      ["KN 골프링크스는 깜란 공항 도착일에 칠 수 있나요?", "공항 바로 옆이라 차량 이동은 10~15분 안팎이지만, 입국 심사와 골프백 수령 시간을 더해야 합니다. 항공 지연을 생각해 대체 티오프나 다음 날 라운드도 함께 정해 두세요."]
+    ],
+    related: ["guide/kn-golf-links-cam-ranh-18-27-hole-booking-check.html", "guide/cam-ranh-airport-kn-golf-nha-trang-route-plan.html"]
+  },
+  "vinpearl-golf-nha-trang": {
+    checkedAt: "2026-11-14",
+    sources: [["Vinpearl Golf Nha Trang 공식 코스 안내", "https://vinpearl.com/en/vinpearl-golf-nha-trang"], ["Vinpearl Nha Trang 공식 섬 이동 안내", "https://vinpearl.com/en/how-to-get-to-vinpearl-nha-trang"]],
+    faqs: [
+      ["빈펄 골프 나트랑은 섬으로 어떻게 들어가나요?", "골프장은 나트랑 앞바다 혼째섬에 있어 선착장에서 케이블카나 배로 건너갑니다. 케이블카 점검이나 날씨가 나쁜 날에는 배로 바뀔 수 있으니 섬 이동 수단과 첫 출발 시간을 미리 확인하세요."],
+      ["빈펄 나트랑 단체는 이동을 어떻게 맞추나요?", "단체는 본토 차량, 섬 이동, 섬 안 셔틀을 한 번에 맞춰야 합니다. 조별 티오프 간격과 귀가 시간을 정한 뒤 선착장 집결 시간을 역산해 일행 모두에게 같은 안내를 보내세요."]
+    ],
+    related: ["vinpearl-golf-nha-trang-booking-guide.html", "guide/nha-trang-island-golf-group-transfer-plan.html"]
+  },
+  "dalat-palace-golf-club": {
+    checkedAt: "2026-11-14",
+    sources: [["Dalat Palace Golf Club 공식 사이트", "https://www.dalatpalacegolf.com"]],
+    faqs: [
+      ["달랏 팰리스 골프장은 시내에서 가깝나요?", "달랏 팰리스는 달랏 시내 쑤언흐엉 호수 북쪽 언덕에 있어 시내 숙소에서 차로 5분 안팎입니다. 공항에서는 약 30km 떨어져 있으니 도착일보다 둘째 날 라운드가 여유롭습니다."],
+      ["달랏 팰리스 단체는 조 편성을 어떻게 하나요?", "8명이 넘으면 조가 나뉘어 출발 시간이 달라집니다. 조별 명단과 티오프 간격을 먼저 확정하고, 차량은 첫 조 출발 시간에 맞춰 배차하세요."]
+    ],
+    related: ["guide/dalat-palace-golf-group-flight-transport-plan.html", "guide/dalat-golf-2-night-3-day-two-course-schedule.html"]
+  },
+  "sam-tuyen-lam-golf": {
+    checkedAt: "2026-11-14",
+    sources: [["SAM 뚜옌럼 골프클럽 공식 소개", "https://samtuyenlamgolf.com.vn/about-us/?lang=en"]],
+    faqs: [
+      ["SAM 뚜옌럼은 공항과 시내 중 어디에 가깝나요?", "공식 소개는 골프장이 리엔크엉 공항 북쪽 약 15km, 달랏 시내 남쪽 약 15km에 있다고 안내합니다. 공항과 시내 사이에 있어 도착일이나 출국일 동선에 넣기 좋습니다."],
+      ["SAM 뚜옌럼을 기사에게 어떻게 알려주나요?", "뚜옌럼 호수 관광지구 안에 여러 시설이 있어 달랏 골프장이라고만 하면 혼동될 수 있습니다. SAM Tuyen Lam Golf라는 정확한 이름과 지도 위치를 함께 보내세요."]
+    ],
+    related: ["guide/lien-khuong-airport-sam-tuyen-lam-golf-route-plan.html", "guide/dalat-golf-2-night-3-day-two-course-schedule.html"]
+  },
+  "dalat-at-1200": {
+    checkedAt: "2026-11-14",
+    sources: [["The Dalat at 1200 공식 예약 안내", "https://www.dalat1200.com/vi/booking/"]],
+    faqs: [
+      ["달랏 1200은 공항에서 얼마나 가깝나요?", "달랏 1200은 리엔크엉 공항에서 가장 가까운 달랏 골프장으로, 차량 15~25분 안팎입니다. 달랏 시내 숙소에서는 오히려 더 멀 수 있으니 숙소 위치와 함께 동선을 정하세요."],
+      ["달랏 1200 예약 신청에는 무엇을 적나요?", "공식 예약 안내에는 플레이 날짜와 시간, 인원, 홀 수와 연락처를 적는 신청 양식이 있습니다. 신청과 확정은 다르니 확정 회신에서 티오프와 포함 항목을 다시 확인하세요."]
+    ],
+    related: ["dalat-1200-invitation-booking-guide.html", "guide/dalat-golf-2-night-3-day-two-course-schedule.html"]
+  },
+  "vinpearl-golf-phu-quoc": {
+    checkedAt: "2026-11-14",
+    sources: [["빈펄 골프 푸꾸옥 공식 소개", "https://vinpearl.com/en/vinpearl-golf-phu-quoc"]],
+    faqs: [
+      ["푸꾸옥 도착 당일에 빈펄 골프를 칠 수 있나요?", "공항에서 섬 북쪽 골프장까지 차량 35~50분이 걸립니다. 오전 도착 항공이라면 오후 티오프를 검토할 수 있지만, 항공 지연과 체크인 시간을 생각해 대체 시간도 함께 정해 두세요."],
+      ["빈펄 푸꾸옥은 몇 홀인가요?", "빈펄 골프 푸꾸옥은 27홀로 운영됩니다. 18홀로 적은 오래된 자료도 있으니 예약할 때 실제 배정 코스와 이용 홀 수를 확정서에서 확인하세요."]
+    ],
+    related: ["vinpearl-golf-phu-quoc-booking-checklist.html", "guide/vinpearl-phu-quoc-arrival-day-3pm-tee-window.html"]
   }
 };

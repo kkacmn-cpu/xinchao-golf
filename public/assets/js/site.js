@@ -32,20 +32,24 @@
     const date = String(data.get("date") || "");
     const people = Number(data.get("people"));
     const purpose = String(data.get("purpose") || "");
-    if (!homePrepForm.reportValidity() || !["호치민", "하노이", "다낭", "나트랑", "푸꾸옥"].includes(region) || !Number.isInteger(people) || people < 1 || people > 40) return;
+    const regionOptions = [...homePrepForm.querySelectorAll('select[name="region"] option')].map((option) => option.value).filter(Boolean);
+    if (!homePrepForm.reportValidity() || !regionOptions.includes(region) || !Number.isInteger(people) || people < 1 || people > 40) return;
     document.querySelector("#home-prep-summary").textContent = `${region} · ${date} · ${people}명 · ${purpose}. 티오프와 예약 가능 여부는 상담 시 확인합니다.`;
-    document.querySelector("#home-prep-candidates").hidden = region !== "호치민";
-    document.querySelector("#home-prep-other-region").hidden = region === "호치민";
+    const lists = document.querySelectorAll("#home-prep-candidates ul[data-region]");
+    let found = false;
+    lists.forEach((list) => { list.hidden = list.dataset.region !== region; if (!list.hidden) found = true; });
+    document.querySelector("#home-prep-candidates").hidden = !found;
+    document.querySelector("#home-prep-other-region").hidden = found;
     if (homePrepResult) homePrepResult.hidden = false;
   });
 
   const filterButtons = document.querySelectorAll(".filter-button");
-  const courseItems = document.querySelectorAll("#course-list > [data-region]");
-  filterButtons.forEach((button) => button.addEventListener("click", () => {
-    filterButtons.forEach((item) => item.classList.toggle("is-active", item === button));
-    const filter = button.dataset.filter;
-    courseItems.forEach((item) => {
-      item.hidden = filter !== "all" && item.dataset.region !== filter;
-    });
-  }));
+  const areaSections = document.querySelectorAll("#course-list > [data-area]");
+  const applyFilter = (filter) => {
+    filterButtons.forEach((item) => item.classList.toggle("is-active", item.dataset.filter === filter));
+    areaSections.forEach((section) => { section.hidden = filter !== "all" && section.dataset.area !== filter; });
+  };
+  filterButtons.forEach((button) => button.addEventListener("click", () => applyFilter(button.dataset.filter)));
+  const hashArea = location.hash.match(/^#area-([a-z]+)$/)?.[1];
+  if (hashArea && [...filterButtons].some((button) => button.dataset.filter === hashArea)) applyFilter(hashArea);
 })();

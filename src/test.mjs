@@ -3,15 +3,15 @@ import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadMarkdownPosts } from "./blog-content.mjs";
-import { site } from "./site-data.mjs";
+import { courses, site } from "./site-data.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const failures = [];
 const markdownPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"));
 const guideCount = JSON.parse(await readFile(path.join(root, "src/content/guides.json"), "utf8")).length;
-const expectedContentPages = 54 + markdownPosts.length + 1 + guideCount;
-const expectedSitemapUrls = 53 + markdownPosts.length + 1 + guideCount;
+const expectedContentPages = 42 + courses.length + markdownPosts.length + 1 + guideCount;
+const expectedSitemapUrls = 41 + courses.length + markdownPosts.length + 1 + guideCount;
 const expectedRedirects = 45 + markdownPosts.length;
 
 async function collect(dir) {

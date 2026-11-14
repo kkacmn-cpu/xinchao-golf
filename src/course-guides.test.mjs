@@ -2,12 +2,12 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { readFile } from "node:fs/promises";
 import { courses, site } from "./site-data.mjs";
-import { courseGuides } from "./course-guides.mjs";
+import { courseFaqs, courseGuides } from "./course-guides.mjs";
 const escaped = value => value.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll('"', "&quot;").replaceAll("'", "&#039;");
 
 test("every course has its own source-bound questions and existing article links", () => {
   assert.deepEqual(Object.keys(courseGuides).sort(), courses.map(c => c.slug).sort());
-  const questions = Object.values(courseGuides).flatMap(g => g.faqs.map(([q]) => q));
+  const questions = courses.flatMap(c => courseFaqs(c).map(([q]) => q));
   assert.equal(new Set(questions).size, questions.length);
   for (const g of Object.values(courseGuides)) {
     assert.match(g.checkedAt, /^\d{4}-\d{2}-\d{2}$/);
@@ -24,13 +24,16 @@ for (const course of courses) test(`${course.slug}: HTML and FAQ agree; canonica
   const schemas = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map(m => JSON.parse(m[1]));
   const faq = schemas.find(s => s["@type"] === "FAQPage");
   assert.ok(faq, "FAQPage missing");
-  assert.deepEqual(faq.mainEntity.map(q => [q.name, q.acceptedAnswer.text]), g.faqs);
-  for (const [q, a] of g.faqs) { assert.ok(visible.includes(escaped(q))); assert.ok(visible.includes(escaped(a))); }
+  assert.deepEqual(faq.mainEntity.map(q => [q.name, q.acceptedAnswer.text]), courseFaqs(course));
+  for (const [q, a] of courseFaqs(course)) { assert.ok(visible.includes(escaped(q))); assert.ok(visible.includes(escaped(a))); }
   for (const [, url] of g.sources) assert.ok(visible.includes(`href="${url}"`));
   for (const file of g.related) {
-    assert.ok(visible.includes(`href="/blog/${file}"`));
-    assert.ok((await readFile(new URL(`../dist/blog/${file}`, import.meta.url), "utf8")).includes("<h1"));
+    const href = file.startsWith("guide/") ? `/${file}` : `/blog/${file}`;
+    assert.ok(visible.includes(`href="${href}"`));
+    assert.ok((await readFile(new URL(`../dist${href}`, import.meta.url), "utf8")).includes("<h1"));
   }
+  assert.ok(course.drive && /분|시간/.test(course.drive), "airport drive time required");
+  assert.ok(visible.includes("에서 차량 약"), "airport drive time must be visible");
   assert.ok(html.includes(`rel="canonical" href="${site.siteUrl}/golf/${course.slug}.html"`));
   assert.ok(visible.includes(`href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer"`));
   assert.ok(!visible.includes("_FXwxkG/chat"));
