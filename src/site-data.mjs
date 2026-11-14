@@ -15,14 +15,14 @@ export const site = {
 
 // 지역(권역)과 기준 공항. board = /regions/<board>.html, homeRegion = 홈 상담 준비표 지역 이름.
 export const golfAreas = [
-  { key: "hcm", name: "호치민권", airport: "떤선녓 국제공항(SGN)", board: "hochiminh", homeRegion: "호치민", lead: "호치민 시내와 동나이·빈즈엉·롱안·꾸찌, 바닷가 붕따우·호트람까지. 당일 라운드가 쉬운 골프장이 가장 많은 지역입니다." },
-  { key: "phanthiet", name: "판티엣·무이네", airport: "떤선녓 국제공항(SGN)", board: null, homeRegion: "판티엣", lead: "호치민에서 고속도로로 2~3시간 거리의 바닷가 골프. 판티엣 공항은 공사 중이라 지금은 호치민 공항에서 차로 이동합니다." },
-  { key: "hanoi", name: "하노이권", airport: "노이바이 국제공항(HAN)", board: "hanoi", homeRegion: "하노이", lead: "하노이 시내와 빈푹·선떠이·하노이 서부 골프장. 산과 호수를 낀 코스가 많고, 공항에서 가까운 곳도 있습니다." },
-  { key: "haiphong", name: "하이퐁·하롱", airport: "깟비 국제공항(HPH)", board: "hanoi", homeRegion: "하이퐁·하롱", lead: "하이퐁 도선 바닷가와 하롱베이 골프. 하노이에서 고속도로로 2시간 안팎이라 하롱 관광과 묶는 일정이 많습니다." },
-  { key: "danang", name: "다낭·호이안", airport: "다낭 국제공항(DAD)", board: "danang", homeRegion: "다낭", lead: "바닷가 링크스와 바나힐 산악 코스, 호이안·랑꼬 리조트 골프까지. 공항에서 가까워 도착일 라운드도 상담이 많습니다." },
-  { key: "nhatrang", name: "나트랑·깜란", airport: "깜란 국제공항(CXR)", board: "nhatrang", homeRegion: "나트랑", lead: "깜란 공항 바로 옆 바닷가 코스와 나트랑 앞바다 섬 골프장. 리조트 숙박과 묶는 일정이 많습니다." },
-  { key: "dalat", name: "달랏", airport: "리엔크엉 공항(DLI)", board: "dalat", homeRegion: "달랏", lead: "해발 1,500m 고원의 선선한 골프. 소나무 숲과 호수를 낀 코스로 한여름에도 라운드하기 좋습니다." },
-  { key: "phuquoc", name: "푸꾸옥", airport: "푸꾸옥 국제공항(PQC)", board: "phuquoc", homeRegion: "푸꾸옥", lead: "섬 북쪽 리조트 단지의 골프장. 항공 도착 시간과 리조트 숙박을 함께 맞추는 일정이 많습니다." },
+  { key: "hcm", image: "courses/golf-long-thanh-golf-club-1.webp", name: "호치민권", airport: "떤선녓 국제공항(SGN)", board: "hochiminh", homeRegion: "호치민", lead: "호치민 시내와 동나이·빈즈엉·롱안·꾸찌, 바닷가 붕따우·호트람까지. 당일 라운드가 쉬운 골프장이 가장 많은 지역입니다." },
+  { key: "phanthiet", image: "courses/golf-novaworld-phan-thiet-golf-1.webp", name: "판티엣·무이네", airport: "떤선녓 국제공항(SGN)", board: null, homeRegion: "판티엣", lead: "호치민에서 고속도로로 2~3시간 거리의 바닷가 골프. 판티엣 공항은 공사 중이라 지금은 호치민 공항에서 차로 이동합니다." },
+  { key: "hanoi", image: "courses/golf-sky-lake-golf.webp", name: "하노이권", airport: "노이바이 국제공항(HAN)", board: "hanoi", homeRegion: "하노이", lead: "하노이 시내와 빈푹·선떠이·하노이 서부 골프장. 산과 호수를 낀 코스가 많고, 공항에서 가까운 곳도 있습니다." },
+  { key: "haiphong", image: "courses/golf-dragon-golf-links.webp", name: "하이퐁·하롱", airport: "깟비 국제공항(HPH)", board: "hanoi", homeRegion: "하이퐁·하롱", lead: "하이퐁 도선 바닷가와 하롱베이 골프. 하노이에서 고속도로로 2시간 안팎이라 하롱 관광과 묶는 일정이 많습니다." },
+  { key: "danang", image: "courses/golf-montgomerie-links-vietnam.webp", name: "다낭·호이안", airport: "다낭 국제공항(DAD)", board: "danang", homeRegion: "다낭", lead: "바닷가 링크스와 바나힐 산악 코스, 호이안·랑꼬 리조트 골프까지. 공항에서 가까워 도착일 라운드도 상담이 많습니다." },
+  { key: "nhatrang", image: "courses/golf-kn-golf-links-cam-ranh.webp", name: "나트랑·깜란", airport: "깜란 국제공항(CXR)", board: "nhatrang", homeRegion: "나트랑", lead: "깜란 공항 바로 옆 바닷가 코스와 나트랑 앞바다 섬 골프장. 리조트 숙박과 묶는 일정이 많습니다." },
+  { key: "dalat", image: "courses/golf-dalat-at-1200.webp", name: "달랏", airport: "리엔크엉 공항(DLI)", board: "dalat", homeRegion: "달랏", lead: "해발 1,500m 고원의 선선한 골프. 소나무 숲과 호수를 낀 코스로 한여름에도 라운드하기 좋습니다." },
+  { key: "phuquoc", image: "courses/golf-eschuri-vung-bau-golf.webp", name: "푸꾸옥", airport: "푸꾸옥 국제공항(PQC)", board: "phuquoc", homeRegion: "푸꾸옥", lead: "섬 북쪽 리조트 단지의 골프장. 항공 도착 시간과 리조트 숙박을 함께 맞추는 일정이 많습니다." },
 ];
 
 export const courses = [
@@ -791,7 +791,7 @@ export const courses = [
     province: "하이퐁시",
     holes: "18홀 + 9홀 이그제큐티브",
     access: "하이퐁 북쪽 강 사이, 하롱 가는 길",
-    drive: "약 35분",
+    drive: "30~40분",
     driveKm: "약 15km",
     driveNote: "골프장 공식 안내는 깟비 공항에서 15km, 약 35분이라고 적고 있습니다.",
     image: "courses/golf-sono-felice-country-club.webp",
@@ -868,7 +868,7 @@ export const courses = [
     province: "하노이시",
     holes: "27홀",
     access: "노이바이 공항 바로 근처 산자락",
-    drive: "약 15분",
+    drive: "15~20분",
     driveKm: "약 10km",
     driveNote: "골프장 공식 안내는 노이바이 공항에서 약 15분, 하노이 시내에서 약 40분이라고 적고 있습니다.",
     image: "courses/golf-hanoi-golf-club.webp",

@@ -5,7 +5,7 @@ import { golfAreas } from "./site-data.mjs";
 export function courseFaqs(course) {
   const area = golfAreas.find((item) => item.key === course.area);
   const airport = course.airport || area.airport;
-  const distance = course.driveKm ? ` 거리는 약 ${course.driveKm}입니다.` : "";
+  const distance = course.driveKm ? ` 거리는 ${course.driveKm.replace(/^약 /, "약 ")}입니다.` : "";
   const extra = course.driveNote ? ` ${course.driveNote}` : "";
   return [
     ...courseGuides[course.slug].faqs,

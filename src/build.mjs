@@ -183,6 +183,7 @@ function footer() {
       <div class="shell copyright">© ${new Date().getFullYear()} ${site.englishName}. All rights reserved.</div>
     </footer>
     <button class="floating-consult js-consult" type="button" data-interest="빠른 상담" aria-label="카카오톡 빠른 상담">상담</button>
+    <div class="mobile-cta-bar"><a class="mobile-cta-golf" href="/golf">골프장 ${courses.length}곳</a><button class="mobile-cta-kakao js-consult" type="button" data-interest="모바일 하단 상담">카카오톡 예약 문의</button></div>
     <script src="/assets/js/site.js?v=${scriptVersion}" defer></script>
     <script src="https://company-site-live-monitor.kkacmn.chatgpt.site/tracker.js?site=xinchao-golf" defer></script>`;
 }
@@ -252,6 +253,7 @@ function courseCard(course) {
     <article class="course-card">
       <a class="card-image" href="/golf/${course.slug}.html" aria-label="${escapeHtml(course.name)} 상세보기">
         ${courseVisual(course, "course-plate-card")}
+        <span class="card-badges"><span>${escapeHtml(course.holes.split(" ")[0])}</span><span>✈ ${escapeHtml(course.drive)}</span></span>
       </a>
       <div class="card-body">
         <div class="card-meta"><span>${escapeHtml(course.region)}</span><span>${escapeHtml(course.holes)}</span></div>
@@ -260,8 +262,8 @@ function courseCard(course) {
         <p class="airport-time"><span aria-hidden="true">✈</span> ${escapeHtml(airportShort(course))}에서 차량 약 <strong>${escapeHtml(course.drive)}</strong></p>
         <p>${escapeHtml(course.summary)}</p>
         <div class="card-actions">
-          <a class="text-link" href="/golf/${course.slug}.html">정보 보기</a>
-          <button class="button button-quiet js-consult" type="button" data-interest="${escapeHtml(course.name)} 상담">상담하기</button>
+          <a class="text-link" href="/golf/${course.slug}.html">자세히 보기</a>
+          <button class="button button-kakao button-small js-consult" type="button" data-interest="${escapeHtml(course.name)} 상담">카톡 문의</button>
         </div>
       </div>
     </article>`;
@@ -270,12 +272,33 @@ function courseCard(course) {
 function homePage() {
   const featured = golfAreas.flatMap((area) => courses.filter((course) => course.area === area.key).slice(0, area.key === "hcm" ? 2 : 1)).slice(0, 6);
   const content = `
-    <section class="hero">
-      <div class="shell hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">호치민부터 하노이·다낭·푸꾸옥까지</p>
-          <h1>베트남 골프장 예약,<br><span>현지 확인부터 정확하게</span></h1>
-          <p class="hero-lead">베트남 전역 골프장 ${courses.length}곳의 위치와 공항 이동시간을 확인하고, 차량·숙소까지 한국어로 상담합니다.</p>
+    <section class="hero-x" style="--hero-img:url('/assets/images/courses/golf-novaworld-phan-thiet-golf.webp')">
+      <div class="shell hero-x-inner">
+        <p class="hero-x-kicker">호치민 · 하노이 · 다낭 · 하롱 · 나트랑 · 달랏 · 푸꾸옥</p>
+        <h1>베트남 골프,<br>공항에서 티오프까지 한 번에</h1>
+        <p class="hero-x-lead">베트남 골프장 ${courses.length}곳의 위치와 공항 이동시간을 비교하고, 골프장 예약·차량·숙소를 카카오톡으로 한 번에 상담하세요.</p>
+        <div class="hero-x-actions">
+          <a class="button button-kakao button-lg" href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer">카카오톡으로 예약 문의</a>
+          <a class="button button-glass button-lg" href="/golf">골프장 ${courses.length}곳 보기</a>
+        </div>
+        <ul class="hero-x-stats" aria-label="신짜오골프 안내 범위">
+          <li><strong>${courses.length}곳</strong><span>베트남 골프장</span></li>
+          <li><strong>${golfAreas.length}개 지역</strong><span>북부·중부·남부</span></li>
+          <li><strong>공항 시간</strong><span>골프장마다 표시</span></li>
+          <li><strong>한국어</strong><span>예약·차량·숙소 상담</span></li>
+        </ul>
+      </div>
+    </section>
+    <section class="area-strip" aria-label="지역별 골프장">
+      <div class="shell">
+        <div class="section-heading"><div><p class="eyebrow">어디로 가시나요?</p><h2>지역을 고르면 골프장과 공항 시간이 바로 나옵니다</h2></div><a class="text-link" href="/golf">전체 보기 →</a></div>
+        <div class="area-tiles">${golfAreas.map((area) => `<a class="area-tile" href="/golf#area-${area.key}" style="--tile-img:url('/assets/images/${area.image}')"><span class="area-tile-count">${courses.filter((course) => course.area === area.key).length}곳</span><strong>${escapeHtml(area.name)}</strong><em>✈ ${escapeHtml(area.airport.replace(/\s*\(.*\)$/, ""))} 기준</em></a>`).join("")}</div>
+      </div>
+    </section>
+    <section class="section prep-section">
+      <div class="shell prep-grid">
+        <div class="prep-copy"><p class="eyebrow">1분 상담 준비</p><h2>네 가지만 고르면<br>상담이 빨라집니다</h2><p>지역·날짜·인원·목적을 고르면 그 지역 골프장과 공항 이동시간을 바로 보여드립니다. 그대로 카카오톡으로 보내 주세요.</p><ul class="trust-list" aria-label="상담 서비스 특징"><li>한국어 상담</li><li>현지 일정 확인</li><li>부킹 후 바우처 안내</li></ul></div>
+        <div class="prep-card">
           <form class="home-prep-form" id="home-prep-form" aria-label="골프 상담 준비표 만들기">
             <p class="home-prep-heading">상담 전에 네 가지만 정하세요</p>
             <div class="home-prep-fields">
@@ -294,34 +317,12 @@ function homePage() {
             <p id="home-prep-other-region" hidden>선택한 지역의 골프장 후보는 이 사이트에서 확인되지 않았습니다. <a href="/regions">지역 상담 범위</a>를 보고 상담 시 후보 확인을 요청하세요.</p>
             <a class="button button-outline" id="home-prep-continue" href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer">카카오톡 상담 바로하기 →</a>
           </div>
-          <div class="hero-actions">
-            <a class="button" href="/golf">베트남 골프장 보기</a>
-            <button class="button button-outline js-consult" type="button" data-interest="베트남 골프 일정 상담">일정 상담하기</button>
-          </div>
-          <ul class="trust-list" aria-label="상담 서비스 특징"><li>한국어 상담</li><li>현지 일정 확인</li><li>부킹 후 바우처 안내</li></ul>
         </div>
-        <figure class="hero-media">
-          <img src="/assets/images/hero-golf-longthanh.webp" width="1366" height="896" fetchpriority="high" alt="호치민 근교 롱탄 골프장 코스 전경">
-          <figcaption><strong>롱탄 골프장</strong><span>호치민 근교 · 골프장·차량·숙소 상담</span></figcaption>
-        </figure>
-      </div>
-    </section>
-    <section class="quick-paths" aria-label="빠른 메뉴">
-      <div class="shell quick-grid">
-        <a href="/golf"><strong>골프장 찾기</strong><span>베트남 ${golfAreas.length}개 지역 ${courses.length}곳</span></a>
-        <button class="js-consult" type="button" data-interest="골프 일정 상담"><strong>일정 상담</strong><span>날짜와 인원부터 간단히</span></button>
-        <a href="/services"><strong>차량·숙소</strong><span>골프 일정과 함께 상담</span></a>
       </div>
     </section>
     <section class="section shell">
       <div class="section-heading"><div><p class="eyebrow">지역별 대표 골프장</p><h2>호치민부터 푸꾸옥까지, 공항 이동시간과 함께</h2></div><a class="text-link" href="/golf">전체 ${courses.length}곳 보기 →</a></div>
       <div class="course-grid">${featured.map(courseCard).join("")}</div>
-    </section>
-    <section class="section section-tint">
-      <div class="shell">
-        <div class="section-heading"><div><p class="eyebrow">지역별 상담</p><h2>베트남 주요 골프 지역</h2></div></div>
-        <div class="region-grid">${regions.map((region, index) => `<button class="region-card js-consult${index === 0 ? " primary" : ""}" type="button" data-interest="${region.name} 골프 상담"><span>${region.emphasis}</span><strong>${region.name}</strong><p>${region.text}</p><em>상담하기 →</em></button>`).join("")}</div>
-      </div>
     </section>
     <section class="section shell">
       <div class="section-heading"><div><p class="eyebrow">예약 전에 읽어보세요</p><h2>베트남 골프 예약 가이드</h2></div><a class="text-link" href="/guide">가이드 전체 보기 →</a></div>
@@ -350,9 +351,9 @@ function golfIndexPage() {
       <div class="course-grid course-grid-wide">${list.map(courseCard).join("")}</div>
     </section>`;
   }).join("");
-  const airportRows = golfAreas.flatMap((area) => courses.filter((course) => course.area === area.key).map((course) => `<tr><th scope="row"><a href="/golf/${course.slug}.html">${escapeHtml(course.name)}</a></th><td>${escapeHtml(area.name)}</td><td>${escapeHtml(airportShort(course))}</td><td><strong>${escapeHtml(course.drive)}</strong>${course.driveKm ? ` <small>(약 ${escapeHtml(course.driveKm)})</small>` : ""}</td></tr>`)).join("");
+  const airportRows = golfAreas.flatMap((area) => courses.filter((course) => course.area === area.key).map((course) => `<tr><th scope="row"><a href="/golf/${course.slug}.html">${escapeHtml(course.name)}</a></th><td>${escapeHtml(area.name)}</td><td>${escapeHtml(airportShort(course))}</td><td><strong>${escapeHtml(course.drive)}</strong>${course.driveKm ? ` <small>(${escapeHtml(course.driveKm)})</small>` : ""}</td></tr>`)).join("");
   const content = `
-    <section class="page-hero"><div class="shell"><p class="eyebrow">베트남 전역 골프</p><h1>베트남 골프장 안내</h1><p>호치민·판티엣·하노이·하이퐁·하롱·다낭·나트랑·달랏·푸꾸옥 골프장 ${courses.length}곳을 지역별로 모았습니다. 골프장마다 가장 가까운 공항에서 차로 얼마나 걸리는지 함께 적었습니다.</p><button class="button js-consult" type="button" data-interest="베트남 골프장 추천 상담">골프장 추천받기</button></div></section>
+    <section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/courses/golf-dragon-golf-links.webp')"><div class="shell"><p class="eyebrow">베트남 전역 골프</p><h1>베트남 골프장 안내</h1><p>호치민·판티엣·하노이·하이퐁·하롱·다낭·나트랑·달랏·푸꾸옥 골프장 ${courses.length}곳을 지역별로 모았습니다. 골프장마다 가장 가까운 공항에서 차로 얼마나 걸리는지 함께 적었습니다.</p><div class="hero-x-actions"><button class="button button-kakao js-consult" type="button" data-interest="베트남 골프장 추천 상담">카톡으로 골프장 추천받기</button><a class="button button-glass" href="#airport-times">공항 이동시간표</a></div></div></section>
     <section class="section shell">
       <div class="filter-bar" role="group" aria-label="골프장 지역 필터">
         <button class="filter-button is-active" type="button" data-filter="all">전체 ${courses.length}</button>
@@ -406,11 +407,11 @@ function courseDetailPage(course) {
     <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf">베트남 골프장</a><span>›</span><a href="/golf#area-${course.area}">${escapeHtml(areaOf(course).name)}</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
     <section class="detail-hero shell">
       <div class="detail-media">${courseVisual(course, "course-plate-detail", "eager")}${course.gallery?.length ? `<div class="detail-gallery" aria-label="${escapeHtml(course.name)} 사진">${course.gallery.map((file, index) => `<a href="/assets/images/${file}" target="_blank" rel="noopener"><img src="/assets/images/${file}" width="1200" height="800" loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 코스 사진 ${index + 2}"></a>`).join("")}</div>` : ""}</div>
-      <div class="detail-summary"><p class="eyebrow">${course.region} 골프장</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="fact-list"><div><dt>지역</dt><dd>${course.location}</dd></div><div><dt>규모</dt><dd>${course.holes}</dd></div><div><dt>공항</dt><dd>${escapeHtml(course.airport || areaOf(course).airport)}에서 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (약 ${escapeHtml(course.driveKm)})` : ""}</dd></div><div><dt>이동</dt><dd>${course.access}</dd></div></dl><p class="drive-note">공항 시간은 평소 교통 기준입니다. 출퇴근·주말·우천 시 더 걸릴 수 있습니다.</p><button class="button button-block js-consult" type="button" data-interest="${course.name} 상담">이 골프장 상담하기</button><small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div>
+      <div class="detail-summary"><p class="eyebrow">${course.region} 골프장</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="fact-list"><div><dt>지역</dt><dd>${course.location}</dd></div><div><dt>규모</dt><dd>${course.holes}</dd></div><div><dt>공항</dt><dd>${escapeHtml(course.airport || areaOf(course).airport)}에서 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (${escapeHtml(course.driveKm)})` : ""}</dd></div><div><dt>이동</dt><dd>${course.access}</dd></div></dl><p class="drive-note">공항 시간은 평소 교통 기준입니다. 출퇴근·주말·우천 시 더 걸릴 수 있습니다.</p><button class="button button-kakao button-block button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡으로 예약 가능 날짜 묻기</button><ul class="detail-steps"><li>날짜·인원 보내기</li><li>티타임·조건 확인</li><li>확정 후 바우처</li></ul><small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div>
     </section>
     <section class="section shell detail-content">
       <article><p class="eyebrow">선택 포인트</p><h2>${course.shortName}, 이런 일정에 검토하세요</h2><ul class="point-list">${course.points.map((point) => `<li>${point}</li>`).join("")}</ul>${courseGuideContent(course, guide)}</article>
-      <aside class="side-consult"><strong>빠른 상담</strong><p>${course.shortName} 가능 여부와 이동 일정을 확인해드립니다.</p><button class="button button-block js-consult" type="button" data-interest="${course.name} 티오프 및 차량 상담">일정 확인하기</button></aside>
+      <aside class="side-consult"><strong>빠른 상담</strong><p>${course.shortName} 가능 여부와 이동 일정을 확인해드립니다.</p><button class="button button-kakao button-block js-consult" type="button" data-interest="${course.name} 티오프 및 차량 상담">카톡으로 일정 확인</button></aside>
     </section>
     <section class="section section-tint"><div class="shell"><div class="section-heading"><div><p class="eyebrow">함께 보기</p><h2>${escapeHtml(areaOf(course).name)} 다른 골프장</h2></div><a class="text-link" href="/golf#area-${course.area}">전체 보기 →</a></div><div class="course-grid">${[...courses.filter((item) => item.slug !== course.slug && item.area === course.area), ...courses.filter((item) => item.area !== course.area)].slice(0, 3).map(courseCard).join("")}</div></div></section>`;
   const schema = [{
