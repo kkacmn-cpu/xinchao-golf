@@ -1,4 +1,8 @@
 (() => {
+  const header = document.querySelector(".site-header");
+  const onScroll = () => header?.classList.toggle("is-scrolled", window.scrollY > 40);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
   const menuButton = document.querySelector(".menu-button");
   const menu = document.querySelector(".site-nav");
   const homePrepForm = document.querySelector("#home-prep-form");

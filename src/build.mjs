@@ -144,6 +144,11 @@ function head({ title, description, pathname, image = "hero-golf-longthanh.webp"
     <link rel="icon" href="/assets/images/xinchao-golf-logo-192.webp" type="image/webp">
     <link rel="apple-touch-icon" href="/assets/images/xinchao-golf-logo-192.webp">
     <link rel="manifest" href="/manifest.webmanifest">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700;900&display=swap">
     <link rel="stylesheet" href="/assets/css/site.css?v=${styleVersion}">
     ${schema.map(jsonLd).join("\n")}`;
 }
@@ -244,7 +249,7 @@ function layout({ title, description, pathname, active, content, image, schema =
   return directInquiryLinks(`<!doctype html>
 <html lang="ko">
   <head>${head({ title, description, pathname, image, schema: pageSchema, robots, pageType, publishedTime, modifiedTime, keywords })}</head>
-  <body class="${pathname === "/" ? "home-page" : ""}">${header(active)}<main id="main">${content}</main>${footer()}</body>
+  <body class="${pathname === "/" ? "home-page" : ""}${pathname === "/golf" ? " golf-index-page" : ""}">${header(active)}<main id="main">${content}</main>${footer()}</body>
 </html>`);
 }
 
@@ -253,13 +258,12 @@ function courseCard(course) {
     <article class="course-card">
       <a class="card-image" href="/golf/${course.slug}.html" aria-label="${escapeHtml(course.name)} 상세보기">
         ${courseVisual(course, "course-plate-card")}
-        <span class="card-badges"><span>${escapeHtml(course.holes.split(" ")[0])}</span><span>✈ ${escapeHtml(course.drive)}</span></span>
+        <span class="card-badges"><span>${escapeHtml(course.holes.split(" ")[0])}</span><span>공항에서 ${escapeHtml(course.drive)}</span></span>
       </a>
       <div class="card-body">
-        <div class="card-meta"><span>${escapeHtml(course.region)}</span><span>${escapeHtml(course.holes)}</span></div>
+        <div class="card-meta"><span>${escapeHtml(course.region)}</span><span>✈ ${escapeHtml(airportShort(course).replace(" 국제공항", "").replace(" 공항", ""))} 공항</span></div>
         <h3><a href="/golf/${course.slug}.html">${escapeHtml(course.name)}</a></h3>
         <p class="english-name">${escapeHtml(course.englishName)}</p>
-        <p class="airport-time"><span aria-hidden="true">✈</span> ${escapeHtml(airportShort(course))}에서 차량 약 <strong>${escapeHtml(course.drive)}</strong></p>
         <p>${escapeHtml(course.summary)}</p>
         <div class="card-actions">
           <a class="text-link" href="/golf/${course.slug}.html">자세히 보기</a>
@@ -272,10 +276,11 @@ function courseCard(course) {
 function homePage() {
   const featured = golfAreas.flatMap((area) => courses.filter((course) => course.area === area.key).slice(0, area.key === "hcm" ? 2 : 1)).slice(0, 6);
   const content = `
-    <section class="hero-x" style="--hero-img:url('/assets/images/courses/golf-novaworld-phan-thiet-golf.webp')">
+    <section class="hero-x">
+      <div class="hero-slides" aria-hidden="true"><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-novaworld-phan-thiet-golf.webp')"></span><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-hoiana-shores-golf-club.webp')"></span><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-ba-na-hills-golf-club.webp')"></span><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-dalat-at-1200.webp')"></span></div>
       <div class="shell hero-x-inner">
-        <p class="hero-x-kicker">호치민 · 하노이 · 다낭 · 하롱 · 나트랑 · 달랏 · 푸꾸옥</p>
-        <h1>베트남 골프,<br>공항에서 티오프까지 한 번에</h1>
+        <p class="hero-x-kicker">XIN CHAO GOLF · VIETNAM</p>
+        <h1>베트남의 골프를<br>가장 정확하게</h1>
         <p class="hero-x-lead">베트남 골프장 ${courses.length}곳의 위치와 공항 이동시간을 비교하고, 골프장 예약·차량·숙소를 카카오톡으로 한 번에 상담하세요.</p>
         <div class="hero-x-actions">
           <a class="button button-kakao button-lg" href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer">카카오톡으로 예약 문의</a>
@@ -293,6 +298,12 @@ function homePage() {
       <div class="shell">
         <div class="section-heading"><div><p class="eyebrow">어디로 가시나요?</p><h2>지역을 고르면 골프장과 공항 시간이 바로 나옵니다</h2></div><a class="text-link" href="/golf">전체 보기 →</a></div>
         <div class="area-tiles">${golfAreas.map((area) => `<a class="area-tile" href="/golf#area-${area.key}" style="--tile-img:url('/assets/images/${area.image}')"><span class="area-tile-count">${courses.filter((course) => course.area === area.key).length}곳</span><strong>${escapeHtml(area.name)}</strong><em>✈ ${escapeHtml(area.airport.replace(/\s*\(.*\)$/, ""))} 기준</em></a>`).join("")}</div>
+      </div>
+    </section>
+    <section class="signature" aria-labelledby="signature-title">
+      <div class="shell">
+        <div class="section-heading"><div><p class="eyebrow">Signature Courses</p><h2 id="signature-title">한 번은 꼭 쳐봐야 할 베트남 대표 코스</h2></div><a class="text-link" href="/golf">50곳 모두 보기 →</a></div>
+        <div class="signature-grid">${["the-bluffs-grand-ho-tram", "hoiana-shores-golf-club", "montgomerie-links-vietnam", "kn-golf-links-cam-ranh", "ba-na-hills-golf-club", "dalat-at-1200"].map((slug, index) => { const course = courses.find((item) => item.slug === slug); const img = course.image?.startsWith("courses/") ? course.image : (course.gallery?.[0] || course.image); return `<a class="signature-card${index === 0 ? " is-feature" : ""}" href="/golf/${course.slug}.html" style="--card-img:url('/assets/images/${img}')"><span class="signature-region">${escapeHtml(areaOf(course).name)}</span><strong>${escapeHtml(course.name)}</strong><em>${escapeHtml(course.holes.split(" ")[0])} · 공항에서 ${escapeHtml(course.drive)}</em></a>`; }).join("")}</div>
       </div>
     </section>
     <section class="section prep-section">
@@ -333,7 +344,7 @@ function homePage() {
       <div class="service-grid">${services.map((service) => `<article class="service-card"><img src="/assets/images/${service.image}" width="1200" height="700" loading="lazy" decoding="async" alt="${service.name} 상담"><div><h3>${service.name}</h3><p>${service.text}</p><button class="text-button js-consult" type="button" data-interest="${service.name} 상담">${service.name} 상담하기 →</button></div></article>`).join("")}</div>
     </section>
     <section class="section process-section"><div class="shell"><div class="section-heading"><div><p class="eyebrow">진행 과정</p><h2>상담부터 바우처까지</h2></div></div><ol class="process-list"><li><span>01</span><strong>일정 상담</strong><p>날짜·인원·희망 지역을 확인합니다.</p></li><li><span>02</span><strong>가능 여부 확인</strong><p>골프장과 차량·숙소 일정을 확인합니다.</p></li><li><span>03</span><strong>예약 진행</strong><p>안내된 조건을 확인한 뒤 예약을 진행합니다.</p></li><li><span>04</span><strong>바우처 안내</strong><p>부킹 완료 후 필요한 내용을 전달합니다.</p></li></ol></div></section>
-    <section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">복잡하게 찾지 마세요</p><h2>베트남 어디든 골프 일정부터 상담해보세요</h2><p>홈페이지에서 결제하지 않습니다. 필요한 내용만 확인하고 상담으로 연결합니다.</p></div><button class="button button-light js-consult" type="button" data-interest="베트남 골프 빠른 상담">빠른 상담 시작</button></div></section>`;
+    <section class="cta-section cta-photo" style="--hero-img:url('/assets/images/courses/golf-hoiana-shores-golf-club.webp')"><div class="shell cta-inner"><div><p class="eyebrow">날짜와 인원만 알려주세요</p><h2>베트남 어디든,<br>골프 일정부터 카톡으로 상담하세요</h2><p>골프장·티타임·공항 차량·숙소까지 한국어로 한 번에 맞춰 드립니다. 홈페이지에서는 결제하지 않습니다.</p></div><button class="button button-kakao button-lg js-consult" type="button" data-interest="베트남 골프 빠른 상담">카카오톡 예약 문의</button></div></section>`;
   return layout({
     title: "베트남 골프장 상담 전문 신짜오골프",
     description: "호치민·하노이·다낭·하롱·나트랑·달랏·푸꾸옥 베트남 골프장 정보와 공항 이동시간. 골프장 예약과 차량, 아파트, 풀빌라를 한국어로 한 번에 상담하세요.",
