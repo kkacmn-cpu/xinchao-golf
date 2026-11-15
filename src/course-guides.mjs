@@ -127,7 +127,7 @@ export const courseGuides = {
     checkedAt: "2026-11-14",
     sources: [["Royal Long An 공식 사이트", "https://royallongangolfandcountryclub.com/en/home/"], ["Royal Long An 공식 셔틀 안내", "https://royallongangolfandcountryclub.com/en/tien-ich/shuttle-bus/"]],
     faqs: [
-      ["로얄롱안은 27홀을 모두 칠 수 있나요?", "로얄롱안은 27홀 규모로 소개되지만 개장은 단계적으로 이뤄졌습니다. 예약일에 실제로 운영하는 코스와 이용할 홀 수를 확정서에서 따로 확인하고, 18홀과 27홀 견적을 섞어 비교하지 마세요."],
+      ["로얄롱안은 27홀을 모두 칠 수 있나요?", "로얄롱안은 2023년 18홀을 먼저 열고, 2024년 말 세 번째 9홀을 더해 지금은 27홀로 소개됩니다. 예약일에 실제로 운영하는 코스와 이용할 홀 수를 확정서에서 따로 확인하고, 18홀과 27홀 견적을 섞어 비교하지 마세요."],
       ["로얄롱안 무료 셔틀만 믿고 일정을 짜도 되나요?", "공식 사이트에 호치민 왕복 셔틀 안내가 있지만 출발 시각·탑승 위치·좌석은 날짜마다 다를 수 있습니다. 셔틀 예약이 확정되지 않았다면 티오프에 맞춘 개별 차량을 함께 비교해 두는 편이 안전합니다."]
     ],
     related: ["royal-long-an-golf-shuttle-booking-check.html", "guide/royal-long-an-27-hole-hochiminh-day-trip-plan.html"]
@@ -244,7 +244,7 @@ export const courseGuides = {
     checkedAt: "2026-11-14",
     sources: [["Vinpearl Golf Nam Hoi An 공식 소개", "https://vinpearl.com/en/nam-hoi-an/discovery-and-activies/vinpearl-golf-nam-hoi-an"]],
     faqs: [
-      ["빈펄 남호이안은 다낭 공항에서 얼마나 먼가요?", "빈펄 공식 안내는 다낭 공항에서 약 30km라고 적고 있으며, 숙소 위치에 따라 차량 시간이 달라집니다. 다낭 시내보다 호이안 남쪽에 가까워 리조트 숙박과 묶는 일정이 편합니다."],
+      ["빈펄 남호이안은 다낭 공항에서 얼마나 먼가요?", "빈펄 공식 안내는 약 30km로 적지만, 다낭 공항에서 도로로는 약 50km·차량 1시간 안팎입니다. 숙소 위치에 따라 차량 시간이 달라집니다. 다낭 시내보다 호이안 남쪽에 가까워 리조트 숙박과 묶는 일정이 편합니다."],
       ["빈펄 남호이안 티오프는 어떻게 확정하나요?", "온라인 요청을 보낸 것과 확정은 다릅니다. 날짜·인원·홀 수·희망 시간을 보낸 뒤 예약번호와 확정 티오프가 적힌 회신을 받아야 일정표에 넣을 수 있습니다."]
     ],
     related: ["guide/vinpearl-nam-hoi-an-tee-time-arrival-check.html", "guide/vinpearl-golf-nam-hoi-an-price-included-check.html"]
@@ -263,7 +263,7 @@ export const courseGuides = {
     sources: [["KN 골프링크스 공식 코스 안내", "https://www.kngolflinks.com/golf-courses"]],
     faqs: [
       ["KN 골프링크스 27홀은 어떻게 나뉘나요?", "KN 골프링크스는 그렉 노먼이 설계한 링크스 18홀과 오아시스 9홀, 총 27홀로 소개됩니다. 18홀만 칠지, 9홀을 더할지 정해 같은 조건으로 견적을 받으세요."],
-      ["KN 골프링크스는 깜란 공항 도착일에 칠 수 있나요?", "공항 바로 옆이라 차량 이동은 10~15분 안팎이지만, 입국 심사와 골프백 수령 시간을 더해야 합니다. 항공 지연을 생각해 대체 티오프나 다음 날 라운드도 함께 정해 두세요."]
+      ["KN 골프링크스는 깜란 공항 도착일에 칠 수 있나요?", "공항에서 가까워 차량 이동은 20~25분 안팎이지만, 입국 심사와 골프백 수령 시간을 더해야 합니다. 항공 지연을 생각해 대체 티오프나 다음 날 라운드도 함께 정해 두세요."]
     ],
     related: ["guide/kn-golf-links-cam-ranh-18-27-hole-booking-check.html", "guide/cam-ranh-airport-kn-golf-nha-trang-route-plan.html"]
   },
