@@ -544,7 +544,13 @@ function vehiclePage() {
     ["당일 전용 차량", "골프와 식사·관광 일정을 함께 이동할 때 상담합니다."],
     ["시외·장거리", "호치민에서 붕따우·호트람·무이네 등 장거리 이동을 확인합니다."],
   ];
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">골프 차량</p><h1>호치민 골프 차량 상담</h1><p>4·7·16인승과 리무진 등 인원과 골프백 수량에 맞는 차량을 상담합니다.</p><button class="button js-consult" type="button" data-interest="호치민 골프 차량 상담">차량 상담하기</button></div></section><section class="section shell"><div class="option-grid">${options.map(([name, text]) => `<article><span>차량 서비스</span><h2>${name}</h2><p>${text}</p><button class="text-button js-consult" type="button" data-interest="${name} 차량 상담">상담하기 →</button></article>`).join("")}</div></section><section class="section section-tint"><div class="shell compact-copy"><p class="eyebrow">상담 전에 확인</p><h2>인원뿐 아니라 골프백 수량도 중요합니다</h2><p>이용 날짜, 탑승 인원, 골프백과 캐리어 수량, 출발지와 도착지를 알려주시면 차량 확인이 빨라집니다.</p></div></section>`;
+  const vehicleTypes = [
+    ["vehicle-7seat.webp", "7인승 (카니발급)", "2~3명과 골프백 2~3개. 공항 픽업과 골프장 왕복에 가장 많이 씁니다.", "흰색 7인승 카니발 차량 옆모습"],
+    ["vehicle-16seat.webp", "16인승 밴", "4~8명 단체와 골프백·캐리어가 많을 때 짐 공간이 넉넉합니다.", "흰색 16인승 솔라티 밴"],
+    ["vehicle-limousine.webp", "리무진 밴", "가죽 독립 좌석의 리무진 밴. 장거리 이동이나 붕따우·호트람 일정에 편합니다.", "리무진 밴 내부 가죽 독립 좌석"],
+    ["vehicle-bus.webp", "대형 버스", "골프 모임·단체 행사처럼 인원이 많을 때 상담합니다.", "흰색 대형 관광버스 앞모습"],
+  ];
+  const content = `<section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/service-vehicle.webp')"><div class="shell"><p class="eyebrow">골프 차량</p><h1>호치민 골프 차량 상담</h1><p>4·7·16인승과 리무진 등 인원과 골프백 수량에 맞는 차량을 상담합니다.</p><button class="button js-consult" type="button" data-interest="호치민 골프 차량 상담">차량 상담하기</button></div></section><section class="section shell"><div class="option-grid">${options.map(([name, text]) => `<article><span>차량 서비스</span><h2>${name}</h2><p>${text}</p><button class="text-button js-consult" type="button" data-interest="${name} 차량 상담">상담하기 →</button></article>`).join("")}</div></section><section class="section section-tint"><div class="shell"><div class="section-heading"><div><p class="eyebrow">차량 종류</p><h2>인원과 골프백에 맞춰 고르세요</h2></div></div><div class="vehicle-grid">${vehicleTypes.map(([img, name, text, alt]) => `<article class="vehicle-card"><img src="/assets/images/${img}" width="1200" height="900" loading="lazy" decoding="async" alt="${alt}"><div><h3>${name}</h3><p>${text}</p></div></article>`).join("")}</div><p class="vehicle-note">사진은 차량 종류 예시입니다. 실제 배정 차량은 날짜와 인원에 따라 달라질 수 있습니다.</p></div></section><section class="section"><div class="shell compact-copy"><p class="eyebrow">상담 전에 확인</p><h2>인원뿐 아니라 골프백 수량도 중요합니다</h2><p>이용 날짜, 탑승 인원, 골프백과 캐리어 수량, 출발지와 도착지를 알려주시면 차량 확인이 빨라집니다.</p></div></section>`;
   return layout({ title: "호치민 골프 차량 상담", description: "호치민 골프장 왕복, 공항 픽업, 당일 전용, 시외 이동 차량을 인원과 골프백 수에 맞춰 한국어로 상담합니다.", pathname: "/services/vehicle.html", active: "services", image: "service-vehicle.webp", content });
 }
 
