@@ -662,6 +662,36 @@ async function write(relativePath, html) {
   await writeFile(target, html);
 }
 
+// llms.txt (llmstxt.org 형식): 사이트맵 주소 목록과 dist에 쓴 각 페이지의 <title>·설명으로 만든다.
+async function llmsTxt(urls) {
+  const decode = (value) => value.replaceAll("&quot;", '"').replaceAll("&#039;", "'").replaceAll("&lt;", "<").replaceAll("&gt;", ">").replaceAll("&amp;", "&");
+  const fileFor = (url) => url === "/" ? "index.html" : url.endsWith(".html") ? url.slice(1) : `${url.slice(1)}/index.html`;
+  const pages = await Promise.all(urls.map(async (url) => {
+    const html = await readFile(path.join(dist, fileFor(url)), "utf8");
+    const title = decode(html.match(/<title>([^<]*)<\/title>/)?.[1] || url).replace(new RegExp(`\\s*\\|\\s*${site.name}$`), "").trim();
+    const description = decode(html.match(/<meta name="description" content="([^"]*)"/)?.[1] || "").replace(/\s+/g, " ").trim();
+    return { url, line: `- [${title}](${site.siteUrl}${url})${description ? `: ${description}` : ""}` };
+  }));
+  const core = ["/", "/golf", "/regions", "/services", "/guide", "/blog"];
+  const groups = [
+    ["핵심 페이지", (url) => core.includes(url)],
+    ["골프장", (url) => url.startsWith("/golf/")],
+    ["지역별 골프장", (url) => url.startsWith("/regions/")],
+    ["차량·숙소 서비스", (url) => /^\/services\/[^/]+\.html$/.test(url)],
+    ["아파트", (url) => url.startsWith("/services/apartment/")],
+    ["풀빌라", (url) => url.startsWith("/services/villa/")],
+    ["예약 가이드", (url) => url.startsWith("/guide/")],
+    ["블로그", (url) => url.startsWith("/blog/")],
+    ["운영 원칙", (url) => ["/about.html", "/editorial-policy.html", "/source-policy.html"].includes(url)],
+  ];
+  const sections = groups.map(([name, test]) => {
+    const lines = pages.filter((page) => test(page.url)).map((page) => page.line);
+    if (!lines.length) return "";
+    return `## ${name}${name === "핵심 페이지" ? "" : ` (${lines.length}${["골프장", "아파트", "풀빌라"].includes(name) ? "곳" : "편"})`}\n\n${lines.join("\n")}\n\n`;
+  }).join("");
+  return `# ${site.name}\n\n> ${site.description}입니다. 베트남 골프장 ${courses.length}곳의 위치와 공항 이동시간을 비교하고, 골프장 예약·차량·숙소를 카카오톡으로 상담합니다.\n\n- 상담 채널: 카카오톡 ${site.kakaoUrl}\n- 지역: ${golfAreas.map((area) => area.name).join(", ")}\n- 홈페이지에서는 상품을 판매하거나 결제받지 않습니다.\n- 가격, 티오프, 포함 항목, 휴장과 차량 가능 여부는 수시로 달라질 수 있어 상담으로 확인합니다.\n\n${sections}## Optional\n\n- [사이트맵](${site.siteUrl}/sitemap.xml): 전체 공개 페이지 목록과 마지막 수정일\n`;
+}
+
 async function build() {
   await rm(dist, { recursive: true, force: true });
   await mkdir(dist, { recursive: true });
@@ -737,6 +767,7 @@ async function build() {
   for (const course of courses) blogLastModified.set(`/golf/${course.slug}.html`, courseGuides[course.slug].checkedAt);
   await writeFile(path.join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((url) => `  <url><loc>${site.siteUrl}${url}</loc><lastmod>${blogLastModified.get(url) || site.lastUpdated}</lastmod></url>`).join("\n")}\n</urlset>\n`);
   await writeFile(path.join(dist, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${site.siteUrl}/sitemap.xml\n`);
+  await writeFile(path.join(dist, "llms.txt"), await llmsTxt(urls));
   await writeFile(path.join(dist, "manifest.webmanifest"), `${JSON.stringify({
     name: site.name,
     short_name: site.name,
