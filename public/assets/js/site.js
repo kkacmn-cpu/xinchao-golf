@@ -56,4 +56,27 @@
   filterButtons.forEach((button) => button.addEventListener("click", () => applyFilter(button.dataset.filter)));
   const hashArea = location.hash.match(/^#area-([a-z]+)$/)?.[1];
   if (hashArea && [...filterButtons].some((button) => button.dataset.filter === hashArea)) applyFilter(hashArea);
+
+  // 홈 첫 화면 밖 배경 사진: 화면 가까이 오면 붙인다.
+  const applyStyle = (element, key) => {
+    const value = element.dataset[key];
+    if (!value) return;
+    const current = element.getAttribute("style");
+    element.setAttribute("style", current ? `${current};${value}` : value);
+    delete element.dataset[key];
+  };
+  const lazyBackgrounds = document.querySelectorAll("[data-lazy-style]");
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      observer.unobserve(entry.target);
+      applyStyle(entry.target, "lazyStyle");
+    }), { rootMargin: "600px 0px" });
+    lazyBackgrounds.forEach((element) => observer.observe(element));
+  } else {
+    lazyBackgrounds.forEach((element) => applyStyle(element, "lazyStyle"));
+  }
+  const applyDeferred = () => document.querySelectorAll("[data-deferred-style]").forEach((element) => applyStyle(element, "deferredStyle"));
+  if (document.readyState === "complete") applyDeferred();
+  else window.addEventListener("load", applyDeferred, { once: true });
 })();

@@ -112,7 +112,7 @@ const breadcrumbSchema = (items) => ({
   })),
 });
 
-function head({ title, description, pathname, image = "hero-golf-longthanh.webp", schema = [], robots = "index,follow,max-image-preview:large", pageType = "website", publishedTime, modifiedTime, keywords = [] }) {
+function head({ title, description, pathname, image = "hero-golf-longthanh.webp", schema = [], robots = "index,follow,max-image-preview:large", pageType = "website", publishedTime, modifiedTime, keywords = [], preloadImage }) {
   const canonical = `${site.siteUrl}${pathname}`;
   const fullTitle = title.includes(site.name) ? title : `${title} | ${site.name}`;
   const socialImage = image.startsWith("blog/") ? `${site.siteUrl}/assets/${image}` : `${site.siteUrl}/assets/images/${image}`;
@@ -144,11 +144,14 @@ function head({ title, description, pathname, image = "hero-golf-longthanh.webp"
     <link rel="icon" href="/assets/images/xinchao-golf-logo-192.webp" type="image/webp">
     <link rel="apple-touch-icon" href="/assets/images/xinchao-golf-logo-192.webp">
     <link rel="manifest" href="/manifest.webmanifest">
+    ${preloadImage ? `<link rel="preload" as="image" href="${preloadImage}" fetchpriority="high">` : ""}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@600;700;900&display=swap">
+    <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&display=swap"></noscript>
     <link rel="stylesheet" href="/assets/css/site.css?v=${styleVersion}">
     ${schema.map(jsonLd).join("\n")}`;
 }
@@ -193,7 +196,7 @@ function footer() {
     <script src="https://company-site-monitor.vercel.app/tracker.js?site=xinchao-golf" defer></script>`;
 }
 
-function layout({ title, description, pathname, active, content, image, schema = [], robots, pageType, publishedTime, modifiedTime, keywords = [] }) {
+function layout({ title, description, pathname, active, content, image, schema = [], robots, pageType, publishedTime, modifiedTime, keywords = [], preloadImage }) {
   const organization = {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -248,7 +251,7 @@ function layout({ title, description, pathname, active, content, image, schema =
   }
   return directInquiryLinks(`<!doctype html>
 <html lang="ko">
-  <head>${head({ title, description, pathname, image, schema: pageSchema, robots, pageType, publishedTime, modifiedTime, keywords })}</head>
+  <head>${head({ title, description, pathname, image, schema: pageSchema, robots, pageType, publishedTime, modifiedTime, keywords, preloadImage })}</head>
   <body class="${pathname === "/" ? "home-page" : ""}${pathname === "/golf" ? " golf-index-page" : ""}">${header(active)}<main id="main">${content}</main>${footer()}</body>
 </html>`);
 }
@@ -271,6 +274,15 @@ function courseCard(course) {
         </div>
       </div>
     </article>`;
+}
+
+// 첫 화면 밖 배경 사진은 site.js가 화면 가까이 왔을 때 붙인다(모바일 LCP 대역폭 확보).
+// 첫 번째 히어로 슬라이드만 바로 불러오고, 나머지 슬라이드는 load 뒤에 붙인다.
+function deferHomeBackgrounds(html) {
+  let slide = 0;
+  return html
+    .replace(/<span class="hero-slide" style="([^"]*)"/g, (match, style) => (slide++ === 0 ? match : `<span class="hero-slide" data-deferred-style="${style}"`))
+    .replace(/(<(?:a|article|section|div)\b[^>]*?) style="(--(?:tile|card|hero)-img:url\([^)]*\))"/g, (match, start, style) => `${start} data-lazy-style="${style}"`);
 }
 
 function homePage() {
@@ -349,7 +361,8 @@ function homePage() {
     title: "베트남 골프장 상담 전문 신짜오골프",
     description: "호치민·하노이·다낭·하롱·나트랑·달랏·푸꾸옥 베트남 골프장 정보와 공항 이동시간. 골프장 예약과 차량, 아파트, 풀빌라를 한국어로 한 번에 상담하세요.",
     pathname: "/",
-    content,
+    content: deferHomeBackgrounds(content),
+    preloadImage: "/assets/images/courses/golf-novaworld-phan-thiet-golf.webp",
   });
 }
 
