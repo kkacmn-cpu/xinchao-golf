@@ -461,6 +461,12 @@
       "permanent": true
     }
   ],
+  "rewrites": [
+    {
+      "source": "/go/:code",
+      "destination": "/go/:code.html"
+    }
+  ],
   "headers": [
     {
       "source": "/assets/(.*)",

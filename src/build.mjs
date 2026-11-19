@@ -819,6 +819,8 @@ async function build() {
     cleanUrls: false,
     trailingSlash: false,
     redirects,
+    // /go/<코드> 상담 링크(00_운영본부/상담링크/make_go_pages.py가 public/go/<코드>.html 생성)
+    rewrites: [{ source: "/go/:code", destination: "/go/:code.html" }],
     headers,
   };
   await writeFile(path.join(root, "vercel.json"), `${JSON.stringify(vercelConfig, null, 2)}\n`);
