@@ -8,6 +8,7 @@ import { courseFaqs, courseGuides } from "./course-guides.mjs";
 import { coursesForGuide, hubForCategory, topicHubs } from "./topic-hubs.mjs";
 import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
 import { pricing, pricingGuideHtml, pricingSummary } from "./pricing-guide.mjs";
+import { chooseRows, courseLabel, dayTripRoutes, directionOf, golfRentFaqs, golfRentPath, hcmCourses, longDistance, luggageNote, rentGo, rentPages, vehicleTypes, vietnambam } from "./rent-data.mjs";
 
 const areaOf = (course) => golfAreas.find((area) => area.key === course.area);
 // 지역 게시판: 골프장에 board가 있으면(붕따우·호트람·쩌우득 → vungtau) 그쪽, 없으면 권역의 게시판.
@@ -167,6 +168,7 @@ function header(active = "") {
     ["regions", "/regions", "지역별 골프"],
     ["guide", "/guide", "예약 가이드"],
     ["services", "/services", "숙소·차량"],
+    ["rent", "/rent", "차량 렌트"],
     ["blog", "/blog", "골프정보"],
   ];
   return `
@@ -242,7 +244,7 @@ function layout({ title, description, pathname, active, content, image, schema =
     inLanguage: "ko-KR",
     publisher: { "@id": `${site.siteUrl}/#organization` },
   };
-  const collectionPaths = ["/golf", "/regions", "/guide", "/services", "/services/apartments.html", "/services/villas.html", "/blog", ...topicHubs.map((hub) => hub.path)];
+  const collectionPaths = ["/golf", "/regions", "/guide", "/services", "/rent", "/services/apartments.html", "/services/villas.html", "/blog", ...topicHubs.map((hub) => hub.path)];
   const isVehicle = pathname === "/services/vehicle.html";
   const pageSchema = pathname === "/" ? [organization, website, ...schema] : [...schema];
   if (collectionPaths.includes(pathname) || isVehicle) {
@@ -474,7 +476,7 @@ function courseGuideContent(course, guide) {
     ${courseFaqs(course).map(([q, a]) => `<section><h3>${escapeHtml(q)}</h3><p>${escapeHtml(a)}</p></section>`).join("")}
     <h3>같은 조건으로 견적을 받으려면</h3><p>이용일·인원·홀 수·희망 티타임을 먼저 맞추고, 그린피·캐디·카트·팁·식사·차량·대여 장비·세금과 취소 조건을 나눠 확인하세요. 문의 접수는 예약 확정이나 최종 요금 안내가 아닙니다.</p>
     ${courseTopicGuides(course)}
-    <h3>예약 준비에 이어서 읽기</h3><ul>${related}</ul><p>${topicHubs.map((hub) => `<a href="${hub.path}">${escapeHtml(hub.title)}</a>`).join(" · ")} · <a href="/services/vehicle.html">골프장 왕복 차량 상담</a> · ${boardLink(course)} · <a href="/golf#airport-times">공항→골프장 시간표</a></p>
+    <h3>예약 준비에 이어서 읽기</h3><ul>${related}</ul><p>${topicHubs.map((hub) => `<a href="${hub.path}">${escapeHtml(hub.title)}</a>`).join(" · ")} · ${courseVehicleLink(course)} · ${boardLink(course)} · <a href="/golf#airport-times">공항→골프장 시간표</a></p>
     <aside class="course-sources" aria-label="공식 출처"><h3>공식 출처</h3><p>자료 확인: <time datetime="${guide.checkedAt}">${guide.checkedAt}</time></p><ul>${guide.sources.map(([title, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a></li>`).join("")}</ul><p>${escapeHtml(guide.sourceNote || "공식 안내를 기준으로 골프장 이름과 코스 구성을 정리했습니다. 요금·티타임과 당일 운영·교통은 상담 때 그날 기준으로 확인해 드립니다.")}</p><a href="/source-policy.html">정보 출처 원칙</a></aside>
   </section>`;
 }
@@ -515,7 +517,22 @@ const golfComboAreas = ["hcm"];
 function courseStayCombo(course) {
   if (!golfComboAreas.includes(course.area)) return "";
   const airport = course.airport || areaOf(course).airport;
-  return `<section class="section shell stay-combo" id="stay-combo" aria-labelledby="stay-combo-title"><div class="stay-combo-box"><p class="eyebrow">골프 + 숙소 + 차량</p><h2 id="stay-combo-title">${escapeHtml(course.shortName)} 일정, 숙소·차량까지 한 번에 견적</h2><p>골프장 예약과 숙소, 공항·골프장 이동 차량을 따로 알아보지 않아도 됩니다. 날짜와 인원을 보내 주시면 골프·숙소·차량을 한 장의 견적으로 묶어 안내합니다.</p><dl class="stay-combo-list"><div><dt>숙소</dt><dd>자매 사이트 ${poolvilla.name}에서 ${poolvilla.villaRooms} 풀빌라를 룸 수로 골라 볼 수 있습니다.<span class="stay-combo-links"><a href="${poolvilla.villaList}" target="_blank" rel="noopener">룸 수별 풀빌라 목록 →</a><a href="${poolvilla.apartmentList}" target="_blank" rel="noopener">아파트 목록 →</a></span></dd></div><div><dt>이동</dt><dd>${escapeHtml(airport)}에서 ${escapeHtml(course.name)}까지 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (${escapeHtml(course.driveKm)})` : ""}, 평소 교통 기준입니다. 공항 픽업·샌딩과 숙소·골프장 왕복 차량을 인원과 골프백 수에 맞춰 함께 예약할 수 있습니다.<span class="stay-combo-links"><a href="/services/vehicle.html">차량 종류 보기 →</a></span></dd></div><div><dt>견적</dt><dd>카카오톡에 날짜·인원·희망 룸 수를 보내 주세요. ${pricing.reply}</dd></div></dl><a class="button button-kakao button-lg" href="${golfComboPath}" data-combo="golf-stay">골프·숙소·차량 한 번에 견적</a></div></section>`;
+  return `<section class="section shell stay-combo" id="stay-combo" aria-labelledby="stay-combo-title"><div class="stay-combo-box"><p class="eyebrow">골프 + 숙소 + 차량</p><h2 id="stay-combo-title">${escapeHtml(course.shortName)} 일정, 숙소·차량까지 한 번에 견적</h2><p>골프·숙소·차량(공항·골프장 이동)을 함께 견적 드립니다. 차량은 기본으로 넣어 드리고 필요 없으면 빼 드립니다. 날짜와 인원을 보내 주시면 한 장의 견적으로 묶어 안내합니다.</p><dl class="stay-combo-list"><div><dt>숙소</dt><dd>자매 사이트 ${poolvilla.name}에서 ${poolvilla.villaRooms} 풀빌라를 룸 수로 골라 볼 수 있습니다.<span class="stay-combo-links"><a href="${poolvilla.villaList}" target="_blank" rel="noopener">룸 수별 풀빌라 목록 →</a><a href="${poolvilla.apartmentList}" target="_blank" rel="noopener">아파트 목록 →</a></span></dd></div><div><dt>이동</dt><dd>${escapeHtml(airport)}에서 ${escapeHtml(course.name)}까지 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (${escapeHtml(course.driveKm)})` : ""}, 평소 교통 기준입니다. 공항 픽업·샌딩과 숙소·골프장 왕복 차량을 인원과 골프백 수에 맞춰 함께 예약할 수 있습니다.<span class="stay-combo-links"><a href="${golfRentPath(course)}">이 골프장까지 차량 →</a><a href="/rent">상황별 차량 보기 →</a></span></dd></div><div><dt>견적</dt><dd>카카오톡에 날짜·인원·희망 룸 수를 보내 주세요. ${pricing.reply}</dd></div></dl><a class="button button-kakao button-lg" href="${golfComboPath}" data-combo="golf-stay">골프·숙소·차량 한 번에 견적</a></div></section>`;
+}
+
+// 골프 후 저녁 일정(2026-11-20 차별화: 낮엔 골프, 저녁엔 숙소, 이동은 렌트, 밤엔 베트남밤).
+// 베트남밤은 호치민·다낭만 열려 있어 그 권역 골프장에만 넣는다. 풀빌라 묶음 블록과는 따로 둔다(숙소 사이트 안내에 섞지 않음).
+function courseEvening(course) {
+  const bam = vietnambam[course.area];
+  if (!bam) return "";
+  return `<section class="section shell course-evening" aria-label="골프 후 저녁 일정"><p class="course-evening-line"><a href="${bam.url}" target="_blank" rel="noopener">${escapeHtml(bam.label)} →</a></p></section>`;
+}
+
+// 골프장 상세 "차량" 링크: 호치민권은 그 골프장 차량 쪽, 판티엣·무이네는 무이네 차량 쪽, 나머지는 차량 상담 쪽.
+function courseVehicleLink(course) {
+  if (course.area === "hcm") return `<a href="${golfRentPath(course)}">${escapeHtml(courseLabel(course))}까지 차량</a>`;
+  if (course.area === "phanthiet") return `<a href="/rent/muine-day-trip.html">호치민→무이네·판티엣 차량</a>`;
+  return `<a href="/services/vehicle.html">골프장 왕복 차량 상담</a>`;
 }
 
 function courseDetailPage(course) {
@@ -526,7 +543,7 @@ function courseDetailPage(course) {
     <section class="detail-hero shell">
       <div class="detail-media">${courseVisual(course, "course-plate-detail", "eager")}${course.gallery?.length ? `<div class="detail-gallery" aria-label="${escapeHtml(course.name)} 사진">${course.gallery.map((file, index) => `<a href="/assets/images/${file}" target="_blank" rel="noopener"><img src="/assets/images/${file}" width="1200" height="800" loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 코스 사진 ${index + 2}"></a>`).join("")}</div>` : ""}</div>
       <div class="detail-summary"><p class="eyebrow">${course.region} 골프장</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="fact-list"><div><dt>지역</dt><dd>${course.location}</dd></div><div><dt>규모</dt><dd>${course.holes}</dd></div><div><dt>공항</dt><dd>${escapeHtml(course.airport || areaOf(course).airport)}에서 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (${escapeHtml(course.driveKm)})` : ""}</dd></div><div><dt>이동</dt><dd>${course.access}</dd></div></dl><p class="drive-note">공항 시간은 평소 교통 기준입니다. 출퇴근·주말·우천 시 더 걸릴 수 있습니다.</p><button class="button button-kakao button-block button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡으로 예약 가능 날짜 묻기</button><ul class="detail-steps"><li>날짜·인원 보내기</li><li>티타임·조건 확인</li><li>확정 후 바우처</li></ul>${pricingGuideHtml({ variant: "compact" })}<small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div>
-    </section>${courseStayCombo(course)}
+    </section>${courseStayCombo(course)}${courseEvening(course)}
     <section class="section shell detail-content">
       <article><p class="eyebrow">선택 포인트</p><h2>${course.shortName}, 이런 일정에 검토하세요</h2><ul class="point-list">${course.points.map((point) => `<li>${point}</li>`).join("")}</ul>${courseKeywordSections(course)}${courseGuideContent(course, guide)}</article>
       <aside class="side-consult"><strong>빠른 상담</strong><p>${course.shortName} 가능 여부와 이동 일정을 확인해드립니다.</p><button class="button button-kakao button-block js-consult" type="button" data-interest="${course.name} 티오프 및 차량 상담">카톡으로 일정 확인</button></aside>
@@ -636,7 +653,7 @@ function servicesPage() {
   const links = {
     apartment: `<a class="button" href="${poolvilla.apartmentList}" target="_blank" rel="noopener">${poolvilla.name}에서 아파트 보기</a>`,
     villa: `<a class="button" href="${poolvilla.villaList}" target="_blank" rel="noopener">${poolvilla.name}에서 풀빌라 보기</a>`,
-    vehicle: `<a class="button" href="/services/vehicle.html">자료 보기</a>`,
+    vehicle: `<a class="button" href="/rent">상황별 차량 렌트 보기</a><a class="button button-outline" href="/services/vehicle.html">차량 종류 보기</a>`,
   };
   const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">숙소·차량</p><h1>골프 숙소·차량 상담</h1><p>골프 일정에 맞는 숙소와 차량을 함께 잡아 드립니다. 라운드 시간과 인원을 알려 주시면 이동까지 한 번에 맞춰 드립니다. 아파트·풀빌라 목록은 자매 사이트 ${poolvilla.name}에서 안내합니다.</p></div></section><section class="section shell"><div class="service-list">${services.map((service) => `<article id="${service.slug}"><img src="/assets/images/${service.image}" width="1200" height="700" loading="lazy" decoding="async" alt="${service.name} 상담"><div><p class="eyebrow">연계 서비스</p><h2>${service.name}</h2><p>${service.text}</p><p class="muted">인원, 이용 날짜와 골프 일정을 알려주시면 적합한 조건을 함께 확인합니다.</p><div class="inline-actions">${links[service.slug]}<button class="button button-outline js-consult" type="button" data-interest="${service.name} 상담">상담하기</button></div></div></article>`).join("")}</div></section>`;
   return layout({ title: "호치민 골프 숙소와 차량 상담", description: "호치민 골프여행에 필요한 아파트, 풀빌라, 차량을 라운드 일정과 인원에 맞춰 한국어로 함께 상담하세요. 숙소와 이동을 한 번에 정리합니다.", pathname: "/services", active: "services", content });
@@ -658,19 +675,106 @@ function villasPage() {
 
 function vehiclePage() {
   const options = [
-    ["골프장 왕복", "호텔·아파트·풀빌라에서 골프장까지 일정에 맞춰 상담합니다."],
-    ["공항 픽업·샌딩", "항공편 시간과 인원, 짐 수량에 맞는 차량을 확인합니다."],
-    ["당일 전용 차량", "골프와 식사·관광 일정을 함께 이동할 때 상담합니다."],
-    ["시외·장거리", "호치민에서 붕따우·호트람·무이네 등 장거리 이동을 확인합니다."],
+    ["골프장 왕복", "호텔·아파트·풀빌라에서 골프장까지 일정에 맞춰 상담합니다.", "/rent/golf-transfer.html", "골프장별 차량 보기"],
+    ["공항 픽업·샌딩", "항공편 시간과 인원, 짐 수량에 맞는 차량을 확인합니다.", "/rent/family-luggage.html", "짐 많은 일정 차량 보기"],
+    ["당일 전용 차량", "골프와 식사·관광 일정을 함께 이동할 때 상담합니다.", "/rent/city-full-day.html", "종일 전용 차량 보기"],
+    ["시외·장거리", "호치민에서 붕따우·호트람·무이네 등 장거리 이동을 확인합니다.", "/rent/vungtau-day-trip.html", "붕따우 당일 차량 보기"],
   ];
-  const vehicleTypes = [
-    ["vehicle-7seat.webp", "7인승 (카니발급)", "2~3명과 골프백 2~3개. 공항 픽업과 골프장 왕복에 가장 많이 씁니다.", "흰색 7인승 카니발 차량 옆모습"],
-    ["vehicle-16seat.webp", "16인승 밴", "4~8명 단체와 골프백·캐리어가 많을 때 짐 공간이 넉넉합니다.", "흰색 16인승 솔라티 밴"],
-    ["vehicle-limousine.webp", "리무진 밴", "가죽 독립 좌석의 리무진 밴. 장거리 이동이나 붕따우·호트람 일정에 편합니다.", "리무진 밴 내부 가죽 독립 좌석"],
-    ["vehicle-bus.webp", "대형 버스", "골프 모임·단체 행사처럼 인원이 많을 때 상담합니다.", "흰색 대형 관광버스 앞모습"],
-  ];
-  const content = `<section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/service-vehicle.webp')"><div class="shell"><p class="eyebrow">골프 차량</p><h1>호치민 골프 차량 상담</h1><p>4·7·16인승과 리무진 등 인원과 골프백 수량에 맞는 차량을 상담합니다.</p><button class="button js-consult" type="button" data-interest="호치민 골프 차량 상담">차량 상담하기</button></div></section><section class="section shell"><div class="option-grid">${options.map(([name, text]) => `<article><span>차량 서비스</span><h2>${name}</h2><p>${text}</p><button class="text-button js-consult" type="button" data-interest="${name} 차량 상담">상담하기 →</button></article>`).join("")}</div></section><section class="section section-tint"><div class="shell"><div class="section-heading"><div><p class="eyebrow">차량 종류</p><h2>인원과 골프백에 맞춰 고르세요</h2></div></div><div class="vehicle-grid">${vehicleTypes.map(([img, name, text, alt]) => `<article class="vehicle-card"><img src="/assets/images/${img}" width="1200" height="900" loading="lazy" decoding="async" alt="${alt}"><div><h3>${name}</h3><p>${text}</p></div></article>`).join("")}</div><p class="vehicle-note">사진은 차량 종류 예시입니다. 실제 배정 차량은 날짜와 인원에 따라 달라질 수 있습니다.</p></div></section><section class="section"><div class="shell compact-copy"><p class="eyebrow">상담 전에 확인</p><h2>인원뿐 아니라 골프백 수량도 중요합니다</h2><p>이용 날짜, 탑승 인원, 골프백과 캐리어 수량, 출발지와 도착지를 알려주시면 차량 확인이 빨라집니다.</p></div></section>`;
+  const content = `<section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/service-vehicle.webp')"><div class="shell"><p class="eyebrow">골프 차량</p><h1>호치민 골프 차량 상담</h1><p>4·7·16인승과 리무진 등 인원과 골프백 수량에 맞는 차량을 상담합니다. 인승별·골프장별·당일 여행별 안내는 상황별 차량 렌트에 모았습니다.</p><div class="hero-x-actions"><button class="button js-consult" type="button" data-interest="호치민 골프 차량 상담">차량 상담하기</button><a class="button button-glass" href="/rent">상황별 차량 보기</a></div></div></section><section class="section shell"><div class="option-grid">${options.map(([name, text, href, label]) => `<article><span>차량 서비스</span><h2>${name}</h2><p>${text}</p><a class="text-link" href="${href}">${label} →</a></article>`).join("")}</div></section><section class="section section-tint"><div class="shell"><div class="section-heading"><div><p class="eyebrow">차량 종류</p><h2>인원과 골프백에 맞춰 고르세요</h2></div><a class="text-link" href="/rent">상황별 차량 전체 →</a></div><div class="vehicle-grid">${vehicleTypes.map((type) => `<article class="vehicle-card"><a href="${type.page}"><img src="/assets/images/${type.image}" width="1200" height="900" loading="lazy" decoding="async" alt="${type.alt}"></a><div><h3><a href="${type.page}">${type.name}</a></h3><p>${type.text}</p></div></article>`).join("")}</div><p class="vehicle-note">사진은 차량 종류 예시입니다. 실제 배정 차량은 날짜와 인원에 따라 달라질 수 있습니다.</p></div></section><section class="section"><div class="shell compact-copy"><p class="eyebrow">상담 전에 확인</p><h2>인원뿐 아니라 골프백 수량도 중요합니다</h2><p>이용 날짜, 탑승 인원, 골프백과 캐리어 수량, 출발지와 도착지를 알려주시면 차량 확인이 빨라집니다.</p></div></section>`;
   return layout({ title: "호치민 골프 차량 상담", description: "호치민 골프장 왕복, 공항 픽업, 당일 전용, 시외 이동 차량을 인원과 골프백 수에 맞춰 한국어로 상담합니다.", pathname: "/services/vehicle.html", active: "services", image: "service-vehicle.webp", content });
+}
+
+// ── 차량 렌트 상황별 페이지(/rent) ──────────────────────────────────────────
+// 공통 틀: 누구에게 맞는지 · 차량 고르는 기준 · 일정 예시 · 함께 묶으면 좋은 것 · FAQ 3개(화면=FAQPage) · 카톡 /go/rent-*.
+const faqSchema = (faqs) => ({ "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })) });
+const rentPageTitle = (pathname) => {
+  const course = courses.find((item) => golfRentPath(item) === pathname);
+  if (course) return `${courseLabel(course)}까지 차량`;
+  return rentPages.find((page) => `/rent/${page.slug}.html` === pathname).h1;
+};
+const bamItem = (key) => `<li><a href="${vietnambam[key].url}" target="_blank" rel="noopener">${escapeHtml(vietnambam[key].label)}</a></li>`;
+const stayItems = () => `<li>숙소: 자매 사이트 ${poolvilla.name}에서 ${poolvilla.villaRooms} 풀빌라를 룸 수로 골라 볼 수 있습니다. <a href="${poolvilla.villaList}" target="_blank" rel="noopener">룸 수별 풀빌라 목록</a> · <a href="${poolvilla.apartmentList}" target="_blank" rel="noopener">아파트 목록</a></li>`;
+const chooseTable = (caption) => `<div class="table-scroll"><table class="airport-table rent-choose"><caption>${escapeHtml(caption)}</caption><thead><tr><th scope="col">인원·짐</th><th scope="col">차량</th></tr></thead><tbody>${chooseRows.map(([who, name, href]) => `<tr><th scope="row">${escapeHtml(who)}</th><td><a href="${href}">${escapeHtml(name)}</a></td></tr>`).join("")}</tbody></table></div><p>${escapeHtml(luggageNote)} 사진은 차량 종류 예시이며, 실제 배정 차량은 날짜와 인원에 따라 달라질 수 있습니다.</p>`;
+const golfTimeTable = (caption) => `<div class="table-scroll"><table class="airport-table"><caption>${caption}</caption><thead><tr><th scope="col">골프장</th><th scope="col">방면</th><th scope="col">공항에서</th></tr></thead><tbody>${hcmCourses.map((course) => `<tr><th scope="row"><a href="${golfRentPath(course)}">${escapeHtml(course.name)}까지 차량</a></th><td>${escapeHtml(directionOf(course) || course.location)}</td><td><strong>${escapeHtml(course.drive)}</strong>${course.driveKm ? ` <small>(${escapeHtml(course.driveKm)})</small>` : ""}</td></tr>`).join("")}</tbody></table></div>`;
+
+function rentShell({ pathname, title, description, image, eyebrow, h1, lead, go, body, faqs, ctaText }) {
+  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/rent">차량 렌트</a><span>›</span><span aria-current="page">${escapeHtml(h1)}</span></nav>
+    <section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/${image}')"><div class="shell"><p class="eyebrow">${escapeHtml(eyebrow)}</p><h1>${escapeHtml(h1)}</h1><p>${lead}</p><div class="hero-x-actions"><a class="button button-kakao" href="${rentGo(go)}" data-rent="${go}">카카오톡으로 차량 상담</a><a class="button button-glass" href="/rent">상황별 차량 전체</a></div></div></section>
+    <section class="section shell"><div class="course-guide rent-body">${body}
+      <section class="rent-faq" aria-labelledby="rent-faq-title"><h2 id="rent-faq-title">자주 묻는 질문</h2><dl class="home-faq-list">${faqs.map(([question, answer]) => `<div><dt>${escapeHtml(question)}</dt><dd>${escapeHtml(answer)}</dd></div>`).join("")}</dl></section>
+      <div class="stay-combo-box rent-cta"><p class="eyebrow">차량 상담</p><h2>날짜·인원·골프백·캐리어 수를 보내 주세요</h2><p>${escapeHtml(ctaText || "출발지와 도착지, 일정 시작·종료 시간을 함께 알려 주시면 맞는 차량을 확인합니다. 요금은 날짜·차량·일정에 따라 달라 견적으로 안내합니다.")}</p><a class="button button-kakao button-lg" href="${rentGo(go)}" data-rent="${go}">카카오톡으로 차량 상담</a></div>
+    </div></section>`;
+  return layout({ title, description, pathname, active: "rent", image, content, schema: [breadcrumbSchema([["홈", "/"], ["차량 렌트", "/rent"], [h1, pathname]]), faqSchema(faqs)] });
+}
+
+// 받침 있으면 a(은·과), 없으면 b(는·와). 끝 글자가 한글이 아니면(CC 등) 받침 없음으로 읽는다.
+const josa = (word, a, b) => { const code = word.trim().slice(-1).charCodeAt(0) - 0xac00; return code >= 0 && code <= 11171 && code % 28 ? a : b; };
+const rentLinks = (paths) => paths.map((href) => `<a href="${href}">${escapeHtml(rentPageTitle(href))}</a>`).join(" · ");
+
+function rentSituationPage(page) {
+  const pathname = `/rent/${page.slug}.html`;
+  const list = page.courses.map((slug) => courses.find((course) => course.slug === slug));
+  const route = page.trip ? dayTripRoutes[page.trip] : null;
+  const body = `
+      <h2>이런 분께 맞습니다</h2><ul>${page.fit.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ul>
+      ${route ? `<h2>이동시간</h2><p>호치민 1군(벤탄 시장)에서 ${escapeHtml(route.to)}까지 공개 도로 경로 계산으로 ${escapeHtml(route.km)}, ${escapeHtml(route.time)}입니다(교통 상황에 따라 다름). 막힘 없는 경우의 계산이라 출퇴근·주말에는 더 걸립니다. ${escapeHtml(page.tripNote)}</p>` : ""}
+      ${page.slug === "golf-transfer" ? `<h2>골프장까지 이동시간</h2>${golfTimeTable("떤선녓 국제공항(SGN) 기준 평소 교통 시간입니다. 숙소에서 출발하면 숙소 위치에 따라 달라지고, 출퇴근·주말·비 오는 날에는 더 걸릴 수 있습니다.")}` : ""}
+      <h2>차량 고르는 기준</h2>${chooseTable("인원과 골프백·캐리어 수로 고르는 기준입니다.")}
+      <h2>일정 예시</h2><ol>${page.schedule.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol>
+      <h2>함께 묶으면 좋은 것</h2><ul>${list.map((course) => `<li>골프: <a href="/golf/${course.slug}.html">${escapeHtml(course.name)}</a> — ${escapeHtml(airportShort(course))}에서 약 ${escapeHtml(course.drive)}${course.area === "hcm" ? ` · <a href="${golfRentPath(course)}">이 골프장까지 차량</a>` : ""}</li>`).join("")}${stayItems()}${page.bam ? bamItem("hcm") : ""}<li>다른 차량 안내: ${rentLinks(page.related)}</li></ul>`;
+  return rentShell({ pathname, title: page.title, description: page.description, image: page.image, eyebrow: `차량 렌트 · ${page.group}`, h1: page.h1, lead: escapeHtml(page.lead), go: page.go, body, faqs: page.faq });
+}
+
+function golfRentPage(course) {
+  const pathname = golfRentPath(course);
+  const airport = course.airport || areaOf(course).airport;
+  const direction = directionOf(course);
+  const siblings = direction ? hcmCourses.filter((item) => item !== course && directionOf(item) === direction) : [];
+  const km = course.driveKm ? ` (${escapeHtml(course.driveKm)})` : "";
+  const reads = courseGuides[course.slug].related.map((file) => {
+    const post = file.startsWith("guide/") ? guides.find((item) => `guide/${item.slug}.html` === file) : blogPosts.find((item) => item.file === file);
+    return post ? `<a href="${relatedHref(file)}">${escapeHtml(post.title)}</a>` : "";
+  }).filter(Boolean);
+  const first = course.slug === "tan-son-nhat-golf-course"
+    ? `공항 도착 뒤 바로, 또는 출국 전 마지막 라운드 — 공항에서 약 ${course.drive}`
+    : `숙소 출발 — ${airportShort(course)} 기준 약 ${course.drive} 거리라 숙소 위치에 맞춰 출발 시간을 정합니다`;
+  const after = longDistance(course) && / 숙박 일정과 함께 추천$/.test(course.access)
+    ? `라운드 뒤 ${course.access.replace(/ 일정과 함께 추천$/, "")}, 또는 호치민 숙소로 복귀`
+    : "라운드 뒤 숙소 복귀, 또는 저녁 식사·시내 일정으로 이동";
+  const schedule = [first, "티오프 전에 접수·환복·골프백 하차 시간을 넣어 도착", after, ...(siblings.length ? [`다음 날 같은 ${direction} ${siblings.map(courseLabel).join("·")}${josa(courseLabel(siblings.at(-1)), "과", "와")} 연속 라운드로 묶기`] : [])];
+  const body = `
+      <h2>${escapeHtml(courseLabel(course))} 이동 정보</h2><ul><li>위치: ${escapeHtml(course.location)} (${escapeHtml(course.province)})</li><li>공항에서: ${escapeHtml(airport)} 기준 평소 교통 약 ${escapeHtml(course.drive)}${km} — 공항 기준이라 숙소에서 출발하면 숙소 위치에 따라 달라집니다</li><li>이동 안내: ${escapeHtml(course.access)}</li>${direction ? `<li>방면: ${escapeHtml(direction)}${siblings.length ? ` — 같은 방면 ${siblings.map((item) => `<a href="${golfRentPath(item)}">${escapeHtml(courseLabel(item))}</a>`).join(" · ")}` : ""}</li>` : ""}</ul><p class="drive-note">출퇴근·주말·비 오는 날에는 더 걸릴 수 있습니다.</p>
+      <h2>몇 인승을 고를까</h2>${chooseTable(`${courseLabel(course)} 일정에 맞는 차량을 인원과 골프백·캐리어 수로 고르는 기준입니다.`)}${longDistance(course) ? `<p>${escapeHtml(courseLabel(course))}${josa(courseLabel(course), "은", "는")} 호치민에서 이동이 길어 <a href="/rent/limousine-van.html">9인승 리무진 밴</a>도 편합니다. 당일 왕복이면 <a href="/rent/vungtau-day-trip.html">붕따우 당일 차량</a>도 함께 보세요.</p>` : ""}
+      <h2>일정 예시</h2><ol>${schedule.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol>
+      <h2>함께 묶으면 좋은 것</h2><ul><li>골프: <a href="/golf/${course.slug}.html">${escapeHtml(course.name)} 골프장 안내</a> — ${escapeHtml(course.holes)}, 예약 가능 날짜 상담</li>${stayItems()}${bamItem("hcm")}${reads.length ? `<li>이동·예약 글: ${reads.join(" · ")}</li>` : ""}<li>다른 골프장 차량: <a href="/rent/golf-transfer.html">호치민 골프장 ${hcmCourses.length}곳 이동시간</a></li></ul>`;
+  return rentShell({
+    pathname,
+    title: `${course.name}까지 차량 렌트 — 공항 이동시간·인승 고르기`,
+    description: `${course.name}까지 차량 안내. ${airportShort(course)} 기준 약 ${course.drive}${course.driveKm ? `(${course.driveKm})` : ""} 이동, 인원·골프백에 맞는 인승과 숙소·골프 일정을 함께 한국어로 상담합니다.`,
+    image: course.image || "service-vehicle.webp",
+    eyebrow: `차량 렌트 · ${course.region} 골프장`,
+    h1: `${courseLabel(course)}까지 차량`,
+    lead: `${escapeHtml(course.name)}(${escapeHtml(course.location)})까지 차량을 상담합니다. ${escapeHtml(airportShort(course))}에서 평소 교통 약 ${escapeHtml(course.drive)}${km}입니다.`,
+    go: "golf",
+    body,
+    faqs: golfRentFaqs(course, airport),
+    ctaText: `${courseLabel(course)} 날짜·티오프와 숙소 위치를 함께 알려 주시면 출발 시간과 차량을 맞춰 드립니다. 요금은 날짜·차량·일정에 따라 달라 견적으로 안내합니다.`,
+  });
+}
+
+function rentHubPage() {
+  const groups = ["당일 여행", "호치민 시내", "짐 많은 가족"];
+  const card = (page) => `<li><a href="/rent/${page.slug}.html"><em>${escapeHtml(page.group)}</em><strong>${escapeHtml(page.h1)}</strong><span>${escapeHtml(page.lead)}</span></a></li>`;
+  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/services">숙소·차량</a><span>›</span><span aria-current="page">차량 렌트</span></nav>
+    <section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/service-vehicle.webp')"><div class="shell"><p class="eyebrow">차량 렌트</p><h1>호치민 차량 렌트, 상황별로 고르기</h1><p>인승별, 골프장별, 붕따우·무이네·껀저 당일, 시내 반나절·종일, 짐 많은 가족까지. 낮엔 골프, 저녁엔 숙소, 그 사이 이동을 한 번에 맞춰 드립니다.</p><div class="hero-x-actions"><button class="button button-kakao js-consult" type="button" data-interest="차량 렌트 상담">카카오톡으로 차량 상담</button><a class="button button-glass" href="#rent-golf">골프장별 차량</a></div></div></section>
+    <section class="section shell"><section class="guide-group" id="rent-vehicles"><h2>차량 종류별 <span>${vehicleTypes.length}</span></h2><div class="vehicle-grid">${vehicleTypes.map((type) => `<article class="vehicle-card"><a href="${type.page}"><img src="/assets/images/${type.image}" width="1200" height="900" loading="lazy" decoding="async" alt="${type.alt}"></a><div><h3><a href="${type.page}">${type.name}</a></h3><p>${type.text}</p></div></article>`).join("")}</div><p class="vehicle-note">사진은 차량 종류 예시입니다. 실제 배정 차량은 날짜와 인원에 따라 달라질 수 있습니다.</p></section>
+    <section class="guide-group" id="rent-golf"><h2>골프장까지 차량 <span>${hcmCourses.length}곳</span></h2>${golfTimeTable("떤선녓 국제공항(SGN) 기준 평소 교통 시간입니다. 출퇴근 시간·주말·비 오는 날에는 더 걸릴 수 있습니다.")}<p class="hub-more"><a href="/rent/golf-transfer.html">골프장 이동 차량 안내 전체 →</a></p></section>
+    ${groups.map((group) => `<section class="guide-group"><h2>${group}</h2><ul class="guide-list">${rentPages.filter((page) => page.group === group).map(card).join("")}</ul></section>`).join("")}
+    <section class="guide-group"><h2>숙소·저녁 일정과 함께</h2><ul class="guide-list"><li><a href="${poolvilla.villaList}" target="_blank" rel="noopener"><em>숙소</em><strong>${poolvilla.name} 풀빌라 목록</strong><span>${poolvilla.villaRooms} 풀빌라를 룸 수로 골라 보고, 골프장·차량과 함께 견적 받으세요.</span></a></li><li><a href="${vietnambam.hcm.url}" target="_blank" rel="noopener"><em>저녁 일정</em><strong>${escapeHtml(vietnambam.hcm.label)}</strong><span>라운드 뒤 저녁 일정은 자매 사이트 베트남밤에서 볼 수 있습니다.</span></a></li></ul></section></section>
+    <section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">날짜와 인원만 알려주세요</p><h2>골프·숙소·차량, 한 번에 견적</h2><p>차량은 기본으로 넣어 드리고 필요 없으면 빼 드립니다. 홈페이지에서는 결제하지 않습니다.</p></div><a class="button button-kakao button-lg" href="/go/golf-combo" data-combo="rent-hub">골프·숙소·차량 한 번에 견적</a></div></section>`;
+  const itemUrls = [...vehicleTypes.map((type) => type.page), "/rent/golf-transfer.html", ...hcmCourses.map(golfRentPath), ...rentPages.filter((page) => groups.includes(page.group)).map((page) => `/rent/${page.slug}.html`)];
+  const itemList = { "@context": "https://schema.org", "@type": "ItemList", name: "호치민 차량 렌트 상황별 안내", itemListElement: itemUrls.map((url, index) => ({ "@type": "ListItem", position: index + 1, url: `${site.siteUrl}${url}` })) };
+  return layout({ title: "호치민 차량 렌트 상황별 안내", description: `호치민 차량 렌트를 7인승·9인승 리무진·16인승(17명 이상은 여러 대), 골프장 ${hcmCourses.length}곳, 붕따우·무이네·껀저 당일, 시내 반나절·종일, 짐 많은 가족 상황별로 비교하고 한국어로 상담하세요.`, pathname: "/rent", active: "rent", image: "service-vehicle.webp", content, schema: [itemList, breadcrumbSchema([["홈", "/"], ["숙소·차량", "/services"], ["차량 렌트", "/rent"]])] });
 }
 
 function guideIndexPage() {
@@ -834,6 +938,7 @@ async function llmsTxt(urls) {
     ["골프장", (url) => url.startsWith("/golf/")],
     ["지역별 골프장", (url) => url.startsWith("/regions/")],
     ["차량·숙소 서비스", (url) => /^\/services\/[^/]+\.html$/.test(url)],
+    ["차량 렌트", (url) => url === "/rent" || url.startsWith("/rent/")],
     ["예약 가이드", (url) => url.startsWith("/guide/")],
     ["블로그", (url) => url.startsWith("/blog/")],
     ["운영 원칙", (url) => ["/about.html", "/editorial-policy.html", "/source-policy.html"].includes(url)],
@@ -859,6 +964,9 @@ async function build() {
   await write("services/apartments.html", apartmentsPage());
   await write("services/villas.html", villasPage());
   await write("services/vehicle.html", vehiclePage());
+  await write("rent/index.html", rentHubPage());
+  for (const page of rentPages) await write(`rent/${page.slug}.html`, rentSituationPage(page));
+  for (const course of hcmCourses) await write(golfRentPath(course).slice(1), golfRentPage(course));
   await write("guide/index.html", guideIndexPage());
   for (const guide of guides) await write(`guide/${guide.slug}.html`, guidePage(guide));
   for (const hub of topicHubs) await write(`${hub.path.slice(1)}/index.html`, topicHubPage(hub));
@@ -902,7 +1010,7 @@ async function build() {
   }
 
   const urls = [
-    "/", "/golf", "/regions", ...regionBoards.map((board) => `/regions/${board.key}.html`), "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/blog", "/about.html", "/editorial-policy.html", "/source-policy.html",
+    "/", "/golf", "/regions", ...regionBoards.map((board) => `/regions/${board.key}.html`), "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/rent", ...rentPages.map((page) => `/rent/${page.slug}.html`), ...hcmCourses.map(golfRentPath), "/blog", "/about.html", "/editorial-policy.html", "/source-policy.html",
     ...courses.map((course) => `/golf/${course.slug}.html`),
     ...blogPosts.map((post) => `/blog/${post.file}`),
     "/guide",

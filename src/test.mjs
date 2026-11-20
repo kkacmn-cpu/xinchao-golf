@@ -7,14 +7,17 @@ import { apartments, courses, golfAreas, site, villas } from "./site-data.mjs";
 import { topicHubs } from "./topic-hubs.mjs";
 import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
 import { pricing } from "./pricing-guide.mjs";
+import { golfRentPath, hcmCourses, rentGoCodes, rentPages } from "./rent-data.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const failures = [];
 const markdownPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"));
 const guideCount = JSON.parse(await readFile(path.join(root, "src/content/guides.json"), "utf8")).length;
-const expectedContentPages = 27 + courses.length + markdownPosts.length + 1 + guideCount;
-const expectedSitemapUrls = 26 + courses.length + markdownPosts.length + 1 + guideCount;
+// 차량 렌트(/rent 허브 1 + 상황별 + 호치민권 골프장별)가 페이지·사이트맵에 더해진다(2026-11-20).
+const rentPageCount = 1 + rentPages.length + hcmCourses.length;
+const expectedContentPages = 27 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
+const expectedSitemapUrls = 26 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
 // 붕따우 지역 게시판(/regions/vungtau.html)이 생겨 페이지·사이트맵이 1개씩 늘었다(2026-11-20).
 // 숙소 상세 19쪽(아파트 4·빌라 15)은 호치민풀빌라로 넘겨 페이지·사이트맵에서 빠지고, 상세 주소 19개 이동 규칙이 늘었다(2026-11-20).
 const expectedRedirects = 66 + markdownPosts.length + legacyGolfPaths.length; // 66 = 기존 45 + 옛 주소→새 주소 2 + 숙소 상세 19, 닫힌 골프 사이트 옛 상세 주소 74
@@ -506,6 +509,101 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   const picked = pickChanged({ pages: { a: "1", b: "2", c: "3" } }, { pages: { a: "1", b: "9" } });
   if (picked.join() !== "b,c") failures.push(`IndexNow: 새·바뀐 주소 고르기 오류 (${picked.join()})`);
   if ((await readFile(path.join(root, "public/d5b83e4cf4084a38b2b71a6f9a62c7de.txt"), "utf8")).trim() !== "d5b83e4cf4084a38b2b71a6f9a62c7de") failures.push("IndexNow 키 파일 내용 오류");
+}
+
+// 차량 렌트 상황별 페이지(/rent)와 골프·숙소·차량·베트남밤 교차 연결(2026-11-20).
+// 렌트 쪽 존재·사이트맵·llms.txt, /go/rent-* noindex·사이트맵 제외, 금액 0, FAQ 화면=FAQPage, 베트남밤은 호치민·다낭 골프장에만.
+{
+  const decode = (value) => value.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"").replace(/&#039;/g, "'").replace(/&amp;/g, "&");
+  const plain = (html) => html.replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
+  const bamUrls = { hcm: "https://vietnambam.com/hochiminh/", danang: "https://vietnambam.com/danang/" };
+  const rentPaths = ["/rent", ...rentPages.map((page) => `/rent/${page.slug}.html`), ...hcmCourses.map(golfRentPath)];
+  const goOf = (pathname) => pathname === "/rent" ? null : (rentPages.find((page) => `/rent/${page.slug}.html` === pathname)?.go ?? "golf");
+  if (hcmCourses.length !== 14) failures.push(`골프장별 차량 쪽 ${hcmCourses.length}곳 (호치민권 14곳 예상)`);
+  for (const pathname of rentPaths) {
+    const relative = pathname === "/rent" ? "rent/index.html" : pathname.slice(1);
+    if (!await exists(path.join(dist, relative))) { failures.push(`렌트 쪽 없음: ${relative}`); continue; }
+    if (!sitemap.includes(`<loc>${site.siteUrl}${pathname}</loc>`)) failures.push(`${relative}: 사이트맵 누락`);
+    if (!llms.includes(`(${site.siteUrl}${pathname})`)) failures.push(`${relative}: llms.txt 누락`);
+    const html = await readFile(path.join(dist, relative), "utf8");
+    const main = html.match(/<main\b[\s\S]*?<\/main>/)?.[0] ?? "";
+    const hit = plain(main).match(PRICE);
+    if (hit) failures.push(`${relative}: 금액 표기(${hit[0]})`);
+    if (/(?:29|45)\s*인승/.test(plain(main))) failures.push(`${relative}: 사이트에 없는 인승(29·45인승) 표기`);
+    if (/영어\s*가능|영어 기사|한국어 기사/.test(main)) failures.push(`${relative}: 사이트에 없는 서비스 문구`);
+    if (!html.includes('href="/rent"')) failures.push(`${relative}: 렌트 허브 링크 누락`);
+    if (pathname === "/rent") continue;
+    const go = goOf(pathname);
+    const goLinks = [...main.matchAll(/href="(\/go\/rent-[a-z0-9-]+)"/g)].map((match) => match[1]);
+    if (goLinks.length < 1 || goLinks.some((href) => href !== `/go/rent-${go}`)) failures.push(`${relative}: 카톡 버튼은 /go/rent-${go}만 (${[...new Set(goLinks)].join(", ")})`);
+    const visible = [...(main.match(/<section class="rent-faq"[\s\S]*?<\/section>/)?.[0] ?? "").matchAll(/<dt>([\s\S]*?)<\/dt><dd>([\s\S]*?)<\/dd>/g)].map((match) => [decode(match[1]), decode(match[2])]);
+    const faqBlocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)].map((block) => { try { return JSON.parse(block[1]); } catch { return null; } }).filter((data) => data?.["@type"] === "FAQPage");
+    const structured = (faqBlocks[0]?.mainEntity ?? []).map((item) => [item.name, item.acceptedAnswer?.text]);
+    if (faqBlocks.length !== 1 || visible.length !== 3) failures.push(`${relative}: FAQ ${visible.length}문항·FAQPage ${faqBlocks.length}개 (3문항·1개여야 함)`);
+    if (JSON.stringify(visible) !== JSON.stringify(structured)) failures.push(`${relative}: FAQ 보이는 문답과 FAQPage 불일치`);
+    for (const heading of ["차량 고르는 기준|몇 인승을 고를까", "일정 예시", "함께 묶으면 좋은 것", "자주 묻는 질문"]) if (!new RegExp(`<h2[^>]*>(?:[^<]*)(?:${heading})`).test(main)) failures.push(`${relative}: 공통 틀 섹션 누락 (${heading})`);
+    if (!main.includes('href="https://hochiminhpoolvilla.com/villa/villa.html" target="_blank" rel="noopener"')) failures.push(`${relative}: 풀빌라 목록 새 탭 연결 누락`);
+  }
+  if (await exists(path.join(dist, "rent/airport-pickup.html")) || rentPaths.some((item) => /airport/.test(item))) failures.push("공항 픽업 전용 렌트 쪽은 만들지 않음");
+  for (const page of rentPages.filter((item) => item.trip)) {
+    const html = await readFile(path.join(dist, `rent/${page.slug}.html`), "utf8");
+    if (!/약 \d+km, 약 \d+시간(?: \d+분)?입니다\(교통 상황에 따라 다름\)/.test(html)) failures.push(`rent/${page.slug}.html: 당일 이동시간 "약 ○시간, 교통 상황에 따라 다름" 표시 누락`);
+  }
+  // 골프장 상세 ↔ 골프장별 차량 쪽 연결
+  for (const course of hcmCourses) {
+    const golf = await readFile(path.join(dist, `golf/${course.slug}.html`), "utf8");
+    const block = golf.match(/<section class="section shell stay-combo"[\s\S]*?<\/section>/)?.[0] ?? "";
+    if (!block.includes(`href="${golfRentPath(course)}"`)) failures.push(`golf/${course.slug}.html: 묶음 블록에 "이 골프장까지 차량" 링크 누락`);
+    if (!block.includes("차량은 기본으로 넣어 드리고 필요 없으면 빼 드립니다")) failures.push(`golf/${course.slug}.html: 묶음 블록에 차량 기본 포함 문구 누락`);
+    if (/vietnambam\.com/.test(block)) failures.push(`golf/${course.slug}.html: 풀빌라 묶음 블록 안에 베트남밤 링크`);
+    const rent = await readFile(path.join(dist, golfRentPath(course).slice(1)), "utf8");
+    if (!rent.includes(`href="/golf/${course.slug}.html"`)) failures.push(`${golfRentPath(course)}: 골프장 상세 링크 누락`);
+    if (!rent.includes(`약 ${course.drive}`) || !rent.includes("공항 기준")) failures.push(`${golfRentPath(course)}: 공항 기준 이동시간(${course.drive}) 누락`);
+  }
+  // 베트남밤: 호치민권 골프장 → hochiminh, 다낭권 → danang, 다른 지역 골프장 0. 그 밖에는 렌트 쪽(호치민)만. 모두 새 탭 noopener.
+  let bamCourses = 0;
+  for (const file of htmlFiles) {
+    const relative = path.relative(dist, file).split(path.sep).join("/");
+    const html = await readFile(file, "utf8");
+    const links = [...html.matchAll(/<a\b[^>]*href="(https:\/\/vietnambam\.com[^"]*)"[^>]*>/g)];
+    for (const link of links) {
+      if (!Object.values(bamUrls).includes(link[1])) failures.push(`${relative}: 열리지 않은 베트남밤 주소 ${link[1]}`);
+      if (!/target="_blank"/.test(link[0]) || !/rel="[^"]*noopener/.test(link[0])) failures.push(`${relative}: 베트남밤 링크 새 탭 noopener 누락`);
+    }
+    const urls = links.map((link) => link[1]);
+    const course = courses.find((item) => relative === `golf/${item.slug}.html`);
+    if (course) {
+      const expected = bamUrls[course.area];
+      if (!expected) { if (urls.length) failures.push(`${relative}: 호치민·다낭권이 아닌데 베트남밤 링크`); continue; }
+      if (urls.length !== 1 || urls[0] !== expected) failures.push(`${relative}: 베트남밤 링크는 ${expected} 1개여야 함 (${urls.join(", ")})`);
+      else bamCourses += 1;
+      continue;
+    }
+    if (urls.length && !relative.startsWith("rent/")) failures.push(`${relative}: 골프장·렌트 쪽이 아닌데 베트남밤 링크`);
+    if (relative.startsWith("rent/") && urls.some((url) => url !== bamUrls.hcm)) failures.push(`${relative}: 렌트(호치민) 쪽에 호치민 밖 베트남밤 링크`);
+    if (/^go\//.test(relative) && urls.length) failures.push(`${relative}: 상담 이동 쪽에 베트남밤 링크`);
+  }
+  const expectedBam = courses.filter((course) => bamUrls[course.area]).length;
+  if (bamCourses !== expectedBam) failures.push(`베트남밤 링크 골프장 ${bamCourses}곳 (예상 ${expectedBam}곳)`);
+  // /go/rent-*: 골프 카카오 채널, noindex, tracker, 금액 없음, 사이트맵·llms.txt 제외
+  for (const code of rentGoCodes) {
+    const goFile = path.join(dist, `go/rent-${code}.html`);
+    if (!await exists(goFile)) { failures.push(`/go/rent-${code} 페이지 없음`); continue; }
+    const go = await readFile(goFile, "utf8");
+    if (!go.includes('<meta name="robots" content="noindex,nofollow">')) failures.push(`/go/rent-${code} noindex 누락`);
+    if (!go.includes('href="https://pf.kakao.com/_xdBALn/chat"') || go.includes("_FXwxkG")) failures.push(`/go/rent-${code} 골프 카카오 채널(_xdBALn) 아님`);
+    if (!go.includes('data-company-site-tracker="xinchao-golf"')) failures.push(`/go/rent-${code} 관제판 tracker 누락`);
+    const hit = plain(go).match(PRICE);
+    if (hit) failures.push(`/go/rent-${code} 금액 표기(${hit[0]})`);
+  }
+  const combo = await readFile(path.join(dist, "go/golf-combo.html"), "utf8");
+  if (!combo.includes("차량은 기본으로 넣어 드리고 필요 없으면 빼 드립니다")) failures.push("/go/golf-combo 차량 기본 포함 문구 누락");
+  if (/\/go\//.test(sitemap) || /\/go\//.test(llms)) failures.push("사이트맵·llms.txt에 /go/ 주소 포함");
+  // 메뉴·서비스 허브·차량 쪽에서 렌트 허브로
+  for (const relative of ["index.html", "services/index.html", "services/vehicle.html"]) {
+    const html = await readFile(path.join(dist, relative), "utf8");
+    if (!html.includes('<a href="/rent"')) failures.push(`${relative}: 렌트 허브(/rent) 연결 누락`);
+  }
 }
 
 if (failures.length) {
