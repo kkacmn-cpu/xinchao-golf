@@ -167,11 +167,11 @@ for (const source of ["/blog/vietnam-golf-caddie-tip-checklist.html", "/vietnam-
   if (vercel.redirects?.filter((rule) => rule.source === source && rule.destination === "/blog/hochiminh-golf-stay-selection-checklist.html" && rule.permanent === true).length !== 1) failures.push(`${source}: 중복 없는 숙소 가이드 영구 이전 규칙 필요`);
 }
 {
-  // 옛 주소 → 새 .com 영구 이동: 맨 앞 2개 규칙, 인증 파일 3개는 제외
+  // 옛 주소 → 새 .com 영구 이동: 맨 앞 2개 규칙, 인증 파일 4개는 제외
   const hostRules = vercel.redirects?.filter((rule) => rule.has?.some((h) => h.type === "host" && h.value === "xinchao-golf.vercel.app")) ?? [];
   if (hostRules.length !== 2 || vercel.redirects.indexOf(hostRules[0]) !== 0 || vercel.redirects.indexOf(hostRules[1]) !== 1) failures.push("옛 주소 이동 규칙 2개가 맨 앞에 있어야 함");
   if (!hostRules.every((rule) => rule.permanent === true && rule.destination.startsWith(`${site.siteUrl}/`))) failures.push("옛 주소 이동 규칙의 도착지·영구 여부 오류");
-  for (const file of ["google42ff51d2f339800e.html", "naveracfd10be671c96cdfb93a6b8dadd8e45.html", "d5b83e4cf4084a38b2b71a6f9a62c7de.txt"]) {
+  for (const file of ["google42ff51d2f339800e.html", "google9dfe2426ca118753.html", "naveracfd10be671c96cdfb93a6b8dadd8e45.html", "d5b83e4cf4084a38b2b71a6f9a62c7de.txt"]) {
     if (!hostRules[1]?.source.includes(file.replace(".", "\\."))) failures.push(`옛 주소 이동에서 인증 파일 제외 누락: ${file}`);
     if (!files.some((item) => item.endsWith(file))) failures.push(`인증 파일 누락: ${file}`);
   }

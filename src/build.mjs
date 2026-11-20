@@ -847,7 +847,7 @@ async function build() {
   // 옛 주소(xinchao-golf.vercel.app)로 온 요청은 같은 경로의 새 .com 주소로 308(2026-11-20 xinchaogolf.com 이전).
   // 구글·네이버 인증 파일과 IndexNow 키 파일은 옛 주소에서도 그대로 열리게 뺀다. 맨 앞에 둬야 다른 규칙보다 먼저 걸린다.
   const legacyHostRules = [{ type: "host", value: legacyHost }];
-  const keepOnLegacyHost = ["google42ff51d2f339800e\\.html", "naveracfd10be671c96cdfb93a6b8dadd8e45\\.html", "d5b83e4cf4084a38b2b71a6f9a62c7de\\.txt"];
+  const keepOnLegacyHost = ["google42ff51d2f339800e\\.html", "google9dfe2426ca118753\\.html", "naveracfd10be671c96cdfb93a6b8dadd8e45\\.html", "d5b83e4cf4084a38b2b71a6f9a62c7de\\.txt"];
   const redirects = [
     { source: "/", has: legacyHostRules, destination: `${site.siteUrl}/`, permanent: true },
     { source: `/:path((?!(?:${keepOnLegacyHost.join("|")})$).+)`, has: legacyHostRules, destination: `${site.siteUrl}/:path`, permanent: true },
