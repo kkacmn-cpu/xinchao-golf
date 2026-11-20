@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 import { loadMarkdownPosts } from "./blog-content.mjs";
 import { courses, site } from "./site-data.mjs";
 import { topicHubs } from "./topic-hubs.mjs";
+import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -13,7 +14,7 @@ const markdownPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"
 const guideCount = JSON.parse(await readFile(path.join(root, "src/content/guides.json"), "utf8")).length;
 const expectedContentPages = 45 + courses.length + markdownPosts.length + 1 + guideCount;
 const expectedSitemapUrls = 44 + courses.length + markdownPosts.length + 1 + guideCount;
-const expectedRedirects = 47 + markdownPosts.length; // 47 = 기존 45 + 옛 주소→새 주소 2
+const expectedRedirects = 47 + markdownPosts.length + legacyGolfPaths.length * 2; // 47 = 기존 45 + 옛 주소→새 주소 2, 닫힌 골프 사이트 옛 상세 주소는 끝 / 있고 없고 2개씩
 
 async function collect(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -130,9 +131,11 @@ for (const file of htmlFiles) {
 
 const script = await readFile(path.join(dist, "assets/js/site.js"), "utf8");
 try { new Function(script); } catch (error) { failures.push(`site.js 문법 오류: ${error.message}`); }
-if (/navigator\.clipboard|document\.execCommand|consult-dialog|consult-form|js-consult/.test(script)) failures.push("상담 스크립트에 중간 입력·복사 경로 잔존");
+// 옛 상담 대화상자(중간 입력 단계)는 없어야 한다. 클립보드 복사는 홈 상담 준비표 요약에만 쓴다(2026-11-20 손님 점검 #11).
+if (/consult-dialog|consult-form|js-consult/.test(script)) failures.push("상담 스크립트에 중간 입력 경로 잔존");
+if (count(script, /navigator\.clipboard\.writeText\(/g) !== 1 || count(script, /document\.execCommand\(/g) !== 1 || count(script, /copyPrepSummary\(/g) !== 1) failures.push("클립보드 복사는 상담 준비표 요약(copyPrepSummary) 한 곳에서만 써야 함");
 const home = await readFile(path.join(dist, "index.html"), "utf8");
-for (const required of ["id=\"home-prep-form\"", "name=\"region\"", "name=\"date\"", "name=\"people\"", "name=\"purpose\"", "id=\"home-prep-result\"", "id=\"home-prep-candidates\""]) {
+for (const required of ["id=\"home-prep-form\"", "name=\"region\"", "name=\"date\"", "name=\"people\"", "name=\"purpose\"", "id=\"home-prep-result\"", "id=\"home-prep-candidates\"", "id=\"home-prep-copy-status\""]) {
   if (!home.includes(required)) failures.push(`홈 상담 준비표 누락: ${required}`);
 }
 if (!home.includes("예약 가능 여부·티오프·가격은 확정 정보가 아닙니다")) failures.push("홈 상담 준비표의 미확정 조건 안내 누락");
@@ -176,6 +179,21 @@ for (const source of ["/blog/vietnam-golf-caddie-tip-checklist.html", "/vietnam-
     if (!files.some((item) => item.endsWith(file))) failures.push(`인증 파일 누락: ${file}`);
   }
 }
+{
+  // 닫힌 골프 사이트 3곳의 옛 상세 주소: 끝 / 있고 없고 모두 실제 있는 페이지로 308
+  if (vercel.redirects.length > 1024) failures.push(`Vercel redirects 한도 초과: ${vercel.redirects.length}개`);
+  for (const entry of legacyGolfPaths) {
+    const destination = legacyGolfDestination(entry);
+    const target = destination.split("#")[0];
+    const built = target === "/golf" ? "golf/index.html" : target.slice(1);
+    if (!files.some((item) => path.relative(dist, item).split(path.sep).join("/") === built)) failures.push(`옛 골프장 주소 도착 페이지 없음: ${entry.from} → ${destination}`);
+    for (const source of [`/golf/${entry.from}`, `/golf/${entry.from}/`]) {
+      if (vercel.redirects.filter((rule) => rule.source === source && rule.destination === destination && rule.permanent === true).length !== 1) failures.push(`옛 골프장 주소 이동 규칙 누락 또는 중복: ${source}`);
+    }
+  }
+  if (new Set(legacyGolfPaths.map((entry) => entry.from)).size !== legacyGolfPaths.length) failures.push("옛 골프장 주소 대응표 중복");
+}
+if (!files.some((item) => item.endsWith(`${path.sep}favicon.ico`) && path.dirname(item) === dist)) failures.push("favicon.ico 누락");
 if (!Array.isArray(vercel.headers) || vercel.headers.length < 2) failures.push("배포 보안·캐시 헤더 누락");
 if (await exists(path.join(dist, "vercel.json"))) failures.push("배포 설정이 공개 결과물 안에 포함됨");
 const notFound = await readFile(path.join(dist, "404.html"), "utf8");

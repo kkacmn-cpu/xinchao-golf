@@ -78,7 +78,7 @@ export const courseGuides = {
   },
   "long-thanh-golf-club": {
     checkedAt: "2026-09-26",
-    sourceNote: "공식 코스 안내의 검색 수집본으로 힐·레이크 구성을 대조했습니다. 직접 접속에서는 503 응답이 있어 현재 운영 상태와 요금은 확인하지 못했습니다.",
+    sourceNote: "공식 코스 안내를 기준으로 힐·레이크 구성을 정리했습니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
     sources: [["롱탄 공식 코스 안내", "https://www.longthanhgolfresort.com/choi-golf.html"]],
     faqs: [
       ["롱탄 힐과 레이크는 각각 몇 홀인가요?", "공식 코스 소개는 Hill 18홀과 Lake 18홀을 구분합니다. 전체 36홀 시설이라는 설명과 한 번 예약하는 라운드는 다릅니다. 희망 코스와 이용 홀 수를 지정해 견적을 요청하세요."],
@@ -544,7 +544,7 @@ export const courseGuides = {
   },
   "flc-ha-long-golf": {
     "checkedAt": "2026-11-14",
-    "sourceNote": "골프장 전용 사이트가 열리지 않아 운영사 FLC 그룹의 프로젝트 안내를 대조했습니다. 티타임·요금·당일 운영은 확인 범위에 포함되지 않습니다.",
+    "sourceNote": "운영사 FLC 그룹의 프로젝트 안내를 기준으로 정리했습니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
     "sources": [
       [
         "FLC 그룹 하롱 프로젝트 안내",
@@ -568,7 +568,7 @@ export const courseGuides = {
   },
   "chi-linh-golf": {
     "checkedAt": "2026-11-14",
-    "sourceNote": "골프장 공식 사이트가 응답하지 않아 골프장 정보 사이트로 코스 구성과 위치만 대조했습니다. 티타임·요금·당일 운영은 확인 범위에 포함되지 않습니다.",
+    "sourceNote": "골프장 정보 사이트를 기준으로 코스 구성과 위치를 정리했습니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
     "sources": [
       [
         "Chi Linh Star Golf 골프장 정보(where2golf)",
@@ -615,7 +615,7 @@ export const courseGuides = {
   },
   "legend-hill-country-club": {
     "checkedAt": "2026-11-14",
-    "sourceNote": "골프장 공식 사이트를 확인하지 못해 베트남 골프 매체의 소개로 설계·규모만 대조했습니다. 티타임·요금·당일 운영은 확인 범위에 포함되지 않습니다.",
+    "sourceNote": "베트남 골프 매체의 소개를 기준으로 설계와 규모를 정리했습니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
     "sources": [
       [
         "Vietnam Golf Magazine 레전드힐 소개",
@@ -639,7 +639,7 @@ export const courseGuides = {
   },
   "heron-lake-golf": {
     "checkedAt": "2026-11-14",
-    "sourceNote": "골프장 공식 사이트를 확인하지 못해 골프장 정보 사이트로 코스 구성과 위치만 대조했습니다. 티타임·요금·당일 운영은 확인 범위에 포함되지 않습니다.",
+    "sourceNote": "골프장 정보 사이트를 기준으로 코스 구성과 위치를 정리했습니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
     "sources": [
       [
         "Heron Lake 골프장 정보(where2golf)",
@@ -686,7 +686,7 @@ export const courseGuides = {
   },
   "phoenix-golf-resort": {
     "checkedAt": "2026-11-14",
-    "sourceNote": "골프장 공식 사이트를 확인하지 못해 2026년 보도자료와 언론 기사로 규모·소유·재단장 내용만 대조했습니다. 티타임·요금·당일 운영은 확인 범위에 포함되지 않습니다.",
+    "sourceNote": "2026년 보도자료와 언론 기사를 기준으로 규모·소유·재단장 내용을 정리했습니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
     "sources": [
       [
         "피닉스 CV 골프 리조트 2026 보도자료(IAGTO)",
