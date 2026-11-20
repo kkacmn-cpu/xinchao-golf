@@ -289,7 +289,8 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   // Organization sameAs: 공식 채널 6개만(페이스북·틱톡 제외), 카카오 채널은 contactPoint 유지.
   const organizations = [...home.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)].map((block) => { try { return JSON.parse(block[1]); } catch { return null; } }).filter((data) => data?.["@type"] === "Organization");
   const sameAs = organizations[0]?.sameAs ?? [];
-  if (sameAs.length !== 6 || new Set(sameAs).size !== 6 || !sameAs.every((url) => /^https:\/\/(?:www\.youtube\.com|www\.instagram\.com|www\.threads\.com|cafe\.naver\.com|blog\.naver\.com)\//.test(url))) failures.push(`홈 Organization sameAs 오류: ${JSON.stringify(sameAs)}`);
+  const expectedSameAs = ["https://www.youtube.com/channel/UCATu1VDcTf8FqNkbvlkRgyA", "https://www.instagram.com/xin.chaohcm/", "https://www.threads.com/@xin.chaohcm", "https://cafe.naver.com/prpr12", "https://blog.naver.com/jjacmn", "https://blog.naver.com/akkacmn"];
+  if (JSON.stringify(sameAs) !== JSON.stringify(expectedSameAs)) failures.push(`홈 Organization sameAs 오류: ${JSON.stringify(sameAs)}`);
   if (sameAs.some((url) => /facebook|tiktok/i.test(url))) failures.push("홈 Organization sameAs에 페이스북·틱톡 포함");
   if (organizations[0]?.contactPoint?.url !== site.kakaoUrl) failures.push("홈 Organization 카카오 채널 contactPoint 누락");
   const homeQuestions = new Set(visible.map(([question]) => question));
