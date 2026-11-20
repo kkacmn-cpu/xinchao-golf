@@ -167,7 +167,7 @@ for (const icon of ["xinchao-golf-logo-192.webp", "xinchao-golf-logo-512.webp"])
 }
 
 const vercel = JSON.parse(await readFile(path.join(root, "vercel.json"), "utf8"));
-if (vercel.buildCommand !== "npm run build") failures.push("Vercel 빌드 명령 오류");
+if (vercel.buildCommand !== "npm run build && (node scripts/indexnow.mjs --build || true)") failures.push("Vercel 빌드 명령 오류(빌드 + IndexNow 운영 제출)");
 if (vercel.outputDirectory !== "dist") failures.push("Vercel 결과 폴더 오류");
 if (!Array.isArray(vercel.redirects) || vercel.redirects.length !== expectedRedirects) failures.push(`301 이전 규칙 ${vercel.redirects?.length ?? 0}개 (예상 ${expectedRedirects}개)`);
 if (vercel.redirects?.filter((rule) => rule.source === "/golf/compare-regions" && rule.destination === "/regions" && rule.permanent === true).length !== 1) failures.push("이전 지역 비교 URL의 영구 이전 규칙 누락 또는 중복");
@@ -369,7 +369,8 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   }
   const regionsIndex = await readFile(path.join(dist, "regions/index.html"), "utf8");
   if (!regionsIndex.includes('href="/regions/vungtau.html"')) failures.push("지역 목록에 붕따우 링크 누락");
-  for (const key of ["hochiminh", "vungtau", "nhatrang", "danang", "dalat"]) {
+  // 하노이·푸꾸옥은 2026-11-20 보류 해제로 섹션을 켰다(7곳 모두).
+  for (const key of ["hochiminh", "vungtau", "nhatrang", "danang", "dalat", "hanoi", "phuquoc"]) {
     const relative = `regions/${key}.html`;
     const html = await readFile(path.join(dist, relative), "utf8");
     const text = visibleText(html);
@@ -383,10 +384,9 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     for (const course of courses.filter((item) => boardOf(item) === key)) if (!html.includes(`<article class="course-card">`) || !html.includes(`href="/golf/${course.slug}.html" aria-label=`)) failures.push(`${relative}: 골프장 카드 누락 (${course.slug})`);
     for (const sentence of [pricing.greenFee, pricing.fee, pricing.split, pricing.howTo, pricing.reply]) once(text, sentence, relative);
   }
-  // 하노이·푸꾸옥은 키워드 지도 보류 해제 전이라 섹션·제목을 바꾸지 않는다.
   for (const key of ["hanoi", "phuquoc"]) {
     const html = await readFile(path.join(dist, `regions/${key}.html`), "utf8");
-    if (html.includes('id="region-price"') || !/<title>[^<]* 골프 예약·일정 안내 \|/.test(html)) failures.push(`regions/${key}.html: 보류 지역에 키워드 섹션·제목이 바뀜`);
+    if (!/<title>[^<]* 골프장 가격·예약·이동시간 안내 \|/.test(html)) failures.push(`regions/${key}.html: 보류 해제 뒤 제목이 섹션 제목이 아님`);
   }
   // 붕따우 글을 붕따우 게시판에 모아도 호치민 게시판에서는 빠지지 않는다.
   const hcmBoard = await readFile(path.join(dist, "regions/hochiminh.html"), "utf8");
@@ -454,6 +454,58 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   }
   if (/\/go\//.test(sitemap)) failures.push("사이트맵에 /go/ 주소 포함");
   if (/\/go\//.test(llms)) failures.push("llms.txt에 /go/ 주소 포함");
+}
+
+// 새 골프장 상세(2026-11-20 1일차 5곳): 상세 쪽·목록·지역 쪽·sitemap·llms.txt 반영, 금액 0, 출처 상자, 카톡 버튼, 사진 대신 안내 카드.
+{
+  const { courseGuides } = await import("./course-guides.mjs");
+  const added = ["legend-valley-country-club", "stone-valley-golf-resort", "trang-an-golf-resort", "amber-hills-golf-resort", "golden-sands-golf-resort"];
+  const plain = (html) => html.replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
+  const golfIndex = await readFile(path.join(dist, "golf/index.html"), "utf8");
+  const boardOf = (course) => course.board || golfAreas.find((area) => area.key === course.area).board;
+  for (const slug of added) {
+    const course = courses.find((item) => item.slug === slug);
+    const relative = `golf/${slug}.html`;
+    if (!course) { failures.push(`새 골프장 데이터 없음: ${slug}`); continue; }
+    if (!await exists(path.join(dist, relative))) { failures.push(`새 골프장 상세 없음: ${relative}`); continue; }
+    const html = await readFile(path.join(dist, relative), "utf8");
+    const guide = courseGuides[slug];
+    if (!guide?.sources?.length) failures.push(`${relative}: 출처(sources) 없음`);
+    else for (const [, url] of guide.sources) if (!html.includes(`href="${url}"`)) failures.push(`${relative}: 출처 링크 누락 (${url})`);
+    if (!html.includes('<aside class="course-sources"') || !html.includes(guide?.sourceNote || "출처 문구 없음")) failures.push(`${relative}: 출처 상자·안내 문구 누락`);
+    if (!html.includes('<details class="pay-guide-compact">')) failures.push(`${relative}: 요금 구성 접이식 안내 누락`);
+    if (!html.includes('<ul class="detail-steps">')) failures.push(`${relative}: 예약 단계 누락`);
+    if (!html.includes(`href="${site.kakaoUrl}"`)) failures.push(`${relative}: 카카오톡 버튼 누락`);
+    if (course.image || course.gallery?.length) failures.push(`${relative}: 저작권 확인 전 사진 사용`);
+    if (!html.includes('class="course-plate course-plate-detail"')) failures.push(`${relative}: 사진 대신 안내 카드 누락`);
+    const hit = plain(html).match(PRICE);
+    if (hit) failures.push(`${relative}: 금액 표기(${hit[0]})`);
+    if (course.area !== "hcm" && !course.points.includes("숙소·차량 함께 상담")) failures.push(`${relative}: 호치민권 밖 숙소 상담 문구 누락`);
+    if (!sitemap.includes(`<loc>${site.siteUrl}/golf/${slug}.html</loc>`)) failures.push(`${relative}: 사이트맵 누락`);
+    if (!llms.includes(`(${site.siteUrl}/golf/${slug}.html)`)) failures.push(`${relative}: llms.txt 누락`);
+    if (!golfIndex.includes(`href="/golf/${slug}.html"`)) failures.push(`${relative}: 골프장 목록(/golf) 누락`);
+    const board = await readFile(path.join(dist, `regions/${boardOf(course)}.html`), "utf8");
+    if (!board.includes(`href="/golf/${slug}.html"`)) failures.push(`${relative}: 지역 쪽(${boardOf(course)}) 카드 누락`);
+  }
+  const home = await readFile(path.join(dist, "index.html"), "utf8");
+  if (!home.includes(`${courses.length}곳`)) failures.push(`홈에 골프장 수(${courses.length}곳) 없음`);
+  // 옛 사이트에서 지역 목록으로 보내던 5곳은 새 상세로 다시 연결한다.
+  for (const [from, to] of [["bacgiang/bacgiang-amber-hill-golf-and-resort", "amber-hills-golf-resort"], ["hanam/hanam-legend-valley-country-club", "legend-valley-country-club"], ["hanam/hanam-stone-valley-golf-and-resort", "stone-valley-golf-resort"], ["ninhbinh/ninhbinh-trang-an-golf-and-resort", "trang-an-golf-resort"], ["hue/hue-golden-sands-golf-resort", "golden-sands-golf-resort"]]) {
+    const entry = legacyGolfPaths.find((item) => item.from === from);
+    if (legacyGolfDestination(entry ?? {}) !== `/golf/${to}.html`) failures.push(`옛 경로 재연결 누락: ${from} → ${to}`);
+  }
+}
+
+// IndexNow(2026-11-20): 사이트맵 주소마다 dist 파일이 있어야 내용 비교가 된다. 바뀐 주소만 고르고, 키 파일은 public에 있다.
+{
+  const { distFile, pageHash, pickChanged, sitemapEntries } = await import("../scripts/indexnow.mjs");
+  const entries = sitemapEntries(sitemap);
+  if (entries.length !== (sitemap.match(/<loc>/g) || []).length) failures.push("IndexNow: 사이트맵 주소를 다 읽지 못함");
+  for (const { loc } of entries) if (!await exists(path.join(dist, distFile(loc)))) failures.push(`IndexNow: 주소에 맞는 dist 파일 없음 (${loc})`);
+  if (pageHash('<link href="/a.css?v=0123456789ab">') !== pageHash('<link href="/a.css?v=ba9876543210">')) failures.push("IndexNow: 자산 버전만 바뀐 쪽을 바뀐 쪽으로 봄");
+  const picked = pickChanged({ pages: { a: "1", b: "2", c: "3" } }, { pages: { a: "1", b: "9" } });
+  if (picked.join() !== "b,c") failures.push(`IndexNow: 새·바뀐 주소 고르기 오류 (${picked.join()})`);
+  if ((await readFile(path.join(root, "public/d5b83e4cf4084a38b2b71a6f9a62c7de.txt"), "utf8")).trim() !== "d5b83e4cf4084a38b2b71a6f9a62c7de") failures.push("IndexNow 키 파일 내용 오류");
 }
 
 if (failures.length) {

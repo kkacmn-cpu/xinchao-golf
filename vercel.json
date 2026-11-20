@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run build",
+  "buildCommand": "npm run build && (node scripts/indexnow.mjs --build || true)",
   "outputDirectory": "dist",
   "cleanUrls": false,
   "trailingSlash": false,
@@ -829,7 +829,27 @@
     },
     {
       "source": "/golf/bacgiang/bacgiang-amber-hill-golf-and-resort",
-      "destination": "/golf#area-hanoi",
+      "destination": "/golf/amber-hills-golf-resort.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf/hanam/hanam-legend-valley-country-club",
+      "destination": "/golf/legend-valley-country-club.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf/hanam/hanam-stone-valley-golf-and-resort",
+      "destination": "/golf/stone-valley-golf-resort.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf/ninhbinh/ninhbinh-trang-an-golf-and-resort",
+      "destination": "/golf/trang-an-golf-resort.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf/hue/hue-golden-sands-golf-resort",
+      "destination": "/golf/golden-sands-golf-resort.html",
       "permanent": true
     },
     {
@@ -843,16 +863,6 @@
       "permanent": true
     },
     {
-      "source": "/golf/hanam/hanam-legend-valley-country-club",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hanam/hanam-stone-valley-golf-and-resort",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
       "source": "/golf/hanoi/hanoi-van-tri-golf-club",
       "destination": "/golf#area-hanoi",
       "permanent": true
@@ -863,17 +873,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hue/hue-golden-sands-golf-resort",
-      "destination": "/golf#area-danang",
-      "permanent": true
-    },
-    {
       "source": "/golf/ninhbinh/ninhbinh-royal-golf-course",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
-      "source": "/golf/ninhbinh/ninhbinh-trang-an-golf-and-resort",
       "destination": "/golf#area-hanoi",
       "permanent": true
     },

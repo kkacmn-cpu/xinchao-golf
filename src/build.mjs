@@ -580,10 +580,10 @@ const regionBoards = [
   { key: "hochiminh", sections: true, name: "호치민", lead: "호치민 시내와 동나이·빈즈엉·롱안·붕따우·호트람 골프장 예약, 일정, 이동 글을 모았습니다.", words: ["호치민", "롱탄", "송베", "동나이", "빈즈엉", "붕따우", "호트람", "탄손넛", "투득", "트윈도브", "롱안", "떠이닌", "에메랄드", "정산", "하모니", "블러프스", "레만", "웨스트레이크", "로얄롱안", "판티엣", "무이네", "쩌우득"] },
   // 붕따우(2026-11-20 키워드 지도 "붕따우 골프" 칸): 호치민 게시판의 붕따우·호트람·쩌우득 글은 호치민에도 그대로 남는다(글은 두 게시판에 함께 보임).
   { key: "vungtau", sections: true, name: "붕따우", lead: "붕따우 해안·호트람과 호치민에서 붕따우 가는 길의 쩌우득 골프장 예약, 일정, 이동 글을 모았습니다.", words: ["붕따우", "호트람", "호짬", "블러프", "쩌우득", "소나데지"], extra: ["hochiminh-golf-travel-guide.html", "hochiminh-golf-rental-car-guide.html"] },
-  { key: "hanoi", name: "하노이", lead: "하노이와 근교 골프장 예약, 단체 조편성, 공항·숙소 차량 연결 글을 모았습니다.", words: ["하노이", "하이퐁", "하롱", "도선", "찌린", "속선", "호아빈", "몬타나", "다이라이", "땀다오", "킹스아일랜드", "탄라인", "롱비엔", "스카이레이크", "반찌", "땀다오", "탐다오", "하롱"] },
-  { key: "danang", sections: true, name: "다낭·호이안", lead: "다낭·호이안 골프장 예약과 티오프 확인, 가족·단체 일정 글을 모았습니다.", words: ["다낭", "호이안", "호이아나", "몽고메리", "바나힐"] },
+  { key: "hanoi", sections: true, name: "하노이", lead: "하노이와 근교·닌빈·박닌, 하이퐁·하롱 골프장 예약, 단체 조편성, 공항·숙소 차량 연결 글을 모았습니다.", words: ["하노이", "하이퐁", "하롱", "도선", "찌린", "속선", "호아빈", "몬타나", "다이라이", "땀다오", "킹스아일랜드", "탄라인", "롱비엔", "스카이레이크", "반찌", "땀다오", "탐다오", "하롱", "닌빈", "짱안", "레전드 밸리", "스톤 밸리", "앰버 힐스"] },
+  { key: "danang", sections: true, name: "다낭·호이안", lead: "다낭·호이안·후에 골프장 예약과 티오프 확인, 가족·단체 일정 글을 모았습니다.", words: ["다낭", "호이안", "호이아나", "몽고메리", "바나힐", "랑꼬"] },
   { key: "nhatrang", sections: true, name: "나트랑", lead: "나트랑·캄란 리조트 골프 예약과 일정 글을 모았습니다.", words: ["나트랑", "캄란"] },
-  { key: "phuquoc", name: "푸꾸옥", lead: "푸꾸옥 골프 예약, 항공 도착과 티오프 연결, 포함 항목 확인 글을 모았습니다.", words: ["푸꾸옥"] },
+  { key: "phuquoc", sections: true, name: "푸꾸옥", lead: "푸꾸옥 골프 예약, 항공 도착과 티오프 연결, 포함 항목 확인 글을 모았습니다.", words: ["푸꾸옥"] },
   { key: "dalat", sections: true, name: "달랏", lead: "달랏 골프장 예약과 일정 글을 모았습니다.", words: ["달랏"] },
 ];
 
@@ -599,7 +599,7 @@ function regionBoardItems(board) {
 }
 
 // 지역 게시판 "글 안 섹션"(키워드 지도 07: 가격·예약·이동시간·코스): 이 사이트 골프장 자료(홀 수·위치·공항 이동시간)만 쓴다.
-// sections: true인 게시판만(호치민·붕따우·다낭·나트랑·달랏). 하노이·푸꾸옥은 키워드 지도 보류 해제 뒤에 켠다.
+// sections: true인 게시판만. 하노이·푸꾸옥은 2026-11-20 보류 해제(신짜오 사이트 성장 매일 1일차)로 켰다 → 지금은 7곳 모두.
 // 후기 섹션은 실제 후기가 없어 만들지 않는다. 요금 문장은 pricing-guide 문장을 한 번씩만 쓴다.
 function regionKeywordSections(board) {
   if (!board.sections) return "";
@@ -991,7 +991,8 @@ async function build() {
   ];
   const vercelConfig = {
     "$schema": "https://openapi.vercel.sh/vercel.json",
-    buildCommand: "npm run build",
+    // 빌드 뒤 IndexNow 제출(운영 배포에서만, 실패해도 배포는 성공): scripts/indexnow.mjs
+    buildCommand: "npm run build && (node scripts/indexnow.mjs --build || true)",
     outputDirectory: "dist",
     cleanUrls: false,
     trailingSlash: false,
