@@ -265,6 +265,47 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   }
 }
 
+// 홈 자주 묻는 질문: 보이는 문답 = FAQPage JSON-LD(구글 규칙), 5~7문항, 금액·답변 시간 숫자 없음, 다른 페이지 FAQ와 같은 질문 없음.
+{
+  const decode = (value) => value.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"").replace(/&#39;/g, "'").replace(/&amp;/g, "&");
+  const section = home.match(/<section\b[^>]*\bid="faq"[^>]*>([\s\S]*?)<\/section>/)?.[1] ?? "";
+  const visible = [...section.matchAll(/<dt>([\s\S]*?)<\/dt><dd>([\s\S]*?)<\/dd>/g)].map((match) => [decode(match[1]), decode(match[2])]);
+  const faqBlocks = [];
+  for (const block of home.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)) {
+    let data;
+    try { data = JSON.parse(block[1]); } catch (error) { failures.push(`홈 JSON-LD 파싱 실패: ${error.message}`); continue; }
+    if (data["@type"] === "FAQPage") faqBlocks.push(data);
+  }
+  if (faqBlocks.length !== 1) failures.push(`홈 FAQPage 구조화 데이터 ${faqBlocks.length}개 (1개여야 함)`);
+  const structured = (faqBlocks[0]?.mainEntity ?? []).map((item) => [item?.["@type"] === "Question" ? item.name : null, item?.acceptedAnswer?.["@type"] === "Answer" ? item.acceptedAnswer.text : null]);
+  if (visible.length < 5 || visible.length > 7) failures.push(`홈 FAQ ${visible.length}문항 (5~7문항이어야 함)`);
+  if (JSON.stringify(visible) !== JSON.stringify(structured)) failures.push("홈 FAQ 보이는 문답과 FAQPage JSON-LD 불일치");
+  for (const [question, answer] of visible) {
+    const hit = `${question} ${answer}`.match(PRICE);
+    if (hit) failures.push(`홈 FAQ 금액 표기(${hit[0]}): ${question}`);
+    if (/\d+\s*(?:분|시간|일)\s*(?:안|내|이내)/.test(answer) && /답변|회신|연락/.test(answer)) failures.push(`홈 FAQ 답변 시간 숫자 약속: ${question}`);
+    if (/<[a-z]/i.test(answer)) failures.push(`홈 FAQ 답변에 HTML 태그: ${question}`);
+  }
+  // Organization sameAs: 공식 채널 6개만(페이스북·틱톡 제외), 카카오 채널은 contactPoint 유지.
+  const organizations = [...home.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)].map((block) => { try { return JSON.parse(block[1]); } catch { return null; } }).filter((data) => data?.["@type"] === "Organization");
+  const sameAs = organizations[0]?.sameAs ?? [];
+  if (sameAs.length !== 6 || new Set(sameAs).size !== 6 || !sameAs.every((url) => /^https:\/\/(?:www\.youtube\.com|www\.instagram\.com|www\.threads\.com|cafe\.naver\.com|blog\.naver\.com)\//.test(url))) failures.push(`홈 Organization sameAs 오류: ${JSON.stringify(sameAs)}`);
+  if (sameAs.some((url) => /facebook|tiktok/i.test(url))) failures.push("홈 Organization sameAs에 페이스북·틱톡 포함");
+  if (organizations[0]?.contactPoint?.url !== site.kakaoUrl) failures.push("홈 Organization 카카오 채널 contactPoint 누락");
+  const homeQuestions = new Set(visible.map(([question]) => question));
+  for (const file of htmlFiles) {
+    const relative = path.relative(dist, file).split(path.sep).join("/");
+    if (relative === "index.html") continue;
+    const html = await readFile(file, "utf8");
+    if (!html.includes('"FAQPage"')) continue;
+    for (const block of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)) {
+      let data; try { data = JSON.parse(block[1]); } catch { continue; }
+      if (data["@type"] !== "FAQPage") continue;
+      for (const item of data.mainEntity ?? []) if (homeQuestions.has(item.name)) failures.push(`${relative}: 홈 FAQ와 같은 질문 (${item.name})`);
+    }
+  }
+}
+
 if (failures.length) {
   console.error(`검수 실패 ${failures.length}건`);
   failures.forEach((failure) => console.error(`- ${failure}`));
