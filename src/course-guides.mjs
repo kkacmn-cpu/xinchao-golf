@@ -711,5 +711,73 @@ export const courseGuides = {
       "guide/hanoi-golf-group-course-transport-plan.html",
       "guide/multi-city-transfer-day-plan.html"
     ]
+  },
+  // 2026-11-20 새 상세 5곳. 홀 수·개장 시기는 아래 출처에 있는 것만, 공항 시간은 site-data.mjs driveNote(도로 경로 추정)를 따른다.
+  "legend-valley-country-club": {
+    checkedAt: "2026-11-20",
+    sourceNote: "운영사 BRG 그룹의 개장 소식과 골프 설계 매체 기사를 기준으로 코스 구성을 정리했습니다. 공항 이동시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["BRG 그룹 캐니언 코스 개장 소식 (2026-05-17)", "https://www.brggroup.vn/legend-valley-country-club-unveils-canyon-course-elevating-ninh-binhs-golf-landscape-d604"],
+      ["Golf Course Architecture 레전드 밸리 첫 코스 개장 기사", "https://www.golfcoursearchitecture.net/content/south-course-opens-at-legend-valley-in-vietnam"],
+    ],
+    faqs: [
+      ["레전드 밸리와 레전드힐은 같은 골프장인가요?", "아닙니다. 둘 다 BRG 계열이지만 레전드힐은 하노이 북쪽 속선, 레전드 밸리는 하노이 남쪽 닌빈성(구 하남성) 낌방 지역에 있습니다. 이동 방향이 반대라 예약서와 차량 요청에 Legend Valley Country Club이라는 영문 이름을 꼭 적으세요."],
+      ["레전드 밸리는 몇 홀인가요?", "BRG 그룹 발표에 따르면 2026년 5월 16일 캐니언 코스를 열어 먼저 운영하던 로즈 코스와 합쳐 36홀이 됐습니다. 두 코스 모두 니클라우스 디자인 설계입니다. 어느 코스로 배정되는지는 날짜마다 달라 예약 때 함께 확인합니다."],
+    ],
+    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
+  },
+  "stone-valley-golf-resort": {
+    checkedAt: "2026-11-20",
+    sourceNote: "골프 설계 매체 기사와 골프 여행 안내 사이트를 기준으로 코스 구성을 정리했습니다. 공항 이동시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["Golf Course Architecture 스톤 밸리 세 번째 9홀 개장 기사 (2022-08)", "https://www.golfcoursearchitecture.net/content/stone-valley-opens-third-nine-from-brian-curley"],
+      ["Stone Valley 골프장 정보(Golfasian)", "https://www.golfasian.com/golf-courses/vietnam-golf-courses/hanoi/stone-valley-golf-resort/"],
+    ],
+    faqs: [
+      ["스톤 밸리는 몇 홀인가요?", "2018년 브라이언 컬리 설계 18홀로 문을 열었고, 2022년 8월 같은 설계가의 9홀을 더해 27홀이 됐습니다. 36홀로 소개하는 자료도 있지만 개장이 확인된 것은 27홀이라, 예약 때 어느 두 코스를 도는지 함께 확인합니다."],
+      ["스톤 밸리와 레전드 밸리를 한 번에 묶을 수 있나요?", "두 골프장 모두 닌빈성(구 하남성) 낌방 지역에 있어 차로 약 15~20분 거리입니다(지도 경로 추정). 하노이에서 하루씩 따로 다녀오거나, 근처에 묵으며 이틀 연속 라운드로 묶는 일정을 숙소·차량과 함께 상담합니다."],
+    ],
+    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
+  },
+  "trang-an-golf-resort": {
+    checkedAt: "2026-11-20",
+    sourceNote: "베트남 신문 인민일보(난단) 소개와 닌빈성 관광 안내를 기준으로 코스 구성과 위치를 정리했습니다. 공항 이동시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["난단(Nhân Dân) 짱안 골프 앤 리조트 소개 기사", "https://nhandan.vn/trang-an-golf-resort-tinh-hoa-hoi-tu-cua-golf-van-hoa-va-thien-nhien-ninh-binh-post932207.html"],
+      ["닌빈성 관광 안내 짱안 골프장", "https://dulichninhbinh.com.vn/en/item/1838"],
+    ],
+    faqs: [
+      ["짱안 골프장은 몇 홀인가요?", "18홀 코스가 두 개입니다. 챔피언 코스는 파72 정규 코스이고, 파인 코스는 18홀이 모두 파3인 파54 코스입니다. 일반 라운드는 챔피언 코스를 기준으로 견적을 받고, 파인 코스는 따로 요청하세요."],
+      ["짱안 골프장은 짱안 보트 투어 하는 곳과 같은 곳인가요?", "이름은 같지만 골프장은 닌빈성 뇨꽌 지역 끼푸에 있고, 보트 투어로 알려진 짱안 경관지구와는 차로 약 30분 떨어져 있습니다(지도 경로 추정). 라운드와 짱안·땀꼭 관광을 묶으려면 차량 동선을 함께 상담하세요."],
+    ],
+    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
+  },
+  "amber-hills-golf-resort": {
+    checkedAt: "2026-11-20",
+    sourceNote: "베트남 골프 매체와 골프 여행 안내 사이트, 골프 설계 매체 기사를 기준으로 이름 변경과 코스 구성을 정리했습니다. 공항 이동시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["Vietnam Golf Magazine 앰버 힐스 이름 변경 기사 (2022-04)", "https://vietnamgolfmagazine.net/en/amber-hills-golf-resort-diem-den-cua-cac-golfer-dam-me-thu-thach"],
+      ["Amber Hills 골프장 정보(Golfasian)", "https://www.golfasian.com/golf-courses/vietnam-golf-courses/hanoi/amber-hills-golf-resort/"],
+      ["Golf Course Architecture 2단계 코스 설계 기사", "https://www.golfcoursearchitecture.net/content/PgrID/573/PageID/904/artmid/574/articleid/14311"],
+    ],
+    faqs: [
+      ["앰버 힐스와 옌중 골프장은 같은 곳인가요?", "같은 곳입니다. 예전 이름은 옌중(Yen Dung) 골프장이고, 2022년 4월 앰버 힐스 골프 앤 리조트로 이름을 바꿨습니다. 예전 이름으로 안내를 받았다면 같은 골프장이니, 예약서에는 지금 이름인 Amber Hills를 적으세요."],
+      ["앰버 힐스에 최경주 프로가 설계한 코스가 있나요?", "골프 설계 매체에 설계가 폴 알바네즈와 최경주 프로가 함께 2단계 새 코스를 설계한다는 기사가 있지만, 그 코스의 개장 소식은 아직 확인되지 않았습니다. 지금 예약은 운영 중인 18홀 기준으로 상담합니다."],
+    ],
+    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+  },
+  "golden-sands-golf-resort": {
+    checkedAt: "2026-11-20",
+    sourceNote: "운영사 BRG 그룹 소식과 후에 지역 신문, 미국 골프 설계가 협회 소식지를 기준으로 개장 시기와 코스 구성을 정리했습니다. 공항 이동시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["BRG 그룹 골든 샌즈 골프 리조트 소식 (2025-06)", "https://www.brggroup.vn/golden-sands-golf-resort-master-plan-wins-gold-at-the-4th-national-urban-planning-awards-d543"],
+      ["후에 지역 신문 개장 기사 (2024-09-29)", "https://news.huengaynay.vn/travel/opening-of-world-class-golf-course-in-hue-136673.html"],
+      ["미국 골프 설계가 협회(ASGCA) 소식지: 노스 코스 개장 예정", "https://www.tudor-rose.co.uk/asgca/bydesign/2024/fall/6/index.html"],
+    ],
+    faqs: [
+      ["골든 샌즈는 몇 홀인가요?", "BRG 그룹은 전체 36홀 골프장으로 소개하지만, 2024년 9월 28일 먼저 연 것은 니클라우스 디자인의 노스 코스 18홀입니다. 두 번째 코스의 개장 소식은 아직 확인되지 않아 18홀 기준으로 상담합니다."],
+      ["골든 샌즈는 호이안의 골든 샌즈 리조트와 같은 곳인가요?", "아닙니다. 골든 샌즈 골프 리조트는 후에 시내에서 동쪽으로 약 20km 떨어진 바닷가 골프장이고, 이름이 비슷한 호이안의 호텔과는 다른 곳입니다. 숙소와 골프장 주소를 따로 적어 주시면 차량 동선을 맞춰 드립니다."],
+    ],
+    related: ["guide/laguna-lang-co-golf-airport-hue-route-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
   }
 };
