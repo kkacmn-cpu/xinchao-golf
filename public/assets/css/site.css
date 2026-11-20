@@ -353,6 +353,7 @@ h3 { font-size: 1.3rem; }
 .course-guide ul { padding-left: 22px; }
 .course-guide li + li { margin-top: 8px; }
 .course-guide a { color: var(--green, #0f5138); text-decoration: underline; text-underline-offset: 3px; }
+.course-guide .table-scroll + p { margin-top: 14px; }
 .course-sources { margin-top: 28px; padding: 22px; background: #f2f7f4; border: 1px solid var(--line); border-radius: 14px; }
 .course-sources h3 { margin-top: 0; }
 
