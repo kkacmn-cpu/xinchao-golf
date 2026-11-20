@@ -381,6 +381,11 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     for (const course of courses.filter((item) => boardOf(item) === key)) if (!html.includes(`<article class="course-card">`) || !html.includes(`href="/golf/${course.slug}.html" aria-label=`)) failures.push(`${relative}: 골프장 카드 누락 (${course.slug})`);
     for (const sentence of [pricing.greenFee, pricing.fee, pricing.split, pricing.howTo, pricing.reply]) once(text, sentence, relative);
   }
+  // 하노이·푸꾸옥은 키워드 지도 보류 해제 전이라 섹션·제목을 바꾸지 않는다.
+  for (const key of ["hanoi", "phuquoc"]) {
+    const html = await readFile(path.join(dist, `regions/${key}.html`), "utf8");
+    if (html.includes('id="region-price"') || !/<title>[^<]* 골프 예약·일정 안내 \|/.test(html)) failures.push(`regions/${key}.html: 보류 지역에 키워드 섹션·제목이 바뀜`);
+  }
   // 붕따우 글을 붕따우 게시판에 모아도 호치민 게시판에서는 빠지지 않는다.
   const hcmBoard = await readFile(path.join(dist, "regions/hochiminh.html"), "utf8");
   const vtBoard = await readFile(path.join(dist, "regions/vungtau.html"), "utf8");
@@ -398,6 +403,11 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     if (hit) failures.push(`${relative}: 가격·예약 섹션에 금액 표기(${hit[0]})`);
     if (/<h[23][^>]*>[^<]*후기/.test(html)) failures.push(`${relative}: 후기 섹션(실제 후기 없음)`);
     once(visibleText(html), pricing.howTo, relative);
+    // 홀 수는 원문 그대로(예: 레만 "36홀 전체 규모 · 단계별 운영 확인")를 써서 운영 규모를 단정하지 않는다.
+    const course = courses.find((item) => item.slug === slug);
+    const description = html.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? "";
+    if (!description.includes(course.holes)) failures.push(`${relative}: description에 홀 수 원문(${course.holes}) 없음`);
+    if (!section.includes(`<li>규모: ${course.holes}</li>`)) failures.push(`${relative}: 코스·위치에 홀 수 원문 없음`);
   }
 }
 
