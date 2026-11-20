@@ -1003,6 +1003,8 @@ export const poolvilla = {
   siteUrl: "https://hochiminhpoolvilla.com",
   villaList: "https://hochiminhpoolvilla.com/villa/villa.html",
   apartmentList: "https://hochiminhpoolvilla.com/apartment/apartment.html",
+  // 풀빌라 목록의 룸 수 필터(4·5·6·7·8·9·10·27룸) 범위. 2026-11-20 운영 villa.html에서 확인. 목록이 바뀌면 같이 고친다.
+  villaRooms: "4룸~27룸",
 };
 
 export const apartments = [
