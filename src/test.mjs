@@ -4,14 +4,15 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadMarkdownPosts } from "./blog-content.mjs";
 import { courses, site } from "./site-data.mjs";
+import { topicHubs } from "./topic-hubs.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
 const failures = [];
 const markdownPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"));
 const guideCount = JSON.parse(await readFile(path.join(root, "src/content/guides.json"), "utf8")).length;
-const expectedContentPages = 42 + courses.length + markdownPosts.length + 1 + guideCount;
-const expectedSitemapUrls = 41 + courses.length + markdownPosts.length + 1 + guideCount;
+const expectedContentPages = 45 + courses.length + markdownPosts.length + 1 + guideCount;
+const expectedSitemapUrls = 44 + courses.length + markdownPosts.length + 1 + guideCount;
 const expectedRedirects = 45 + markdownPosts.length;
 
 async function collect(dir) {
@@ -88,7 +89,7 @@ for (const file of htmlFiles) {
       catch (error) { failures.push(`${relative}: JSON-LD 문법 오류 (${error.message})`); }
     }
     const schemaTypes = schemas.map((schema) => schema["@type"]);
-    const collectionPages = ["golf/index.html", "regions/index.html", "services/index.html", "services/apartments.html", "services/villas.html", "blog/index.html"];
+    const collectionPages = ["golf/index.html", "regions/index.html", "services/index.html", "services/apartments.html", "services/villas.html", "blog/index.html", "golf-price/index.html", "golf-booking/index.html", "golf-itinerary/index.html"];
     if (collectionPages.includes(relative) || relative === "services/vehicle.html") {
       const canonical = html.match(/<link rel="canonical" href="([^"]+)"/)?.[1];
       const expectedType = relative === "services/vehicle.html" ? "WebPage" : "CollectionPage";
@@ -178,6 +179,28 @@ if (/golf-detail_|villa-detail_|apartment-detail_/.test(sitemap)) failures.push(
 
 const robots = await readFile(path.join(dist, "robots.txt"), "utf8");
 if (!robots.includes(`Sitemap: ${site.siteUrl}/sitemap.xml`)) failures.push("robots.txt 사이트맵 주소 오류");
+
+// 주제별 모음(골프장별 가격·예약 방법·일정 짜기): 사이트맵·llms.txt·가이드 위치 표시에 연결되고, 금액을 적지 않는다.
+const llms = await readFile(path.join(dist, "llms.txt"), "utf8");
+const PRICE = /\d{1,3}(?:,\d{3})+|\d+\s*(?:VND|동|원|달러|USD)(?![가-힣])|\d+만\s*원/;
+// 모음 페이지에 새로 쓴 문구(제목·설명·안내·질문)에는 금액을 넣지 않는다. 기존 글 제목은 각 글의 출처를 따른다.
+for (const hub of topicHubs) {
+  const hit = JSON.stringify([hub.title, hub.description, hub.lead, hub.notice, hub.stepsTitle, hub.courseTitle, hub.faq]).match(PRICE);
+  if (hit) failures.push(`${hub.path}: 주제 모음 문구에 금액 표기(${hit[0]})`);
+}
+for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-booking", "예약 방법"], ["/golf-itinerary", "일정 짜기"]]) {
+  const hubFile = path.join(dist, hubPath.slice(1), "index.html");
+  if (!await exists(hubFile)) { failures.push(`${hubPath}: 주제 모음 페이지 없음`); continue; }
+  const hubHtml = await readFile(hubFile, "utf8");
+  if (!sitemap.includes(`<loc>${site.siteUrl}${hubPath}</loc>`)) failures.push(`${hubPath}: 사이트맵 누락`);
+  if (!llms.includes(`(${site.siteUrl}${hubPath})`)) failures.push(`${hubPath}: llms.txt 누락`);
+  if (!/"@type":"FAQPage"/.test(hubHtml) || !/"@type":"ItemList"/.test(hubHtml) || !/"@type":"BreadcrumbList"/.test(hubHtml)) failures.push(`${hubPath}: 구조화 데이터 누락`);
+  const guideLinks = count(hubHtml, /href="\/guide\/[^"]+\.html"/g);
+  if (guideLinks < 10) failures.push(`${hubPath}: 가이드 글 링크 ${guideLinks}개`);
+  const sample = hubHtml.match(/<h2>[^<]* 글 전체[\s\S]*?href="(\/guide\/[^"]+\.html)"/)?.[1];
+  const sampleHtml = sample ? await readFile(path.join(dist, sample.slice(1)), "utf8") : "";
+  if (!sampleHtml.includes(`<a href="${hubPath}">${label}</a>`)) failures.push(`${hubPath}: 가이드 글 위치 표시에 주제 모음 링크 없음 (${sample})`);
+}
 
 if (failures.length) {
   console.error(`검수 실패 ${failures.length}건`);
