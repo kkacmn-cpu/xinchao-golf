@@ -481,7 +481,7 @@ function courseGuideContent(course, guide) {
   </section>`;
 }
 
-// 키워드 지도(07, 2026-11-20) 골프장 칸 10곳: 검색어로 쓰는 골프장 이름과 "글 안 섹션"(가격·예약·코스·위치)을 더한다.
+// 키워드 지도(07, 2026-11-20) 골프장 칸 10곳 + 지역 칸 키워드 5곳: 검색어로 쓰는 골프장 이름과 "글 안 섹션"(가격·예약·코스·위치)을 더한다.
 // 후기 섹션은 실제 후기가 없어 만들지 않는다. 금액 숫자와 요금 안내 문장(pricing-guide)은 위 요금 요약과 겹치지 않게 쓴다.
 const keywordCourses = {
   "vinpearl-golf-nha-trang": "빈펄 나트랑 골프장",
@@ -494,6 +494,12 @@ const keywordCourses = {
   "thu-duc-country-club": "투득 골프장",
   "twin-doves-golf-club": "트윈도브스 골프장",
   "leman-golf-club": "빈펄 레만 골프장",
+  // 2026-11-20 보류 해제: 지역 칸(달랏·붕따우·푸꾸옥 골프) 키워드지만 기존 골프장 쪽에 넣는 9개 키워드(삼투엔람 "달랏 삼 골프장"은 위 대상).
+  "dalat-at-1200": "달랏 1200 골프장",
+  "dalat-palace-golf-club": "달랏 팰리스 골프장",
+  "sonadezi-chau-duc-golf": "붕따우 쩌우득 골프장",
+  "vung-tau-paradise-golf": "붕따우 파라다이스 골프장",
+  "vinpearl-golf-phu-quoc": "빈펄 푸꾸옥 골프장",
 };
 
 function courseKeywordSections(course) {

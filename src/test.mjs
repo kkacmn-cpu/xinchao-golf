@@ -398,7 +398,7 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     if (!hcmBoard.includes(`href="${href}"`)) failures.push(`호치민 게시판에서 글이 빠짐: ${href}`);
     if (!vtBoard.includes(`href="${href}"`)) failures.push(`붕따우 게시판에 글 누락: ${href}`);
   }
-  for (const slug of ["vinpearl-golf-nha-trang", "montgomerie-links-vietnam", "long-thanh-golf-club", "ba-na-hills-golf-club", "sam-tuyen-lam-golf", "song-be-golf-resort", "tan-son-nhat-golf-course", "thu-duc-country-club", "twin-doves-golf-club", "leman-golf-club"]) {
+  for (const slug of ["vinpearl-golf-nha-trang", "montgomerie-links-vietnam", "long-thanh-golf-club", "ba-na-hills-golf-club", "sam-tuyen-lam-golf", "song-be-golf-resort", "tan-son-nhat-golf-course", "thu-duc-country-club", "twin-doves-golf-club", "leman-golf-club", "dalat-at-1200", "dalat-palace-golf-club", "sonadezi-chau-duc-golf", "vung-tau-paradise-golf", "vinpearl-golf-phu-quoc"]) {
     const relative = `golf/${slug}.html`;
     const html = await readFile(path.join(dist, relative), "utf8");
     const section = html.match(/<section class="course-guide course-keyword"[\s\S]*?<\/section>/)?.[0] ?? "";
