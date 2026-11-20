@@ -19,7 +19,7 @@ export const topicHubs = [
     faq: [
       ["홈페이지에 골프장 요금표가 있나요?", "고정 요금표는 두지 않습니다. 같은 골프장도 날짜·요일·인원·홀 수·티타임에 따라 요금이 달라, 상담 시점에 조건을 맞춰 확인해 드립니다."],
       ["견적을 비교할 때 무엇을 맞춰야 하나요?", "이용일·인원·홀 수·희망 티타임을 같게 두고 그린피·캐디·카트·팁·식사·차량·대여 장비·세금과 취소 조건을 나눠 비교하세요."],
-      ["원화로 환산한 금액이 최종 결제 금액인가요?", "아닙니다. 원화 환산은 예산을 가늠하는 참고값입니다. 실제 결제에는 송금·카드 수수료와 환율 차이가 생길 수 있어 최종 결제 통화를 다시 확인하세요."],
+      ["원화로 환산한 금액이 최종 결제 금액인가요?", "견적에 원화가 확정 결제금인지 참고 환산액인지, 결제일에 다시 계산되는지 적혀 있는지 확인하세요. 참고 환산이라면 카드 승인 통화와 환율에 따라 실제 결제 금액이 달라질 수 있습니다."],
     ],
   },
   {
@@ -71,10 +71,25 @@ const courseOverrides = {
   "hanoi-business-trip-golf-course": [],
   "the-bluffs-ho-tram-two-player-pairing-policy": ["the-bluffs-grand-ho-tram"],
   "the-bluffs-ho-tram-stay-play-1-night-golf-plan": ["the-bluffs-grand-ho-tram"],
+  "brg-da-nang-golf-booking-tee-time-check": ["legend-danang-golf-resort"],
+  "danang-legend-norman-nicklaus-course-differences": ["legend-danang-golf-resort"],
+  "laguna-lang-co-golf-booking-caddie-cart-check": ["laguna-golf-lang-co"],
+  "laguna-lang-co-golf-airport-hue-route-plan": ["laguna-golf-lang-co"],
+  "cam-ranh-airport-kn-golf-nha-trang-route-plan": ["kn-golf-links-cam-ranh"],
+  "west-lakes-hochiminh-address-pin-transfer-plan": ["west-lakes-golf-villas"],
+  "phu-quoc-vinpearl-stay-play-2026-room-round-transfer-plan": ["vinpearl-golf-phu-quoc"],
+  "vinpearl-phu-quoc-arrival-day-3pm-tee-window": ["vinpearl-golf-phu-quoc"],
+  "hoiana-golf-family-non-golfer-plan": ["hoiana-shores-golf-club"],
+  "nha-trang-island-golf-group-transfer-plan": ["vinpearl-golf-nha-trang"],
+  "dalat-golf-2-night-3-day-two-course-schedule": ["dalat-palace-golf-club", "sam-tuyen-lam-golf"],
 };
 
 // "hanoi"처럼 지역 이름과 같은 골프장 주소 조각은 자동 매칭에 쓰지 않는다.
 const ambiguousBases = new Set(["hanoi"]);
+
+// 롱탄 신공항·탄손녓 공항은 골프장 이름과 겹친다. 주소에 airport가 든 글은 이 두 골프장에 자동으로 붙이지 않는다
+// (정말 그 골프장 글이면 위 courseOverrides에 직접 적는다).
+const airportNamedCourses = new Set(["long-thanh-golf-club", "tan-son-nhat-golf-course"]);
 
 const baseOf = (slug) => slug.replace(/-(golf-club|golf-course|golf-resort|country-club|golf-links|golf)$/, "");
 
@@ -86,7 +101,9 @@ export function coursesForGuide(guide, courses) {
       return course;
     });
   }
+  const airportGuide = /(^|-)airport(-|$)/.test(guide.slug);
   return courses.filter((course) => {
+    if (airportGuide && airportNamedCourses.has(course.slug)) return false;
     const base = baseOf(course.slug);
     const slugHit = !ambiguousBases.has(base) && new RegExp(`(^|-)${base}(-|$)`).test(guide.slug);
     const titleHit = [course.name, course.shortName].some((name) => name && name.length > 2 && guide.title.includes(name));
