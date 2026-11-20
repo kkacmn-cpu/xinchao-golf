@@ -1,0 +1,91 @@
+// 닫힌 골프 사이트 3곳(xinchao-golf-price/-booking/-planner.vercel.app)의 골프장 상세 옛 주소 대응표.
+// 세 곳 모두 같은 74개 경로 /golf/<지역>/<옛slug>/ 를 썼고, 지금은 xinchaogolf.com 같은 경로로 308된다.
+// build.mjs가 이 표로 vercel.json redirects를 만든다. 끝 / 는 Vercel(trailingSlash:false)이 먼저 떼고 308하므로 / 없는 경로 하나씩.
+//   to: 새 골프장 slug → /golf/<to>.html
+//   area: 대응하는 골프장이 없을 때 보낼 골프장 목록 구역 → /golf#area-<area> (null이면 /golf)
+// oldName은 옛 페이지 h1, 새 이름은 site-data.mjs courses의 name/englishName. 이름이 다른데 같은 곳으로 본 것은 note에 근거를 적는다.
+export const legacyGolfPaths = [
+  // 대응하는 골프장이 있는 곳
+  { from: "dalat/dalat-dalat-at-1200-golf-club", oldName: "달랏 1200", to: "dalat-at-1200" },
+  { from: "dalat/dalat-dalat-palace-golf-club", oldName: "달랏 팰리스", to: "dalat-palace-golf-club" },
+  { from: "dalat/dalat-sam-tuyen-lam-golf-resort", oldName: "SAM 뚜옌람", to: "sam-tuyen-lam-golf" },
+  { from: "danang/danang-ba-na-hills-golf-club", oldName: "바나힐", to: "ba-na-hills-golf-club" },
+  { from: "danang/danang-legend-da-nang-golf-resort", oldName: "레전드 다낭", to: "legend-danang-golf-resort" },
+  { from: "danang/danang-montgomerie-links-golf-club", oldName: "몽고메리 링크스", to: "montgomerie-links-vietnam" },
+  { from: "haiphong/haiphong-dragon-golf-links", oldName: "드래곤 도선", to: "dragon-golf-links" },
+  { from: "haiphong/haiphong-ruby-tree-golf-resort", oldName: "루비트리", to: "ruby-tree-golf" },
+  { from: "haiphong/haiphong-sono-felice-country-club", oldName: "소노펠리체", to: "sono-felice-country-club" },
+  { from: "haiphong/haiphong-vinpearl-golf-hai-phong", oldName: "빈펄 하이퐁", to: "vinpearl-golf-hai-phong" },
+  { from: "halong/halong-flc-golf-club-ha-long", oldName: "FLC 하롱", to: "flc-ha-long-golf" },
+  { from: "halong/halong-tuan-chau-golf-and-resort", oldName: "뚜언쩌우", to: "tuan-chau-golf" },
+  { from: "hanoi/hanoi-chi-linh-golf-club", oldName: "치린", to: "chi-linh-golf", note: "Chi Linh Golf Club = 지금 이름 Chi Linh Star Golf & Country Club(찌린 스타)" },
+  { from: "hanoi/hanoi-dai-lai-golf-club", oldName: "다이라이", to: "dai-lai-golf" },
+  { from: "hanoi/hanoi-hanoi-golf-club", oldName: "하노이 골프클럽", to: "hanoi-golf-club" },
+  { from: "hanoi/hanoi-heron-lake-golf-course", oldName: "헤론레이크", to: "heron-lake-golf" },
+  { from: "hanoi/hanoi-hilltop-valley-golf-club", oldName: "힐탑밸리", to: "hilltop-valley-golf" },
+  { from: "hanoi/hanoi-king-s-island-golf-resort", oldName: "킹스아일랜드", to: "brg-kings-island" },
+  { from: "hanoi/hanoi-legend-hill-country-club", oldName: "레전드힐", to: "legend-hill-country-club" },
+  { from: "hanoi/hanoi-long-bien-golf-course", oldName: "롱비엔", to: "long-bien-golf-course" },
+  { from: "hanoi/hanoi-phoenix-golf-resort", oldName: "피닉스", to: "phoenix-golf-resort" },
+  { from: "hanoi/hanoi-sky-lake-resort-and-golf-club", oldName: "스카이레이크", to: "sky-lake-golf" },
+  { from: "hanoi/hanoi-tam-dao-golf-and-resort", oldName: "땀다오", to: "tam-dao-golf" },
+  { from: "hanoi/hanoi-thanh-lanh-valley-golf-and-resort", oldName: "탄란밸리", to: "thanh-lanh-valley-golf" },
+  { from: "hochiminh/hochiminh-dong-nai-golf-resort", oldName: "동나이", to: "dong-nai-golf-resort" },
+  { from: "hochiminh/hochiminh-emerald-country-club-taekwang-jeongsan-country-club", oldName: "에메랄드 정산", to: "taekwang-jeongsan-country-club", note: "새 이름 에메랄드 컨트리클럽 (구 태광정산)" },
+  { from: "hochiminh/hochiminh-harmonie-golf-park", oldName: "하모니", to: "harmony-golf-park" },
+  { from: "hochiminh/hochiminh-long-thanh-golf-club", oldName: "롱탄", to: "long-thanh-golf-club" },
+  { from: "hochiminh/hochiminh-song-be-golf-resort", oldName: "송베", to: "song-be-golf-resort" },
+  { from: "hochiminh/hochiminh-tan-son-nhat-golf-course", oldName: "탄손녓", to: "tan-son-nhat-golf-course" },
+  { from: "hochiminh/hochiminh-twin-doves-golf-club", oldName: "트윈도브스", to: "twin-doves-golf-club" },
+  { from: "hochiminh/hochiminh-vietnam-golf-and-country-club", oldName: "투득", to: "thu-duc-country-club", note: "새 영문명이 Vietnam Golf & Country Club(투득 컨트리클럽)" },
+  { from: "hochiminh/hochiminh-vinpearl-golf-leman", oldName: "빈펄 레만", to: "leman-golf-club" },
+  { from: "hoian/hoian-hoiana-shores-golf-club", oldName: "호이아나 쇼어스", to: "hoiana-shores-golf-club" },
+  { from: "hoian/hoian-vinpearl-golf-nam-hoi-an", oldName: "빈펄 남호이안", to: "vinpearl-golf-nam-hoi-an" },
+  { from: "hue/hue-laguna-golf-lang-co", oldName: "라구나 랑꼬", to: "laguna-golf-lang-co" },
+  { from: "longan/longan-royal-long-an-golf-and-country-club", oldName: "로얄 롱안", to: "royal-long-an-golf" },
+  { from: "longan/longan-west-lakes-golf-and-villa", oldName: "웨스트 레이크스", to: "west-lakes-golf-villas" },
+  { from: "nhatrang/nhatrang-anara-binh-tien-golf-club", oldName: "아나라 빈티엔", to: "anara-binh-tien-golf" },
+  { from: "nhatrang/nhatrang-diamond-bay-golf-and-villas", oldName: "다이아몬드베이", to: "diamond-bay-golf" },
+  { from: "nhatrang/nhatrang-kn-golf-links-cam-ranh", oldName: "KN 골프링크스 캄란", to: "kn-golf-links-cam-ranh" },
+  { from: "nhatrang/nhatrang-vinpearl-golf-nha-trang", oldName: "빈펄 나트랑", to: "vinpearl-golf-nha-trang" },
+  { from: "north/north-montana-golf-course-new", oldName: "몬타나", to: "montana-golf-course", note: "새 이름 몬타냐 골프장(Montaña Golf Course)" },
+  { from: "phanthiet/phanthiet-novaworld-phan-thiet-golf-club", oldName: "노바월드 판티엣", to: "novaworld-phan-thiet-golf" },
+  { from: "phanthiet/phanthiet-sea-links-golf-and-country-club", oldName: "씨링크스", to: "sea-links-golf" },
+  { from: "phuquoc/phuquoc-eschuri-vung-bau-phu-quoc", oldName: "에스추리 붕바우", to: "eschuri-vung-bau-golf" },
+  { from: "phuquoc/phuquoc-vinpearl-golf-phu-quoc", oldName: "빈펄 푸꾸옥", to: "vinpearl-golf-phu-quoc" },
+  { from: "vungtau/vungtau-paradise-golf-and-resort", oldName: "붕따우 파라다이스", to: "vung-tau-paradise-golf" },
+  { from: "vungtau/vungtau-sonadezi-chau-uc-golf-course", oldName: "소나데지 쩌우득", to: "sonadezi-chau-duc-golf", note: "옛 slug의 chau-uc는 Châu Đức 표기, 새 이름 쩌우득 골프장(소나데지)" },
+  { from: "vungtau/vungtau-the-bluffs-ho-tram-strip", oldName: "더 블러프 호짬", to: "the-bluffs-grand-ho-tram", note: "옛 이름 The Bluffs Ho Tram Strip = 지금 The Bluffs Grand Ho Tram" },
+
+  // 이 사이트에 상세가 없는 곳: 가까운 지역 골프장 목록으로
+  { from: "bacgiang/bacgiang-amber-hill-golf-and-resort", oldName: "앰버 힐", area: "hanoi" },
+  { from: "bacgiang/bacgiang-corn-hill-luc-nam-bac-giang", oldName: "콘 힐 룩남", area: "hanoi" },
+  { from: "binhduong/binhduong-royal-island-golf-and-villas", oldName: "로얄 아일랜드", area: "hcm" },
+  { from: "hanam/hanam-legend-valley-country-club", oldName: "레전드 밸리", area: "hanoi", note: "레전드힐(Legend Hill)과 다른 곳" },
+  { from: "hanam/hanam-stone-valley-golf-and-resort", oldName: "스톤 밸리", area: "hanoi" },
+  { from: "hanoi/hanoi-van-tri-golf-club", oldName: "반찌", area: "hanoi" },
+  { from: "hoabinh/hoabinh-asean-onsen-golf-resort", oldName: "아세안 온센", area: "hanoi" },
+  { from: "hue/hue-golden-sands-golf-resort", oldName: "골든 샌즈", area: "danang" },
+  { from: "ninhbinh/ninhbinh-royal-golf-course", oldName: "로얄 골프장", area: "hanoi" },
+  { from: "ninhbinh/ninhbinh-trang-an-golf-and-resort", oldName: "짱안", area: "hanoi" },
+  { from: "phutho/phutho-stone-highland-golf-and-resort", oldName: "스톤 하이랜드", area: "hanoi" },
+  { from: "phutho/phutho-van-lang-empire-golf-club", oldName: "반랑 엠파이어", area: "hanoi" },
+  { from: "quangninh/quangninh-mong-cai-golf-club", oldName: "몽까이", area: "haiphong" },
+  { from: "quangninh/quangninh-silk-path-dong-trieu-golf-and-country-club", oldName: "실크패스 동찌에우", area: "haiphong" },
+  { from: "thainguyen/thainguyen-glory-golf-club-thai-nguyen", oldName: "글로리 타이응우옌", area: "hanoi" },
+  // 맞는 지역 구역이 없는 곳(북부 산간·북중부·중부 해안): 골프장 전체 목록
+  { from: "hatinh/hatinh-muong-thanh-golf-club-xuan-thanh", oldName: "므엉탄 쑤언탄", area: null },
+  { from: "laocai/laocai-sapa-grand-golf-course", oldName: "사파 그랜드", area: null },
+  { from: "nghean/nghean-cua-lo-golf-and-resort", oldName: "끄어로", area: null },
+  { from: "nghean/nghean-muong-thanh-golf-club-dien-lam", oldName: "므엉탄 지엔럼", area: null },
+  { from: "quangtri/quangtri-blue-diamond-golf-link-quang-tri", oldName: "블루 다이아몬드 꽝찌", area: null },
+  { from: "quangtri/quangtri-flc-golf-links-quang-tri", oldName: "FLC 꽝찌", area: null },
+  { from: "quynhon/quynhon-flc-golf-links-quy-nhon", oldName: "FLC 퀴논", area: null },
+  { from: "thanhhoa/thanhhoa-flc-golf-links-sam-son", oldName: "FLC 삼선", area: null },
+  { from: "yenbai/yenbai-yen-bai-star-golf", oldName: "옌바이 스타", area: null },
+];
+
+export function legacyGolfDestination(entry) {
+  if (entry.to) return `/golf/${entry.to}.html`;
+  return entry.area ? `/golf#area-${entry.area}` : "/golf";
+}

@@ -69,7 +69,7 @@ h3 { font-size: 1.3rem; }
 .home-prep-heading { margin: 0 0 12px; color: var(--green-dark); font-size: .95rem; font-weight: 900; }
 .home-prep-fields { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
 .home-prep-fields label { display: grid; gap: 5px; min-width: 0; font-size: .75rem; font-weight: 800; }
-.home-prep-fields input, .home-prep-fields select { width: 100%; min-width: 0; min-height: 43px; padding: 8px 10px; border: 1px solid #b8c8be; border-radius: 9px; background: white; color: var(--ink); font-size: .87rem; }
+.home-prep-fields input, .home-prep-fields select { width: 100%; min-width: 0; min-height: 43px; padding: 8px 10px; border: 1px solid #b8c8be; border-radius: 9px; background: white; color: var(--ink); font-size: 16px; }
 .home-prep-form .button { width: 100%; margin-top: 13px; }
 .home-prep-caveat { margin: 9px 0 0; color: var(--muted); font-size: .78rem; line-height: 1.5; }
 .home-prep-result { margin-top: 12px; padding: 16px 18px; border: 1px solid #a7c9b4; border-radius: 16px; background: #f0f8f2; font-size: .83rem; }
@@ -280,7 +280,6 @@ h3 { font-size: 1.3rem; }
 }
 
 @media (max-width: 760px) {
-  .home-page .floating-consult { display: none; }
   .shell { width: min(calc(100% - 28px), var(--shell)); }
   .header-inner { min-height: 64px; }
   .menu-button { display: block; }
@@ -424,6 +423,9 @@ h3 { font-size: 1.3rem; }
 .airport-table tbody th a{color:var(--ink);font-weight:700}
 .airport-table small{color:var(--muted)}
 #home-prep-candidates small{color:var(--muted)}
+.hero-x-kicker-ko{display:block;margin-top:6px;letter-spacing:.02em;font-size:.95rem}
+#home-prep-copy-status{margin:4px 0 0;font-weight:800;color:var(--green-dark)}
+#home-prep-copy-status:empty{display:none}
 @media (max-width:700px){
   .area-head{flex-direction:column;align-items:flex-start}
   .course-plate-detail{aspect-ratio:1.35;border-radius:18px;padding:24px}

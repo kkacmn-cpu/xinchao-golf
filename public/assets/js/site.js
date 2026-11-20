@@ -27,6 +27,33 @@
     }
   });
 
+  // 상담 준비 요약을 클립보드에 복사한다. 안 되면 직접 복사하도록 안내한다.
+  const copyStatus = document.querySelector("#home-prep-copy-status");
+  const legacyCopy = (text) => {
+    const area = document.createElement("textarea");
+    area.value = text;
+    area.setAttribute("readonly", "");
+    area.style.position = "fixed";
+    area.style.opacity = "0";
+    document.body.appendChild(area);
+    area.select();
+    let ok = false;
+    try { ok = document.execCommand("copy"); } catch { ok = false; }
+    area.remove();
+    return ok;
+  };
+  const copyPrepSummary = async (text) => {
+    if (!copyStatus) return;
+    let ok = false;
+    try {
+      if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(text); ok = true; }
+      else ok = legacyCopy(text);
+    } catch { ok = legacyCopy(text); }
+    copyStatus.textContent = ok
+      ? "복사됐어요. 아래 버튼으로 카카오톡을 열고 붙여 넣으세요."
+      : "자동 복사가 되지 않았어요. 위 요약을 길게 눌러 복사한 뒤 카카오톡에 붙여 넣어 주세요.";
+  };
+
   homePrepForm?.addEventListener("input", () => { if (homePrepResult) homePrepResult.hidden = true; });
   homePrepForm?.addEventListener("change", () => { if (homePrepResult) homePrepResult.hidden = true; });
   homePrepForm?.addEventListener("submit", (event) => {
@@ -38,7 +65,10 @@
     const purpose = String(data.get("purpose") || "");
     const regionOptions = [...homePrepForm.querySelectorAll('select[name="region"] option')].map((option) => option.value).filter(Boolean);
     if (!homePrepForm.reportValidity() || !regionOptions.includes(region) || !Number.isInteger(people) || people < 1 || people > 40) return;
-    document.querySelector("#home-prep-summary").textContent = `${region} · ${date} · ${people}명 · ${purpose}. 티오프와 예약 가능 여부는 상담 시 확인합니다.`;
+    // 화면에 보이는 요약과 복사되는 문장을 같게 한다(복사가 안 되면 화면 요약을 직접 복사).
+    const summaryText = `[신짜오골프 상담 준비] 희망 지역: ${region} / 날짜: ${date} / 인원: ${people}명 / 목적: ${purpose}`;
+    document.querySelector("#home-prep-summary").textContent = summaryText;
+    copyPrepSummary(summaryText);
     const lists = document.querySelectorAll("#home-prep-candidates ul[data-region]");
     let found = false;
     lists.forEach((list) => { list.hidden = list.dataset.region !== region; if (!list.hidden) found = true; });

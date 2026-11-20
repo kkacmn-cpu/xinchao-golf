@@ -6,6 +6,7 @@ import { loadMarkdownPosts } from "./blog-content.mjs";
 import { apartments, courses, golfAreas, legacyHost, regions, services, site, villas } from "./site-data.mjs";
 import { courseFaqs, courseGuides } from "./course-guides.mjs";
 import { coursesForGuide, hubForCategory, topicHubs } from "./topic-hubs.mjs";
+import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
 
 const areaOf = (course) => golfAreas.find((area) => area.key === course.area);
 const airportShort = (course) => (course.airport || areaOf(course).airport).replace(/\s*\(.*\)$/, "");
@@ -142,13 +143,13 @@ function head({ title, description, pathname, image = "hero-golf-longthanh.webp"
     <meta name="twitter:title" content="${escapeHtml(fullTitle)}">
     <meta name="twitter:description" content="${escapeHtml(description)}">
     <meta name="twitter:image" content="${socialImage}">
+    <link rel="icon" href="/favicon.ico" sizes="any">
     <link rel="icon" href="/assets/images/xinchao-golf-logo-192.webp" type="image/webp">
     <link rel="apple-touch-icon" href="/assets/images/xinchao-golf-logo-192.webp">
     <link rel="manifest" href="/manifest.webmanifest">
     ${preloadImage ? `<link rel="preload" as="image" href="${preloadImage}" fetchpriority="high">` : ""}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
@@ -292,8 +293,8 @@ function homePage() {
     <section class="hero-x">
       <div class="hero-slides" aria-hidden="true"><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-novaworld-phan-thiet-golf.webp')"></span><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-hoiana-shores-golf-club.webp')"></span><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-ba-na-hills-golf-club.webp')"></span><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-dalat-at-1200.webp')"></span></div>
       <div class="shell hero-x-inner">
-        <p class="hero-x-kicker">XIN CHAO GOLF · VIETNAM</p>
-        <h1>베트남의 골프를<br>가장 정확하게</h1>
+        <p class="hero-x-kicker">XIN CHAO GOLF <span class="hero-x-kicker-ko">베트남의 골프를 가장 정확하게</span></p>
+        <h1>베트남 골프장 예약,<br>카톡 한 번으로</h1>
         <p class="hero-x-lead">베트남 골프장 ${courses.length}곳의 위치와 공항 이동시간을 비교하고, 골프장 예약·차량·숙소를 카카오톡으로 한 번에 상담하세요.</p>
         <div class="hero-x-actions">
           <a class="button button-kakao button-lg" href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer">카카오톡으로 예약 문의</a>
@@ -315,13 +316,13 @@ function homePage() {
     </section>
     <section class="signature" aria-labelledby="signature-title">
       <div class="shell">
-        <div class="section-heading"><div><p class="eyebrow">Signature Courses</p><h2 id="signature-title">한 번은 꼭 쳐봐야 할 베트남 대표 코스</h2></div><a class="text-link" href="/golf">50곳 모두 보기 →</a></div>
+        <div class="section-heading"><div><p class="eyebrow">Signature Courses</p><h2 id="signature-title">한 번은 꼭 쳐봐야 할 베트남 대표 코스</h2></div><a class="text-link" href="/golf">${courses.length}곳 모두 보기 →</a></div>
         <div class="signature-grid">${["the-bluffs-grand-ho-tram", "hoiana-shores-golf-club", "montgomerie-links-vietnam", "kn-golf-links-cam-ranh", "ba-na-hills-golf-club", "dalat-at-1200"].map((slug, index) => { const course = courses.find((item) => item.slug === slug); const img = course.image?.startsWith("courses/") ? course.image : (course.gallery?.[0] || course.image); return `<a class="signature-card${index === 0 ? " is-feature" : ""}" href="/golf/${course.slug}.html" style="--card-img:url('/assets/images/${img}')"><span class="signature-region">${escapeHtml(areaOf(course).name)}</span><strong>${escapeHtml(course.name)}</strong><em>${escapeHtml(course.holes.split(" ")[0])} · 공항에서 ${escapeHtml(course.drive)}</em></a>`; }).join("")}</div>
       </div>
     </section>
     <section class="section prep-section">
       <div class="shell prep-grid">
-        <div class="prep-copy"><p class="eyebrow">1분 상담 준비</p><h2>네 가지만 고르면<br>상담이 빨라집니다</h2><p>지역·날짜·인원·목적을 고르면 그 지역 골프장과 공항 이동시간을 바로 보여드립니다. 그대로 카카오톡으로 보내 주세요.</p><ul class="trust-list" aria-label="상담 서비스 특징"><li>한국어 상담</li><li>현지 일정 확인</li><li>부킹 후 바우처 안내</li></ul></div>
+        <div class="prep-copy"><p class="eyebrow">1분 상담 준비</p><h2>네 가지만 고르면<br>상담이 빨라집니다</h2><p>지역·날짜·인원·목적을 고르면 그 지역 골프장과 공항 이동시간을 바로 보여드립니다. 요약 문장은 자동으로 복사되니 카카오톡에 붙여 넣어 보내 주세요.</p><ul class="trust-list" aria-label="상담 서비스 특징"><li>한국어 상담</li><li>현지 일정 확인</li><li>부킹 후 바우처 안내</li></ul></div>
         <div class="prep-card">
           <form class="home-prep-form" id="home-prep-form" aria-label="골프 상담 준비표 만들기">
             <p class="home-prep-heading">상담 전에 네 가지만 정하세요</p>
@@ -331,12 +332,13 @@ function homePage() {
               <label>인원<input name="people" type="number" min="1" max="40" inputmode="numeric" placeholder="예: 4" required></label>
               <label>상담 목적<select name="purpose" required><option value="">목적 선택</option><option value="골프장 후보">골프장 후보</option><option value="골프·차량">골프·차량</option><option value="골프·숙소">골프·숙소</option><option value="골프·차량·숙소">골프·차량·숙소</option></select></label>
             </div>
-            <button class="button" type="submit">상담 준비 요약 보기 →</button>
+            <button class="button" type="submit">상담 준비 요약 보기·복사 →</button>
             <p class="home-prep-caveat">예약 가능 여부·티오프·가격은 확정 정보가 아닙니다. 상담 시 확인합니다.</p>
           </form>
           <div class="home-prep-result" id="home-prep-result" hidden aria-live="polite">
             <h2>상담 준비 요약</h2>
             <p id="home-prep-summary"></p>
+            <p id="home-prep-copy-status" role="status"></p>
             <div id="home-prep-candidates" hidden><strong>선택한 지역 골프장</strong><p>아래는 상세 정보가 있는 골프장입니다. 선택한 날짜의 예약 가능 여부나 추천 순위가 아닙니다.</p>${regions.map((region) => { const list = courses.filter((course) => areaOf(course).homeRegion === region.name); return list.length ? `<ul data-region="${region.name}" hidden>${list.map((course) => `<li><a href="/golf/${course.slug}.html">${escapeHtml(course.name)}</a> <small>✈ ${escapeHtml(course.drive)}</small></li>`).join("")}</ul>` : ""; }).join("")}</div>
             <p id="home-prep-other-region" hidden>선택한 지역의 골프장 후보는 이 사이트에서 확인되지 않았습니다. <a href="/regions">지역 상담 범위</a>를 보고 상담 시 후보 확인을 요청하세요.</p>
             <a class="button button-outline" id="home-prep-continue" href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer">카카오톡 상담 바로하기 →</a>
@@ -430,7 +432,7 @@ function courseGuideContent(course, guide) {
     <h3>같은 조건으로 견적을 받으려면</h3><p>이용일·인원·홀 수·희망 티타임을 먼저 맞추고, 그린피·캐디·카트·팁·식사·차량·대여 장비·세금과 취소 조건을 나눠 확인하세요. 문의 접수는 예약 확정이나 최종 요금 안내가 아닙니다.</p>
     ${courseTopicGuides(course)}
     <h3>예약 준비에 이어서 읽기</h3><ul>${related}</ul><p>${topicHubs.map((hub) => `<a href="${hub.path}">${escapeHtml(hub.title)}</a>`).join(" · ")} · <a href="/services/vehicle.html">골프장 왕복 차량 상담</a> · ${areaOf(course).board ? `<a href="/regions/${areaOf(course).board}.html">${escapeHtml(areaOf(course).name)} 골프 글 모음</a>` : `<a href="/regions">지역별 골프 글</a>`} · <a href="/golf#airport-times">공항→골프장 시간표</a></p>
-    <aside class="course-sources" aria-label="공식 출처와 확인 범위"><h3>공식 출처와 확인 범위</h3><p>자료 확인: <time datetime="${guide.checkedAt}">${guide.checkedAt}</time></p><ul>${guide.sources.map(([title, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a></li>`).join("")}</ul><p>${escapeHtml(guide.sourceNote || "공식 소개의 명칭·코스 구성만 대조했습니다. 티타임·요금·당일 운영·교통·사진의 최신 상태는 확인 범위에 포함되지 않습니다.")}</p><a href="/source-policy.html">정보 출처 원칙</a></aside>
+    <aside class="course-sources" aria-label="공식 출처"><h3>공식 출처</h3><p>자료 확인: <time datetime="${guide.checkedAt}">${guide.checkedAt}</time></p><ul>${guide.sources.map(([title, url]) => `<li><a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a></li>`).join("")}</ul><p>${escapeHtml(guide.sourceNote || "공식 안내를 기준으로 골프장 이름과 코스 구성을 정리했습니다. 요금·티타임과 당일 운영·교통은 상담 때 그날 기준으로 확인해 드립니다.")}</p><a href="/source-policy.html">정보 출처 원칙</a></aside>
   </section>`;
 }
 
@@ -480,7 +482,6 @@ function courseDetailPage(course) {
       course.name,
       `${course.name} 예약`,
       `${course.name} 가격`,
-      `${course.name} 후기`,
       `${course.name} 위치`,
       `${course.name} 골프여행`,
       `${course.name} 티오프`,
@@ -523,7 +524,7 @@ function regionsPage() {
 
 function servicesPage() {
   const links = { apartment: "/services/apartments.html", villa: "/services/villas.html", vehicle: "/services/vehicle.html" };
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">숙소·차량</p><h1>골프 숙소·차량 상담</h1><p>기존 아파트·풀빌라·차량 자료를 유지하고 골프 일정과 함께 상담합니다.</p></div></section><section class="section shell"><div class="service-list">${services.map((service) => `<article id="${service.slug}"><img src="/assets/images/${service.image}" width="1200" height="700" loading="lazy" decoding="async" alt="${service.name} 상담"><div><p class="eyebrow">연계 서비스</p><h2>${service.name}</h2><p>${service.text}</p><p class="muted">인원, 이용 날짜와 골프 일정을 알려주시면 적합한 조건을 함께 확인합니다.</p><div class="inline-actions"><a class="button" href="${links[service.slug]}">자료 보기</a><button class="button button-outline js-consult" type="button" data-interest="${service.name} 상담">상담하기</button></div></div></article>`).join("")}</div></section>`;
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">숙소·차량</p><h1>골프 숙소·차량 상담</h1><p>골프 일정에 맞는 숙소와 차량을 함께 잡아 드립니다. 라운드 시간과 인원을 알려 주시면 이동까지 한 번에 맞춰 드립니다.</p></div></section><section class="section shell"><div class="service-list">${services.map((service) => `<article id="${service.slug}"><img src="/assets/images/${service.image}" width="1200" height="700" loading="lazy" decoding="async" alt="${service.name} 상담"><div><p class="eyebrow">연계 서비스</p><h2>${service.name}</h2><p>${service.text}</p><p class="muted">인원, 이용 날짜와 골프 일정을 알려주시면 적합한 조건을 함께 확인합니다.</p><div class="inline-actions"><a class="button" href="${links[service.slug]}">자료 보기</a><button class="button button-outline js-consult" type="button" data-interest="${service.name} 상담">상담하기</button></div></div></article>`).join("")}</div></section>`;
   return layout({ title: "호치민 골프 숙소와 차량 상담", description: "호치민 골프여행에 필요한 아파트, 풀빌라, 차량을 라운드 일정과 인원에 맞춰 한국어로 함께 상담하세요. 숙소와 이동을 한 번에 정리합니다.", pathname: "/services", active: "services", content });
 }
 
@@ -534,12 +535,12 @@ function propertyCard(item, type) {
 }
 
 function apartmentsPage() {
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">아파트</p><h1>호치민 아파트 안내</h1><p>골프 인원과 체류 일정에 맞춰 기존 아파트 자료를 확인하고 상담하세요.</p></div></section><section class="section shell"><div class="property-grid">${apartments.map((item) => propertyCard(item, "apartment")).join("")}</div></section>`;
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">아파트</p><h1>호치민 아파트 안내</h1><p>골프 인원과 체류 일정에 맞는 호치민 아파트를 골라 드립니다. 날짜와 인원을 알려 주시면 가능한 곳을 확인해 드립니다.</p></div></section><section class="section shell"><div class="property-grid">${apartments.map((item) => propertyCard(item, "apartment")).join("")}</div></section>`;
   return layout({ title: "호치민 골프 아파트 안내", description: "빈홈 센트럴파크, 루미에르 리버사이드, 메트로폴 투티엠, 선라이즈 시티 등 호치민 골프여행 아파트를 위치와 객실 기준으로 상담합니다.", pathname: "/services/apartments.html", active: "services", content });
 }
 
 function villasPage() {
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">풀빌라</p><h1>호치민 풀빌라 안내</h1><p>단체 골프여행 인원과 객실 수에 맞춰 기존 풀빌라 자료를 확인하고 상담하세요.</p></div></section><section class="section shell"><div class="property-grid">${villas.map((item) => propertyCard(item, "villa")).join("")}</div></section>`;
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">풀빌라</p><h1>호치민 풀빌라 안내</h1><p>단체 골프여행 인원과 필요한 객실 수에 맞는 풀빌라를 골라 드립니다. 날짜와 인원을 알려 주시면 가능한 곳을 확인해 드립니다.</p></div></section><section class="section shell"><div class="property-grid">${villas.map((item) => propertyCard(item, "villa")).join("")}</div></section>`;
   return layout({ title: "호치민 골프 풀빌라 안내", description: "호치민 단체 골프여행을 위한 4룸부터 7룸 풀빌라 자료. 인원과 방 수, 골프장 이동을 기준으로 고르는 방법을 한국어로 상담합니다.", pathname: "/services/villas.html", active: "services", content });
 }
 
@@ -644,7 +645,7 @@ ${courseRows.length ? `<section class="guide-group"><h2>${escapeHtml(hub.courseT
 
 function blogPage() {
   const cards = blogPosts.map((post) => `<article class="post-card"><a href="/blog/${post.file}"><img src="/assets/blog/${post.cover}" width="1200" height="800" loading="lazy" decoding="async" alt="${escapeHtml(post.title)}"></a><div><span>${post.category}</span><h2><a href="/blog/${post.file}">${escapeHtml(post.title)}</a></h2><p>${escapeHtml(post.description)}</p><a class="text-link" href="/blog/${post.file}">내용 보기 →</a></div></article>`).join("");
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">골프·숙소 정보</p><h1>베트남 골프·숙소 정보</h1><p>기존 숙소 자료를 보존하면서 앞으로 골프장 선택과 일정 준비에 필요한 정보를 함께 정리합니다.</p></div></section><section class="section shell"><div class="post-grid">${cards}</div></section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">찾는 정보가 없나요?</p><h2>날짜와 인원만 알려주세요</h2><p>골프장과 숙소·차량을 함께 확인합니다.</p></div><button class="button button-light js-consult" type="button" data-interest="골프 및 숙소 상담">상담하기</button></div></section>`;
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">골프·숙소 정보</p><h1>베트남 골프·숙소 정보</h1><p>골프장 고르기, 숙소 이용, 이동과 일정 준비까지 베트남 골프여행 전에 알아 두면 좋은 정보를 모았습니다.</p></div></section><section class="section shell"><div class="post-grid">${cards}</div></section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">찾는 정보가 없나요?</p><h2>날짜와 인원만 알려주세요</h2><p>골프장과 숙소·차량을 함께 확인합니다.</p></div><button class="button button-light js-consult" type="button" data-interest="골프 및 숙소 상담">상담하기</button></div></section>`;
   return layout({ title: "베트남 골프·숙소 정보", description: "호치민을 중심으로 베트남 골프장 선택, 풀빌라와 아파트 이용, 이동과 일정 짜기에 필요한 정보를 한국어로 정리했습니다.", pathname: "/blog", active: "blog", content });
 }
 
@@ -772,7 +773,7 @@ async function build() {
   await write("blog/index.html", blogPage());
   for (const post of blogPosts) await write(`blog/${post.file}`, await blogPostPage(post));
   await write("about.html", trustPage({
-    title: "신짜오골프 소개",
+    title: "신짜오골프 소개: 베트남 골프장 예약·차량·숙소 한국어 상담",
     description: "신짜오골프가 제공하는 베트남 골프장·차량·숙소 한국어 상담 범위와 운영 원칙을 안내합니다.",
     pathname: "/about.html",
     content: "<h2>한국어로 확인하는 베트남 골프 일정</h2><p>신짜오골프는 호치민을 중심으로 베트남 골프장 정보와 차량·숙소 준비 정보를 정리하고 한국어 상담으로 연결합니다.</p><h2>서비스 범위</h2><p>사이트의 정보는 후보를 비교하고 문의를 준비하기 위한 안내입니다. 티오프, 가격, 포함 항목과 이용 가능 여부는 날짜와 인원에 따라 달라질 수 있어 상담 시점에 다시 확인합니다.</p><h2>결제 안내</h2><p>이 홈페이지 안에서는 상품을 판매하거나 결제를 받지 않습니다. 상담은 공식 카카오톡 연결을 통해 진행합니다.</p>",
@@ -888,7 +889,10 @@ async function build() {
     ...courses.filter((course) => course.legacy).map((course) => ({ source: `/${course.legacy}`, destination: `/golf/${course.slug}.html`, permanent: true })),
     ...apartments.map((item) => ({ source: `/${item.legacy}`, destination: `/services/apartment/${item.slug}.html`, permanent: true })),
     ...villas.map((item) => ({ source: `/${item.legacy}`, destination: `/services/villa/${item.slug}.html`, permanent: true })),
+    // 닫힌 골프 사이트 3곳의 골프장 상세 /golf/<지역>/<옛slug> → 새 상세 또는 지역 골프장 목록(대응표: src/legacy-golf-paths.mjs). 끝 / 는 trailingSlash:false가 먼저 떼고 308하므로 규칙은 / 없는 것 하나면 된다
+    ...legacyGolfPaths.map((entry) => ({ source: `/golf/${entry.from}`, destination: legacyGolfDestination(entry), permanent: true })),
   ];
+  if (redirects.length > 1024) throw new Error(`Vercel redirects 한도 1024개 초과: ${redirects.length}개`);
   const headers = [
     { source: "/assets/(.*)", headers: [{ key: "Cache-Control", value: "public, max-age=31536000, immutable" }] },
     { source: "/(.*)", headers: [
