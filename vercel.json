@@ -6,6 +6,28 @@
   "trailingSlash": false,
   "redirects": [
     {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "xinchao-golf.vercel.app"
+        }
+      ],
+      "destination": "https://xinchaogolf.com/",
+      "permanent": true
+    },
+    {
+      "source": "/:path((?!(?:google42ff51d2f339800e\\.html|naveracfd10be671c96cdfb93a6b8dadd8e45\\.html|d5b83e4cf4084a38b2b71a6f9a62c7de\\.txt)$).+)",
+      "has": [
+        {
+          "type": "host",
+          "value": "xinchao-golf.vercel.app"
+        }
+      ],
+      "destination": "https://xinchaogolf.com/:path",
+      "permanent": true
+    },
+    {
       "source": "/golf/compare-regions",
       "destination": "/regions",
       "permanent": true

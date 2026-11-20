@@ -1,8 +1,12 @@
-const siteUrl = (process.env.SITE_URL || "https://xinchao-golf.vercel.app").trim().replace(/\/+$/, "");
+const siteUrl = (process.env.SITE_URL || "https://xinchaogolf.com").trim().replace(/\/+$/, "");
 
 if (!/^https:\/\/[a-z0-9.-]+(?::\d+)?$/i.test(siteUrl)) {
   throw new Error("SITE_URL은 경로와 마지막 슬래시가 없는 https 주소여야 합니다.");
 }
+
+// 2026-11-20 전용 주소 xinchaogolf.com으로 이전. 옛 주소로 온 요청은 vercel.json(빌드가 생성)에서 새 주소로 308.
+export const legacyHost = "xinchao-golf.vercel.app";
+if (new URL(siteUrl).host === legacyHost) throw new Error("SITE_URL이 옛 주소면 이동 규칙이 자기 자신으로 돌아갑니다.");
 
 export const site = {
   name: "신짜오골프",

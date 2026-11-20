@@ -13,7 +13,7 @@ const markdownPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"
 const guideCount = JSON.parse(await readFile(path.join(root, "src/content/guides.json"), "utf8")).length;
 const expectedContentPages = 45 + courses.length + markdownPosts.length + 1 + guideCount;
 const expectedSitemapUrls = 44 + courses.length + markdownPosts.length + 1 + guideCount;
-const expectedRedirects = 45 + markdownPosts.length;
+const expectedRedirects = 47 + markdownPosts.length; // 47 = 기존 45 + 옛 주소→새 주소 2
 
 async function collect(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -165,6 +165,16 @@ if (!Array.isArray(vercel.redirects) || vercel.redirects.length !== expectedRedi
 if (vercel.redirects?.filter((rule) => rule.source === "/golf/compare-regions" && rule.destination === "/regions" && rule.permanent === true).length !== 1) failures.push("이전 지역 비교 URL의 영구 이전 규칙 누락 또는 중복");
 for (const source of ["/blog/vietnam-golf-caddie-tip-checklist.html", "/vietnam-golf-caddie-tip-checklist.html"]) {
   if (vercel.redirects?.filter((rule) => rule.source === source && rule.destination === "/blog/hochiminh-golf-stay-selection-checklist.html" && rule.permanent === true).length !== 1) failures.push(`${source}: 중복 없는 숙소 가이드 영구 이전 규칙 필요`);
+}
+{
+  // 옛 주소 → 새 .com 영구 이동: 맨 앞 2개 규칙, 인증 파일 3개는 제외
+  const hostRules = vercel.redirects?.filter((rule) => rule.has?.some((h) => h.type === "host" && h.value === "xinchao-golf.vercel.app")) ?? [];
+  if (hostRules.length !== 2 || vercel.redirects.indexOf(hostRules[0]) !== 0 || vercel.redirects.indexOf(hostRules[1]) !== 1) failures.push("옛 주소 이동 규칙 2개가 맨 앞에 있어야 함");
+  if (!hostRules.every((rule) => rule.permanent === true && rule.destination.startsWith(`${site.siteUrl}/`))) failures.push("옛 주소 이동 규칙의 도착지·영구 여부 오류");
+  for (const file of ["google42ff51d2f339800e.html", "naveracfd10be671c96cdfb93a6b8dadd8e45.html", "d5b83e4cf4084a38b2b71a6f9a62c7de.txt"]) {
+    if (!hostRules[1]?.source.includes(file.replace(".", "\\."))) failures.push(`옛 주소 이동에서 인증 파일 제외 누락: ${file}`);
+    if (!files.some((item) => item.endsWith(file))) failures.push(`인증 파일 누락: ${file}`);
+  }
 }
 if (!Array.isArray(vercel.headers) || vercel.headers.length < 2) failures.push("배포 보안·캐시 헤더 누락");
 if (await exists(path.join(dist, "vercel.json"))) failures.push("배포 설정이 공개 결과물 안에 포함됨");
