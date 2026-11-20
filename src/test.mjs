@@ -6,7 +6,7 @@ import { loadMarkdownPosts } from "./blog-content.mjs";
 import { courses, site } from "./site-data.mjs";
 import { topicHubs } from "./topic-hubs.mjs";
 import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
-import { bookingFee, pricing } from "./pricing-guide.mjs";
+import { pricing } from "./pricing-guide.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -240,7 +240,7 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   if (!sampleHtml.includes(`<a href="${hubPath}">${label}</a>`)) failures.push(`${hubPath}: 가이드 글 위치 표시에 주제 모음 링크 없음 (${sample})`);
 }
 
-// 요금 구성·결제·변경/취소 안내(2026-11-20 손님 점검 #2·#3): 넣을 곳에 견적기 문장이 한 번씩, 금액은 예약대행 수수료 USD 6만.
+// 요금 구성·결제·변경/취소 안내(2026-11-20 손님 점검 #2·#3): 넣을 곳에 견적기 문장이 한 번씩, 금액 숫자는 없음(예약대행 수수료도 견적서 표시로만 안내, 총괄 11-20).
 {
   const visibleText = (html) => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "").replace(/<head>[\s\S]*?<\/head>/i, "");
   const pages = {
@@ -256,13 +256,12 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
       const found = text.split(sentence).length - 1;
       if (found !== 1) failures.push(`${relative}: 요금 안내 문장(${key}) ${found}번 (1번이어야 함)`);
     }
-    if (!text.includes(bookingFee)) failures.push(`${relative}: 예약대행 수수료 안내 누락`);
+    if (!text.includes(pricing.fee)) failures.push(`${relative}: 예약대행 수수료 안내 누락`);
   }
   for (const file of htmlFiles) {
     const relative = path.relative(dist, file).split(path.sep).join("/");
     const usd = (await readFile(file, "utf8")).match(/USD\s*\d[\d.,]*|\d[\d.,]*\s*(?:USD|달러)/g) || [];
-    const other = usd.filter((value) => value !== "USD 6");
-    if (other.length) failures.push(`${relative}: 예약대행 수수료 외 달러 금액(${other.join(", ")})`);
+    if (usd.length) failures.push(`${relative}: 달러 금액(${usd.join(", ")}) — 사이트에는 금액 숫자를 넣지 않음`);
   }
 }
 
