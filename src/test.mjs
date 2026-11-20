@@ -128,6 +128,8 @@ for (const file of htmlFiles) {
     if (clean.startsWith("/")) target = path.join(dist, clean);
     else target = path.resolve(path.dirname(file), clean);
     if (clean.endsWith("/")) target = path.join(target, "index.html");
+    // /go/<코드>는 vercel rewrites가 /go/<코드>.html로 보낸다.
+    if (/^\/go\/[a-z0-9-]+$/.test(clean)) target = path.join(dist, `${clean}.html`);
     if (!await exists(target)) failures.push(`${relative}: 없는 경로 ${raw}`);
   }
 }
@@ -409,6 +411,49 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     if (!description.includes(course.holes)) failures.push(`${relative}: description에 홀 수 원문(${course.holes}) 없음`);
     if (!section.includes(`<li>규모: ${course.holes}</li>`)) failures.push(`${relative}: 코스·위치에 홀 수 원문 없음`);
   }
+}
+
+// 골프 + 숙소 + 차량 묶음 견적(2026-11-20 차별화 ③): 호치민권 골프장 상세마다 블록 1개, 다른 지역에는 없음.
+// 숙소는 호치민풀빌라 목록(새 탭), 이동은 그 골프장 공항 이동시간, 버튼은 /go/golf-combo. 금액 숫자 없음.
+{
+  const comboPath = "/go/golf-combo";
+  const villaList = "https://hochiminhpoolvilla.com/villa/villa.html";
+  const apartmentList = "https://hochiminhpoolvilla.com/apartment/apartment.html";
+  const plain = (html) => html.replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
+  const targets = courses.filter((course) => course.area === "hcm");
+  if (targets.length < 13 || targets.length > 16) failures.push(`묶음 견적 대상 골프장 ${targets.length}곳 (13~16곳 예상)`);
+  for (const course of courses) {
+    const relative = `golf/${course.slug}.html`;
+    const html = await readFile(path.join(dist, relative), "utf8");
+    const blocks = html.match(/<section class="section shell stay-combo"[\s\S]*?<\/section>/g) || [];
+    if (course.area !== "hcm") {
+      if (blocks.length || html.includes(`href="${comboPath}"`)) failures.push(`${relative}: 호치민권이 아닌데 묶음 견적 블록 있음`);
+      continue;
+    }
+    if (blocks.length !== 1) { failures.push(`${relative}: 묶음 견적 블록 ${blocks.length}개 (1개여야 함)`); continue; }
+    const block = blocks[0];
+    for (const url of [villaList, apartmentList]) if (!block.includes(`href="${url}" target="_blank" rel="noopener"`)) failures.push(`${relative}: 묶음 견적 숙소 목록 새 탭 연결 누락 (${url})`);
+    if (!block.includes("4룸~27룸")) failures.push(`${relative}: 묶음 견적 룸 수 범위 누락`);
+    if (!block.includes(`차량 약 ${course.drive}`)) failures.push(`${relative}: 묶음 견적 공항 이동시간(${course.drive}) 누락`);
+    if (count(block, new RegExp(`href="${comboPath}"`, "g")) !== 1 || !block.includes("골프·숙소·차량 한 번에 견적")) failures.push(`${relative}: 묶음 견적 버튼(${comboPath}) 1개 필요`);
+    const hit = plain(block).match(PRICE);
+    if (hit) failures.push(`${relative}: 묶음 견적 블록에 금액 표기(${hit[0]})`);
+    if (/\d+\s*(?:분|시간|일)\s*(?:안|내|이내)/.test(plain(block).replace(/차량 약[^.]*\./, ""))) failures.push(`${relative}: 묶음 견적 블록에 답변 시간 숫자 약속`);
+    if (/후기/.test(block)) failures.push(`${relative}: 묶음 견적 블록에 후기 문구`);
+    if (html.split(pricing.reply).length - 1 !== 1) failures.push(`${relative}: 답변 안내 문장 1번이어야 함`);
+  }
+  const goFile = path.join(dist, "go/golf-combo.html");
+  if (!await exists(goFile)) failures.push("/go/golf-combo 페이지 없음");
+  else {
+    const go = await readFile(goFile, "utf8");
+    if (!go.includes('<meta name="robots" content="noindex,nofollow">')) failures.push("/go/golf-combo noindex 누락");
+    if (!go.includes('href="https://pf.kakao.com/_xdBALn/chat"') || go.includes("_FXwxkG")) failures.push("/go/golf-combo 골프 카카오 채널(_xdBALn) 아님");
+    if (!go.includes('data-company-site-tracker="xinchao-golf"')) failures.push("/go/golf-combo 관제판 tracker 누락");
+    const hit = go.replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ").match(PRICE);
+    if (hit) failures.push(`/go/golf-combo 금액 표기(${hit[0]})`);
+  }
+  if (/\/go\//.test(sitemap)) failures.push("사이트맵에 /go/ 주소 포함");
+  if (/\/go\//.test(llms)) failures.push("llms.txt에 /go/ 주소 포함");
 }
 
 if (failures.length) {

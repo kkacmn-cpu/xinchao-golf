@@ -638,3 +638,20 @@ h1,h2,.signature-card strong,.area-tile strong,.prep-copy h2,.cta-photo h2{font-
 .pay-guide-compact .pay-guide p{font-size:.82rem}
 @media (max-width:1000px){.pay-guide{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.pay-guide,.compact-copy .pay-guide{grid-template-columns:1fr}}
+
+/* 골프 + 숙소 + 차량 묶음 견적(호치민권 골프장 상세) */
+.stay-combo { padding-top: 0; }
+.stay-combo-box { padding: 28px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--green-soft); }
+.stay-combo-box h2 { margin: 4px 0 10px; word-break: keep-all; }
+.stay-combo-box > p { color: var(--muted); max-width: 760px; }
+.stay-combo-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 18px 0 22px; }
+.stay-combo-list > div { padding: 16px; border-radius: 12px; background: var(--white); }
+.stay-combo-list dt { font-weight: 700; color: var(--green-dark); margin-bottom: 6px; }
+.stay-combo-list dd { margin: 0; font-size: .92rem; line-height: 1.6; word-break: keep-all; }
+.stay-combo-links { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-top: 8px; }
+.stay-combo-links a { color: var(--green-dark); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+@media (max-width: 760px) {
+  .stay-combo-box { padding: 20px; }
+  .stay-combo-list { grid-template-columns: 1fr; }
+  .stay-combo-box .button { display: block; text-align: center; }
+}

@@ -507,6 +507,17 @@ function courseKeywordSections(course) {
   </section>`;
 }
 
+// 골프 + 숙소 + 차량 묶음 견적(2026-11-20 차별화 ③): 호치민권 골프장 상세에만 넣는다.
+// 숙소는 자매 사이트 호치민풀빌라(호치민 숙소)라서 다른 지역에는 넣지 않는다. 금액 숫자·답변 시간 숫자는 쓰지 않는다.
+const golfComboPath = "/go/golf-combo";
+const golfComboAreas = ["hcm"];
+
+function courseStayCombo(course) {
+  if (!golfComboAreas.includes(course.area)) return "";
+  const airport = course.airport || areaOf(course).airport;
+  return `<section class="section shell stay-combo" id="stay-combo" aria-labelledby="stay-combo-title"><div class="stay-combo-box"><p class="eyebrow">골프 + 숙소 + 차량</p><h2 id="stay-combo-title">${escapeHtml(course.shortName)} 일정, 숙소·차량까지 한 번에 견적</h2><p>골프장 예약과 숙소, 공항·골프장 이동 차량을 따로 알아보지 않아도 됩니다. 날짜와 인원을 보내 주시면 골프·숙소·차량을 한 장의 견적으로 묶어 안내합니다.</p><dl class="stay-combo-list"><div><dt>숙소</dt><dd>자매 사이트 ${poolvilla.name}에서 ${poolvilla.villaRooms} 풀빌라를 룸 수로 골라 볼 수 있습니다.<span class="stay-combo-links"><a href="${poolvilla.villaList}" target="_blank" rel="noopener">룸 수별 풀빌라 목록 →</a><a href="${poolvilla.apartmentList}" target="_blank" rel="noopener">아파트 목록 →</a></span></dd></div><div><dt>이동</dt><dd>${escapeHtml(airport)}에서 ${escapeHtml(course.name)}까지 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (${escapeHtml(course.driveKm)})` : ""}, 평소 교통 기준입니다. 공항 픽업·샌딩과 숙소·골프장 왕복 차량을 인원과 골프백 수에 맞춰 함께 예약할 수 있습니다.<span class="stay-combo-links"><a href="/services/vehicle.html">차량 종류 보기 →</a></span></dd></div><div><dt>견적</dt><dd>카카오톡에 날짜·인원·희망 룸 수를 보내 주세요. ${pricing.reply}</dd></div></dl><a class="button button-kakao button-lg" href="${golfComboPath}" data-combo="golf-stay">골프·숙소·차량 한 번에 견적</a></div></section>`;
+}
+
 function courseDetailPage(course) {
   const guide = courseGuides[course.slug];
   const keyword = keywordCourses[course.slug];
@@ -515,7 +526,7 @@ function courseDetailPage(course) {
     <section class="detail-hero shell">
       <div class="detail-media">${courseVisual(course, "course-plate-detail", "eager")}${course.gallery?.length ? `<div class="detail-gallery" aria-label="${escapeHtml(course.name)} 사진">${course.gallery.map((file, index) => `<a href="/assets/images/${file}" target="_blank" rel="noopener"><img src="/assets/images/${file}" width="1200" height="800" loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 코스 사진 ${index + 2}"></a>`).join("")}</div>` : ""}</div>
       <div class="detail-summary"><p class="eyebrow">${course.region} 골프장</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="fact-list"><div><dt>지역</dt><dd>${course.location}</dd></div><div><dt>규모</dt><dd>${course.holes}</dd></div><div><dt>공항</dt><dd>${escapeHtml(course.airport || areaOf(course).airport)}에서 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (${escapeHtml(course.driveKm)})` : ""}</dd></div><div><dt>이동</dt><dd>${course.access}</dd></div></dl><p class="drive-note">공항 시간은 평소 교통 기준입니다. 출퇴근·주말·우천 시 더 걸릴 수 있습니다.</p><button class="button button-kakao button-block button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡으로 예약 가능 날짜 묻기</button><ul class="detail-steps"><li>날짜·인원 보내기</li><li>티타임·조건 확인</li><li>확정 후 바우처</li></ul>${pricingGuideHtml({ variant: "compact" })}<small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div>
-    </section>
+    </section>${courseStayCombo(course)}
     <section class="section shell detail-content">
       <article><p class="eyebrow">선택 포인트</p><h2>${course.shortName}, 이런 일정에 검토하세요</h2><ul class="point-list">${course.points.map((point) => `<li>${point}</li>`).join("")}</ul>${courseKeywordSections(course)}${courseGuideContent(course, guide)}</article>
       <aside class="side-consult"><strong>빠른 상담</strong><p>${course.shortName} 가능 여부와 이동 일정을 확인해드립니다.</p><button class="button button-kakao button-block js-consult" type="button" data-interest="${course.name} 티오프 및 차량 상담">카톡으로 일정 확인</button></aside>
