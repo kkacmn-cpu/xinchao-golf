@@ -830,6 +830,36 @@ async function build() {
   await writeFile(path.join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map((url) => `  <url><loc>${site.siteUrl}${url}</loc><lastmod>${blogLastModified.get(url) || site.lastUpdated}</lastmod></url>`).join("\n")}\n</urlset>\n`);
   await writeFile(path.join(dist, "robots.txt"), `User-agent: *\nAllow: /\n\nSitemap: ${site.siteUrl}/sitemap.xml\n`);
   await writeFile(path.join(dist, "llms.txt"), await llmsTxt(urls));
+  // RSS 2.0 (네이버 서치어드바이저 RSS 제출용): 예약 가이드·블로그 글 중 최신 50개.
+  const feedItems = [
+    ...guides.map((guide) => ({ url: `/guide/${guide.slug}.html`, title: guide.title, description: guide.description, date: guide.date })),
+    ...blogPosts.map((post) => ({ url: `/blog/${post.file}`, title: post.title, description: post.description, date: post.date })),
+  ].filter((item) => urls.includes(item.url)).sort((a, b) => b.date.localeCompare(a.date) || a.url.localeCompare(b.url)).slice(0, 50);
+  const rssDate = (date) => new Date(`${String(date).slice(0, 10)}T09:00:00+07:00`).toUTCString();
+  const rssItems = feedItems.map((item) => [
+    "<item>",
+    `<title>${escapeHtml(item.title)}</title>`,
+    `<link>${site.siteUrl}${item.url}</link>`,
+    `<guid isPermaLink="true">${site.siteUrl}${item.url}</guid>`,
+    `<description>${escapeHtml(item.description)}</description>`,
+    `<pubDate>${rssDate(item.date)}</pubDate>`,
+    "</item>",
+  ].join("\n"));
+  await writeFile(path.join(dist, "rss.xml"), [
+    '<?xml version="1.0" encoding="UTF-8"?>',
+    '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+    "<channel>",
+    `<title>${escapeHtml(site.name)}</title>`,
+    `<link>${site.siteUrl}/</link>`,
+    `<description>${escapeHtml(site.description)}</description>`,
+    "<language>ko</language>",
+    `<lastBuildDate>${rssDate(feedItems[0]?.date || site.lastUpdated)}</lastBuildDate>`,
+    `<atom:link href="${site.siteUrl}/rss.xml" rel="self" type="application/rss+xml"/>`,
+    ...rssItems,
+    "</channel>",
+    "</rss>",
+    "",
+  ].join("\n"));
   await writeFile(path.join(dist, "manifest.webmanifest"), `${JSON.stringify({
     name: site.name,
     short_name: site.name,
