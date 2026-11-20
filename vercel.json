@@ -488,17 +488,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/dalat/dalat-dalat-at-1200-golf-club/",
-      "destination": "/golf/dalat-at-1200.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/dalat/dalat-dalat-palace-golf-club",
-      "destination": "/golf/dalat-palace-golf-club.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/dalat/dalat-dalat-palace-golf-club/",
       "destination": "/golf/dalat-palace-golf-club.html",
       "permanent": true
     },
@@ -508,17 +498,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/dalat/dalat-sam-tuyen-lam-golf-resort/",
-      "destination": "/golf/sam-tuyen-lam-golf.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/danang/danang-ba-na-hills-golf-club",
-      "destination": "/golf/ba-na-hills-golf-club.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/danang/danang-ba-na-hills-golf-club/",
       "destination": "/golf/ba-na-hills-golf-club.html",
       "permanent": true
     },
@@ -528,17 +508,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/danang/danang-legend-da-nang-golf-resort/",
-      "destination": "/golf/legend-danang-golf-resort.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/danang/danang-montgomerie-links-golf-club",
-      "destination": "/golf/montgomerie-links-vietnam.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/danang/danang-montgomerie-links-golf-club/",
       "destination": "/golf/montgomerie-links-vietnam.html",
       "permanent": true
     },
@@ -548,17 +518,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/haiphong/haiphong-dragon-golf-links/",
-      "destination": "/golf/dragon-golf-links.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/haiphong/haiphong-ruby-tree-golf-resort",
-      "destination": "/golf/ruby-tree-golf.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/haiphong/haiphong-ruby-tree-golf-resort/",
       "destination": "/golf/ruby-tree-golf.html",
       "permanent": true
     },
@@ -568,17 +528,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/haiphong/haiphong-sono-felice-country-club/",
-      "destination": "/golf/sono-felice-country-club.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/haiphong/haiphong-vinpearl-golf-hai-phong",
-      "destination": "/golf/vinpearl-golf-hai-phong.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/haiphong/haiphong-vinpearl-golf-hai-phong/",
       "destination": "/golf/vinpearl-golf-hai-phong.html",
       "permanent": true
     },
@@ -588,17 +538,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/halong/halong-flc-golf-club-ha-long/",
-      "destination": "/golf/flc-ha-long-golf.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/halong/halong-tuan-chau-golf-and-resort",
-      "destination": "/golf/tuan-chau-golf.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/halong/halong-tuan-chau-golf-and-resort/",
       "destination": "/golf/tuan-chau-golf.html",
       "permanent": true
     },
@@ -608,17 +548,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hanoi/hanoi-chi-linh-golf-club/",
-      "destination": "/golf/chi-linh-golf.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/hanoi/hanoi-dai-lai-golf-club",
-      "destination": "/golf/dai-lai-golf.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hanoi/hanoi-dai-lai-golf-club/",
       "destination": "/golf/dai-lai-golf.html",
       "permanent": true
     },
@@ -628,17 +558,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hanoi/hanoi-hanoi-golf-club/",
-      "destination": "/golf/hanoi-golf-club.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/hanoi/hanoi-heron-lake-golf-course",
-      "destination": "/golf/heron-lake-golf.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hanoi/hanoi-heron-lake-golf-course/",
       "destination": "/golf/heron-lake-golf.html",
       "permanent": true
     },
@@ -648,17 +568,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hanoi/hanoi-hilltop-valley-golf-club/",
-      "destination": "/golf/hilltop-valley-golf.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/hanoi/hanoi-king-s-island-golf-resort",
-      "destination": "/golf/brg-kings-island.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hanoi/hanoi-king-s-island-golf-resort/",
       "destination": "/golf/brg-kings-island.html",
       "permanent": true
     },
@@ -668,17 +578,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hanoi/hanoi-legend-hill-country-club/",
-      "destination": "/golf/legend-hill-country-club.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/hanoi/hanoi-long-bien-golf-course",
-      "destination": "/golf/long-bien-golf-course.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hanoi/hanoi-long-bien-golf-course/",
       "destination": "/golf/long-bien-golf-course.html",
       "permanent": true
     },
@@ -688,17 +588,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hanoi/hanoi-phoenix-golf-resort/",
-      "destination": "/golf/phoenix-golf-resort.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/hanoi/hanoi-sky-lake-resort-and-golf-club",
-      "destination": "/golf/sky-lake-golf.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hanoi/hanoi-sky-lake-resort-and-golf-club/",
       "destination": "/golf/sky-lake-golf.html",
       "permanent": true
     },
@@ -708,17 +598,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hanoi/hanoi-tam-dao-golf-and-resort/",
-      "destination": "/golf/tam-dao-golf.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/hanoi/hanoi-thanh-lanh-valley-golf-and-resort",
-      "destination": "/golf/thanh-lanh-valley-golf.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hanoi/hanoi-thanh-lanh-valley-golf-and-resort/",
       "destination": "/golf/thanh-lanh-valley-golf.html",
       "permanent": true
     },
@@ -728,17 +608,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hochiminh/hochiminh-dong-nai-golf-resort/",
-      "destination": "/golf/dong-nai-golf-resort.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/hochiminh/hochiminh-emerald-country-club-taekwang-jeongsan-country-club",
-      "destination": "/golf/taekwang-jeongsan-country-club.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hochiminh/hochiminh-emerald-country-club-taekwang-jeongsan-country-club/",
       "destination": "/golf/taekwang-jeongsan-country-club.html",
       "permanent": true
     },
@@ -748,17 +618,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hochiminh/hochiminh-harmonie-golf-park/",
-      "destination": "/golf/harmony-golf-park.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/hochiminh/hochiminh-long-thanh-golf-club",
-      "destination": "/golf/long-thanh-golf-club.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hochiminh/hochiminh-long-thanh-golf-club/",
       "destination": "/golf/long-thanh-golf-club.html",
       "permanent": true
     },
@@ -768,17 +628,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hochiminh/hochiminh-song-be-golf-resort/",
-      "destination": "/golf/song-be-golf-resort.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/hochiminh/hochiminh-tan-son-nhat-golf-course",
-      "destination": "/golf/tan-son-nhat-golf-course.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hochiminh/hochiminh-tan-son-nhat-golf-course/",
       "destination": "/golf/tan-son-nhat-golf-course.html",
       "permanent": true
     },
@@ -788,17 +638,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hochiminh/hochiminh-twin-doves-golf-club/",
-      "destination": "/golf/twin-doves-golf-club.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/hochiminh/hochiminh-vietnam-golf-and-country-club",
-      "destination": "/golf/thu-duc-country-club.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hochiminh/hochiminh-vietnam-golf-and-country-club/",
       "destination": "/golf/thu-duc-country-club.html",
       "permanent": true
     },
@@ -808,17 +648,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hochiminh/hochiminh-vinpearl-golf-leman/",
-      "destination": "/golf/leman-golf-club.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/hoian/hoian-hoiana-shores-golf-club",
-      "destination": "/golf/hoiana-shores-golf-club.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hoian/hoian-hoiana-shores-golf-club/",
       "destination": "/golf/hoiana-shores-golf-club.html",
       "permanent": true
     },
@@ -828,17 +658,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hoian/hoian-vinpearl-golf-nam-hoi-an/",
-      "destination": "/golf/vinpearl-golf-nam-hoi-an.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/hue/hue-laguna-golf-lang-co",
-      "destination": "/golf/laguna-golf-lang-co.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hue/hue-laguna-golf-lang-co/",
       "destination": "/golf/laguna-golf-lang-co.html",
       "permanent": true
     },
@@ -848,17 +668,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/longan/longan-royal-long-an-golf-and-country-club/",
-      "destination": "/golf/royal-long-an-golf.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/longan/longan-west-lakes-golf-and-villa",
-      "destination": "/golf/west-lakes-golf-villas.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/longan/longan-west-lakes-golf-and-villa/",
       "destination": "/golf/west-lakes-golf-villas.html",
       "permanent": true
     },
@@ -868,17 +678,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/nhatrang/nhatrang-anara-binh-tien-golf-club/",
-      "destination": "/golf/anara-binh-tien-golf.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/nhatrang/nhatrang-diamond-bay-golf-and-villas",
-      "destination": "/golf/diamond-bay-golf.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/nhatrang/nhatrang-diamond-bay-golf-and-villas/",
       "destination": "/golf/diamond-bay-golf.html",
       "permanent": true
     },
@@ -888,17 +688,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/nhatrang/nhatrang-kn-golf-links-cam-ranh/",
-      "destination": "/golf/kn-golf-links-cam-ranh.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/nhatrang/nhatrang-vinpearl-golf-nha-trang",
-      "destination": "/golf/vinpearl-golf-nha-trang.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/nhatrang/nhatrang-vinpearl-golf-nha-trang/",
       "destination": "/golf/vinpearl-golf-nha-trang.html",
       "permanent": true
     },
@@ -908,17 +698,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/north/north-montana-golf-course-new/",
-      "destination": "/golf/montana-golf-course.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/phanthiet/phanthiet-novaworld-phan-thiet-golf-club",
-      "destination": "/golf/novaworld-phan-thiet-golf.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/phanthiet/phanthiet-novaworld-phan-thiet-golf-club/",
       "destination": "/golf/novaworld-phan-thiet-golf.html",
       "permanent": true
     },
@@ -928,17 +708,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/phanthiet/phanthiet-sea-links-golf-and-country-club/",
-      "destination": "/golf/sea-links-golf.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/phuquoc/phuquoc-eschuri-vung-bau-phu-quoc",
-      "destination": "/golf/eschuri-vung-bau-golf.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/phuquoc/phuquoc-eschuri-vung-bau-phu-quoc/",
       "destination": "/golf/eschuri-vung-bau-golf.html",
       "permanent": true
     },
@@ -948,17 +718,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/phuquoc/phuquoc-vinpearl-golf-phu-quoc/",
-      "destination": "/golf/vinpearl-golf-phu-quoc.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/vungtau/vungtau-paradise-golf-and-resort",
-      "destination": "/golf/vung-tau-paradise-golf.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/vungtau/vungtau-paradise-golf-and-resort/",
       "destination": "/golf/vung-tau-paradise-golf.html",
       "permanent": true
     },
@@ -968,17 +728,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/vungtau/vungtau-sonadezi-chau-uc-golf-course/",
-      "destination": "/golf/sonadezi-chau-duc-golf.html",
-      "permanent": true
-    },
-    {
       "source": "/golf/vungtau/vungtau-the-bluffs-ho-tram-strip",
-      "destination": "/golf/the-bluffs-grand-ho-tram.html",
-      "permanent": true
-    },
-    {
-      "source": "/golf/vungtau/vungtau-the-bluffs-ho-tram-strip/",
       "destination": "/golf/the-bluffs-grand-ho-tram.html",
       "permanent": true
     },
@@ -988,17 +738,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/bacgiang/bacgiang-amber-hill-golf-and-resort/",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
       "source": "/golf/bacgiang/bacgiang-corn-hill-luc-nam-bac-giang",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
-      "source": "/golf/bacgiang/bacgiang-corn-hill-luc-nam-bac-giang/",
       "destination": "/golf#area-hanoi",
       "permanent": true
     },
@@ -1008,17 +748,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/binhduong/binhduong-royal-island-golf-and-villas/",
-      "destination": "/golf#area-hcm",
-      "permanent": true
-    },
-    {
       "source": "/golf/hanam/hanam-legend-valley-country-club",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hanam/hanam-legend-valley-country-club/",
       "destination": "/golf#area-hanoi",
       "permanent": true
     },
@@ -1028,17 +758,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hanam/hanam-stone-valley-golf-and-resort/",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
       "source": "/golf/hanoi/hanoi-van-tri-golf-club",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hanoi/hanoi-van-tri-golf-club/",
       "destination": "/golf#area-hanoi",
       "permanent": true
     },
@@ -1048,17 +768,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/hoabinh/hoabinh-asean-onsen-golf-resort/",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
       "source": "/golf/hue/hue-golden-sands-golf-resort",
-      "destination": "/golf#area-danang",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hue/hue-golden-sands-golf-resort/",
       "destination": "/golf#area-danang",
       "permanent": true
     },
@@ -1068,17 +778,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/ninhbinh/ninhbinh-royal-golf-course/",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
       "source": "/golf/ninhbinh/ninhbinh-trang-an-golf-and-resort",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
-      "source": "/golf/ninhbinh/ninhbinh-trang-an-golf-and-resort/",
       "destination": "/golf#area-hanoi",
       "permanent": true
     },
@@ -1088,17 +788,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/phutho/phutho-stone-highland-golf-and-resort/",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
       "source": "/golf/phutho/phutho-van-lang-empire-golf-club",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
-      "source": "/golf/phutho/phutho-van-lang-empire-golf-club/",
       "destination": "/golf#area-hanoi",
       "permanent": true
     },
@@ -1108,17 +798,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/quangninh/quangninh-mong-cai-golf-club/",
-      "destination": "/golf#area-haiphong",
-      "permanent": true
-    },
-    {
       "source": "/golf/quangninh/quangninh-silk-path-dong-trieu-golf-and-country-club",
-      "destination": "/golf#area-haiphong",
-      "permanent": true
-    },
-    {
-      "source": "/golf/quangninh/quangninh-silk-path-dong-trieu-golf-and-country-club/",
       "destination": "/golf#area-haiphong",
       "permanent": true
     },
@@ -1128,17 +808,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/thainguyen/thainguyen-glory-golf-club-thai-nguyen/",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
       "source": "/golf/hatinh/hatinh-muong-thanh-golf-club-xuan-thanh",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
-      "source": "/golf/hatinh/hatinh-muong-thanh-golf-club-xuan-thanh/",
       "destination": "/golf",
       "permanent": true
     },
@@ -1148,17 +818,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/laocai/laocai-sapa-grand-golf-course/",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
       "source": "/golf/nghean/nghean-cua-lo-golf-and-resort",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
-      "source": "/golf/nghean/nghean-cua-lo-golf-and-resort/",
       "destination": "/golf",
       "permanent": true
     },
@@ -1168,17 +828,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/nghean/nghean-muong-thanh-golf-club-dien-lam/",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
       "source": "/golf/quangtri/quangtri-blue-diamond-golf-link-quang-tri",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
-      "source": "/golf/quangtri/quangtri-blue-diamond-golf-link-quang-tri/",
       "destination": "/golf",
       "permanent": true
     },
@@ -1188,17 +838,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/quangtri/quangtri-flc-golf-links-quang-tri/",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
       "source": "/golf/quynhon/quynhon-flc-golf-links-quy-nhon",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
-      "source": "/golf/quynhon/quynhon-flc-golf-links-quy-nhon/",
       "destination": "/golf",
       "permanent": true
     },
@@ -1208,17 +848,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/thanhhoa/thanhhoa-flc-golf-links-sam-son/",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
       "source": "/golf/yenbai/yenbai-yen-bai-star-golf",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
-      "source": "/golf/yenbai/yenbai-yen-bai-star-golf/",
       "destination": "/golf",
       "permanent": true
     }

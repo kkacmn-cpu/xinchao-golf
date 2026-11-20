@@ -1,6 +1,6 @@
 // 닫힌 골프 사이트 3곳(xinchao-golf-price/-booking/-planner.vercel.app)의 골프장 상세 옛 주소 대응표.
 // 세 곳 모두 같은 74개 경로 /golf/<지역>/<옛slug>/ 를 썼고, 지금은 xinchaogolf.com 같은 경로로 308된다.
-// build.mjs가 이 표로 vercel.json redirects를 만든다(끝 / 있는 것과 없는 것 2개씩).
+// build.mjs가 이 표로 vercel.json redirects를 만든다. 끝 / 는 Vercel(trailingSlash:false)이 먼저 떼고 308하므로 / 없는 경로 하나씩.
 //   to: 새 골프장 slug → /golf/<to>.html
 //   area: 대응하는 골프장이 없을 때 보낼 골프장 목록 구역 → /golf#area-<area> (null이면 /golf)
 // oldName은 옛 페이지 h1, 새 이름은 site-data.mjs courses의 name/englishName. 이름이 다른데 같은 곳으로 본 것은 note에 근거를 적는다.

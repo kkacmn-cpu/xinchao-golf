@@ -889,8 +889,8 @@ async function build() {
     ...courses.filter((course) => course.legacy).map((course) => ({ source: `/${course.legacy}`, destination: `/golf/${course.slug}.html`, permanent: true })),
     ...apartments.map((item) => ({ source: `/${item.legacy}`, destination: `/services/apartment/${item.slug}.html`, permanent: true })),
     ...villas.map((item) => ({ source: `/${item.legacy}`, destination: `/services/villa/${item.slug}.html`, permanent: true })),
-    // 닫힌 골프 사이트 3곳의 골프장 상세 /golf/<지역>/<옛slug>(/) → 새 상세 또는 지역 골프장 목록(대응표: src/legacy-golf-paths.mjs)
-    ...legacyGolfPaths.flatMap((entry) => ["", "/"].map((slash) => ({ source: `/golf/${entry.from}${slash}`, destination: legacyGolfDestination(entry), permanent: true }))),
+    // 닫힌 골프 사이트 3곳의 골프장 상세 /golf/<지역>/<옛slug> → 새 상세 또는 지역 골프장 목록(대응표: src/legacy-golf-paths.mjs). 끝 / 는 trailingSlash:false가 먼저 떼고 308하므로 규칙은 / 없는 것 하나면 된다
+    ...legacyGolfPaths.map((entry) => ({ source: `/golf/${entry.from}`, destination: legacyGolfDestination(entry), permanent: true })),
   ];
   if (redirects.length > 1024) throw new Error(`Vercel redirects 한도 1024개 초과: ${redirects.length}개`);
   const headers = [

@@ -14,7 +14,7 @@ const markdownPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"
 const guideCount = JSON.parse(await readFile(path.join(root, "src/content/guides.json"), "utf8")).length;
 const expectedContentPages = 45 + courses.length + markdownPosts.length + 1 + guideCount;
 const expectedSitemapUrls = 44 + courses.length + markdownPosts.length + 1 + guideCount;
-const expectedRedirects = 47 + markdownPosts.length + legacyGolfPaths.length * 2; // 47 = 기존 45 + 옛 주소→새 주소 2, 닫힌 골프 사이트 옛 상세 주소는 끝 / 있고 없고 2개씩
+const expectedRedirects = 47 + markdownPosts.length + legacyGolfPaths.length; // 47 = 기존 45 + 옛 주소→새 주소 2, 닫힌 골프 사이트 옛 상세 주소 74
 
 async function collect(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -180,14 +180,14 @@ for (const source of ["/blog/vietnam-golf-caddie-tip-checklist.html", "/vietnam-
   }
 }
 {
-  // 닫힌 골프 사이트 3곳의 옛 상세 주소: 끝 / 있고 없고 모두 실제 있는 페이지로 308
+  // 닫힌 골프 사이트 3곳의 옛 상세 주소: 실제 있는 페이지로 308(끝 / 는 Vercel trailingSlash:false가 먼저 뗌)
   if (vercel.redirects.length > 1024) failures.push(`Vercel redirects 한도 초과: ${vercel.redirects.length}개`);
   for (const entry of legacyGolfPaths) {
     const destination = legacyGolfDestination(entry);
     const target = destination.split("#")[0];
     const built = target === "/golf" ? "golf/index.html" : target.slice(1);
     if (!files.some((item) => path.relative(dist, item).split(path.sep).join("/") === built)) failures.push(`옛 골프장 주소 도착 페이지 없음: ${entry.from} → ${destination}`);
-    for (const source of [`/golf/${entry.from}`, `/golf/${entry.from}/`]) {
+    for (const source of [`/golf/${entry.from}`]) {
       if (vercel.redirects.filter((rule) => rule.source === source && rule.destination === destination && rule.permanent === true).length !== 1) failures.push(`옛 골프장 주소 이동 규칙 누락 또는 중복: ${source}`);
     }
   }
