@@ -109,6 +109,7 @@ export const courses = [
   {
     slug: "vung-tau-paradise-golf",
     area: "hcm",
+    board: "vungtau",
     drive: "2시간~2시간 30분",
     driveKm: "약 105~120km",
     province: "호치민시(구 바리아붕따우) 붕따우",
@@ -128,6 +129,7 @@ export const courses = [
   {
     slug: "the-bluffs-grand-ho-tram",
     area: "hcm",
+    board: "vungtau",
     drive: "2시간~2시간 30분",
     driveKm: "약 113~120km",
     province: "호치민시(구 바리아붕따우) 호트람",
@@ -685,6 +687,7 @@ export const courses = [
   {
     slug: "sonadezi-chau-duc-golf",
     area: "hcm",
+    board: "vungtau",
     name: "쩌우득 골프장 (소나데지)",
     englishName: "Chau Duc Golf Course",
     shortName: "쩌우득CC",

@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadMarkdownPosts } from "./blog-content.mjs";
-import { apartments, courses, site, villas } from "./site-data.mjs";
+import { apartments, courses, golfAreas, site, villas } from "./site-data.mjs";
 import { topicHubs } from "./topic-hubs.mjs";
 import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
 import { pricing } from "./pricing-guide.mjs";
@@ -13,8 +13,9 @@ const dist = path.join(root, "dist");
 const failures = [];
 const markdownPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"));
 const guideCount = JSON.parse(await readFile(path.join(root, "src/content/guides.json"), "utf8")).length;
-const expectedContentPages = 26 + courses.length + markdownPosts.length + 1 + guideCount;
-const expectedSitemapUrls = 25 + courses.length + markdownPosts.length + 1 + guideCount;
+const expectedContentPages = 27 + courses.length + markdownPosts.length + 1 + guideCount;
+const expectedSitemapUrls = 26 + courses.length + markdownPosts.length + 1 + guideCount;
+// 붕따우 지역 게시판(/regions/vungtau.html)이 생겨 페이지·사이트맵이 1개씩 늘었다(2026-11-20).
 // 숙소 상세 19쪽(아파트 4·빌라 15)은 호치민풀빌라로 넘겨 페이지·사이트맵에서 빠지고, 상세 주소 19개 이동 규칙이 늘었다(2026-11-20).
 const expectedRedirects = 66 + markdownPosts.length + legacyGolfPaths.length; // 66 = 기존 45 + 옛 주소→새 주소 2 + 숙소 상세 19, 닫힌 골프 사이트 옛 상세 주소 74
 
@@ -347,6 +348,56 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     if (!main.includes(`href="${site.kakaoUrl}"`)) failures.push(`${relative}: 본문 카카오톡 상담 버튼 누락`);
     const hit = main.replace(/<[^>]+>/g, " ").match(PRICE);
     if (hit) failures.push(`${relative}: 금액 표기(${hit[0]})`);
+  }
+}
+
+// 키워드 지도(07) "글 안 섹션" 보강(2026-11-20): 지역 게시판 5곳(붕따우 신설)과 골프장 10곳.
+// 섹션이 있고, 그 지역 골프장 카드가 다 있고, 새 문구에 금액 숫자·후기 섹션이 없고, 요금 문장은 한 번씩만.
+{
+  const visibleText = (html) => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "").replace(/<head>[\s\S]*?<\/head>/i, "");
+  // 해발·거리(1,200m·약 105km)는 금액이 아니므로 금액 검사 전에 뺀다.
+  const plain = (html) => html.replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
+  const once = (text, sentence, label) => { const found = text.split(sentence).length - 1; if (found !== 1) failures.push(`${label}: 요금 문장 ${found}번 (1번이어야 함) — ${sentence.slice(0, 20)}`); };
+  const boardOf = (course) => course.board || golfAreas.find((area) => area.key === course.area).board;
+  if (!await exists(path.join(dist, "regions/vungtau.html"))) failures.push("붕따우 지역 쪽 없음: regions/vungtau.html");
+  if (!sitemap.includes(`<loc>${site.siteUrl}/regions/vungtau.html</loc>`)) failures.push("붕따우 지역 쪽 사이트맵 누락");
+  if (!llms.includes(`(${site.siteUrl}/regions/vungtau.html)`)) failures.push("붕따우 지역 쪽 llms.txt 누락");
+  for (const slug of ["vung-tau-paradise-golf", "the-bluffs-grand-ho-tram", "sonadezi-chau-duc-golf"]) {
+    if (boardOf(courses.find((course) => course.slug === slug)) !== "vungtau") failures.push(`${slug}: 붕따우 게시판으로 분류되지 않음`);
+  }
+  const regionsIndex = await readFile(path.join(dist, "regions/index.html"), "utf8");
+  if (!regionsIndex.includes('href="/regions/vungtau.html"')) failures.push("지역 목록에 붕따우 링크 누락");
+  for (const key of ["hochiminh", "vungtau", "nhatrang", "danang", "dalat"]) {
+    const relative = `regions/${key}.html`;
+    const html = await readFile(path.join(dist, relative), "utf8");
+    const text = visibleText(html);
+    for (const other of ["hochiminh", "vungtau", "nhatrang", "danang", "dalat", "hanoi", "phuquoc"]) if (other !== key && !html.includes(`href="/regions/${other}.html"`)) failures.push(`${relative}: 지역 메뉴에 ${other} 링크 누락`);
+    for (const id of ["region-courses", "region-airport", "region-price", "region-booking"]) if (!html.includes(`id="${id}"`)) failures.push(`${relative}: 섹션 누락 (${id})`);
+    const sections = plain(html.match(/<section class="guide-group" id="region-courses">[\s\S]*?<section class="guide-group"><h2>/)?.[0] ?? "");
+    if (!sections) failures.push(`${relative}: 지역 섹션 묶음을 찾지 못함`);
+    const hit = sections.match(PRICE);
+    if (hit) failures.push(`${relative}: 지역 섹션에 금액 표기(${hit[0]})`);
+    if (/<h[23][^>]*>[^<]*후기/.test(html)) failures.push(`${relative}: 후기 섹션(실제 후기 없음)`);
+    for (const course of courses.filter((item) => boardOf(item) === key)) if (!html.includes(`<article class="course-card">`) || !html.includes(`href="/golf/${course.slug}.html" aria-label=`)) failures.push(`${relative}: 골프장 카드 누락 (${course.slug})`);
+    for (const sentence of [pricing.greenFee, pricing.fee, pricing.split, pricing.howTo, pricing.reply]) once(text, sentence, relative);
+  }
+  // 붕따우 글을 붕따우 게시판에 모아도 호치민 게시판에서는 빠지지 않는다.
+  const hcmBoard = await readFile(path.join(dist, "regions/hochiminh.html"), "utf8");
+  const vtBoard = await readFile(path.join(dist, "regions/vungtau.html"), "utf8");
+  for (const href of ["/blog/the-bluffs-grand-ho-tram-golf-booking-guide.html"]) {
+    if (!hcmBoard.includes(`href="${href}"`)) failures.push(`호치민 게시판에서 글이 빠짐: ${href}`);
+    if (!vtBoard.includes(`href="${href}"`)) failures.push(`붕따우 게시판에 글 누락: ${href}`);
+  }
+  for (const slug of ["vinpearl-golf-nha-trang", "montgomerie-links-vietnam", "long-thanh-golf-club", "ba-na-hills-golf-club", "sam-tuyen-lam-golf", "song-be-golf-resort", "tan-son-nhat-golf-course", "thu-duc-country-club", "twin-doves-golf-club", "leman-golf-club"]) {
+    const relative = `golf/${slug}.html`;
+    const html = await readFile(path.join(dist, relative), "utf8");
+    const section = html.match(/<section class="course-guide course-keyword"[\s\S]*?<\/section>/)?.[0] ?? "";
+    if (!section) { failures.push(`${relative}: 가격·예약·코스 섹션 누락`); continue; }
+    for (const heading of ["가격 안내", "예약 방법", "코스·위치"]) if (!new RegExp(`<h3>[^<]*${heading}</h3>`).test(section)) failures.push(`${relative}: 섹션 제목 누락 (${heading})`);
+    const hit = plain(section).match(PRICE);
+    if (hit) failures.push(`${relative}: 가격·예약 섹션에 금액 표기(${hit[0]})`);
+    if (/<h[23][^>]*>[^<]*후기/.test(html)) failures.push(`${relative}: 후기 섹션(실제 후기 없음)`);
+    once(visibleText(html), pricing.howTo, relative);
   }
 }
 
