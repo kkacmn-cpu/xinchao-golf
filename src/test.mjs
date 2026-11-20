@@ -188,6 +188,15 @@ if (!sitemap.includes(`<loc>${site.siteUrl}/</loc>`)) failures.push("사이트�
 if (/golf-detail_|villa-detail_|apartment-detail_/.test(sitemap)) failures.push("사이트맵에 이전 주소 포함");
 
 const robots = await readFile(path.join(dist, "robots.txt"), "utf8");
+{
+  // RSS 피드: 최신 글 50개 이하, 모두 사이트맵에 있는 새 주소
+  const rss = files.some((file) => file.endsWith("rss.xml")) ? await readFile(path.join(dist, "rss.xml"), "utf8") : "";
+  const rssLinks = [...rss.matchAll(/<item>\s*<title>[^<]+<\/title>\s*<link>([^<]+)<\/link>/g)].map((m) => m[1]);
+  if (!rss.startsWith('<?xml version="1.0" encoding="UTF-8"?>') || !rss.includes(`<atom:link href="${site.siteUrl}/rss.xml"`)) failures.push("rss.xml 누락 또는 형식 오류");
+  if (rssLinks.length === 0 || rssLinks.length > 50 || new Set(rssLinks).size !== rssLinks.length) failures.push(`rss.xml 글 수 오류: ${rssLinks.length}`);
+  for (const link of rssLinks) if (!sitemap.includes(`<loc>${link}</loc>`)) failures.push(`rss.xml에 사이트맵 밖 주소: ${link}`);
+  if (rss.includes("vercel.app")) failures.push("rss.xml에 옛 주소");
+}
 if (!robots.includes(`Sitemap: ${site.siteUrl}/sitemap.xml`)) failures.push("robots.txt 사이트맵 주소 오류");
 
 // 주제별 모음(골프장별 가격·예약 방법·일정 짜기): 사이트맵·llms.txt·가이드 위치 표시에 연결되고, 금액을 적지 않는다.
