@@ -21,6 +21,10 @@ SEO 블로그는 2026-07-19부터 하루 2편을 기준으로 계획한다. 매�
 
 빌드하면 블로그 목록, 상세 페이지, canonical, Open Graph, Article 구조화 데이터와 sitemap이 자동 갱신됩니다.
 
+## 예약 가이드(/guide) 글 주소를 바꿀 때
+
+`src/topic-hubs.mjs`의 모음 페이지(/golf-price·/golf-booking·/golf-itinerary) `steps`와 `courseOverrides`는 글 주소로 연결돼 있습니다. 그 글의 주소나 분류를 바꾸면 `npm run check`가 일부러 멈추므로(“주제 모음 단계 글 누락”, “없는 골프장”), 같은 커밋에서 `src/topic-hubs.mjs`의 주소도 함께 고칩니다.
+
 ## Codex에 줄 짧은 지시
 
 > 호치민 골프 SEO 글 1개 작성. 키워드 중복을 확인하고 `src/content/blog/`에 저장한 뒤 이미지 경로·SEO·내부 링크·빌드 검수까지 완료해. 검수 전에는 배포하지 마.
