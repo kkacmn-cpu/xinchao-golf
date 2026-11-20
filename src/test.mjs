@@ -337,10 +337,10 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   // 숙소 목록 2쪽·서비스 허브: 자매 사이트 목록(.html 최종 주소)으로 새 탭 연결 + 카카오톡 상담 유지, 금액 숫자 없음
   const villaList = "https://hochiminhpoolvilla.com/villa/villa.html";
   const apartmentList = "https://hochiminhpoolvilla.com/apartment/apartment.html";
-  for (const [relative, lists] of [["services/villas.html", [villaList]], ["services/apartments.html", [apartmentList]], ["services/index.html", [villaList, apartmentList]]]) {
+  for (const [relative, lists] of [["services/villas.html", [villaList]], ["services/apartments.html", [apartmentList]], ["services/index.html", [villaList, apartmentList]], ["index.html", [villaList, apartmentList]]]) {
     const html = await readFile(path.join(dist, relative), "utf8");
     for (const url of lists) if (!html.includes(`href="${url}" target="_blank" rel="noopener"`)) failures.push(`${relative}: 풀빌라 목록 새 탭 연결 누락 (${url})`);
-    if (/href="https:\/\/hochiminhpoolvilla\.com\/(?:villa|apartment)\/?"/.test(html)) failures.push(`${relative}: 풀빌라 폴더 주소 링크(운영 404)`);
+    if (/href="https:\/\/hochiminhpoolvilla\.com\/(?:villa|apartment)\/?"/.test(html)) failures.push(`${relative}: 풀빌라 폴더 주소 링크(최종 주소가 아니라 리다이렉트를 거침)`);
     if (!html.includes("자매 사이트 호치민풀빌라")) failures.push(`${relative}: 자매 사이트 안내 문구 누락`);
     if (/class="property-card"/.test(html)) failures.push(`${relative}: 숙소 카드 잔존`);
     const main = html.match(/<main\b[\s\S]*?<\/main>/)?.[0] ?? "";
