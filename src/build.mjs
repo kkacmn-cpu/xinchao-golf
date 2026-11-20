@@ -744,7 +744,7 @@ function golfRentPage(course) {
   const schedule = [first, "티오프 전에 접수·환복·골프백 하차 시간을 넣어 도착", after, ...(siblings.length ? [`다음 날 같은 ${direction} ${siblings.map(courseLabel).join("·")}${josa(courseLabel(siblings.at(-1)), "과", "와")} 연속 라운드로 묶기`] : [])];
   const body = `
       <h2>${escapeHtml(courseLabel(course))} 이동 정보</h2><ul><li>위치: ${escapeHtml(course.location)} (${escapeHtml(course.province)})</li><li>공항에서: ${escapeHtml(airport)} 기준 평소 교통 약 ${escapeHtml(course.drive)}${km} — 공항 기준이라 숙소에서 출발하면 숙소 위치에 따라 달라집니다</li><li>이동 안내: ${escapeHtml(course.access)}</li>${direction ? `<li>방면: ${escapeHtml(direction)}${siblings.length ? ` — 같은 방면 ${siblings.map((item) => `<a href="${golfRentPath(item)}">${escapeHtml(courseLabel(item))}</a>`).join(" · ")}` : ""}</li>` : ""}</ul><p class="drive-note">출퇴근·주말·비 오는 날에는 더 걸릴 수 있습니다.</p>
-      <h2>몇 인승을 고를까</h2>${chooseTable(`${courseLabel(course)} 일정에 맞는 차량을 인원과 골프백·캐리어 수로 고르는 기준입니다.`)}${longDistance(course) ? `<p>${escapeHtml(courseLabel(course))}${josa(courseLabel(course), "은", "는")} 호치민에서 이동이 길어 <a href="/rent/limousine-van.html">리무진 밴</a>도 편합니다. 당일 왕복이면 <a href="/rent/vungtau-day-trip.html">붕따우 당일 차량</a>도 함께 보세요.</p>` : ""}
+      <h2>몇 인승을 고를까</h2>${chooseTable(`${courseLabel(course)} 일정에 맞는 차량을 인원과 골프백·캐리어 수로 고르는 기준입니다.`)}${longDistance(course) ? `<p>${escapeHtml(courseLabel(course))}${josa(courseLabel(course), "은", "는")} 호치민에서 이동이 길어 <a href="/rent/limousine-van.html">9인승 리무진 밴</a>도 편합니다. 당일 왕복이면 <a href="/rent/vungtau-day-trip.html">붕따우 당일 차량</a>도 함께 보세요.</p>` : ""}
       <h2>일정 예시</h2><ol>${schedule.map((item) => `<li>${escapeHtml(item)}</li>`).join("")}</ol>
       <h2>함께 묶으면 좋은 것</h2><ul><li>골프: <a href="/golf/${course.slug}.html">${escapeHtml(course.name)} 골프장 안내</a> — ${escapeHtml(course.holes)}, 예약 가능 날짜 상담</li>${stayItems()}${bamItem("hcm")}${reads.length ? `<li>이동·예약 글: ${reads.join(" · ")}</li>` : ""}<li>다른 골프장 차량: <a href="/rent/golf-transfer.html">호치민 골프장 ${hcmCourses.length}곳 이동시간</a></li></ul>`;
   return rentShell({
@@ -774,7 +774,7 @@ function rentHubPage() {
     <section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">날짜와 인원만 알려주세요</p><h2>골프·숙소·차량, 한 번에 견적</h2><p>차량은 기본으로 넣어 드리고 필요 없으면 빼 드립니다. 홈페이지에서는 결제하지 않습니다.</p></div><a class="button button-kakao button-lg" href="/go/golf-combo" data-combo="rent-hub">골프·숙소·차량 한 번에 견적</a></div></section>`;
   const itemUrls = [...vehicleTypes.map((type) => type.page), "/rent/golf-transfer.html", ...hcmCourses.map(golfRentPath), ...rentPages.filter((page) => groups.includes(page.group)).map((page) => `/rent/${page.slug}.html`)];
   const itemList = { "@context": "https://schema.org", "@type": "ItemList", name: "호치민 차량 렌트 상황별 안내", itemListElement: itemUrls.map((url, index) => ({ "@type": "ListItem", position: index + 1, url: `${site.siteUrl}${url}` })) };
-  return layout({ title: "호치민 차량 렌트 상황별 안내", description: `호치민 차량 렌트를 7인승·16인승·리무진 밴·대형 버스, 골프장 ${hcmCourses.length}곳, 붕따우·무이네·껀저 당일, 시내 반나절·종일, 짐 많은 가족 상황별로 비교하고 한국어로 상담하세요.`, pathname: "/rent", active: "rent", image: "service-vehicle.webp", content, schema: [itemList, breadcrumbSchema([["홈", "/"], ["숙소·차량", "/services"], ["차량 렌트", "/rent"]])] });
+  return layout({ title: "호치민 차량 렌트 상황별 안내", description: `호치민 차량 렌트를 7인승·9인승 리무진·16인승(17명 이상은 여러 대), 골프장 ${hcmCourses.length}곳, 붕따우·무이네·껀저 당일, 시내 반나절·종일, 짐 많은 가족 상황별로 비교하고 한국어로 상담하세요.`, pathname: "/rent", active: "rent", image: "service-vehicle.webp", content, schema: [itemList, breadcrumbSchema([["홈", "/"], ["숙소·차량", "/services"], ["차량 렌트", "/rent"]])] });
 }
 
 function guideIndexPage() {
