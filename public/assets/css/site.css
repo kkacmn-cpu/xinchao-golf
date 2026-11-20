@@ -616,6 +616,10 @@ h1,h2,.signature-card strong,.area-tile strong,.prep-copy h2,.cta-photo h2{font-
 .hub-more a,.airport-table td a{color:var(--green-dark);text-decoration:underline;text-underline-offset:2px}
 .hub-faq h3{margin:22px 0 6px;font-size:1.05rem}
 .hub-faq p{margin:0;color:var(--muted);line-height:1.65}
+.home-faq-list{display:grid;gap:12px;margin:0}
+.home-faq-list>div{padding:18px 20px;border:1px solid var(--line);border-radius:14px;background:#fff}
+.home-faq-list dt{font-weight:700;line-height:1.5;word-break:keep-all}
+.home-faq-list dd{margin:6px 0 0;color:var(--muted);line-height:1.65;word-break:keep-all}
 @media (max-width:560px){.airport-table td a{display:inline-block;padding:4px 0}}
 /* 요금 구성·결제·변경/취소·견적 받는 법 (홈·소개 4칸, 골프장 상세 접이식 요약) */
 .pay-guide{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0}

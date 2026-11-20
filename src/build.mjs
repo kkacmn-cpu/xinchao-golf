@@ -220,6 +220,15 @@ function layout({ title, description, pathname, active, content, image, schema =
       url: site.kakaoUrl,
       availableLanguage: "ko",
     },
+    // 공식 채널(총괄 11-20 확인, 모두 200). 카카오 채널은 contactPoint에 있다. 페이스북·틱톡은 넣지 않는다.
+    sameAs: [
+      "https://www.youtube.com/channel/UCATu1VDcTf8FqNkbvlkRgyA",
+      "https://www.instagram.com/xin.chaohcm/",
+      "https://www.threads.com/@xin.chaohcm",
+      "https://cafe.naver.com/prpr12",
+      "https://blog.naver.com/jjacmn",
+      "https://blog.naver.com/akkacmn",
+    ],
   };
   const website = {
     "@context": "https://schema.org",
@@ -294,7 +303,21 @@ function deferHomeBackgrounds(html) {
     .replace(/(<(?:a|article|section|div)\b[^>]*?) style="(--(?:tile|card|hero)-img:url\([^)]*\))"/g, (match, start, style) => `${start} data-lazy-style="${style}"`);
 }
 
+// 홈 자주 묻는 질문(손님용). 보이는 문답과 FAQPage JSON-LD는 이 배열 하나에서 만든다(구글 규칙: 내용 일치).
+// 사이트에 이미 있는 사실만 쓰고, 금액·답변 시간 숫자는 넣지 않는다. 홈 #pricing 블록 문장(src/pricing-guide.mjs)은 되풀이하지 않는다.
+function homeFaqs() {
+  return [
+    ["어떤 골프장을 예약할 수 있나요?", `베트남 ${golfAreas.length}개 지역(${golfAreas.map((area) => area.name).join(", ")})의 골프장 ${courses.length}곳을 안내합니다. 원하는 날짜의 예약 가능 여부는 상담 때 확인합니다.`],
+    ["차량·숙소도 함께 예약되나요?", "네. 골프장과 함께 공항 픽업·골프장 왕복 차량, 호치민 아파트·풀빌라를 한 번에 상담합니다. 이용 가능 여부는 날짜와 인원에 따라 달라 상담 때 확인합니다."],
+    ["티타임은 어떻게 정하나요?", "희망 시간대를 알려 주시면 골프장에 가능한 티타임을 확인해 안내합니다. 도착일 라운드라면 항공 도착 시각에 입국 심사·짐 찾기와 공항 이동시간을 더해 티오프를 잡으세요."],
+    ["예약 확정은 언제 되나요?", "문의 접수만으로는 예약이 확정되지 않습니다. 날짜·인원·티오프를 확인한 뒤 골프장별 결제 방식에 따라 입금하시면 부킹을 진행하고, 부킹이 완료되면 바우처를 안내해 드립니다."],
+    ["공항에서 골프장까지 이동시간은 어디서 보나요?", "골프장마다 가장 가까운 공항에서 차로 걸리는 시간을 표시해 두었고, 골프장 안내의 공항→골프장 시간표에서 한 번에 비교할 수 있습니다. 평소 교통 기준이라 출퇴근 시간·주말·비 오는 날에는 더 걸릴 수 있습니다."],
+    ["한국어로 상담할 수 있나요?", "네. 골프장·차량·숙소 상담을 모두 한국어로 진행합니다. 카카오톡 「신짜오베트남 골프예약」 채널에 희망 지역·날짜·인원을 보내 주시면 상담을 시작합니다."],
+  ];
+}
+
 function homePage() {
+  const faqs = homeFaqs();
   const featured = golfAreas.flatMap((area) => courses.filter((course) => course.area === area.key).slice(0, area.key === "hcm" ? 2 : 1)).slice(0, 6);
   const content = `
     <section class="hero-x">
@@ -368,6 +391,7 @@ function homePage() {
     </section>
     <section class="section process-section"><div class="shell"><div class="section-heading"><div><p class="eyebrow">진행 과정</p><h2>상담부터 바우처까지</h2></div></div><ol class="process-list"><li><span>01</span><strong>일정 상담</strong><p>날짜·인원·희망 지역을 확인합니다.</p></li><li><span>02</span><strong>가능 여부 확인</strong><p>골프장과 차량·숙소 일정을 확인합니다.</p></li><li><span>03</span><strong>예약 진행</strong><p>안내된 조건을 확인한 뒤 예약을 진행합니다.</p></li><li><span>04</span><strong>바우처 안내</strong><p>부킹 완료 후 필요한 내용을 전달합니다.</p></li></ol></div></section>
     <section class="section shell pay-guide-section" id="pricing" aria-labelledby="pricing-title"><div class="section-heading"><div><p class="eyebrow">요금과 결제</p><h2 id="pricing-title">요금 구성·결제·변경/취소, 견적 받는 법</h2></div><a class="text-link" href="/golf-price">가격 확인 가이드 →</a></div>${pricingGuideHtml({ kakaoUrl: site.kakaoUrl })}</section>
+    <section class="section shell home-faq" id="faq" aria-labelledby="faq-title"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2 id="faq-title">예약 전에 많이 묻는 질문</h2></div><a class="text-link" href="/golf#airport-times">공항→골프장 시간표 →</a></div><dl class="home-faq-list">${faqs.map(([question, answer]) => `<div><dt>${escapeHtml(question)}</dt><dd>${escapeHtml(answer)}</dd></div>`).join("")}</dl></section>
     <section class="cta-section cta-photo" style="--hero-img:url('/assets/images/courses/golf-hoiana-shores-golf-club.webp')"><div class="shell cta-inner"><div><p class="eyebrow">날짜와 인원만 알려주세요</p><h2>베트남 어디든,<br>골프 일정부터 카톡으로 상담하세요</h2><p>골프장·티타임·공항 차량·숙소까지 한국어로 한 번에 맞춰 드립니다. 홈페이지에서는 결제하지 않습니다.</p></div><button class="button button-kakao button-lg js-consult" type="button" data-interest="베트남 골프 빠른 상담">카카오톡 예약 문의</button></div></section>`;
   return layout({
     title: "베트남 골프장 상담 전문 신짜오골프",
@@ -375,6 +399,7 @@ function homePage() {
     pathname: "/",
     content: deferHomeBackgrounds(content),
     preloadImage: "/assets/images/courses/golf-novaworld-phan-thiet-golf.webp",
+    schema: [{ "@context": "https://schema.org", "@type": "FAQPage", "@id": `${site.siteUrl}/#faq`, mainEntity: faqs.map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })) }],
   });
 }
 
