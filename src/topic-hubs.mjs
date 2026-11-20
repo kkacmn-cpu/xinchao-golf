@@ -1,6 +1,8 @@
 // 주제별 모음 페이지(골프장별 가격·예약 방법·일정 짜기).
 // 닫힌 xinchao-golf-price / -booking / -planner 사이트의 검색어를 이 사이트 한곳으로 모은다(2026-11-20).
-// 원칙: 이 페이지들에는 금액을 적지 않는다. 요금은 날짜·인원·홀 수·티타임에 따라 달라 상담 시점에 확인한다.
+// 원칙: 그린피 금액은 적지 않는다. 요금은 날짜·인원·홀 수·티타임에 따라 달라 상담 시점에 확인한다.
+// 가격 모음에는 요금 구성(그린피 + 예약대행 수수료)과 결제·변경/취소 문장을 회사 견적기 문장 그대로 쓴다(src/pricing-guide.mjs).
+import { pricing, pricingSummary } from "./pricing-guide.mjs";
 
 export const topicHubs = [
   {
@@ -11,13 +13,14 @@ export const topicHubs = [
     title: "베트남 골프장 가격 확인 가이드",
     description: "베트남 골프장 그린피를 비교하기 전에 포함 항목, 캐디팁·현장 비용, 통화·환율, 견적 유효기간과 취소수수료를 확인하는 순서와 골프장별 가격 글을 모았습니다.",
     lead: "그린피 숫자만 비교하면 포함 항목이 달라 실제 비용이 어긋나기 쉽습니다. 같은 조건으로 비교하는 순서와 골프장별 가격 확인 글을 한곳에 모았습니다.",
-    notice: "이 페이지에는 고정 요금표가 없습니다. 같은 골프장도 날짜·요일·인원·홀 수·티타임과 환율에 따라 요금이 달라, 상담 시점에 같은 조건으로 확인해 드립니다.",
+    notice: pricingSummary,
     stepsTitle: "가격을 비교하는 순서",
     steps: ["included-items", "caddie-tip-onsite-cost-separation-check", "quote-currency-exchange-payment-check", "quote-validity-exchange-rate-check", "vietnam-golf-cancellation-fees-check"],
     courseTitle: "골프장별 가격 확인 글",
     keywords: ["베트남 골프장 가격", "베트남 골프 그린피", "호치민 골프장 가격", "베트남 골프 견적"],
     faq: [
-      ["홈페이지에 골프장 요금표가 있나요?", "고정 요금표는 두지 않습니다. 같은 골프장도 날짜·요일·인원·홀 수·티타임에 따라 요금이 달라, 상담 시점에 조건을 맞춰 확인해 드립니다."],
+      ["요금은 언제, 어떻게 결제하나요?", `${pricing.prepaid} ${pricing.onsite} ${pricing.split}`],
+      ["예약을 바꾸거나 취소하면 수수료가 있나요?", pricing.change],
       ["견적을 비교할 때 무엇을 맞춰야 하나요?", "이용일·인원·홀 수·희망 티타임을 같게 두고 그린피·캐디·카트·팁·식사·차량·대여 장비·세금과 취소 조건을 나눠 비교하세요."],
       ["원화로 환산한 금액이 최종 결제 금액인가요?", "견적에 원화가 확정 결제금인지 참고 환산액인지, 결제일에 다시 계산되는지 적혀 있는지 확인하세요. 참고 환산이라면 카드 승인 통화와 환율에 따라 실제 결제 금액이 달라질 수 있습니다."],
     ],
