@@ -617,3 +617,19 @@ h1,h2,.signature-card strong,.area-tile strong,.prep-copy h2,.cta-photo h2{font-
 .hub-faq h3{margin:22px 0 6px;font-size:1.05rem}
 .hub-faq p{margin:0;color:var(--muted);line-height:1.65}
 @media (max-width:560px){.airport-table td a{display:inline-block;padding:4px 0}}
+/* 요금 구성·결제·변경/취소·견적 받는 법 (홈·소개 4칸, 골프장 상세 접이식 요약) */
+.pay-guide{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:0}
+.pay-guide>div{padding:20px;border:1px solid var(--line);border-radius:12px;background:#fff}
+.pay-guide dt{margin-bottom:8px;color:var(--green-dark);font-weight:800}
+.pay-guide dd{margin:0}
+.pay-guide p{margin:0 0 8px;color:var(--muted);font-size:.9rem;line-height:1.6;word-break:keep-all}
+.pay-guide .button{margin-top:6px}
+.compact-copy .pay-guide{grid-template-columns:1fr 1fr;margin-top:16px}
+.pay-guide-compact{margin:0 0 10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;font-size:.84rem}
+.pay-guide-compact summary{cursor:pointer;line-height:1.5;word-break:keep-all}
+.pay-guide-compact summary span{display:block;color:var(--green-dark);font-size:.78rem;text-decoration:underline;text-underline-offset:2px}
+.pay-guide-compact .pay-guide{grid-template-columns:1fr;gap:8px;margin-top:10px}
+.pay-guide-compact .pay-guide>div{padding:0;border:0}
+.pay-guide-compact .pay-guide p{font-size:.82rem}
+@media (max-width:1000px){.pay-guide{grid-template-columns:1fr 1fr}}
+@media (max-width:560px){.pay-guide,.compact-copy .pay-guide{grid-template-columns:1fr}}

@@ -6,6 +6,7 @@ import { loadMarkdownPosts } from "./blog-content.mjs";
 import { courses, site } from "./site-data.mjs";
 import { topicHubs } from "./topic-hubs.mjs";
 import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
+import { pricing } from "./pricing-guide.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -237,6 +238,31 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   const sample = hubHtml.match(/<h2>[^<]* 글 전체[\s\S]*?href="(\/guide\/[^"]+\.html)"/)?.[1];
   const sampleHtml = sample ? await readFile(path.join(dist, sample.slice(1)), "utf8") : "";
   if (!sampleHtml.includes(`<a href="${hubPath}">${label}</a>`)) failures.push(`${hubPath}: 가이드 글 위치 표시에 주제 모음 링크 없음 (${sample})`);
+}
+
+// 요금 구성·결제·변경/취소 안내(2026-11-20 손님 점검 #2·#3): 넣을 곳에 견적기 문장이 한 번씩, 금액 숫자는 없음(예약대행 수수료도 견적서 표시로만 안내, 총괄 11-20).
+{
+  const visibleText = (html) => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "").replace(/<head>[\s\S]*?<\/head>/i, "");
+  const pages = {
+    "index.html": ["greenFee", "prepaid", "onsite", "split", "change", "howTo", "reply"],
+    "about.html": ["greenFee", "prepaid", "onsite", "split", "change", "howTo", "reply"],
+    "golf-price/index.html": ["greenFee", "prepaid", "onsite", "split", "change"],
+    ...Object.fromEntries(courses.map((course) => [`golf/${course.slug}.html`, ["greenFee", "prepaid", "onsite", "split", "change"]])),
+  };
+  for (const [relative, keys] of Object.entries(pages)) {
+    const text = visibleText(await readFile(path.join(dist, relative), "utf8"));
+    for (const key of keys) {
+      const sentence = key === "greenFee" ? pricing.greenFee.replace("그린피는 ", "") : pricing[key];
+      const found = text.split(sentence).length - 1;
+      if (found !== 1) failures.push(`${relative}: 요금 안내 문장(${key}) ${found}번 (1번이어야 함)`);
+    }
+    if (!text.includes(pricing.fee)) failures.push(`${relative}: 예약대행 수수료 안내 누락`);
+  }
+  for (const file of htmlFiles) {
+    const relative = path.relative(dist, file).split(path.sep).join("/");
+    const usd = (await readFile(file, "utf8")).match(/USD\s*\d[\d.,]*|\d[\d.,]*\s*(?:USD|달러)/g) || [];
+    if (usd.length) failures.push(`${relative}: 달러 금액(${usd.join(", ")}) — 사이트에는 금액 숫자를 넣지 않음`);
+  }
 }
 
 if (failures.length) {

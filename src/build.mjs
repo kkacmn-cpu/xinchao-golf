@@ -7,6 +7,7 @@ import { apartments, courses, golfAreas, legacyHost, regions, services, site, vi
 import { courseFaqs, courseGuides } from "./course-guides.mjs";
 import { coursesForGuide, hubForCategory, topicHubs } from "./topic-hubs.mjs";
 import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
+import { pricingGuideHtml, pricingSummary } from "./pricing-guide.mjs";
 
 const areaOf = (course) => golfAreas.find((area) => area.key === course.area);
 const airportShort = (course) => (course.airport || areaOf(course).airport).replace(/\s*\(.*\)$/, "");
@@ -187,7 +188,7 @@ function footer() {
   return `
     <footer class="site-footer">
       <div class="shell footer-grid">
-        <div><strong>${site.name}</strong><p>베트남 골프장·차량·숙소 한국어 상담</p></div>
+        <div><strong>${site.name}</strong><p>베트남 골프장·차량·숙소 한국어 상담</p><p>상담 채널: 카카오톡 「신짜오베트남 골프예약」</p></div>
         <div><p>홈페이지에서는 상품을 판매하거나 결제받지 않습니다.</p><p><a href="/about.html">브랜드 소개</a> · <a href="/editorial-policy.html">편집 원칙</a> · <a href="/source-policy.html">출처 원칙</a></p><button class="text-button js-consult" type="button" data-interest="홈페이지 상담">카카오톡 상담하기 →</button></div>
       </div>
       <div class="shell copyright">© ${new Date().getFullYear()} ${site.englishName}. All rights reserved.</div>
@@ -212,6 +213,12 @@ function layout({ title, description, pathname, active, content, image, schema =
       url: `${site.siteUrl}/assets/images/xinchao-golf-logo-512.webp`,
       width: 512,
       height: 512,
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "customer service",
+      url: site.kakaoUrl,
+      availableLanguage: "ko",
     },
   };
   const website = {
@@ -360,6 +367,7 @@ function homePage() {
       <div class="service-grid">${services.map((service) => `<article class="service-card"><img src="/assets/images/${service.image}" width="1200" height="700" loading="lazy" decoding="async" alt="${service.name} 상담"><div><h3>${service.name}</h3><p>${service.text}</p><button class="text-button js-consult" type="button" data-interest="${service.name} 상담">${service.name} 상담하기 →</button></div></article>`).join("")}</div>
     </section>
     <section class="section process-section"><div class="shell"><div class="section-heading"><div><p class="eyebrow">진행 과정</p><h2>상담부터 바우처까지</h2></div></div><ol class="process-list"><li><span>01</span><strong>일정 상담</strong><p>날짜·인원·희망 지역을 확인합니다.</p></li><li><span>02</span><strong>가능 여부 확인</strong><p>골프장과 차량·숙소 일정을 확인합니다.</p></li><li><span>03</span><strong>예약 진행</strong><p>안내된 조건을 확인한 뒤 예약을 진행합니다.</p></li><li><span>04</span><strong>바우처 안내</strong><p>부킹 완료 후 필요한 내용을 전달합니다.</p></li></ol></div></section>
+    <section class="section shell pay-guide-section" id="pricing" aria-labelledby="pricing-title"><div class="section-heading"><div><p class="eyebrow">요금과 결제</p><h2 id="pricing-title">요금 구성·결제·변경/취소, 견적 받는 법</h2></div><a class="text-link" href="/golf-price">가격 확인 가이드 →</a></div>${pricingGuideHtml({ kakaoUrl: site.kakaoUrl })}</section>
     <section class="cta-section cta-photo" style="--hero-img:url('/assets/images/courses/golf-hoiana-shores-golf-club.webp')"><div class="shell cta-inner"><div><p class="eyebrow">날짜와 인원만 알려주세요</p><h2>베트남 어디든,<br>골프 일정부터 카톡으로 상담하세요</h2><p>골프장·티타임·공항 차량·숙소까지 한국어로 한 번에 맞춰 드립니다. 홈페이지에서는 결제하지 않습니다.</p></div><button class="button button-kakao button-lg js-consult" type="button" data-interest="베트남 골프 빠른 상담">카카오톡 예약 문의</button></div></section>`;
   return layout({
     title: "베트남 골프장 상담 전문 신짜오골프",
@@ -442,7 +450,7 @@ function courseDetailPage(course) {
     <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf">베트남 골프장</a><span>›</span><a href="/golf#area-${course.area}">${escapeHtml(areaOf(course).name)}</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
     <section class="detail-hero shell">
       <div class="detail-media">${courseVisual(course, "course-plate-detail", "eager")}${course.gallery?.length ? `<div class="detail-gallery" aria-label="${escapeHtml(course.name)} 사진">${course.gallery.map((file, index) => `<a href="/assets/images/${file}" target="_blank" rel="noopener"><img src="/assets/images/${file}" width="1200" height="800" loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 코스 사진 ${index + 2}"></a>`).join("")}</div>` : ""}</div>
-      <div class="detail-summary"><p class="eyebrow">${course.region} 골프장</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="fact-list"><div><dt>지역</dt><dd>${course.location}</dd></div><div><dt>규모</dt><dd>${course.holes}</dd></div><div><dt>공항</dt><dd>${escapeHtml(course.airport || areaOf(course).airport)}에서 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (${escapeHtml(course.driveKm)})` : ""}</dd></div><div><dt>이동</dt><dd>${course.access}</dd></div></dl><p class="drive-note">공항 시간은 평소 교통 기준입니다. 출퇴근·주말·우천 시 더 걸릴 수 있습니다.</p><button class="button button-kakao button-block button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡으로 예약 가능 날짜 묻기</button><ul class="detail-steps"><li>날짜·인원 보내기</li><li>티타임·조건 확인</li><li>확정 후 바우처</li></ul><small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div>
+      <div class="detail-summary"><p class="eyebrow">${course.region} 골프장</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="fact-list"><div><dt>지역</dt><dd>${course.location}</dd></div><div><dt>규모</dt><dd>${course.holes}</dd></div><div><dt>공항</dt><dd>${escapeHtml(course.airport || areaOf(course).airport)}에서 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (${escapeHtml(course.driveKm)})` : ""}</dd></div><div><dt>이동</dt><dd>${course.access}</dd></div></dl><p class="drive-note">공항 시간은 평소 교통 기준입니다. 출퇴근·주말·우천 시 더 걸릴 수 있습니다.</p><button class="button button-kakao button-block button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡으로 예약 가능 날짜 묻기</button><ul class="detail-steps"><li>날짜·인원 보내기</li><li>티타임·조건 확인</li><li>확정 후 바우처</li></ul>${pricingGuideHtml({ variant: "compact" })}<small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div>
     </section>
     <section class="section shell detail-content">
       <article><p class="eyebrow">선택 포인트</p><h2>${course.shortName}, 이런 일정에 검토하세요</h2><ul class="point-list">${course.points.map((point) => `<li>${point}</li>`).join("")}</ul>${courseGuideContent(course, guide)}</article>
@@ -608,7 +616,7 @@ function guidePage(guide) {
   return layout({ title: guide.title, description: guide.description, pathname: `/guide/${guide.slug}.html`, active: "guide", schema, content, pageType: "article", publishedTime: guide.date, modifiedTime: guide.date });
 }
 
-// 주제별 모음(골프장별 가격·예약 방법·일정 짜기). 금액은 적지 않는다.
+// 주제별 모음(골프장별 가격·예약 방법·일정 짜기). 그린피 금액은 적지 않는다(요금 구성은 src/pricing-guide.mjs).
 function topicHubPage(hub) {
   const items = guides.filter((guide) => guide.category === hub.category);
   const stepGuides = hub.steps.map((slug) => {
@@ -749,7 +757,7 @@ async function llmsTxt(urls) {
     if (!lines.length) return "";
     return `## ${name}${name === "핵심 페이지" ? "" : ` (${lines.length}${["골프장", "아파트", "풀빌라"].includes(name) ? "곳" : "편"})`}\n\n${lines.join("\n")}\n\n`;
   }).join("");
-  return `# ${site.name}\n\n> ${site.description}입니다. 베트남 골프장 ${courses.length}곳의 위치와 공항 이동시간을 비교하고, 골프장 예약·차량·숙소를 카카오톡으로 상담합니다.\n\n- 상담 채널: 카카오톡 ${site.kakaoUrl}\n- 지역: ${golfAreas.map((area) => area.name).join(", ")}\n- 홈페이지에서는 상품을 판매하거나 결제받지 않습니다.\n- 가격, 티오프, 포함 항목, 휴장과 차량 가능 여부는 수시로 달라질 수 있어 상담으로 확인합니다.\n\n${sections}## Optional\n\n- [사이트맵](${site.siteUrl}/sitemap.xml): 전체 공개 페이지 목록과 마지막 수정일\n`;
+  return `# ${site.name}\n\n> ${site.description}입니다. 베트남 골프장 ${courses.length}곳의 위치와 공항 이동시간을 비교하고, 골프장 예약·차량·숙소를 카카오톡으로 상담합니다.\n\n- 상담 채널: 카카오톡 ${site.kakaoUrl}\n- 지역: ${golfAreas.map((area) => area.name).join(", ")}\n- 홈페이지에서는 상품을 판매하거나 결제받지 않습니다.\n- 요금 구성: ${pricingSummary}\n- 티오프, 포함 항목, 휴장과 차량 가능 여부는 수시로 달라질 수 있어 상담으로 확인합니다.\n\n${sections}## Optional\n\n- [사이트맵](${site.siteUrl}/sitemap.xml): 전체 공개 페이지 목록과 마지막 수정일\n`;
 }
 
 async function build() {
@@ -776,7 +784,7 @@ async function build() {
     title: "신짜오골프 소개: 베트남 골프장 예약·차량·숙소 한국어 상담",
     description: "신짜오골프가 제공하는 베트남 골프장·차량·숙소 한국어 상담 범위와 운영 원칙을 안내합니다.",
     pathname: "/about.html",
-    content: "<h2>한국어로 확인하는 베트남 골프 일정</h2><p>신짜오골프는 호치민을 중심으로 베트남 골프장 정보와 차량·숙소 준비 정보를 정리하고 한국어 상담으로 연결합니다.</p><h2>서비스 범위</h2><p>사이트의 정보는 후보를 비교하고 문의를 준비하기 위한 안내입니다. 티오프, 가격, 포함 항목과 이용 가능 여부는 날짜와 인원에 따라 달라질 수 있어 상담 시점에 다시 확인합니다.</p><h2>결제 안내</h2><p>이 홈페이지 안에서는 상품을 판매하거나 결제를 받지 않습니다. 상담은 공식 카카오톡 연결을 통해 진행합니다.</p>",
+    content: `<h2>한국어로 확인하는 베트남 골프 일정</h2><p>신짜오골프는 호치민을 중심으로 베트남 골프장 정보와 차량·숙소 준비 정보를 정리하고 한국어 상담으로 연결합니다.</p><h2>서비스 범위</h2><p>사이트의 정보는 후보를 비교하고 문의를 준비하기 위한 안내입니다. 티오프, 포함 항목과 이용 가능 여부는 날짜와 인원에 따라 달라질 수 있어 상담 시점에 다시 확인합니다.</p><h2 id="payment">결제 안내</h2><p>이 홈페이지 안에서는 상품을 판매하거나 결제를 받지 않습니다. 상담과 결제 안내는 공식 카카오톡 연결을 통해 진행합니다.</p>${pricingGuideHtml({ kakaoUrl: site.kakaoUrl })}`,
   }));
   await write("editorial-policy.html", trustPage({
     title: "편집 원칙",
