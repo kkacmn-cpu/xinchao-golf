@@ -500,6 +500,8 @@ const keywordCourses = {
   "sonadezi-chau-duc-golf": "붕따우 쩌우득 골프장",
   "vung-tau-paradise-golf": "붕따우 파라다이스 골프장",
   "vinpearl-golf-phu-quoc": "빈펄 푸꾸옥 골프장",
+  // 2026-11-20 보류 없는 골프장 칸 중 빠져 있던 곳(키워드지도 "붕따우 더 블러프 골프장").
+  "the-bluffs-grand-ho-tram": "붕따우 더 블러프 골프장",
 };
 
 function courseKeywordSections(course) {
