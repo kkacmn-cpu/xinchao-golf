@@ -388,98 +388,193 @@
       "permanent": true
     },
     {
+      "source": "/services/apartment/vinhomes-central-park.html",
+      "destination": "https://hochiminhpoolvilla.com/apartment/vinhomes-central-park.html",
+      "permanent": true
+    },
+    {
       "source": "/apartment-detail_1.html",
-      "destination": "/services/apartment/vinhomes-central-park.html",
+      "destination": "https://hochiminhpoolvilla.com/apartment/vinhomes-central-park.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/apartment/lumiere-riverside.html",
+      "destination": "https://hochiminhpoolvilla.com/apartment/lumiere-riverside.html",
       "permanent": true
     },
     {
       "source": "/apartment-detail_2.html",
-      "destination": "/services/apartment/lumiere-riverside.html",
+      "destination": "https://hochiminhpoolvilla.com/apartment/lumiere-riverside.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/apartment/metropole-thu-thiem.html",
+      "destination": "https://hochiminhpoolvilla.com/apartment/metropole-thu-thiem.html",
       "permanent": true
     },
     {
       "source": "/apartment-detail_3.html",
-      "destination": "/services/apartment/metropole-thu-thiem.html",
+      "destination": "https://hochiminhpoolvilla.com/apartment/metropole-thu-thiem.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/apartment/sunrise-city.html",
+      "destination": "https://hochiminhpoolvilla.com/apartment/sunrise-city.html",
       "permanent": true
     },
     {
       "source": "/apartment-detail_4.html",
-      "destination": "/services/apartment/sunrise-city.html",
+      "destination": "https://hochiminhpoolvilla.com/apartment/sunrise-city.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-9a.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-9a.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_1.html",
-      "destination": "/services/villa/villa-9a.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-9a.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-109.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-109.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_2.html",
-      "destination": "/services/villa/villa-109.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-109.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-1f.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-1f.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_3.html",
-      "destination": "/services/villa/villa-1f.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-1f.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-b7.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-b7.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_4.html",
-      "destination": "/services/villa/villa-b7.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-b7.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-cadina.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-cadina.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_5.html",
-      "destination": "/services/villa/villa-cadina.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-cadina.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-cadina-1.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-cadina-1.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_6.html",
-      "destination": "/services/villa/villa-cadina-1.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-cadina-1.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-cadina-2.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-cadina-2.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_7.html",
-      "destination": "/services/villa/villa-cadina-2.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-cadina-2.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-cadina-3.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-cadina-3.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_8.html",
-      "destination": "/services/villa/villa-cadina-3.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-cadina-3.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-cadina-9.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-cadina-9.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_9.html",
-      "destination": "/services/villa/villa-cadina-9.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-cadina-9.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-yolo-b.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-yolo-5br-2.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_10.html",
-      "destination": "/services/villa/villa-yolo-b.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-yolo-5br-2.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-yolo-c.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-yolo-c.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_11.html",
-      "destination": "/services/villa/villa-yolo-c.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-yolo-c.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-yolo-d.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-yolo-5br.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_12.html",
-      "destination": "/services/villa/villa-yolo-d.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-yolo-5br.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/villa-yolo-e.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-yolo-4br.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_13.html",
-      "destination": "/services/villa/villa-yolo-e.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-yolo-4br.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/grass-pool-villa-5room.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-grass-5br.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_14.html",
-      "destination": "/services/villa/grass-pool-villa-5room.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-grass-5br.html",
+      "permanent": true
+    },
+    {
+      "source": "/services/villa/mango-pool-villa-4room.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-mango-4br.html",
       "permanent": true
     },
     {
       "source": "/villa-detail_hcm_15.html",
-      "destination": "/services/villa/mango-pool-villa-4room.html",
+      "destination": "https://hochiminhpoolvilla.com/villa/villa-mango-4br.html",
       "permanent": true
     },
     {

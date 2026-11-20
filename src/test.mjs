@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { loadMarkdownPosts } from "./blog-content.mjs";
-import { courses, site } from "./site-data.mjs";
+import { apartments, courses, site, villas } from "./site-data.mjs";
 import { topicHubs } from "./topic-hubs.mjs";
 import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
 import { pricing } from "./pricing-guide.mjs";
@@ -13,9 +13,10 @@ const dist = path.join(root, "dist");
 const failures = [];
 const markdownPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"));
 const guideCount = JSON.parse(await readFile(path.join(root, "src/content/guides.json"), "utf8")).length;
-const expectedContentPages = 45 + courses.length + markdownPosts.length + 1 + guideCount;
-const expectedSitemapUrls = 44 + courses.length + markdownPosts.length + 1 + guideCount;
-const expectedRedirects = 47 + markdownPosts.length + legacyGolfPaths.length; // 47 = 기존 45 + 옛 주소→새 주소 2, 닫힌 골프 사이트 옛 상세 주소 74
+const expectedContentPages = 26 + courses.length + markdownPosts.length + 1 + guideCount;
+const expectedSitemapUrls = 25 + courses.length + markdownPosts.length + 1 + guideCount;
+// 숙소 상세 19쪽(아파트 4·빌라 15)은 호치민풀빌라로 넘겨 페이지·사이트맵에서 빠지고, 상세 주소 19개 이동 규칙이 늘었다(2026-11-20).
+const expectedRedirects = 66 + markdownPosts.length + legacyGolfPaths.length; // 66 = 기존 45 + 옛 주소→새 주소 2 + 숙소 상세 19, 닫힌 골프 사이트 옛 상세 주소 74
 
 async function collect(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -304,6 +305,48 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
       if (data["@type"] !== "FAQPage") continue;
       for (const item of data.mainEntity ?? []) if (homeQuestions.has(item.name)) failures.push(`${relative}: 홈 FAQ와 같은 질문 (${item.name})`);
     }
+  }
+}
+
+// 숙소 상세 19쪽(빌라 15·아파트 4)과 옛 주소: 호치민풀빌라 최종 주소(.html)로 바로 308, 골프 결과물에는 상세·옛 이동 파일·내부 링크가 없다(2026-11-20).
+// 목적지가 운영에서 리다이렉트 없이 200인지는 네트워크가 필요해 따로 확인한다: npm run check:lodging (src/check-lodging-targets.mjs)
+{
+  const lodging = [...apartments.map((item) => ["apartment", item]), ...villas.map((item) => ["villa", item])];
+  if (lodging.length !== 19) failures.push(`숙소 상세 수 ${lodging.length}개 (19개여야 함)`);
+  for (const [type, item] of lodging) {
+    if (!/^https:\/\/hochiminhpoolvilla\.com\/(?:villa|apartment)\/[a-z0-9-]+\.html$/.test(item.moved || "")) failures.push(`${item.slug}: 풀빌라 이동 주소가 .html 최종 주소가 아님 (${item.moved})`);
+    for (const source of [`/services/${type}/${item.slug}.html`, `/${item.legacy}`]) {
+      const rules = vercel.redirects.filter((rule) => rule.source === source);
+      if (rules.length !== 1 || rules[0].destination !== item.moved || rules[0].permanent !== true) failures.push(`숙소 이동 규칙 누락·중복·오류: ${source}`);
+    }
+    for (const built of [`services/${type}/${item.slug}.html`, item.legacy]) {
+      if (await exists(path.join(dist, built)) || await exists(path.join(dist, "client", built))) failures.push(`숙소 상세가 결과물에 남음: ${built}`);
+    }
+  }
+  if (await exists(path.join(dist, "services/villa")) || await exists(path.join(dist, "services/apartment"))) failures.push("숙소 상세 폴더가 결과물에 남음");
+  for (const rule of vercel.redirects) {
+    if (/^\/services\/(?:villa|apartment)\//.test(rule.source) && !rule.destination.startsWith("https://hochiminhpoolvilla.com/")) failures.push(`숙소 상세 목적지가 풀빌라 사이트가 아님: ${rule.source}`);
+    if (/\/services\/(?:villa|apartment)\//.test(rule.destination)) failures.push(`없앤 숙소 상세로 보내는 규칙: ${rule.source} → ${rule.destination}`);
+    if (rule.destination.startsWith("https://hochiminhpoolvilla.com/") && !/\.html$/.test(rule.destination)) failures.push(`풀빌라 목적지가 .html 최종 주소가 아님: ${rule.destination}`);
+  }
+  if (vercel.redirects.length >= 1024) failures.push(`Vercel redirects 1024개 이상: ${vercel.redirects.length}개`);
+  for (const file of files.filter((item) => /\.(?:html|xml|txt|webmanifest|js)$/.test(item))) {
+    const text = await readFile(file, "utf8");
+    if (/\/services\/(?:villa|apartment)\//.test(text)) failures.push(`${path.relative(dist, file)}: 없앤 숙소 상세 주소(/services/villa/·/services/apartment/) 잔존`);
+  }
+  // 숙소 목록 2쪽·서비스 허브: 자매 사이트 목록(.html 최종 주소)으로 새 탭 연결 + 카카오톡 상담 유지, 금액 숫자 없음
+  const villaList = "https://hochiminhpoolvilla.com/villa/villa.html";
+  const apartmentList = "https://hochiminhpoolvilla.com/apartment/apartment.html";
+  for (const [relative, lists] of [["services/villas.html", [villaList]], ["services/apartments.html", [apartmentList]], ["services/index.html", [villaList, apartmentList]]]) {
+    const html = await readFile(path.join(dist, relative), "utf8");
+    for (const url of lists) if (!html.includes(`href="${url}" target="_blank" rel="noopener"`)) failures.push(`${relative}: 풀빌라 목록 새 탭 연결 누락 (${url})`);
+    if (/href="https:\/\/hochiminhpoolvilla\.com\/(?:villa|apartment)\/?"/.test(html)) failures.push(`${relative}: 풀빌라 폴더 주소 링크(운영 404)`);
+    if (!html.includes("자매 사이트 호치민풀빌라")) failures.push(`${relative}: 자매 사이트 안내 문구 누락`);
+    if (/class="property-card"/.test(html)) failures.push(`${relative}: 숙소 카드 잔존`);
+    const main = html.match(/<main\b[\s\S]*?<\/main>/)?.[0] ?? "";
+    if (!main.includes(`href="${site.kakaoUrl}"`)) failures.push(`${relative}: 본문 카카오톡 상담 버튼 누락`);
+    const hit = main.replace(/<[^>]+>/g, " ").match(PRICE);
+    if (hit) failures.push(`${relative}: 금액 표기(${hit[0]})`);
   }
 }
 

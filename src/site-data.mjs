@@ -977,13 +977,13 @@ export const services = [
     slug: "apartment",
     name: "아파트",
     image: "service-apartment.webp",
-    text: "골프 인원과 숙박 기간에 맞는 호치민 아파트를 상담합니다.",
+    text: "호치민 아파트 목록은 자매 사이트 호치민풀빌라에서 안내합니다. 골프 일정과 함께 잡을 숙소는 카카오톡으로 상담합니다.",
   },
   {
     slug: "villa",
     name: "풀빌라",
     image: "service-villa.webp",
-    text: "단체 골프여행에 필요한 객실 수와 차량 동선을 함께 검토합니다.",
+    text: "호치민 풀빌라 목록은 자매 사이트 호치민풀빌라에서 안내합니다. 단체 골프 인원과 차량 동선에 맞춘 숙소는 카카오톡으로 상담합니다.",
   },
   {
     slug: "vehicle",
@@ -993,27 +993,36 @@ export const services = [
   },
 ];
 
+// 숙소(빌라·아파트) 안내는 자매 사이트 호치민풀빌라가 맡는다(2026-11-20 총괄 결정). 골프 상세 19쪽과 옛 주소는 moved로 308.
+// 대응표: 총괄 메모 골프숙소_301표_20261120.md. YOLO B·D·E는 풀빌라 기존 페이지(Y6·Y3·Y5)와 같은 숙소라 그쪽으로 보낸다.
+export const poolvilla = {
+  name: "호치민풀빌라",
+  siteUrl: "https://hochiminhpoolvilla.com",
+  villaList: "https://hochiminhpoolvilla.com/villa/villa.html",
+  apartmentList: "https://hochiminhpoolvilla.com/apartment/apartment.html",
+};
+
 export const apartments = [
-  { slug: "vinhomes-central-park", legacy: "apartment-detail_1.html", name: "빈홈 센트럴 파크", englishName: "Vinhomes Central Park", area: "빈탄군", image: "stay-vinhomes.webp", text: "1군과 가까운 대형 주거단지로 골프 일정 전후 도심 이동을 함께 검토하기 좋습니다." },
-  { slug: "lumiere-riverside", legacy: "apartment-detail_2.html", name: "루미에르 리버사이드", englishName: "Lumiere Riverside", area: "투득시", image: "stay-lumiere.webp", text: "호치민 동부와 투득 방면 골프장 이동을 고려할 때 상담할 수 있는 아파트입니다." },
-  { slug: "metropole-thu-thiem", legacy: "apartment-detail_3.html", name: "메트로폴 투티엠", englishName: "Metropole Thu Thiem", area: "투티엠", image: "stay-metropole.webp", text: "1군 접근성과 투티엠 신도시 환경을 함께 원하는 일정에 검토할 수 있습니다." },
-  { slug: "sunrise-city", legacy: "apartment-detail_4.html", name: "선라이즈 시티", englishName: "Sunrise City", area: "7군", image: "stay-sunrise.webp", text: "7군 체류와 남부 방면 이동을 고려하는 고객에게 안내할 수 있는 아파트입니다." },
+  { slug: "vinhomes-central-park", legacy: "apartment-detail_1.html", moved: `${poolvilla.siteUrl}/apartment/vinhomes-central-park.html`, name: "빈홈 센트럴 파크", englishName: "Vinhomes Central Park", area: "빈탄군", image: "stay-vinhomes.webp", text: "1군과 가까운 대형 주거단지로 골프 일정 전후 도심 이동을 함께 검토하기 좋습니다." },
+  { slug: "lumiere-riverside", legacy: "apartment-detail_2.html", moved: `${poolvilla.siteUrl}/apartment/lumiere-riverside.html`, name: "루미에르 리버사이드", englishName: "Lumiere Riverside", area: "투득시", image: "stay-lumiere.webp", text: "호치민 동부와 투득 방면 골프장 이동을 고려할 때 상담할 수 있는 아파트입니다." },
+  { slug: "metropole-thu-thiem", legacy: "apartment-detail_3.html", moved: `${poolvilla.siteUrl}/apartment/metropole-thu-thiem.html`, name: "메트로폴 투티엠", englishName: "Metropole Thu Thiem", area: "투티엠", image: "stay-metropole.webp", text: "1군 접근성과 투티엠 신도시 환경을 함께 원하는 일정에 검토할 수 있습니다." },
+  { slug: "sunrise-city", legacy: "apartment-detail_4.html", moved: `${poolvilla.siteUrl}/apartment/sunrise-city.html`, name: "선라이즈 시티", englishName: "Sunrise City", area: "7군", image: "stay-sunrise.webp", text: "7군 체류와 남부 방면 이동을 고려하는 고객에게 안내할 수 있는 아파트입니다." },
 ];
 
 export const villas = [
-  { slug: "villa-9a", legacy: "villa-detail_hcm_1.html", name: "Villa 9A", spec: "침실 4개 · 욕실 4개", image: "villa-9a.webp" },
-  { slug: "villa-109", legacy: "villa-detail_hcm_2.html", name: "Villa 109", spec: "침실 5개 · 욕실 5개", image: "villa-109.webp" },
-  { slug: "villa-1f", legacy: "villa-detail_hcm_3.html", name: "Villa 1F", spec: "침실 4개 · 욕실 4개", image: "villa-1f.webp" },
-  { slug: "villa-b7", legacy: "villa-detail_hcm_4.html", name: "Villa B7", spec: "침실 6개 · 욕실 7개", image: "villa-b7.webp" },
-  { slug: "villa-cadina", legacy: "villa-detail_hcm_5.html", name: "Villa Cadina", spec: "침실 6개 · 욕실 8개", image: "villa-cadina.webp" },
-  { slug: "villa-cadina-1", legacy: "villa-detail_hcm_6.html", name: "Villa Cadina 1", spec: "침실 4개 · 욕실 4개", image: "villa-cadina-1.webp" },
-  { slug: "villa-cadina-2", legacy: "villa-detail_hcm_7.html", name: "Villa Cadina 2", spec: "침실 5개 · 욕실 4개", image: "villa-cadina-2.webp" },
-  { slug: "villa-cadina-3", legacy: "villa-detail_hcm_8.html", name: "Villa Cadina 3", spec: "침실 5개 · 욕실 6개", image: "villa-cadina-3.webp" },
-  { slug: "villa-cadina-9", legacy: "villa-detail_hcm_9.html", name: "Villa Cadina 9", spec: "침실 7개 · 욕실 6개", image: "villa-cadina-9.webp" },
-  { slug: "villa-yolo-b", legacy: "villa-detail_hcm_10.html", name: "Villa YOLO B", spec: "침실 5개 · 욕실 6개", image: "villa-yolo-b.webp" },
-  { slug: "villa-yolo-c", legacy: "villa-detail_hcm_11.html", name: "Villa YOLO C", spec: "침실 5개 · 욕실 5개", image: "villa-yolo-c.webp" },
-  { slug: "villa-yolo-d", legacy: "villa-detail_hcm_12.html", name: "Villa YOLO D", spec: "침실 5개 · 욕실 5개", image: "villa-yolo-d.webp" },
-  { slug: "villa-yolo-e", legacy: "villa-detail_hcm_13.html", name: "Villa YOLO E", spec: "침실 4개 · 욕실 4개", image: "villa-yolo-e.webp" },
-  { slug: "grass-pool-villa-5room", legacy: "villa-detail_hcm_14.html", name: "호치민 5룸 잔디 풀빌라", spec: "침실 5개", image: "villa-grass-5room.webp" },
-  { slug: "mango-pool-villa-4room", legacy: "villa-detail_hcm_15.html", name: "호치민 4룸 망고 풀빌라", spec: "침실 4개", image: "villa-mango-4room.webp" },
+  { slug: "villa-9a", legacy: "villa-detail_hcm_1.html", moved: `${poolvilla.siteUrl}/villa/villa-9a.html`, name: "Villa 9A", spec: "침실 4개 · 욕실 4개", image: "villa-9a.webp" },
+  { slug: "villa-109", legacy: "villa-detail_hcm_2.html", moved: `${poolvilla.siteUrl}/villa/villa-109.html`, name: "Villa 109", spec: "침실 5개 · 욕실 5개", image: "villa-109.webp" },
+  { slug: "villa-1f", legacy: "villa-detail_hcm_3.html", moved: `${poolvilla.siteUrl}/villa/villa-1f.html`, name: "Villa 1F", spec: "침실 4개 · 욕실 4개", image: "villa-1f.webp" },
+  { slug: "villa-b7", legacy: "villa-detail_hcm_4.html", moved: `${poolvilla.siteUrl}/villa/villa-b7.html`, name: "Villa B7", spec: "침실 6개 · 욕실 7개", image: "villa-b7.webp" },
+  { slug: "villa-cadina", legacy: "villa-detail_hcm_5.html", moved: `${poolvilla.siteUrl}/villa/villa-cadina.html`, name: "Villa Cadina", spec: "침실 6개 · 욕실 8개", image: "villa-cadina.webp" },
+  { slug: "villa-cadina-1", legacy: "villa-detail_hcm_6.html", moved: `${poolvilla.siteUrl}/villa/villa-cadina-1.html`, name: "Villa Cadina 1", spec: "침실 4개 · 욕실 4개", image: "villa-cadina-1.webp" },
+  { slug: "villa-cadina-2", legacy: "villa-detail_hcm_7.html", moved: `${poolvilla.siteUrl}/villa/villa-cadina-2.html`, name: "Villa Cadina 2", spec: "침실 5개 · 욕실 4개", image: "villa-cadina-2.webp" },
+  { slug: "villa-cadina-3", legacy: "villa-detail_hcm_8.html", moved: `${poolvilla.siteUrl}/villa/villa-cadina-3.html`, name: "Villa Cadina 3", spec: "침실 5개 · 욕실 6개", image: "villa-cadina-3.webp" },
+  { slug: "villa-cadina-9", legacy: "villa-detail_hcm_9.html", moved: `${poolvilla.siteUrl}/villa/villa-cadina-9.html`, name: "Villa Cadina 9", spec: "침실 7개 · 욕실 6개", image: "villa-cadina-9.webp" },
+  { slug: "villa-yolo-b", legacy: "villa-detail_hcm_10.html", moved: `${poolvilla.siteUrl}/villa/villa-yolo-5br-2.html`, name: "Villa YOLO B", spec: "침실 5개 · 욕실 6개", image: "villa-yolo-b.webp" },
+  { slug: "villa-yolo-c", legacy: "villa-detail_hcm_11.html", moved: `${poolvilla.siteUrl}/villa/villa-yolo-c.html`, name: "Villa YOLO C", spec: "침실 5개 · 욕실 5개", image: "villa-yolo-c.webp" },
+  { slug: "villa-yolo-d", legacy: "villa-detail_hcm_12.html", moved: `${poolvilla.siteUrl}/villa/villa-yolo-5br.html`, name: "Villa YOLO D", spec: "침실 5개 · 욕실 5개", image: "villa-yolo-d.webp" },
+  { slug: "villa-yolo-e", legacy: "villa-detail_hcm_13.html", moved: `${poolvilla.siteUrl}/villa/villa-yolo-4br.html`, name: "Villa YOLO E", spec: "침실 4개 · 욕실 4개", image: "villa-yolo-e.webp" },
+  { slug: "grass-pool-villa-5room", legacy: "villa-detail_hcm_14.html", moved: `${poolvilla.siteUrl}/villa/villa-grass-5br.html`, name: "호치민 5룸 잔디 풀빌라", spec: "침실 5개", image: "villa-grass-5room.webp" },
+  { slug: "mango-pool-villa-4room", legacy: "villa-detail_hcm_15.html", moved: `${poolvilla.siteUrl}/villa/villa-mango-4br.html`, name: "호치민 4룸 망고 풀빌라", spec: "침실 4개", image: "villa-mango-4room.webp" },
 ];
