@@ -869,12 +869,22 @@
     },
     {
       "source": "/golf/bacgiang/bacgiang-corn-hill-luc-nam-bac-giang",
-      "destination": "/golf#area-hanoi",
+      "destination": "/golf/corn-hill-golf-resort.html",
       "permanent": true
     },
     {
       "source": "/golf/binhduong/binhduong-royal-island-golf-and-villas",
-      "destination": "/golf#area-hcm",
+      "destination": "/golf/royal-island-golf-villas.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf/ninhbinh/ninhbinh-royal-golf-course",
+      "destination": "/golf/royal-golf-club-ninh-binh.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf/thanhhoa/thanhhoa-flc-golf-links-sam-son",
+      "destination": "/golf/flc-samson-golf-links.html",
       "permanent": true
     },
     {
@@ -884,11 +894,6 @@
     },
     {
       "source": "/golf/hoabinh/hoabinh-asean-onsen-golf-resort",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
-      "source": "/golf/ninhbinh/ninhbinh-royal-golf-course",
       "destination": "/golf#area-hanoi",
       "permanent": true
     },
@@ -934,11 +939,6 @@
     },
     {
       "source": "/golf/quynhon/quynhon-flc-golf-links-quy-nhon",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
-      "source": "/golf/thanhhoa/thanhhoa-flc-golf-links-sam-son",
       "destination": "/golf",
       "permanent": true
     },
