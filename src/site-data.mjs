@@ -1133,6 +1133,9 @@ export const courses = [
   // 공항 시간은 공식 안내가 없으면 OSRM 도로 경로(골프장·행정구역 좌표)로 잰 값에 평소 교통 여유를 더한 추정치("약").
   {
     slug: "corn-hill-golf-resort",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-corn-hill-golf-resort.webp",
+    aiStaged: true,
     area: "hanoi",
     name: "콘힐 골프 앤 리조트",
     englishName: "Corn Hill Golf & Resort (Sân Golf Đồi Ngô)",
@@ -1150,6 +1153,9 @@ export const courses = [
   },
   {
     slug: "royal-golf-club-ninh-binh",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-royal-golf-club-ninh-binh.webp",
+    aiStaged: true,
     area: "hanoi",
     name: "로얄 골프클럽 닌빈",
     englishName: "Royal Golf Club Ninh Binh (Sân golf Hoàng Gia)",
@@ -1167,6 +1173,9 @@ export const courses = [
   },
   {
     slug: "flc-samson-golf-links",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-flc-samson-golf-links.webp",
+    aiStaged: true,
     area: "hanoi",
     mapDot: [44.0, 37.5],
     name: "FLC 삼선 골프 링크스",
@@ -1185,6 +1194,9 @@ export const courses = [
   },
   {
     slug: "royal-island-golf-villas",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-royal-island-golf-villas.webp",
+    aiStaged: true,
     area: "hcm",
     name: "로얄 아일랜드 골프 앤 빌라스",
     englishName: "Royal Island Golf & Villas (Mekong Golf)",
