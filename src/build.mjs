@@ -28,10 +28,11 @@ const heroImageOverride = {
   "harmony-golf-park": "course-harmony.webp",
   "sky-lake-golf": "courses/golf-sky-lake-golf-2.webp",
   "thanh-lanh-valley-golf": "courses/golf-thanh-lanh-valley-golf-1.webp",
+  "ruby-tree-golf": "courses/golf-ruby-tree-golf-1.webp",
   "heron-lake-golf": "courses/golf-heron-lake-golf-1.webp",
 };
 // 사진마다 잘리면 안 되는 곳(클럽하우스·그린·사람)에 맞춘 초점. 없으면 가운데.
-const photoFocus = { "course-tan-son-nhat.webp": "30% center", "courses/ai-amber-hills-golf-resort.webp": "25% center", "courses/ai-legend-valley-country-club.webp": "70% center", "courses/ai-silk-path-dong-trieu-golf.webp": "80% center", "courses/golf-stone-valley-golf-resort-video.webp": "center top", "courses/ai-ruby-tree-golf.webp": "center 60%", "courses/ai-sea-links-golf.webp": "center 60%", "courses/ai-corn-hill-golf-resort.webp": "35% center", "courses/ai-royal-golf-club-ninh-binh.webp": "60% center", "courses/ai-flc-samson-golf-links.webp": "40% center", "courses/ai-royal-island-golf-villas.webp": "60% center", "courses/ai-flc-quang-tri-golf-links.webp": "25% center", "courses/ai-muong-thanh-xuan-thanh-golf.webp": "60% center" };
+const photoFocus = { "course-tan-son-nhat.webp": "30% center", "courses/ai-amber-hills-golf-resort.webp": "25% center", "courses/ai-legend-valley-country-club.webp": "70% center", "courses/ai-silk-path-dong-trieu-golf.webp": "80% center", "courses/golf-stone-valley-golf-resort-video.webp": "center top", "courses/ai-corn-hill-golf-resort.webp": "35% center", "courses/ai-royal-golf-club-ninh-binh.webp": "60% center", "courses/ai-flc-samson-golf-links.webp": "40% center", "courses/ai-royal-island-golf-villas.webp": "60% center", "courses/ai-flc-quang-tri-golf-links.webp": "25% center", "courses/ai-muong-thanh-xuan-thanh-golf.webp": "60% center" };
 // AI 연출 대표 사진(course.aiStaged): 실제 골프장 사진으로 오해하지 않게 "AI 연출 이미지" 표시를 붙이고 alt를 바꾼다.
 // 구조화 데이터(GolfCourse image)와 공유 이미지(og:image)에는 쓰지 않는다.
 const photoAlt = (course) => course.aiStaged ? "골프 연출 이미지" : `${escapeHtml(course.name)} 골프장 전경`;
