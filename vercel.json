@@ -853,6 +853,21 @@
       "permanent": true
     },
     {
+      "source": "/golf/phutho/phutho-stone-highland-golf-and-resort",
+      "destination": "/golf/stone-highland-golf-resort.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf/phutho/phutho-van-lang-empire-golf-club",
+      "destination": "/golf/van-lang-empire-golf-club.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf/quangninh/quangninh-silk-path-dong-trieu-golf-and-country-club",
+      "destination": "/golf/silk-path-dong-trieu-golf.html",
+      "permanent": true
+    },
+    {
       "source": "/golf/bacgiang/bacgiang-corn-hill-luc-nam-bac-giang",
       "destination": "/golf#area-hanoi",
       "permanent": true
@@ -878,22 +893,7 @@
       "permanent": true
     },
     {
-      "source": "/golf/phutho/phutho-stone-highland-golf-and-resort",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
-      "source": "/golf/phutho/phutho-van-lang-empire-golf-club",
-      "destination": "/golf#area-hanoi",
-      "permanent": true
-    },
-    {
       "source": "/golf/quangninh/quangninh-mong-cai-golf-club",
-      "destination": "/golf#area-haiphong",
-      "permanent": true
-    },
-    {
-      "source": "/golf/quangninh/quangninh-silk-path-dong-trieu-golf-and-country-club",
       "destination": "/golf#area-haiphong",
       "permanent": true
     },
