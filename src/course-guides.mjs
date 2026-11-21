@@ -714,15 +714,16 @@ export const courseGuides = {
   },
   // 2026-11-20 새 상세 5곳. 홀 수·개장 시기는 아래 출처에 있는 것만, 공항 시간은 site-data.mjs driveNote(도로 경로 추정)를 따른다.
   "legend-valley-country-club": {
-    checkedAt: "2026-11-20",
-    sourceNote: "운영사 BRG 그룹의 개장 소식과 골프 설계 매체 기사를 기준으로 코스 구성을 정리했습니다. 공항 이동시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    checkedAt: "2026-11-22",
+    sourceNote: "운영사 BRG 그룹의 개장 소식, 닌빈성 신문의 18홀 개장 기사, 골프 설계 매체 기사를 기준으로 코스 구성을 정리했습니다. 공항 이동시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
     sources: [
       ["BRG 그룹 캐니언 코스 개장 소식 (2026-05-17)", "https://www.brggroup.vn/legend-valley-country-club-unveils-canyon-course-elevating-ninh-binhs-golf-landscape-d604"],
+      ["닌빈성 신문(Báo Ninh Bình) 캐니언 코스 18홀 개장 대회 기사 (2026-10-10)", "https://baoninhbinh.org.vn/khai-mac-giai-golf-khai-truong-18-ho-san-canyon-course-phuong-nguyen-uy-261010150151132.html"],
       ["Golf Course Architecture 레전드 밸리 첫 코스 개장 기사", "https://www.golfcoursearchitecture.net/content/south-course-opens-at-legend-valley-in-vietnam"],
     ],
     faqs: [
       ["레전드 밸리와 레전드힐은 같은 골프장인가요?", "아닙니다. 둘 다 BRG 계열이지만 레전드힐은 하노이 북쪽 속선, 레전드 밸리는 하노이 남쪽 닌빈성(구 하남성) 낌방 지역에 있습니다. 이동 방향이 반대라 예약서와 차량 요청에 Legend Valley Country Club이라는 영문 이름을 꼭 적으세요."],
-      ["레전드 밸리는 몇 홀인가요?", "BRG 그룹 발표에 따르면 2026년 5월 16일 캐니언 코스를 열어 먼저 운영하던 로즈 코스와 합쳐 36홀이 됐습니다. 두 코스 모두 니클라우스 디자인 설계입니다. 어느 코스로 배정되는지는 날짜마다 달라 예약 때 함께 확인합니다."],
+      ["레전드 밸리는 몇 홀인가요?", "BRG 그룹 발표에 따르면 2026년 5월 16일 캐니언 코스를 처음 열었고, 닌빈성 신문 기사대로 10월 10일 캐니언 코스 18홀을 모두 열어 먼저 운영하던 로즈 코스와 합쳐 36홀이 됐습니다. 두 코스 모두 니클라우스 디자인 설계입니다. 어느 코스로 배정되는지는 날짜마다 달라 예약 때 함께 확인합니다."],
     ],
     related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
   },
@@ -795,15 +796,16 @@ export const courseGuides = {
     related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
   },
   "stone-highland-golf-resort": {
-    checkedAt: "2026-11-21",
-    sourceNote: "박장성(지금 박닌성) 신문의 1단계 개장 기사와 골프 설계 매체 기사를 기준으로 코스 구성을 정리했습니다. 공항 이동시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    checkedAt: "2026-11-22",
+    sourceNote: "박장성(지금 박닌성) 신문의 1단계 개장 기사와 골프 설계 매체 기사를 기준으로 코스 구성을 정리했습니다. 두 번째 18홀 개장은 예약 대행사 소식만 있어 예약 때 확인합니다. 공항 이동시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
     sources: [
       ["박닌성 신문 비엣옌(스톤 하이랜드) 골프장 1단계 개장 기사 (2023-10)", "https://en.baobacninhtv.vn/first-phase-of-viet-yen-golf-course-inaugurated.bbg"],
       ["Golf Course Architecture 스톤 하이랜드 브라이언 컬리 코스 개장 기사 (2023-12)", "https://www.golfcoursearchitecture.net/content/new-brian-curley-course-opens-at-stone-highland-in-vietnam"],
+      ["예약 대행사 Baygolf 소식: C·D 코스 18홀 운영 시작 (2026-08)", "https://tintuc.baygolf.vn/san-golf-stone-highland/"],
     ],
     faqs: [
       ["스톤 하이랜드와 스톤 밸리는 같은 골프장인가요?", "아닙니다. 같은 회사(쯔엉안 골프)가 만들고 둘 다 브라이언 컬리가 설계했지만, 스톤 하이랜드는 하노이 북동쪽 박닌성(구 박장성) 비엣옌, 스톤 밸리는 하노이 남쪽 닌빈성(구 하남성)에 있어 방향이 반대입니다. 예약서와 차량 요청에 Stone Highland라는 영문 이름을 꼭 적으세요."],
-      ["스톤 하이랜드는 몇 홀인가요?", "2023년 10월 1단계 18홀을 열었고, 전체는 36홀 계획입니다. 36홀로 소개하는 자료도 있지만 두 번째 18홀은 공사 중으로 소개돼 있어, 지금은 운영 중인 18홀 기준으로 상담합니다."],
+      ["스톤 하이랜드는 몇 홀인가요?", "2023년 10월 1단계 18홀을 열었고, 전체는 36홀 계획입니다. 예약 대행사 소식에는 2026년 8월 두 번째 18홀(C·D 코스)이 운영을 시작했다고 나오지만 신문·공식 발표로는 아직 확인하지 못해, 예약 때 그날 운영 코스를 함께 확인합니다."],
     ],
     related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
   },
