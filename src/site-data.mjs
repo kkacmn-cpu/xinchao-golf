@@ -27,8 +27,8 @@ export const golfAreas = [
   { key: "nhatrang", image: "courses/golf-kn-golf-links-cam-ranh.webp", name: "나트랑·깜란", airport: "깜란 국제공항(CXR)", board: "nhatrang", homeRegion: "나트랑", lead: "깜란 공항 바로 옆 바닷가 코스와 나트랑 앞바다 섬 골프장. 리조트 숙박과 묶는 일정이 많습니다." },
   { key: "dalat", image: "courses/golf-dalat-at-1200.webp", name: "달랏", airport: "리엔크엉 공항(DLI)", board: "dalat", homeRegion: "달랏", lead: "해발 1,500m 고원의 선선한 골프. 소나무 숲과 호수를 낀 코스로 한여름에도 라운드하기 좋습니다." },
   // 2026-11-21 중부(꾸이년·꽝찌·빈) 구역 신설. 골프장마다 가까운 공항이 달라 course.airport로 따로 적는다.
-  // 타일 사진은 중부 해안 골프장 사진이 오기 전까지 골든 샌즈(후에) AI 연출 사진(타일에 "AI 연출 이미지" 표시).
-  { key: "central", image: "courses/ai-golden-sands-golf-resort.webp", name: "중부", airport: "푸깟·동허이·빈 공항(골프장별)", board: null, homeRegion: "중부", lead: "꾸이년 바다·산 코스와 꽝찌(옛 꽝빈) 모래언덕 링크스, 빈 공항 가까운 응에안·하띤 골프장. 호치민·하노이에서 국내선으로 가까운 공항에 내려 차로 이동합니다." },
+  // 타일 사진은 FLC 꾸이년 AI 연출 사진(타일에 "AI 연출 이미지" 표시). 실제 사진이 오면 교체.
+  { key: "central", image: "courses/ai-flc-quy-nhon-golf-links.webp", name: "중부", airport: "푸깟·동허이·빈 공항(골프장별)", board: null, homeRegion: "중부", lead: "꾸이년 바다·산 코스와 꽝찌(옛 꽝빈) 모래언덕 링크스, 빈 공항 가까운 응에안·하띤 골프장. 호치민·하노이에서 국내선으로 가까운 공항에 내려 차로 이동합니다." },
   { key: "phuquoc", image: "courses/golf-eschuri-vung-bau-golf.webp", name: "푸꾸옥", airport: "푸꾸옥 국제공항(PQC)", board: "phuquoc", homeRegion: "푸꾸옥", lead: "섬 북쪽 리조트 단지의 골프장. 항공 도착 시간과 리조트 숙박을 함께 맞추는 일정이 많습니다." },
 ];
 
@@ -1218,6 +1218,9 @@ export const courses = [
   // 2026-11-21 중부 구역 4곳. 근거: 사업부/신짜오/사이트/조사/2026-11-21_중부골프장_근거조사.md. 공항 시간은 OSRM 도로 경로 추정.
   {
     slug: "flc-quy-nhon-golf-links",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-flc-quy-nhon-golf-links.webp",
+    aiStaged: true,
     area: "central",
     airport: "푸깟 공항(UIH, 꾸이년)",
     mapDot: [74.0, 97.0],
@@ -1237,6 +1240,9 @@ export const courses = [
   },
   {
     slug: "flc-quang-tri-golf-links",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-flc-quang-tri-golf-links.webp",
+    aiStaged: true,
     area: "central",
     airport: "동허이 공항(VDH)",
     mapDot: [52.0, 63.0],
@@ -1256,6 +1262,9 @@ export const courses = [
   },
   {
     slug: "muong-thanh-dien-lam-golf",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-muong-thanh-dien-lam-golf.webp",
+    aiStaged: true,
     area: "central",
     airport: "빈 국제공항(VII)",
     mapDot: [40.0, 46.0],
@@ -1275,6 +1284,9 @@ export const courses = [
   },
   {
     slug: "muong-thanh-xuan-thanh-golf",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-muong-thanh-xuan-thanh-golf.webp",
+    aiStaged: true,
     area: "central",
     airport: "빈 국제공항(VII)",
     mapDot: [43.0, 50.0],
