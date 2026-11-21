@@ -512,16 +512,20 @@ function courseGuideContent(course, guide) {
 
 // 키워드 지도(07, 2026-11-20) 골프장 칸 10곳 + 지역 칸 키워드 5곳: 검색어로 쓰는 골프장 이름과 "글 안 섹션"(가격·예약·코스·위치)을 더한다.
 // 후기 섹션은 실제 후기가 없어 만들지 않는다. 금액 숫자와 요금 안내 문장(pricing-guide)은 위 요금 요약과 겹치지 않게 쓴다.
+// 키워드 쪽 제목을 따로 정하는 곳(11-21 골프 키워드 맞춤표): 손님 검색어("탄손녓 골프장 가는 법")를 제목 앞에 둔다.
+const keywordTitles = {
+  "tan-son-nhat-golf-course": "탄손녓 골프장 가는 법·가격·예약 (탄손넛 골프코스, 공항에서 10~20분)",
+};
 const keywordCourses = {
   "vinpearl-golf-nha-trang": "빈펄 나트랑 골프장",
   "montgomerie-links-vietnam": "다낭 몽고메리 골프장",
-  "long-thanh-golf-club": "롱탄 골프장",
+  "long-thanh-golf-club": "롱탄 골프클럽", // 11-21 검색 맞춤(블로그·검색 창): 손님 검색어 "롱탄 골프클럽"
   "ba-na-hills-golf-club": "바나힐 골프장",
   "sam-tuyen-lam-golf": "삼투엔람 골프장",
   "song-be-golf-resort": "송베 골프장",
-  "tan-son-nhat-golf-course": "탄손넛 골프장",
+  "tan-son-nhat-golf-course": "탄손녓 골프장", // 11-21: 손님은 "탄손녓"으로 검색(사이트 표기 탄손넛)
   "thu-duc-country-club": "투득 골프장",
-  "twin-doves-golf-club": "트윈도브스 골프장",
+  "twin-doves-golf-club": "트윈도브 골프장", // 11-21: 손님 검색어는 "트윈도브"(스 없음)
   "leman-golf-club": "빈펄 레만 골프장",
   // 2026-11-20 보류 해제: 지역 칸(달랏·붕따우·푸꾸옥 골프) 키워드지만 기존 골프장 쪽에 넣는 9개 키워드(삼투엔람 "달랏 삼 골프장"은 위 대상).
   "dalat-at-1200": "달랏 1200 골프장",
@@ -614,9 +618,9 @@ function courseDetailPage(course) {
   }];
   return layout({
     // 이름에 괄호가 있으면(예: "쩌우득 골프장 (소나데지)") 괄호 안에서 다시 괄호가 겹치지 않게 "쩌우득 골프장·소나데지"로 쓴다.
-    title: keyword ? `${keyword} 가격·예약·위치 안내 (${flatName(course.name)})` : `${course.name} 위치·공항 이동시간·예약 상담`,
+    title: keywordTitles[course.slug] || (keyword ? `${keyword} 가격·예약·위치 안내 (${keyword === flatName(course.name) ? course.englishName : flatName(course.name)})` : `${course.name} 위치·공항 이동시간·예약 상담`),
     description: keyword
-      ? `${keyword}(${flatName(course.name)}, ${course.englishName}) 위치·규모(${course.holes})와 ${airportShort(course)}에서 약 ${course.drive} 이동, 요금 구성(그린피+예약대행 수수료)과 예약 방법을 한국어로 안내합니다.`
+      ? `${keyword}(${keyword === flatName(course.name) ? course.englishName : `${flatName(course.name)}, ${course.englishName}`}) 위치·규모(${course.holes})와 ${airportShort(course)}에서 약 ${course.drive} 이동, 요금 구성(그린피+예약대행 수수료)과 예약 방법을 한국어로 안내합니다.`
       : `${course.name}(${course.englishName}) 위치·규모와 ${airportShort(course)}에서 차량 약 ${course.drive} 이동 정보, 한국어 골프 일정 상담 안내.`,
     pathname: `/golf/${course.slug}.html`,
     active: "golf",
@@ -676,8 +680,9 @@ function regionBoardPage(board) {
   const items = regionBoardItems(board);
   const courseCount = courses.filter((course) => boardOf(course) === board.key).length;
   const others = regionBoards.filter((item) => item.key !== board.key).map((item) => `<a class="button button-quiet" href="/regions/${item.key}.html">${item.name}</a>`).join("");
-  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/regions">지역별 골프</a><span>›</span><span aria-current="page">${board.name}</span></nav><section class="page-hero"><div class="shell"><p class="eyebrow">지역별 골프 게시판</p><h1>${board.sections ? `${board.name} 골프장 가격·예약·이동시간 안내` : `${board.name} 골프 예약·일정 안내`}</h1><p>${board.lead}</p><div class="guide-jump">${others}</div></div></section><section class="section shell">${regionKeywordSections(board)}<section class="guide-group"><h2>${board.name} 골프 글 <span>${items.length}</span></h2>${items.length ? `<ul class="guide-list">${items.map((item) => `<li><a href="${item.href}"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.text || "")}</span></a></li>`).join("")}</ul>` : `<p>아직 이 지역 글을 준비 중입니다. 원하는 골프장과 날짜를 알려주시면 상담으로 먼저 안내해 드립니다.</p>`}</section></section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">${board.name} 골프 상담</p><h2>날짜·인원·희망 골프장을 알려주세요</h2><p>골프장 예약과 숙소·차량까지 일정에 맞춰 한 번에 안내해 드립니다.</p></div><button class="button js-consult" type="button" data-interest="${board.name} 골프 상담">${board.name} 골프 상담하기</button></div></section>`;
-  const title = board.sections ? `${board.name} 골프장 가격·예약·이동시간 안내` : `${board.name} 골프 예약·일정 안내`;
+  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/regions">지역별 골프</a><span>›</span><span aria-current="page">${board.name}</span></nav><section class="page-hero"><div class="shell"><p class="eyebrow">지역별 골프 게시판</p><h1>${board.sections ? `${board.name} 골프장 ${courseCount}곳 가격·예약·이동시간 안내` : `${board.name} 골프 예약·일정 안내`}</h1><p>${board.lead}</p><div class="guide-jump">${others}</div></div></section><section class="section shell">${regionKeywordSections(board)}<section class="guide-group"><h2>${board.name} 골프 글 <span>${items.length}</span></h2>${items.length ? `<ul class="guide-list">${items.map((item) => `<li><a href="${item.href}"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.text || "")}</span></a></li>`).join("")}</ul>` : `<p>아직 이 지역 글을 준비 중입니다. 원하는 골프장과 날짜를 알려주시면 상담으로 먼저 안내해 드립니다.</p>`}</section></section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">${board.name} 골프 상담</p><h2>날짜·인원·희망 골프장을 알려주세요</h2><p>골프장 예약과 숙소·차량까지 일정에 맞춰 한 번에 안내해 드립니다.</p></div><button class="button js-consult" type="button" data-interest="${board.name} 골프 상담">${board.name} 골프 상담하기</button></div></section>`;
+  // 11-21 검색 맞춤: 제목은 "<지역> 골프"로 시작(손님 검색어 "호치민 골프"), H1은 "<지역> 골프장 N곳"
+  const title = board.sections ? `${board.name} 골프 — 골프장 ${courseCount}곳 가격·예약·이동시간` : `${board.name} 골프 예약·일정 안내`;
   const description = board.sections
     ? `${board.name} 골프장 ${courseCount}곳의 공항 이동시간과 요금 구성·예약 방법, ${board.name} 골프 글을 모았습니다. 날짜·인원·희망 골프장을 알려주시면 숙소·차량까지 한국어로 상담합니다.`
     : `${board.lead} 날짜·인원·희망 골프장을 알려주시면 골프장 예약과 숙소·차량까지 한국어로 상담합니다.`;

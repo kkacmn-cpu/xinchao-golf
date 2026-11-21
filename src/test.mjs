@@ -389,7 +389,7 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   }
   for (const key of ["hanoi", "phuquoc"]) {
     const html = await readFile(path.join(dist, `regions/${key}.html`), "utf8");
-    if (!/<title>[^<]* 골프장 가격·예약·이동시간 안내 \|/.test(html)) failures.push(`regions/${key}.html: 보류 해제 뒤 제목이 섹션 제목이 아님`);
+    if (!/<title>[^<]* 골프 — 골프장 \d+곳 가격·예약·이동시간 \|/.test(html)) failures.push(`regions/${key}.html: 보류 해제 뒤 제목이 섹션 제목이 아님`);
   }
   // 붕따우 글을 붕따우 게시판에 모아도 호치민 게시판에서는 빠지지 않는다.
   const hcmBoard = await readFile(path.join(dist, "regions/hochiminh.html"), "utf8");
