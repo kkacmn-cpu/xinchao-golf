@@ -16,11 +16,13 @@
   window.__goTo=safe;
   var moved=false;
   window.__goNow=function(){if(moved)return;moved=true;location.replace(safe);};
-  setTimeout(window.__goNow,1500); // 기록 코드가 늦거나 막혀도 이동
+  // 기록 코드가 실행되면 pageview 요청(script 태그)이 끝나 사라질 때까지 기다렸다가 이동(최대 1.5초)
+  window.__goAfterSend=function(){var t=Date.now();(function w(){var busy=document.querySelector('script[src*="/api/collect"]');if(!busy||Date.now()-t>1500)window.__goNow();else setTimeout(w,80);})();};
+  setTimeout(window.__goNow,3000); // 기록 코드가 늦거나 막혀도 이동
 })();
 </script>
 <noscript><meta http-equiv="refresh" content="0;url=/"></noscript>
-<script src="https://company-site-monitor.vercel.app/tracker.js?site=xinchao-golf" data-company-site-tracker="xinchao-golf" id="co-tracker" async onload="setTimeout(window.__goNow,400)" onerror="window.__goNow()"></script>
+<script src="https://company-site-monitor.vercel.app/tracker.js?site=xinchao-golf" data-company-site-tracker="xinchao-golf" id="co-tracker" async onload="setTimeout(window.__goAfterSend,50)" onerror="window.__goNow()"></script>
 <style>body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;color:#555}</style>
 </head>
 <body>
