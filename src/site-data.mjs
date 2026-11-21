@@ -1120,13 +1120,13 @@ export const services = [
   {
     slug: "apartment",
     name: "아파트",
-    image: "service-apartment.webp",
+    image: "stay-vinhomes.webp",
     text: "호치민 아파트 목록은 자매 사이트 호치민풀빌라에서 안내합니다. 골프 일정과 함께 잡을 숙소는 카카오톡으로 상담합니다.",
   },
   {
     slug: "villa",
     name: "풀빌라",
-    image: "service-villa.webp",
+    image: "villa-9a.webp",
     text: "호치민 풀빌라 목록은 자매 사이트 호치민풀빌라에서 안내합니다. 단체 골프 인원과 차량 동선에 맞춘 숙소는 카카오톡으로 상담합니다.",
   },
   {

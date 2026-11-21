@@ -15,8 +15,24 @@ const areaOf = (course) => golfAreas.find((area) => area.key === course.area);
 const boardOf = (course) => course.board || areaOf(course).board;
 const airportShort = (course) => (course.airport || areaOf(course).airport).replace(/\s*\(.*\)$/, "");
 const courseVisual = (course, className, loading = "lazy") => course.image
-  ? `<img src="/assets/images/${course.image}" width="1200" height="800" ${loading === "eager" ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'} alt="${escapeHtml(course.name)} 골프장 전경">`
+  ? `<img src="/assets/images/${course.image}" width="1200" height="800"${focusStyle(course.image)} ${loading === "eager" ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'} alt="${escapeHtml(course.name)} 골프장 전경">`
   : `<span class="course-plate ${className}" data-area="${course.area}" role="img" aria-label="${escapeHtml(course.name)} 안내 카드"><small>${escapeHtml(areaOf(course).name)}</small><strong>${escapeHtml(course.englishName)}</strong><em>✈ ${escapeHtml(airportShort(course))}에서 차량 약 ${escapeHtml(course.drive)}</em></span>`;
+// 상세 첫 화면 대표 사진: 기본은 course.image, 해상도가 낮으면 같은 골프장의 더 큰 사진을 쓴다(2026-11-21).
+const heroImageOverride = {
+  "harmony-golf-park": "course-harmony.webp",
+  "sky-lake-golf": "courses/golf-sky-lake-golf-2.webp",
+  "brg-kings-island": "courses/golf-brg-kings-island-2.webp",
+  "thanh-lanh-valley-golf": "courses/golf-thanh-lanh-valley-golf-1.webp",
+  "ruby-tree-golf": "courses/golf-ruby-tree-golf-1.webp",
+  "heron-lake-golf": "courses/golf-heron-lake-golf-1.webp",
+};
+// 사진마다 잘리면 안 되는 곳(클럽하우스·그린·사람)에 맞춘 초점. 없으면 가운데.
+const photoFocus = { "course-tan-son-nhat.webp": "30% center" };
+const focusStyle = (file) => photoFocus[file] ? ` style="object-position:${photoFocus[file]}"` : "";
+const courseHeroImage = (course) => heroImageOverride[course.slug] || course.image;
+const courseGalleryImages = (course) => course.image ? [course.image, ...(course.gallery || [])].filter((file) => file !== courseHeroImage(course)) : [];
+// "1시간 20분~1시간 50분", "40~60분" → 가장 짧은 분(정렬용)
+const driveMinMinutes = (drive = "") => { const first = drive.split("~")[0]; const h = first.match(/(\d+)\s*시간/); const m = first.match(/(\d+)\s*분?$/) || first.match(/(\d+)\s*분/); return (h ? +h[1] * 60 : 0) + (m && !/시간$/.test(first.trim()) ? +m[1] : 0); };
 const relatedHref = (file) => file.startsWith("guide/") ? `/${file}` : `/blog/${file}`;
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -322,17 +338,23 @@ function homePage() {
   const featured = golfAreas.flatMap((area) => courses.filter((course) => course.area === area.key).slice(0, area.key === "hcm" ? 2 : 1)).slice(0, 6);
   const content = `
     <section class="hero-x">
-      <div class="hero-slides" aria-hidden="true"><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-novaworld-phan-thiet-golf.webp')"></span></div>
+      <picture class="hero-photo"><source media="(max-width: 760px)" srcset="/assets/images/courses/golf-dong-nai-golf-resort-1.webp"><img src="/assets/images/courses/golf-novaworld-phan-thiet-golf.webp" width="1200" height="800" fetchpriority="high" alt=""></picture>
       <div class="shell hero-x-inner">
         <p class="hero-x-kicker">베트남 골프 한국어 예약 상담</p>
         <h1>베트남 골프장 예약,<br>카톡 한 번으로</h1>
         <p class="hero-x-lead">베트남 골프장 ${courses.length}곳의 위치와 공항 이동시간을 비교하고, 골프장 예약·차량·숙소를 카카오톡으로 한 번에 상담하세요.</p>
         <div class="hero-x-actions">
-          <a class="button button-kakao button-lg" href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer">카카오톡으로 예약 문의</a>
-          <a class="button button-glass button-lg" href="/golf">골프장 ${courses.length}곳 보기</a>
+          <a class="button button-kakao button-lg" href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer">카카오톡 한국어 예약 문의</a>
+          <a class="button button-glass button-lg" href="/golf">골프장 ${courses.length}곳 공항시간 보기</a>
         </div>
+        <p class="hero-x-note">한국어로 상담합니다 · 문의는 확인 후 순서대로 답변드립니다</p>
       </div>
     </section>
+    <section class="near-airport" aria-labelledby="near-airport-title"><div class="shell">
+      <div class="section-heading"><div><p class="eyebrow">골프장 ${courses.length}곳 공항 이동시간</p><h2 id="near-airport-title">공항에서 가까운 골프장</h2></div><a class="text-link" href="/golf#airport-times">공항→골프장 시간표 전체 →</a></div>
+      <ul class="near-row">${courses.filter((course) => course.image).sort((a, b) => driveMinMinutes(a.drive) - driveMinMinutes(b.drive)).slice(0, 10).map((course) => `<li><a href="/golf/${course.slug}.html"><img src="/assets/images/${course.image}" width="1200" height="800"${focusStyle(course.image)} loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 골프장 전경"><span class="near-area">${escapeHtml(areaOf(course).name)}</span><strong>${escapeHtml(course.name)}</strong><em>✈ ${escapeHtml(airportShort(course))}에서 <b>${escapeHtml(course.drive)}</b></em></a></li>`).join("")}</ul>
+      <p class="near-note">골프장마다 가장 가까운 공항에서 차로 걸리는 평소 교통 기준 시간입니다.</p>
+    </div></section>
     <section class="hero-facts" aria-label="신짜오골프 안내 범위"><div class="shell">
         <ul class="fact-strip">
           <li><strong>${courses.length}곳</strong><span>베트남 골프장</span></li>
@@ -401,7 +423,6 @@ function homePage() {
     description: "호치민·하노이·다낭·하롱·나트랑·달랏·푸꾸옥 베트남 골프장 정보와 공항 이동시간. 골프장 예약과 차량, 아파트, 풀빌라를 한국어로 한 번에 상담하세요.",
     pathname: "/",
     content: deferHomeBackgrounds(content),
-    preloadImage: "/assets/images/courses/golf-novaworld-phan-thiet-golf.webp",
     schema: [{ "@context": "https://schema.org", "@type": "FAQPage", "@id": `${site.siteUrl}/#faq`, mainEntity: faqs.map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })) }],
   });
 }
@@ -546,10 +567,14 @@ function courseDetailPage(course) {
   const guide = courseGuides[course.slug];
   const keyword = keywordCourses[course.slug];
   const content = `
+    <section class="course-hero${course.image ? "" : " is-plate"}" data-area="${course.area}">
+      ${course.image ? `<div class="course-hero-media"><img src="/assets/images/${courseHeroImage(course)}" width="1200" height="800"${focusStyle(courseHeroImage(course))} fetchpriority="high" alt="${escapeHtml(course.name)} 골프장 전경"></div>` : ""}
+      <div class="shell course-hero-copy"><p class="eyebrow">${course.region} 골프장 · ${escapeHtml(course.holes.split(" ")[0])}</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="course-keyfacts"><div><dt>✈ ${escapeHtml(airportShort(course))}에서</dt><dd>차량 약 ${escapeHtml(course.drive)}</dd></div><div><dt>위치</dt><dd>${escapeHtml(course.access)}</dd></div>${golfComboAreas.includes(course.area) ? `<div><dt>숙소</dt><dd><a href="#stay-combo">호치민 풀빌라·아파트 함께 상담 ↓</a></dd></div>` : ""}</dl><div class="hero-x-actions"><button class="button button-kakao button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡 한국어 상담</button><a class="button button-glass button-lg" href="/golf#airport-times">다른 골프장과 공항시간 비교</a></div></div>
+    </section>
     <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf">베트남 골프장</a><span>›</span><a href="/golf#area-${course.area}">${escapeHtml(areaOf(course).name)}</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
     <section class="detail-hero shell">
-      <div class="detail-media">${courseVisual(course, "course-plate-detail", "eager")}${course.gallery?.length ? `<div class="detail-gallery" aria-label="${escapeHtml(course.name)} 사진">${course.gallery.map((file, index) => `<a href="/assets/images/${file}" target="_blank" rel="noopener"><img src="/assets/images/${file}" width="1200" height="800" loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 코스 사진 ${index + 2}"></a>`).join("")}</div>` : ""}</div>
-      <div class="detail-summary"><p class="eyebrow">${course.region} 골프장</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="fact-list"><div><dt>지역</dt><dd>${course.location}</dd></div><div><dt>규모</dt><dd>${course.holes}</dd></div><div><dt>공항</dt><dd>${escapeHtml(course.airport || areaOf(course).airport)}에서 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (${escapeHtml(course.driveKm)})` : ""}</dd></div><div><dt>이동</dt><dd>${course.access}</dd></div></dl><p class="drive-note">공항 시간은 평소 교통 기준입니다. 출퇴근·주말·우천 시 더 걸릴 수 있습니다.</p><button class="button button-kakao button-block button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡으로 예약 가능 날짜 묻기</button><ul class="detail-steps"><li>날짜·인원 보내기</li><li>티타임·조건 확인</li><li>확정 후 바우처</li></ul>${pricingGuideHtml({ variant: "compact" })}<small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div>
+      ${courseGalleryImages(course).length ? `<div class="detail-media"><div class="detail-gallery" aria-label="${escapeHtml(course.name)} 사진">${courseGalleryImages(course).map((file, index) => `<a href="/assets/images/${file}" target="_blank" rel="noopener"><img src="/assets/images/${file}" width="1200" height="800"${focusStyle(file)} loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 코스 사진 ${index + 2}"></a>`).join("")}</div></div>` : `<div class="detail-media">${courseVisual(course, "course-plate-detail", "eager")}</div>`}
+      <div class="detail-summary"><p class="eyebrow">골프장 기본 정보</p><dl class="fact-list"><div><dt>지역</dt><dd>${course.location}</dd></div><div><dt>규모</dt><dd>${course.holes}</dd></div><div><dt>공항</dt><dd>${escapeHtml(course.airport || areaOf(course).airport)}에서 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (${escapeHtml(course.driveKm)})` : ""}</dd></div><div><dt>이동</dt><dd>${course.access}</dd></div></dl><p class="drive-note">공항 시간은 평소 교통 기준입니다. 출퇴근·주말·우천 시 더 걸릴 수 있습니다.</p><button class="button button-kakao button-block button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡으로 예약 가능 날짜 묻기</button><ul class="detail-steps"><li>날짜·인원 보내기</li><li>티타임·조건 확인</li><li>확정 후 바우처</li></ul>${pricingGuideHtml({ variant: "compact" })}<small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div>
     </section>${courseStayCombo(course)}${courseEvening(course)}
     <section class="section shell detail-content">
       <article><p class="eyebrow">선택 포인트</p><h2>${course.shortName}, 이런 일정에 검토하세요</h2><ul class="point-list">${course.points.map((point) => `<li>${point}</li>`).join("")}</ul>${courseKeywordSections(course)}${courseGuideContent(course, guide)}</article>

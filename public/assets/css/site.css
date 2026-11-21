@@ -832,3 +832,107 @@ h3{font-size:1.15rem;line-height:1.4}
   .process-list{gap:10px}
   .page-hero h1{font-size:2rem}
 }
+
+/* ===== 2026-11-21 2차: 첫 화면 사진 꽉 채우기 · 상세 대표 사진 · 사진 잘림 방지 · 휴대폰 본문 15px ===== */
+/* 홈 첫 화면: 사진 1장이 화면 높이를 꽉 채운다(휴대폰은 세로 구도 사진) */
+.hero-photo{position:absolute;inset:0;z-index:-2}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 60%}
+.hero-x::after{background:linear-gradient(180deg,rgba(10,16,13,.42) 0%,rgba(10,16,13,0) 24%,rgba(10,16,13,0) 46%,rgba(10,16,13,.62) 76%,rgba(10,16,13,.82) 100%)}
+
+/* 골프장 상세 첫 화면: 가로 꽉 찬 대표 사진 + 이름 + 한 줄 소개 + 단추 2개 */
+.course-hero{position:relative;background:#fff}
+.course-hero-media img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
+.course-hero-copy{padding:22px 0 6px}
+.course-hero h1{margin:0 0 4px;font-size:clamp(1.9rem,4.2vw,3.2rem)}
+.course-hero .english-name{margin-bottom:10px}
+.course-hero .detail-lead{margin:0 0 18px}
+.course-hero.is-plate{background:linear-gradient(150deg,var(--c-primary) 0%,var(--c-primary-dark) 70%,#082f21 100%);color:#fff}
+.course-hero.is-plate .course-hero-copy{padding:56px 0 40px}
+.course-hero.is-plate .eyebrow,.course-hero.is-plate .english-name,.course-hero.is-plate .detail-lead{color:rgba(255,255,255,.88)}
+.course-hero.is-plate h1{color:#fff}
+.detail-hero{padding-top:28px}
+.detail-hero.no-media{grid-template-columns:minmax(0,760px)}
+.detail-gallery{grid-template-columns:1fr 1fr;margin-top:0}
+.detail-gallery a:first-child:nth-last-child(2n+1){grid-column:span 2}
+.detail-gallery img{aspect-ratio:3/2}
+.detail-summary .eyebrow{margin-bottom:12px}
+@media (min-width:761px){
+  .course-hero{min-height:min(74vh,640px);display:flex;align-items:flex-end;color:#fff;background:#0b120e}
+  .course-hero-media{position:absolute;inset:0}
+  .course-hero-media img{height:100%;aspect-ratio:auto}
+  .course-hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,16,13,0) 40%,rgba(10,16,13,.78) 100%)}
+  .course-hero-copy{position:relative;width:min(calc(100% - 40px),var(--shell));padding:120px 0 48px}
+  .course-hero h1{color:#fff}
+  .course-hero .eyebrow,.course-hero .english-name,.course-hero .detail-lead{color:rgba(255,255,255,.9);text-shadow:0 1px 6px rgba(0,0,0,.35)}
+  .course-hero h1{text-shadow:0 1px 8px rgba(0,0,0,.35)}
+  .course-hero .detail-lead{max-width:640px}
+  .course-hero.is-plate{min-height:420px}
+}
+
+/* 사진 칸 비율을 사진 원본 비율(3:2)에 맞춰 잘림을 없앤다 */
+.card-image img,.post-card img,.property-card img{aspect-ratio:3/2}
+.service-card img{aspect-ratio:2/1}
+.area-tile{min-height:0;aspect-ratio:4/3}
+.signature-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:auto}
+.signature-card,.signature-card.is-feature{grid-row:auto;grid-column:auto;aspect-ratio:3/2}
+.signature-card.is-feature strong{font-size:1.3rem}
+@media (max-width:1000px){.signature-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:760px){
+  .hero-x{min-height:100svh}
+  .hero-x-inner{padding:120px 0 calc(100px + env(safe-area-inset-bottom))}
+  .hero-photo img{object-position:center 50%}
+  .area-tiles{grid-template-columns:1fr 1fr}
+  .signature-grid{grid-template-columns:1fr;gap:12px}
+  .signature-card,.signature-card.is-feature{aspect-ratio:3/2;padding:18px}
+  .signature-card strong,.signature-card.is-feature strong{font-size:1.2rem}
+  .course-hero .hero-x-actions{display:grid;grid-template-columns:1fr;gap:8px}
+  .course-hero .english-name{font-size:.9rem}
+  /* 휴대폰 본문 15px 이상 */
+  .card-body > p:not(.english-name),.guide-list span,.home-faq-list dd,.pay-guide p,.process-list p,.service-card p,.property-card > div > p:not(.english-name),.post-card p,.vehicle-card p,.region-card p,.option-grid p,.hub-faq p,.stay-combo-list dd,.course-evening-line,.notice-grid p,.home-prep-result,.home-prep-caveat,.footer-grid p,.prep-copy p,.compact-copy p:not(.eyebrow),.side-consult p,.region-list p,.trust-list,.drive-note,.vehicle-note,.hub-notice,.guide-article .notice,.course-sources,.airport-table,.fact-list dt,.fact-list dd,.detail-lead,.page-hero p:not(.eyebrow),.hero-x-lead,.cta-inner p,.pay-guide-compact,.pay-guide-compact .pay-guide p,.dialog-body > .muted,.article-hero > p:not(.eyebrow),.course-guide p,.course-guide li,.guide-article p,.guide-article li,.rent-body p,.rent-body li,.empty-state p,.stay-combo-box > p{font-size:15px}
+}
+
+/* 2026-11-21 3차: 우리만 가진 것(공항 이동시간·한국어 카톡) 크게 */
+.hero-x-note{margin:12px 0 0;color:rgba(255,255,255,.82);font-size:.88rem;text-shadow:0 1px 6px rgba(0,0,0,.35)}
+.near-airport{padding:48px 0 8px;background:#fff}
+.near-airport .section-heading{margin-bottom:18px}
+.near-row{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(220px,1fr);gap:var(--gap-card);margin:0;padding:2px 2px 14px;list-style:none;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+.near-row li{scroll-snap-align:start}
+.near-row a{display:flex;flex-direction:column;height:100%;border:1px solid var(--g-300);border-radius:var(--radius-card);background:#fff;box-shadow:var(--shadow-card);overflow:hidden}
+.near-row img{width:100%;aspect-ratio:3/2;object-fit:cover}
+.near-area{margin:12px 14px 0;color:var(--c-primary);font-size:.8rem;font-weight:var(--fw-semi)}
+.near-row strong{margin:2px 14px 0;font-size:1rem;line-height:1.4}
+.near-row em{margin:6px 14px 14px;color:var(--g-700);font-size:.88rem;font-style:normal}
+.near-row em b{display:block;color:var(--c-primary);font-size:1.25rem;font-weight:var(--fw-bold)}
+.near-note{margin:4px 0 0;color:var(--g-500);font-size:.85rem}
+.course-keyfacts{display:flex;flex-wrap:wrap;gap:10px 28px;margin:0 0 20px}
+.course-keyfacts dt{font-size:.85rem;font-weight:var(--fw-semi);opacity:.85}
+.course-keyfacts dd{margin:2px 0 0;font-size:1.05rem;font-weight:var(--fw-semi)}
+.course-keyfacts div:first-child dd{font-size:1.6rem;font-weight:var(--fw-bold);line-height:1.2}
+.course-keyfacts a{text-decoration:underline;text-underline-offset:3px}
+@media (min-width:761px){.course-keyfacts{color:#fff}.course-keyfacts div:first-child dd{color:#fff}}
+@media (max-width:760px){
+  .near-airport{padding:36px 0 4px}
+  .near-row{grid-auto-columns:72%;gap:12px}
+  .course-hero:not(.is-plate) .course-keyfacts div:first-child dd{color:var(--c-primary)}
+  .course-hero:not(.is-plate) .button-glass{background:#fff;border-color:var(--c-primary);color:var(--c-primary)}
+  .course-keyfacts{display:grid;gap:10px;padding:14px 16px;border-radius:var(--radius-card);background:var(--g-100)}
+  .course-hero.is-plate .course-keyfacts{background:rgba(255,255,255,.1)}
+  .course-keyfacts dd{font-size:15px}
+  .hero-x-note{font-size:.86rem}
+}
+@media (max-width:760px){
+  .course-hero-copy{display:flex;flex-direction:column}
+  .course-hero-copy .hero-x-actions{order:5;margin-bottom:14px}
+  .course-hero-copy .course-keyfacts{order:6}
+  .course-hero:not(.is-plate) .english-name{display:none}
+}
+.service-card img,.service-list img{aspect-ratio:3/2}
+img[src$="service-vehicle.webp"]{object-position:left center}
+/* 휴대폰 쪽 머리 사진: 세로로 잘라 쓰지 않고 가로 폭 그대로 위에 보여 준 뒤 글은 아래 어두운 바탕에 */
+@media (max-width:760px){
+  .page-hero.page-hero-photo{padding-top:calc(56vw + 8px);padding-bottom:40px;background:linear-gradient(180deg,rgba(16,24,19,0) 0,rgba(16,24,19,0) 46vw,#101813 60vw),var(--hero-img) top center/100% auto no-repeat,#101813}
+  .page-hero.page-hero-photo .shell p:not(.eyebrow){text-shadow:none}
+}
+@media (min-width:761px){.page-hero.page-hero-photo[style*="service-vehicle.webp"]{background-position:0 0,center 74%}}
+@media (max-width:760px){.hero-x-note,.near-note,.detail-summary small,.course-plate em{font-size:15px}}
+@media (max-width:760px){.hero-x{min-height:min(100svh,940px)}}
