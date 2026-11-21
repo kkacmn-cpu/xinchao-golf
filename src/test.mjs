@@ -479,8 +479,14 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     if (!html.includes('<details class="pay-guide-compact">')) failures.push(`${relative}: 요금 구성 접이식 안내 누락`);
     if (!html.includes('<ul class="detail-steps">')) failures.push(`${relative}: 예약 단계 누락`);
     if (!html.includes(`href="${site.kakaoUrl}"`)) failures.push(`${relative}: 카카오톡 버튼 누락`);
-    if (course.image || course.gallery?.length) failures.push(`${relative}: 저작권 확인 전 사진 사용`);
-    if (!html.includes('class="course-plate course-plate-detail"')) failures.push(`${relative}: 사진 대신 안내 카드 누락`);
+    // 실제 사진이 없는 곳: 안내 카드, 또는 AI 연출 대표 사진(aiStaged, 11-21 총괄 지시) — 그때는 "AI 연출 이미지" 표시·alt "골프 연출 이미지", 갤러리·구조화 데이터 사진 없음.
+    if (course.gallery?.length) failures.push(`${relative}: 저작권 확인 전 사진 사용`);
+    if (course.image && !course.aiStaged) failures.push(`${relative}: 저작권 확인 전 사진 사용`);
+    if (course.aiStaged) {
+      if (!/^courses\/ai-[a-z0-9-]+\.webp$/.test(course.image)) failures.push(`${relative}: AI 연출 사진 파일명 규칙(courses/ai-*.webp) 아님`);
+      if (!html.includes('<span class="ai-badge">AI 연출 이미지</span>') || !html.includes('alt="골프 연출 이미지"') || html.includes(`alt="${course.name} 골프장 전경"`)) failures.push(`${relative}: AI 연출 표시·alt 누락`);
+      if (html.includes(`"image":"${site.siteUrl}/assets/images/${course.image}"`) || html.includes(`og:image" content="${site.siteUrl}/assets/images/${course.image}`)) failures.push(`${relative}: AI 연출 사진이 구조화 데이터·공유 이미지에 들어감`);
+    } else if (!html.includes('class="course-plate course-plate-detail"')) failures.push(`${relative}: 사진 대신 안내 카드 누락`);
     const hit = plain(html).match(PRICE);
     if (hit) failures.push(`${relative}: 금액 표기(${hit[0]})`);
     if (course.area !== "hcm" && !course.points.includes("숙소·차량 함께 상담")) failures.push(`${relative}: 호치민권 밖 숙소 상담 문구 누락`);
