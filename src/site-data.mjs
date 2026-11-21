@@ -349,8 +349,10 @@ export const courses = [
     access: "노이바이 공항에서 가까운 산자락 코스",
     drive: "50~70분",
     driveKm: "약 35~45km",
-    image: "courses/golf-tam-dao-golf.webp",
-    gallery: ["courses/golf-tam-dao-golf-1.webp", "courses/golf-tam-dao-golf-2.webp", "courses/golf-tam-dao-golf-3.webp"],
+    // AI 연출 첫 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님 — 실제 사진이 저해상도라 교체). 실제 사진은 갤러리에 남김. 고해상도 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-tam-dao-golf.webp",
+    aiStaged: true,
+    gallery: ["courses/golf-tam-dao-golf.webp", "courses/golf-tam-dao-golf-1.webp", "courses/golf-tam-dao-golf-2.webp", "courses/golf-tam-dao-golf-3.webp"],
     summary: "땀다오 산 아래에 있는 18홀 골프장입니다. 노이바이 공항과 가까워 도착일·출국일 라운드 상담이 많습니다.",
     points: ["산자락 18홀", "공항과 가까움", "여름 티오프 변경 확인"],
   },
@@ -423,8 +425,10 @@ export const courses = [
     drive: "15~30분",
     driveKm: "약 10~15km",
     driveNote: "하노이 노이바이 공항에서는 고속도로로 약 1시간 45분~2시간 15분 걸립니다.",
-    image: "courses/golf-vinpearl-golf-hai-phong.webp",
-    gallery: ["courses/golf-vinpearl-golf-hai-phong-1.webp", "courses/golf-vinpearl-golf-hai-phong-2.webp", "courses/golf-vinpearl-golf-hai-phong-3.webp"],
+    // AI 연출 첫 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님 — 실제 사진이 저해상도라 교체). 실제 사진은 갤러리에 남김. 고해상도 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-vinpearl-golf-hai-phong.webp",
+    aiStaged: true,
+    gallery: ["courses/golf-vinpearl-golf-hai-phong.webp", "courses/golf-vinpearl-golf-hai-phong-1.webp", "courses/golf-vinpearl-golf-hai-phong-2.webp", "courses/golf-vinpearl-golf-hai-phong-3.webp"],
     summary: "하이퐁 부엔섬의 36홀 골프장입니다. 하노이·하롱 일정과 묶어 상담하는 경우가 많습니다.",
     points: ["36홀 2개 코스", "깟비 공항 15분대", "하롱 일정 연계"],
   },
@@ -572,8 +576,10 @@ export const courses = [
     drive: "70~90분",
     driveKm: "차량 약 35~40km + 바다 건너기",
     driveNote: "차량으로 나트랑 빈펄 선착장까지 40~50분, 케이블카나 배로 10~15분, 섬 안 셔틀까지 합친 시간입니다.",
-    image: "courses/golf-vinpearl-golf-nha-trang.webp",
-    gallery: ["courses/golf-vinpearl-golf-nha-trang-1.webp", "courses/golf-vinpearl-golf-nha-trang-2.webp", "courses/golf-vinpearl-golf-nha-trang-3.webp"],
+    // 첫 사진: 회사 골프 영상 캡처(구글 드라이브 GOLF_NEW G-48.mp4 24초, 대표님 확인: 회사 사용 가능, 【공통】 이미지 11-21). 이전 첫 사진은 갤러리 첫 장으로.
+    image: "courses/golf-vinpearl-golf-nha-trang-video.webp",
+    photoSource: "회사 골프 영상 캡처(구글 드라이브 GOLF_NEW G-48.mp4 24초, 대표님 확인: 회사 사용 가능, 【공통】 이미지 11-21)",
+    gallery: ["courses/golf-vinpearl-golf-nha-trang.webp", "courses/golf-vinpearl-golf-nha-trang-1.webp", "courses/golf-vinpearl-golf-nha-trang-2.webp", "courses/golf-vinpearl-golf-nha-trang-3.webp"],
     summary: "나트랑 앞바다 혼째섬의 빈펄 리조트 안에 있는 18홀 골프장입니다. 섬으로 건너가는 시간까지 함께 계산합니다.",
     points: ["섬 안 골프장", "케이블카·배 이동", "리조트 숙박 연계"],
   },
@@ -683,8 +689,10 @@ export const courses = [
     drive: "2시간 40분~3시간 40분",
     driveKm: "약 210km",
     driveNote: "판티엣 공항이 아직 운항 전이라 호치민 떤선녓 공항 기준입니다.",
-    image: "courses/golf-sea-links-golf.webp",
-    gallery: ["courses/golf-sea-links-golf-1.webp", "courses/golf-sea-links-golf-2.webp", "courses/golf-sea-links-golf-3.webp"],
+    // AI 연출 첫 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님 — 실제 사진이 저해상도라 교체). 실제 사진은 갤러리에 남김. 고해상도 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-sea-links-golf.webp",
+    aiStaged: true,
+    gallery: ["courses/golf-sea-links-golf.webp", "courses/golf-sea-links-golf-1.webp", "courses/golf-sea-links-golf-2.webp", "courses/golf-sea-links-golf-3.webp"],
     summary: "무이네 바닷가 언덕 위의 18홀 링크스형 코스입니다. 대부분 홀에서 바다가 보이고 바람의 영향을 많이 받습니다.",
     points: ["바다 전망 18홀", "링크스 스타일", "단지 안 숙박"],
   },
@@ -793,8 +801,10 @@ export const courses = [
     access: "하이퐁 시내에서 15분 안팎",
     drive: "25~35분",
     driveKm: "약 20km",
-    image: "courses/golf-ruby-tree-golf.webp",
-    gallery: ["courses/golf-ruby-tree-golf-1.webp", "courses/golf-ruby-tree-golf-2.webp", "courses/golf-ruby-tree-golf-3.webp"],
+    // AI 연출 첫 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님 — 실제 사진이 저해상도라 교체). 실제 사진은 갤러리에 남김. 고해상도 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-ruby-tree-golf.webp",
+    aiStaged: true,
+    gallery: ["courses/golf-ruby-tree-golf.webp", "courses/golf-ruby-tree-golf-1.webp", "courses/golf-ruby-tree-golf-2.webp", "courses/golf-ruby-tree-golf-3.webp"],
     summary: "하이퐁 도선 해변의 18홀 골프장으로, 예전 이름은 도선 시사이드 골프입니다. 앞은 바다, 뒤는 산입니다.",
     points: ["바다·산 사이 18홀", "구 도선 시사이드", "하이퐁 시내 가까움"],
   },
@@ -852,8 +862,10 @@ export const courses = [
     drive: "45~60분",
     driveKm: "약 50km",
     driveNote: "깟비 공항에서는 50~70분 걸립니다.",
-    image: "courses/golf-flc-ha-long-golf.webp",
-    gallery: ["courses/golf-flc-ha-long-golf-1.webp", "courses/golf-flc-ha-long-golf-2.webp", "courses/golf-flc-ha-long-golf-3.webp"],
+    // 첫 사진: 회사 골프 영상 캡처(구글 드라이브 GOLF_NEW G-19.mp4 35초, 대표님 확인: 회사 사용 가능, 【공통】 이미지 11-21). 이전 첫 사진은 갤러리 첫 장으로.
+    image: "courses/golf-flc-ha-long-golf-video.webp",
+    photoSource: "회사 골프 영상 캡처(구글 드라이브 GOLF_NEW G-19.mp4 35초, 대표님 확인: 회사 사용 가능, 【공통】 이미지 11-21)",
+    gallery: ["courses/golf-flc-ha-long-golf.webp", "courses/golf-flc-ha-long-golf-1.webp", "courses/golf-flc-ha-long-golf-2.webp", "courses/golf-flc-ha-long-golf-3.webp"],
     summary: "하롱 시내 언덕 위에서 하롱베이를 내려다보는 18홀 골프장입니다. 2017년 문을 열었습니다.",
     points: ["하롱베이 전망", "언덕 코스", "리조트 숙박 연계"],
   },
@@ -991,9 +1003,9 @@ export const courses = [
   },
   {
     slug: "stone-valley-golf-resort",
-    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
-    image: "courses/ai-stone-valley-golf-resort.webp",
-    aiStaged: true,
+    // 실제 사진: 회사 골프 영상 캡처(구글 드라이브 GOLF_NEW G-35.mp4 35초, 대표님 확인: 회사 사용 가능, 【공통】 이미지 11-21). AI 연출 사진을 대신함(11-21).
+    image: "courses/golf-stone-valley-golf-resort-video.webp",
+    photoSource: "회사 골프 영상 캡처(구글 드라이브 GOLF_NEW G-35.mp4 35초, 대표님 확인: 회사 사용 가능, 【공통】 이미지 11-21)",
     area: "hanoi",
     name: "스톤 밸리 골프 리조트",
     englishName: "Stone Valley Golf Resort",
@@ -1011,9 +1023,9 @@ export const courses = [
   },
   {
     slug: "trang-an-golf-resort",
-    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
-    image: "courses/ai-trang-an-golf-resort.webp",
-    aiStaged: true,
+    // 실제 사진: 회사 골프 영상 캡처(구글 드라이브 GOLF_NEW G-32.mp4 43초, 대표님 확인: 회사 사용 가능, 【공통】 이미지 11-21). AI 연출 사진을 대신함(11-21).
+    image: "courses/golf-trang-an-golf-resort-video.webp",
+    photoSource: "회사 골프 영상 캡처(구글 드라이브 GOLF_NEW G-32.mp4 43초, 대표님 확인: 회사 사용 가능, 【공통】 이미지 11-21)",
     area: "hanoi",
     name: "짱안 골프 앤 리조트",
     englishName: "Trang An Golf & Resort",
@@ -1114,9 +1126,9 @@ export const courses = [
   },
   {
     slug: "van-lang-empire-golf-club",
-    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
-    image: "courses/ai-van-lang-empire-golf-club.webp",
-    aiStaged: true,
+    // 실제 사진: 회사 골프 영상 캡처(구글 드라이브 GOLF_NEW G-57.mp4 21초, 대표님 확인: 회사 사용 가능, 【공통】 이미지 11-21). AI 연출 사진을 대신함(11-21).
+    image: "courses/golf-van-lang-empire-golf-club-video.webp",
+    photoSource: "회사 골프 영상 캡처(구글 드라이브 GOLF_NEW G-57.mp4 21초, 대표님 확인: 회사 사용 가능, 【공통】 이미지 11-21)",
     area: "hanoi",
     name: "반랑 엠파이어 T&T 골프클럽",
     englishName: "Văn Lang Empire T&T Golf Club",
