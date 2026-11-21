@@ -143,7 +143,8 @@ const script = await readFile(path.join(dist, "assets/js/site.js"), "utf8");
 try { new Function(script); } catch (error) { failures.push(`site.js 문법 오류: ${error.message}`); }
 // 옛 상담 대화상자(중간 입력 단계)는 없어야 한다. 클립보드 복사는 홈 상담 준비표 요약에만 쓴다(2026-11-20 손님 점검 #11).
 if (/consult-dialog|consult-form|js-consult/.test(script)) failures.push("상담 스크립트에 중간 입력 경로 잔존");
-if (count(script, /navigator\.clipboard\.writeText\(/g) !== 1 || count(script, /document\.execCommand\(/g) !== 1 || count(script, /copyPrepSummary\(/g) !== 1) failures.push("클립보드 복사는 상담 준비표 요약(copyPrepSummary) 한 곳에서만 써야 함");
+// 11-21 총괄 승인: 상세 쪽 빠른 견적 카드(.quick-quote)도 요약 복사를 쓴다(기존 카톡 단추는 그대로, 중간 입력 단계 아님). 복사는 이 두 곳뿐.
+if (count(script, /navigator\.clipboard\.writeText\(/g) !== 2 || count(script, /document\.execCommand\(/g) !== 1 || count(script, /copyPrepSummary\(/g) !== 1 || !script.includes('document.querySelector(".quick-quote")')) failures.push("클립보드 복사는 상담 준비표 요약과 빠른 견적 카드 두 곳에서만 써야 함");
 const home = await readFile(path.join(dist, "index.html"), "utf8");
 for (const required of ["id=\"home-prep-form\"", "name=\"region\"", "name=\"date\"", "name=\"people\"", "name=\"purpose\"", "id=\"home-prep-result\"", "id=\"home-prep-candidates\"", "id=\"home-prep-copy-status\""]) {
   if (!home.includes(required)) failures.push(`홈 상담 준비표 누락: ${required}`);
@@ -467,6 +468,17 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     if (count(zh, /<li class="row">/g) !== 10) failures.push(`/zh/price 골프장 ${count(zh, /<li class="row">/g)}곳 (예상 10곳)`);
     if (/kakao|tel:/i.test(zh) || /最|第一/.test(zh)) failures.push("/zh/price 카톡·전화·금지어 포함");
     if (sitemap.includes("/zh/")) failures.push("사이트맵에 /zh/ 주소 포함");
+  }
+  // 빠른 견적 카드(11-21): 골프장 상세 전부, 골프장 이름·slug·공항 최대 이동시간, 기존 카톡 단추 유지, /go/quick-golf noindex·tracker
+  {
+    for (const course of courses) {
+      const html = await readFile(path.join(dist, `golf/${course.slug}.html`), "utf8");
+      const card = html.match(/<section class="quick-quote[\s\S]*?<\/section>/)?.[0] || "";
+      if (!card.includes(`data-slug="${course.slug}"`) || !/data-drive-max="[1-9]\d*"/.test(card)) failures.push(`golf/${course.slug}.html: 빠른 견적 카드 누락·자료 없음`);
+      if (!html.includes('class="button button-kakao button-lg" href="https://pf.kakao.com/_xdBALn/chat"')) failures.push(`golf/${course.slug}.html: 기존 카톡 단추가 사라짐`);
+    }
+    const qg = await readFile(path.join(dist, "go/quick-golf.html"), "utf8");
+    if (!qg.includes('<meta name="robots" content="noindex,nofollow">') || !qg.includes('data-company-site-tracker="xinchao-golf"') || !qg.includes("pf.kakao.com/_xdBALn/chat")) failures.push("/go/quick-golf noindex·tracker·골프 카톡 누락");
   }
   if (/\/go\//.test(llms)) failures.push("llms.txt에 /go/ 주소 포함");
 }

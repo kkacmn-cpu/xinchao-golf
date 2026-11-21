@@ -554,6 +554,25 @@ function courseKeywordSections(course) {
 // 숙소는 자매 사이트 호치민풀빌라(호치민 숙소)라서 다른 지역에는 넣지 않는다. 금액 숫자·답변 시간 숫자는 쓰지 않는다.
 const golfComboPath = "/go/golf-combo";
 const golfComboAreas = ["hcm"];
+// 빠른 견적 카드(2026-11-21 총괄 승인, 예약 흐름 기능표): 날짜·인원 칩 → 골프장 이름이 든 요약을 복사하고 /go/quick-golf로 카톡을 연다.
+// 기존 카톡·견적 단추는 그대로 두고 첫 화면 아래에 더한다. 요금 숫자 없음. 도착일 라운드는 공항 최대 이동시간으로 계산한 추정.
+const driveMaxMinutes = (drive = "") => { const last = drive.split("~").pop(); const h = last.match(/(\d+)\s*시간/); const m = last.match(/(\d+)\s*분/); return (h ? +h[1] * 60 : 0) + (m ? +m[1] : 0); };
+function quickQuoteCard(course) {
+  const others = courses.filter((item) => item.area === course.area && item.slug !== course.slug).length;
+  const chip = (attrs, label) => `<button type="button" class="qq-chip" aria-pressed="false" ${attrs}>${label}</button>`;
+  return `
+    <section class="quick-quote shell" id="quick-quote" aria-labelledby="qq-title" data-qq-site="golf" data-name="${escapeHtml(course.name)}" data-slug="${course.slug}" data-drive-max="${driveMaxMinutes(course.drive)}" data-airport="${escapeHtml(airportShort(course))}">
+      <div class="qq-head"><p class="eyebrow">빠른 견적</p><h2 id="qq-title">날짜·인원만 누르면 카톡으로 견적 요청</h2><p>로그인·결제 없이 ${escapeHtml(course.shortName)} 이름이 들어간 요약을 카톡으로 보냅니다.</p></div>
+      <fieldset class="qq-group" data-qq="date"><legend>날짜</legend><div class="qq-chips">${chip('data-date="sat0"', "이번 주 토")}${chip('data-date="sun0"', "이번 주 일")}${chip('data-date="sat1"', "다음 주 토")}${chip("data-date-pick", "직접 고르기")}</div><input class="qq-input qq-date" type="date" hidden aria-label="날짜 직접 고르기"></fieldset>
+      <fieldset class="qq-group" data-qq="people"><legend>인원</legend><div class="qq-chips">${[2, 3, 4, 8].map((n) => chip(`data-people="${n}"`, `${n}명`)).join("")}${chip("data-people-pick", "직접")}</div><input class="qq-input qq-people" type="number" min="1" max="60" inputmode="numeric" placeholder="인원 수" hidden aria-label="인원 직접 입력"></fieldset>
+      <fieldset class="qq-group" data-qq="extra"><legend>같이 견적 <small>(선택)</small></legend><div class="qq-chips">${chip('data-extra="숙소(풀빌라·아파트)"', "숙소")}${chip('data-extra="차량(공항·골프장)"', "차량")}${others ? chip('data-extra="같은 지역 2라운드 후보"', "2라운드 후보") : ""}${chip("data-arrival", "도착일에 라운드")}</div>
+        <div class="qq-arrival" hidden><label>항공 도착 시각 <input class="qq-input qq-time" type="time"></label><p class="qq-arrival-result" aria-live="polite"></p></div></fieldset>
+      <button class="button button-kakao button-lg qq-send" type="button">카톡으로 견적 받기</button>
+      <p class="qq-status" role="status" aria-live="polite"></p>
+      <textarea class="qq-fallback" readonly hidden aria-label="견적 요청 요약"></textarea>
+      <p class="qq-note">예약 가능 여부·티오프·요금은 상담 때 확인합니다. 누르면 요약이 복사되고 카톡이 열립니다 — 붙여넣고 보내 주세요.</p>
+    </section>`;
+}
 
 function courseStayCombo(course) {
   if (!golfComboAreas.includes(course.area)) return "";
@@ -583,7 +602,7 @@ function courseDetailPage(course) {
     <section class="course-hero${course.image ? "" : " is-plate"}" data-area="${course.area}">
       ${course.image ? `<div class="course-hero-media"><img src="/assets/images/${courseHeroImage(course)}" width="1200" height="800"${focusStyle(courseHeroImage(course))} fetchpriority="high" alt="${photoAlt(course)}">${aiBadge(course)}</div>` : `<div class="course-hero-card">${courseVisual(course, "course-plate-detail", "eager")}</div>`}
       <div class="shell course-hero-copy"><p class="eyebrow">${course.region} 골프장 · ${escapeHtml(course.holes.split(" ")[0])}</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="course-keyfacts"><div><dt>✈ ${escapeHtml(airportShort(course))}에서</dt><dd>차량 약 ${escapeHtml(course.drive)}</dd></div><div><dt>위치</dt><dd>${escapeHtml(course.access)}</dd></div>${golfComboAreas.includes(course.area) ? `<div><dt>숙소</dt><dd><a href="#stay-combo">호치민 풀빌라·아파트 함께 상담 ↓</a></dd></div>` : ""}</dl><div class="hero-x-actions"><button class="button button-kakao button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡 한국어 상담</button><a class="button button-glass button-lg" href="/golf#airport-times">다른 골프장과 공항시간 비교</a></div></div>
-    </section>
+    </section>${quickQuoteCard(course)}
     <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf">베트남 골프장</a><span>›</span><a href="/golf#area-${course.area}">${escapeHtml(areaOf(course).name)}</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
     <section class="detail-hero shell${courseGalleryImages(course).length ? "" : " no-media"}">
       ${courseGalleryImages(course).length ? `<div class="detail-media"><div class="detail-gallery" aria-label="${escapeHtml(course.name)} 사진">${courseGalleryImages(course).map((file, index) => `<a href="/assets/images/${file}" target="_blank" rel="noopener"><img src="/assets/images/${file}" width="1200" height="800"${focusStyle(file)} loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 코스 사진 ${index + 2}"></a>`).join("")}</div></div>` : ""}
