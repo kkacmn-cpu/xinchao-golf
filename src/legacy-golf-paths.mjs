@@ -68,6 +68,10 @@ export const legacyGolfPaths = [
   { from: "binhduong/binhduong-royal-island-golf-and-villas", oldName: "로얄 아일랜드", to: "royal-island-golf-villas", note: "새 상세 2026-11-21(2차)" },
   { from: "ninhbinh/ninhbinh-royal-golf-course", oldName: "로얄 골프장", to: "royal-golf-club-ninh-binh", note: "새 상세 2026-11-21(2차)" },
   { from: "thanhhoa/thanhhoa-flc-golf-links-sam-son", oldName: "FLC 삼선", to: "flc-samson-golf-links", note: "새 상세 2026-11-21(2차)" },
+  { from: "quynhon/quynhon-flc-golf-links-quy-nhon", oldName: "FLC 퀴논", to: "flc-quy-nhon-golf-links", note: "새 상세 2026-11-21(중부)" },
+  { from: "quangtri/quangtri-flc-golf-links-quang-tri", oldName: "FLC 꽝찌", to: "flc-quang-tri-golf-links", note: "새 상세 2026-11-21(중부)" },
+  { from: "nghean/nghean-muong-thanh-golf-club-dien-lam", oldName: "므엉탄 지엔럼", to: "muong-thanh-dien-lam-golf", note: "새 상세 2026-11-21(중부)" },
+  { from: "hatinh/hatinh-muong-thanh-golf-club-xuan-thanh", oldName: "므엉탄 쑤언탄", to: "muong-thanh-xuan-thanh-golf", note: "새 상세 2026-11-21(중부)" },
 
   // 이 사이트에 상세가 없는 곳: 가까운 지역 골프장 목록으로
   { from: "hanoi/hanoi-van-tri-golf-club", oldName: "반찌", area: "hanoi" },
@@ -75,13 +79,9 @@ export const legacyGolfPaths = [
   { from: "quangninh/quangninh-mong-cai-golf-club", oldName: "몽까이", area: "haiphong" },
   { from: "thainguyen/thainguyen-glory-golf-club-thai-nguyen", oldName: "글로리 타이응우옌", area: "hanoi" },
   // 맞는 지역 구역이 없는 곳(북부 산간·북중부·중부 해안): 골프장 전체 목록
-  { from: "hatinh/hatinh-muong-thanh-golf-club-xuan-thanh", oldName: "므엉탄 쑤언탄", area: null },
   { from: "laocai/laocai-sapa-grand-golf-course", oldName: "사파 그랜드", area: null },
-  { from: "nghean/nghean-cua-lo-golf-and-resort", oldName: "끄어로", area: null },
-  { from: "nghean/nghean-muong-thanh-golf-club-dien-lam", oldName: "므엉탄 지엔럼", area: null },
-  { from: "quangtri/quangtri-blue-diamond-golf-link-quang-tri", oldName: "블루 다이아몬드 꽝찌", area: null },
-  { from: "quangtri/quangtri-flc-golf-links-quang-tri", oldName: "FLC 꽝찌", area: null },
-  { from: "quynhon/quynhon-flc-golf-links-quy-nhon", oldName: "FLC 퀴논", area: null },
+  { from: "nghean/nghean-cua-lo-golf-and-resort", oldName: "끄어로", area: "central" },
+  { from: "quangtri/quangtri-blue-diamond-golf-link-quang-tri", oldName: "블루 다이아몬드 꽝찌", area: "central" },
   { from: "yenbai/yenbai-yen-bai-star-golf", oldName: "옌바이 스타", area: null },
 ];
 

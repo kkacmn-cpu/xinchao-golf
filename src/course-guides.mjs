@@ -877,5 +877,60 @@ export const courseGuides = {
       ["메콩 골프와 같은 곳인가요?", "네. 공식 사이트 이름이 Royal Island Mekong Golf로, 메콩 골프로도 불립니다. 차량 기사님께는 떤우옌 박당 섬의 Royal Island Golf로 말씀해 주시면 됩니다."],
     ],
     related: ["hochiminh-golf-rental-car-guide.html", "guide/hochiminh-golf-heat-tee-time-plan.html"]
+  },
+  // 2026-11-21 중부 구역 4곳.
+  "flc-quy-nhon-golf-links": {
+    checkedAt: "2026-11-21",
+    sourceNote: "띠엔퐁 신문의 FLC 꾸이년 10주년 기사(2026-07), 라오동 신문의 2025년 국가 골프선수권 기사, 개장 당시 기사를 기준으로 코스 구성을 정리했습니다. 공항 시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["띠엔퐁(Tiền Phong) FLC 꾸이년 10년 기사 (2026-07, 36홀)", "https://tienphong.vn/10-nam-flc-quy-nhon-tien-phong-kien-tao-dien-mao-moi-cho-du-lich-quy-nhon-post1863896.tpo"],
+      ["라오동(Lao Động) 2025 국가 골프선수권 자라이 기사", "https://news.laodong.vn/the-thao/125-golfer-tranh-tai-giai-vo-dich-golf-quoc-gia-gia-lai-2025-1559586.ldo"],
+      ["VietnamPlus FLC 꾸이년 골프장 개장 기사 (2016)", "https://en.vietnamplus.vn/flc-quy-nhon-golf-course-opens-for-play-post88435.vnp"],
+      ["Planet Golf 슈미트-컬리 바닷가 코스 개장 기사 (2017)", "https://www.planetgolf.com/news/schmidt-curley-design-opens-new-seaside-course-in-vietnam"],
+    ],
+    faqs: [
+      ["바다 코스와 산 코스는 어떻게 다른가요?", "바다 코스는 2016년 니클라우스 디자인이 해변을 따라 설계한 18홀이고, 산 코스는 2017년 슈미트-컬리가 뒤쪽 언덕에 설계한 18홀입니다. 하루 18홀이면 원하시는 코스를 먼저 말씀해 주시고, 이틀이면 두 코스를 나눠 치는 일정을 권합니다."],
+      ["한국에서 어떻게 가나요?", "꾸이년 푸깟 공항이 가장 가깝고, 호치민·하노이에서 국내선으로 갈아타는 일정이 일반적입니다. 직항·전세기는 시기마다 달라 상담 때 날짜에 맞는 항공편과 공항 차량을 함께 확인해 드립니다."],
+    ],
+    related: ["guide/multi-city-transfer-day-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+  },
+  "flc-quang-tri-golf-links": {
+    checkedAt: "2026-11-21",
+    sourceNote: "TheLEADER(2026-09)와 디엔단도안응이엡(2026-04) 기사를 기준으로 코스 구성과 운영을 정리했습니다. 예전 이름 FLC 꽝빈 골프 링크스와 같은 곳입니다. 공항 시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["TheLEADER 동허이 해안도로·FLC 꽝찌 36홀 기사 (2026-09)", "https://theleader.vn/10-phut-tu-dong-hoi-cung-duong-ven-bien-cuc-dep-dan-toi-quan-the-nghi-duong-gan-2000ha-d47654.html"],
+      ["디엔단도안응이엡 FLC 꽝찌 단지 현장 기사 (2026-04)", "https://diendandoanhnghiep.vn/chu-tich-flc-thi-sat-quan-the-hon-23-000-ty-tai-quang-tri-khach-san-5-sao-chay-nuoc-rut-truoc-them-nam-du-lich-quoc-gia-2027-10177379.html"],
+    ],
+    faqs: [
+      ["FLC 꽝빈 골프장과 같은 곳인가요?", "네. 예전 꽝빈성의 FLC 꽝빈 골프 링크스가 2025년 성 통합 뒤 꽝찌성에 속하게 되어 FLC 꽝찌로도 부릅니다. 예약서와 차량 요청에는 두 이름을 함께 적어 드립니다."],
+      ["36홀이 모두 열려 있나요?", "포레스트 듄스와 오션 듄스 두 코스로 36홀 단지라고 소개돼 있습니다. 날짜에 따라 운영 코스가 달라질 수 있어, 예약 전에 그날 열리는 코스를 확인해 드립니다."],
+    ],
+    related: ["guide/multi-city-transfer-day-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+  },
+  "muong-thanh-dien-lam-golf": {
+    checkedAt: "2026-11-21",
+    sourceNote: "VIR·바오다우뜨의 개장 5주년 대회 기사(2025-10)를 기준으로 개장 시기와 코스 규모를 정리했습니다. 공항 시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["VIR 므엉탄 골프클럽 개장 5주년 대회 기사 (2025-10)", "https://vir.com.vn/muong-thanh-golf-club-marks-five-years-with-flagship-golf-tournament-137744.html"],
+      ["바오다우뜨(Báo Đầu tư) 므엉탄 골프 대회 2025 기사", "https://baodautu.vn/muong-thanh-golf-tournament-2025---hanh-trinh-chinh-phuc-dinh-cao-d399164.html"],
+    ],
+    faqs: [
+      ["빈 공항에서 디엔럼까지 얼마나 걸리나요?", "빈 국제공항에서 약 60km, 차로 1시간~1시간 20분입니다(지도 경로 추정). 빈 시내 숙박이면 아침 일찍 출발하는 일정을 권합니다."],
+      ["쑤언탄 골프장과 함께 칠 수 있나요?", "네. 두 곳 모두 므엉탄 그룹 골프장이고 빈 공항을 사이에 두고 북쪽(디엔럼)과 남쪽(쑤언탄)에 있어, 이틀에 나눠 치는 일정을 숙소·차량과 함께 상담합니다."],
+    ],
+    related: ["guide/multi-city-transfer-day-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+  },
+  "muong-thanh-xuan-thanh-golf": {
+    checkedAt: "2026-11-21",
+    sourceNote: "바오다우뜨의 개장 무렵 기사(2021)와 바오반호아의 2026년 하띤 기업인 골프 대회 기사를 기준으로 정리했습니다. 공항 시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["바오다우뜨(Báo Đầu tư) 므엉탄 쑤언탄 골프장 기사 (2021)", "https://baodautu.vn/san-golf-muong-thanh-golf-club-xuan-thanh-tao-suc-hut-cho-du-lich-ha-tinh-d138815.html"],
+      ["바오반호아(Báo Văn hóa) 하띤 기업인 골프 대회 기사 (2026-09)", "https://baovanhoa.vn/the-thao/giai-golf-ha-tinh-ket-noi-doanh-nghiep-quang-ba-diem-den-du-lich-269782.html"],
+    ],
+    faqs: [
+      ["빈 공항에서 쑤언탄까지 얼마나 걸리나요?", "빈 국제공항에서 약 28km, 차로 35~50분입니다(지도 경로 추정). 람강 다리를 건너 하띤성 쪽 쑤언탄 해변 관광지 안에 있습니다."],
+      ["골프장 근처에 묵을 곳이 있나요?", "쑤언탄 해변 관광지 안과 빈 시내에 숙소가 있습니다. 라운드 일정과 인원을 알려 주시면 숙소·차량을 함께 상담해 드립니다."],
+    ],
+    related: ["guide/multi-city-transfer-day-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
   }
 };
