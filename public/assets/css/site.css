@@ -992,3 +992,24 @@ img[src$="service-vehicle.webp"]{object-position:left center}
 /* 화면 점검 11-21 15:12: 13px 미만 글씨를 13px로, 휴대폰 하단 상담 바가 마지막 줄을 가리지 않게 본문 아래 여백을 넉넉히 */
 body .brand small,body .near-area,body .ai-badge,body .area-tile-count,body .signature-region,body .home-prep-fields label,body .home-prep-result li small,body .card-badges span,body .card-meta span,body .course-card .english-name,body .guide-list li > a > em,body .process-list li > span,body .site-footer .copyright,body .course-plate small,body .airport-table td small,body .detail-steps li,body .pay-guide-compact summary span,body .home-prep-caveat,body .plate-note,body .drive-note{font-size:13px}
 @media (max-width:700px){body{padding-bottom:calc(104px + env(safe-area-inset-bottom))}}
+/* 빠른 견적 카드(2026-11-21): 날짜·인원 칩 → 카톡 */
+.quick-quote{margin-top:28px;margin-bottom:8px;padding:22px;border:1px solid var(--line);border-radius:var(--radius-card);background:#fff;box-shadow:var(--shadow-card)}
+.quick-quote .qq-head h2{margin:4px 0 6px;font-size:1.35rem;line-height:1.35}
+.quick-quote .qq-head p{margin:0;color:var(--muted)}
+.qq-group{margin:16px 0 0;padding:0;border:0}
+.qq-group legend{margin-bottom:8px;font-weight:var(--fw-semi)}
+.qq-group legend small{font-size:13px;color:var(--muted);font-weight:400}
+.qq-chips{display:flex;flex-wrap:wrap;gap:8px}
+.qq-chip{min-height:44px;padding:8px 16px;border:1px solid var(--g-300);border-radius:999px;background:#fff;color:var(--ink);font:inherit;font-size:15px;cursor:pointer}
+.qq-chip[aria-pressed="true"]{border-color:var(--c-primary);background:var(--c-primary);color:#fff}
+.qq-input{margin-top:10px;min-height:44px;padding:8px 12px;border:1px solid var(--g-300);border-radius:10px;font:inherit;font-size:16px}
+.qq-arrival{margin-top:12px}
+.qq-arrival label{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:15px}
+.qq-arrival .qq-input{margin-top:0}
+.qq-arrival-result{margin:8px 0 0;color:var(--c-primary);font-weight:var(--fw-semi)}
+.quick-quote .qq-send{width:100%;max-width:420px;margin-top:20px}
+.qq-status{min-height:1.4em;margin:10px 0 0;font-weight:var(--fw-semi)}
+.qq-fallback{width:100%;min-height:150px;margin-top:8px;padding:10px;border:1px solid var(--g-300);border-radius:10px;font:inherit;font-size:15px}
+.qq-note{margin:8px 0 0;color:var(--muted);font-size:14px}
+@media (max-width:430px){.quick-quote{margin-left:12px;margin-right:12px;padding:18px 16px}}
+.qq-fallback[hidden],.qq-arrival[hidden],.qq-input[hidden]{display:none}
