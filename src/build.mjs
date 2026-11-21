@@ -10,6 +10,7 @@ import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs"
 import { pricing, pricingGuideHtml, pricingSummary } from "./pricing-guide.mjs";
 import { chooseRows, courseLabel, dayTripRoutes, directionOf, golfRentFaqs, golfRentPath, hcmCourses, longDistance, luggageNote, rentGo, rentPages, vehicleTypes, vietnambam } from "./rent-data.mjs";
 
+const flatName = (name) => name.replace(/\s*\(([^)]+)\)/g, "·$1");
 const areaOf = (course) => golfAreas.find((area) => area.key === course.area);
 // 지역 게시판: 골프장에 board가 있으면(붕따우·호트람·쩌우득 → vungtau) 그쪽, 없으면 권역의 게시판.
 const boardOf = (course) => course.board || areaOf(course).board;
@@ -17,10 +18,11 @@ const airportShort = (course) => (course.airport || areaOf(course).airport).repl
 // 사진 없는 골프장의 "코스 정보 카드"용 베트남 윤곽(직접 그린 단순 선, 외부 지도 아님)과 지역 점 위치(2026-11-21)
 const vnOutline = "M5.5 12.0 L9.0 8.0 L14.0 10.0 L19.0 8.0 L24.0 8.0 L29.0 6.0 L37.0 3.0 L42.0 7.0 L50.0 7.0 L51.0 13.0 L58.0 20.0 L64.0 21.0 L56.0 26.0 L51.0 29.0 L50.0 33.0 L44.0 38.0 L42.0 44.0 L40.0 48.0 L47.0 54.0 L49.0 58.0 L55.0 66.0 L62.0 72.0 L66.0 75.0 L71.0 82.0 L74.0 90.0 L76.0 98.0 L77.0 106.0 L76.0 112.0 L76.0 118.0 L73.0 123.0 L68.0 126.0 L60.0 131.0 L54.0 132.0 L51.0 134.0 L48.0 140.0 L43.0 143.0 L38.0 148.0 L34.0 150.0 L32.0 148.0 L33.0 141.0 L32.0 134.0 L29.0 132.0 L34.0 127.0 L42.0 126.0 L45.0 119.0 L49.0 117.0 L59.0 113.0 L59.0 106.0 L60.0 98.0 L59.0 89.0 L60.0 84.0 L56.0 78.0 L51.0 73.0 L49.0 69.0 L43.0 62.0 L40.0 56.0 L35.0 50.0 L29.0 47.0 L23.0 43.0 L27.0 39.0 L30.0 33.0 L24.0 27.0 L16.0 28.0 L11.0 23.0 Z";
 const vnAreaDot = { hcm: [51.0, 128.0], phanthiet: [65.0, 126.5], hanoi: [42.5, 26.0], haiphong: [51.0, 27.5], danang: [66.0, 75.5], nhatrang: [76.0, 113.5], dalat: [68.5, 116.5], phuquoc: [23.7, 133.5] };
-const vnMap = (area) => { const [cx, cy] = vnAreaDot[area] || vnAreaDot.hcm; return `<svg class="plate-map" viewBox="0 0 80 155" aria-hidden="true" focusable="false"><path d="${vnOutline}"/><ellipse cx="23.7" cy="133.5" rx="1.6" ry="3.2"/><circle class="plate-map-ring" cx="${cx}" cy="${cy}" r="6"/><circle class="plate-map-dot" cx="${cx}" cy="${cy}" r="3"/></svg>`; };
+// 지역 점에서 많이 떨어진 골프장(예: 하노이권의 탄호아 FLC 삼선)은 course.mapDot으로 점 위치를 따로 준다.
+const vnMap = (area, dot) => { const [cx, cy] = dot || vnAreaDot[area] || vnAreaDot.hcm; return `<svg class="plate-map" viewBox="0 0 80 155" aria-hidden="true" focusable="false"><path d="${vnOutline}"/><ellipse cx="23.7" cy="133.5" rx="1.6" ry="3.2"/><circle class="plate-map-ring" cx="${cx}" cy="${cy}" r="6"/><circle class="plate-map-dot" cx="${cx}" cy="${cy}" r="3"/></svg>`; };
 const courseVisual = (course, className, loading = "lazy") => course.image
   ? `<img src="/assets/images/${course.image}" width="1200" height="800"${focusStyle(course.image)} ${loading === "eager" ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'} alt="${escapeHtml(course.name)} 골프장 전경">`
-  : `<span class="course-plate ${className}" data-area="${course.area}" role="img" aria-label="${escapeHtml(course.name)} 코스 정보 카드">${vnMap(course.area)}<small>${escapeHtml(areaOf(course).name)} · ${escapeHtml(course.holes.split(" ")[0])}</small><strong>${escapeHtml(course.name)}</strong><em>✈ ${escapeHtml(airportShort(course))}에서 차량 약 <b>${escapeHtml(course.drive)}</b></em><span class="plate-note">실제 사진은 카톡 상담 때 보내 드립니다</span></span>`;
+  : `<span class="course-plate ${className}" data-area="${course.area}" role="img" aria-label="${escapeHtml(course.name)} 코스 정보 카드">${vnMap(course.area, course.mapDot)}<small>${escapeHtml(areaOf(course).name)} · ${escapeHtml(course.holes.split(" ")[0])}</small><strong>${escapeHtml(course.name)}</strong><em>✈ ${escapeHtml(airportShort(course))}에서 차량 약 <b>${escapeHtml(course.drive)}</b></em><span class="plate-note">실제 사진은 카톡 상담 때 보내 드립니다</span></span>`;
 // 상세 첫 화면 대표 사진: 기본은 course.image, 해상도가 낮으면 같은 골프장의 더 큰 사진을 쓴다(2026-11-21).
 const heroImageOverride = {
   "harmony-golf-park": "course-harmony.webp",
@@ -607,9 +609,10 @@ function courseDetailPage(course) {
     })),
   }];
   return layout({
-    title: keyword ? `${keyword} 가격·예약·위치 안내 (${course.name})` : `${course.name} 위치·공항 이동시간·예약 상담`,
+    // 이름에 괄호가 있으면(예: "쩌우득 골프장 (소나데지)") 괄호 안에서 다시 괄호가 겹치지 않게 "쩌우득 골프장·소나데지"로 쓴다.
+    title: keyword ? `${keyword} 가격·예약·위치 안내 (${flatName(course.name)})` : `${course.name} 위치·공항 이동시간·예약 상담`,
     description: keyword
-      ? `${keyword}(${course.name}, ${course.englishName}) 위치·규모(${course.holes})와 ${airportShort(course)}에서 약 ${course.drive} 이동, 요금 구성(그린피+예약대행 수수료)과 예약 방법을 한국어로 안내합니다.`
+      ? `${keyword}(${flatName(course.name)}, ${course.englishName}) 위치·규모(${course.holes})와 ${airportShort(course)}에서 약 ${course.drive} 이동, 요금 구성(그린피+예약대행 수수료)과 예약 방법을 한국어로 안내합니다.`
       : `${course.name}(${course.englishName}) 위치·규모와 ${airportShort(course)}에서 차량 약 ${course.drive} 이동 정보, 한국어 골프 일정 상담 안내.`,
     pathname: `/golf/${course.slug}.html`,
     active: "golf",
@@ -632,7 +635,7 @@ const regionBoards = [
   { key: "hochiminh", sections: true, name: "호치민", lead: "호치민 시내와 동나이·빈즈엉·롱안·붕따우·호트람 골프장 예약, 일정, 이동 글을 모았습니다.", words: ["호치민", "롱탄", "송베", "동나이", "빈즈엉", "붕따우", "호트람", "탄손넛", "투득", "트윈도브", "롱안", "떠이닌", "에메랄드", "정산", "하모니", "블러프스", "레만", "웨스트레이크", "로얄롱안", "판티엣", "무이네", "쩌우득"] },
   // 붕따우(2026-11-20 키워드 지도 "붕따우 골프" 칸): 호치민 게시판의 붕따우·호트람·쩌우득 글은 호치민에도 그대로 남는다(글은 두 게시판에 함께 보임).
   { key: "vungtau", sections: true, name: "붕따우", lead: "붕따우 해안·호트람과 호치민에서 붕따우 가는 길의 쩌우득 골프장 예약, 일정, 이동 글을 모았습니다.", words: ["붕따우", "호트람", "호짬", "블러프", "쩌우득", "소나데지"], extra: ["hochiminh-golf-travel-guide.html", "hochiminh-golf-rental-car-guide.html"] },
-  { key: "hanoi", sections: true, name: "하노이", lead: "하노이와 근교·닌빈·박닌, 하이퐁·하롱 골프장 예약, 단체 조편성, 공항·숙소 차량 연결 글을 모았습니다.", words: ["하노이", "하이퐁", "하롱", "도선", "찌린", "속선", "호아빈", "몬타나", "다이라이", "땀다오", "킹스아일랜드", "탄라인", "롱비엔", "스카이레이크", "반찌", "땀다오", "탐다오", "하롱", "닌빈", "짱안", "레전드 밸리", "스톤 밸리", "앰버 힐스", "스톤 하이랜드", "반랑", "실크패스", "동찌에우"] },
+  { key: "hanoi", sections: true, name: "하노이", lead: "하노이와 근교·닌빈·박닌, 하이퐁·하롱 골프장 예약, 단체 조편성, 공항·숙소 차량 연결 글을 모았습니다.", words: ["하노이", "하이퐁", "하롱", "도선", "찌린", "속선", "호아빈", "몬타나", "다이라이", "땀다오", "킹스아일랜드", "탄라인", "롱비엔", "스카이레이크", "반찌", "땀다오", "탐다오", "하롱", "닌빈", "짱안", "레전드 밸리", "스톤 밸리", "앰버 힐스", "스톤 하이랜드", "반랑", "실크패스", "동찌에우", "콘힐", "루크남", "로얄 닌빈", "옌탕", "삼선", "탄호아"] },
   { key: "danang", sections: true, name: "다낭·호이안", lead: "다낭·호이안·후에 골프장 예약과 티오프 확인, 가족·단체 일정 글을 모았습니다.", words: ["다낭", "호이안", "호이아나", "몽고메리", "바나힐", "랑꼬"] },
   { key: "nhatrang", sections: true, name: "나트랑", lead: "나트랑·캄란 리조트 골프 예약과 일정 글을 모았습니다.", words: ["나트랑", "캄란"] },
   { key: "phuquoc", sections: true, name: "푸꾸옥", lead: "푸꾸옥 골프 예약, 항공 도착과 티오프 연결, 포함 항목 확인 글을 모았습니다.", words: ["푸꾸옥"] },

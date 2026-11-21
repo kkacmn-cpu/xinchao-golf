@@ -821,5 +821,61 @@ export const courseGuides = {
       ["하노이에서 하루에 다녀올 수 있나요?", "하노이 시내에서 약 80km, 노이바이 공항에서 약 75km라 차로 1시간 반 안팎입니다(지도 경로 추정). 이른 티오프면 하노이에서 당일 왕복도 가능하고, 숙소·차량 동선은 날짜에 맞춰 함께 상담합니다."],
     ],
     related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
+  },
+  // 2026-11-21 새 상세 4곳(2차). 홀 수·개장 시기는 아래 출처에 있는 것만, 공항 시간은 site-data.mjs driveNote를 따른다.
+  "corn-hill-golf-resort": {
+    checkedAt: "2026-11-21",
+    sourceNote: "골프장 공식 사이트와 인민일보(난단)·띠엔퐁 신문의 2026년 박닌성 골프 대회 기사를 기준으로 코스 구성과 운영을 정리했습니다. 거리는 공식 안내, 시간은 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["Corn Hill Golf & Resort 공식 사이트(36홀 계획·설계·거리)", "https://cornhillgolfclub.vn/"],
+      ["난단(Nhân Dân) 제1회 박닌성 골프클럽 대항전 기사 (2026)", "https://nhandan.vn/ocop/giai-vo-dich-cac-cau-lac-bo-golf-tinh-bac-ninh-lan-thu-i-thanh-cong-tot-dep-post977992.html"],
+      ["띠엔퐁(Tiền Phong) 박닌성 골프 대회 발표 기사 (2026-05)", "https://tienphong.vn/cong-bo-giai-vo-dich-cac-cau-lac-bo-golf-tinh-bac-ninh-lan-thu-nhat-post1843834.tpo"],
+    ],
+    faqs: [
+      ["콘힐은 몇 홀인가요?", "전체 36홀(동쪽 18홀·서쪽 18홀)로 계획된 골프장이고, 지금은 2024년에 먼저 연 동쪽 18홀을 운영합니다. 서쪽 코스가 열렸는지는 예약 때 함께 확인합니다."],
+      ["앰버 힐스(옌중)와 가까운가요?", "둘 다 하노이 북동쪽 옛 박장성 지역이라 방향이 같습니다. 콘힐은 루크남 쪽으로 조금 더 동쪽에 있어, 두 곳을 이틀에 나눠 치는 일정도 숙소·차량과 함께 상담합니다."],
+    ],
+    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+  },
+  "royal-golf-club-ninh-binh": {
+    checkedAt: "2026-11-21",
+    sourceNote: "골프장 공식 사이트의 코스 소개·요금표와 닌빈성 관광 안내, 2025년 대회 기사를 기준으로 정리했습니다. 공식 요금표에는 27홀(킹+퀸) 항목이 있지만 같은 사이트 소개 쪽에는 36홀로 적혀 있어, 그날 운영 코스는 예약 때 확인합니다. 공항 시간은 지도 경로로 잰 추정치입니다.",
+    sources: [
+      ["Royal Golf Club 공식 사이트(킹·퀸 코스, 27홀 요금 항목)", "https://royalgolf.com.vn/en/"],
+      ["닌빈성 관광 안내 로얄 골프클럽 소개", "https://dulichninhbinh.com.vn/en/item/1840"],
+      ["The Investor 2025년 골프 대회 기사(로얄 골프클럽 개최)", "https://theinvestor.vn/140-players-compete-at-investors-golden-heart-golf-tournament-d17562.html"],
+    ],
+    faqs: [
+      ["로얄 닌빈은 몇 홀인가요?", "공식 요금표 기준으로 킹 코스 18홀과 퀸 코스 9홀, 모두 27홀을 운영합니다. 일반 라운드는 킹 18홀 기준으로 견적을 받고, 27홀은 따로 요청하세요. 자료마다 36홀·54홀(계획)로 적힌 곳도 있어 예약 때 그날 운영 코스를 확인합니다."],
+      ["짱안·스톤 밸리와 같은 날 묶을 수 있나요?", "세 곳 모두 하노이 남쪽 방향이라, 닌빈에서 하루 묵으면서 이틀에 나눠 치는 일정이 편합니다. 하루 두 곳은 이동 시간이 길어 권하지 않습니다."],
+    ],
+    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
+  },
+  "flc-samson-golf-links": {
+    checkedAt: "2026-11-21",
+    sourceNote: "띠엔퐁 신문의 FLC 삼선 개장 10주년 기사(2025-07)와 골프 여행 안내 사이트를 기준으로 홀 수·설계·개장 시기를 정리했습니다. 공항·시내 시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["띠엔퐁(Tiền Phong) FLC 삼선 10주년 기사 (2025-07, 18홀)", "https://tienphong.vn/mot-thap-ky-flc-sam-son-dau-an-tien-phong-tren-ban-do-nghi-duong-thanh-hoa-post1759305.tpo"],
+      ["FLC Samson Golf Links 정보(Golfasian, 니클라우스 디자인·2015년)", "https://golfasian.com/golf-courses/vietnam-golf-courses/hanoi/flc-samson-golf-links"],
+    ],
+    faqs: [
+      ["하노이에서 당일로 다녀올 수 있나요?", "하노이 시내에서 약 175km, 차로 2시간 40분~3시간 20분이라 당일 왕복은 힘듭니다. 삼선 해변 리조트에서 하루 이상 묵는 일정을 권하고, 숙소·차량을 함께 상담합니다."],
+      ["가까운 공항은 어디인가요?", "탄호아 토쑤언 공항(국내선)이 약 60km로 가장 가깝습니다. 호치민·다낭에서 국내선으로 오시면 하노이를 거치지 않아도 되고, 하노이 노이바이 공항에서는 약 200km입니다."],
+    ],
+    related: ["guide/multi-city-transfer-day-plan.html", "guide/hanoi-golf-group-course-transport-plan.html"]
+  },
+  "royal-island-golf-villas": {
+    checkedAt: "2026-11-21",
+    sourceNote: "골프장 공식 사이트와 빈즈엉 세계무역센터(WTC) 안내, 여행 정보 사이트를 기준으로 위치와 코스 구성을 정리했습니다. 공항 시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["Royal Island Mekong Golf 공식 사이트(18홀 운영·54홀 계획)", "https://www.mekonggolf.com"],
+      ["WTC 빈즈엉 로얄 아일랜드 골프 소개", "https://wtcbinhduong.vn/en/?p=4230"],
+      ["mia.vn 로얄 아일랜드 골프 안내 (2026)", "https://mia.vn/cam-nang-du-lich/royal-island-golf-villas-21096"],
+    ],
+    faqs: [
+      ["회원제 골프장인가요?", "회원·동반 손님 요금과 일반 손님 요금이 따로 안내돼 있어 비회원도 라운드할 수 있습니다. 날짜·시간에 따라 일반 손님 예약이 막히는 때가 있어, 원하시는 날짜를 알려 주시면 가능 여부를 먼저 확인해 드립니다."],
+      ["메콩 골프와 같은 곳인가요?", "네. 공식 사이트 이름이 Royal Island Mekong Golf로, 메콩 골프로도 불립니다. 차량 기사님께는 떤우옌 박당 섬의 Royal Island Golf로 말씀해 주시면 됩니다."],
+    ],
+    related: ["hochiminh-golf-rental-car-guide.html", "guide/hochiminh-golf-heat-tee-time-plan.html"]
   }
 };

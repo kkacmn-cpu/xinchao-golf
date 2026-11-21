@@ -64,13 +64,14 @@ export const legacyGolfPaths = [
   { from: "phutho/phutho-stone-highland-golf-and-resort", oldName: "스톤 하이랜드", to: "stone-highland-golf-resort", note: "옛 slug는 푸토로 적었지만 실제 위치는 박닌성(구 박장성) 비엣옌. 스톤 밸리와 다른 곳. 새 상세 2026-11-21" },
   { from: "phutho/phutho-van-lang-empire-golf-club", oldName: "반랑 엠파이어", to: "van-lang-empire-golf-club", note: "새 상세 2026-11-21" },
   { from: "quangninh/quangninh-silk-path-dong-trieu-golf-and-country-club", oldName: "실크패스 동찌에우", to: "silk-path-dong-trieu-golf", note: "새 상세 2026-11-21" },
+  { from: "bacgiang/bacgiang-corn-hill-luc-nam-bac-giang", oldName: "콘 힐 룩남", to: "corn-hill-golf-resort", note: "새 상세 2026-11-21(2차)" },
+  { from: "binhduong/binhduong-royal-island-golf-and-villas", oldName: "로얄 아일랜드", to: "royal-island-golf-villas", note: "새 상세 2026-11-21(2차)" },
+  { from: "ninhbinh/ninhbinh-royal-golf-course", oldName: "로얄 골프장", to: "royal-golf-club-ninh-binh", note: "새 상세 2026-11-21(2차)" },
+  { from: "thanhhoa/thanhhoa-flc-golf-links-sam-son", oldName: "FLC 삼선", to: "flc-samson-golf-links", note: "새 상세 2026-11-21(2차)" },
 
   // 이 사이트에 상세가 없는 곳: 가까운 지역 골프장 목록으로
-  { from: "bacgiang/bacgiang-corn-hill-luc-nam-bac-giang", oldName: "콘 힐 룩남", area: "hanoi" },
-  { from: "binhduong/binhduong-royal-island-golf-and-villas", oldName: "로얄 아일랜드", area: "hcm" },
   { from: "hanoi/hanoi-van-tri-golf-club", oldName: "반찌", area: "hanoi" },
   { from: "hoabinh/hoabinh-asean-onsen-golf-resort", oldName: "아세안 온센", area: "hanoi" },
-  { from: "ninhbinh/ninhbinh-royal-golf-course", oldName: "로얄 골프장", area: "hanoi" },
   { from: "quangninh/quangninh-mong-cai-golf-club", oldName: "몽까이", area: "haiphong" },
   { from: "thainguyen/thainguyen-glory-golf-club-thai-nguyen", oldName: "글로리 타이응우옌", area: "hanoi" },
   // 맞는 지역 구역이 없는 곳(북부 산간·북중부·중부 해안): 골프장 전체 목록
@@ -81,7 +82,6 @@ export const legacyGolfPaths = [
   { from: "quangtri/quangtri-blue-diamond-golf-link-quang-tri", oldName: "블루 다이아몬드 꽝찌", area: null },
   { from: "quangtri/quangtri-flc-golf-links-quang-tri", oldName: "FLC 꽝찌", area: null },
   { from: "quynhon/quynhon-flc-golf-links-quy-nhon", oldName: "FLC 퀴논", area: null },
-  { from: "thanhhoa/thanhhoa-flc-golf-links-sam-son", oldName: "FLC 삼선", area: null },
   { from: "yenbai/yenbai-yen-bai-star-golf", oldName: "옌바이 스타", area: null },
 ];
 

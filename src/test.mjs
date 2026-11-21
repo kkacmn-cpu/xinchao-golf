@@ -462,7 +462,7 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
 // 새 골프장 상세(2026-11-20 1일차 5곳): 상세 쪽·목록·지역 쪽·sitemap·llms.txt 반영, 금액 0, 출처 상자, 카톡 버튼, 사진 대신 안내 카드.
 {
   const { courseGuides } = await import("./course-guides.mjs");
-  const added = ["legend-valley-country-club", "stone-valley-golf-resort", "trang-an-golf-resort", "amber-hills-golf-resort", "golden-sands-golf-resort", "silk-path-dong-trieu-golf", "stone-highland-golf-resort", "van-lang-empire-golf-club"];
+  const added = ["legend-valley-country-club", "stone-valley-golf-resort", "trang-an-golf-resort", "amber-hills-golf-resort", "golden-sands-golf-resort", "silk-path-dong-trieu-golf", "stone-highland-golf-resort", "van-lang-empire-golf-club", "corn-hill-golf-resort", "royal-golf-club-ninh-binh", "flc-samson-golf-links", "royal-island-golf-villas"];
   const plain = (html) => html.replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
   const golfIndex = await readFile(path.join(dist, "golf/index.html"), "utf8");
   const boardOf = (course) => course.board || golfAreas.find((area) => area.key === course.area).board;
@@ -493,7 +493,7 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   const home = await readFile(path.join(dist, "index.html"), "utf8");
   if (!home.includes(`${courses.length}곳`)) failures.push(`홈에 골프장 수(${courses.length}곳) 없음`);
   // 옛 사이트에서 지역 목록으로 보내던 5곳은 새 상세로 다시 연결한다.
-  for (const [from, to] of [["bacgiang/bacgiang-amber-hill-golf-and-resort", "amber-hills-golf-resort"], ["hanam/hanam-legend-valley-country-club", "legend-valley-country-club"], ["hanam/hanam-stone-valley-golf-and-resort", "stone-valley-golf-resort"], ["ninhbinh/ninhbinh-trang-an-golf-and-resort", "trang-an-golf-resort"], ["hue/hue-golden-sands-golf-resort", "golden-sands-golf-resort"], ["phutho/phutho-stone-highland-golf-and-resort", "stone-highland-golf-resort"], ["phutho/phutho-van-lang-empire-golf-club", "van-lang-empire-golf-club"], ["quangninh/quangninh-silk-path-dong-trieu-golf-and-country-club", "silk-path-dong-trieu-golf"]]) {
+  for (const [from, to] of [["bacgiang/bacgiang-amber-hill-golf-and-resort", "amber-hills-golf-resort"], ["hanam/hanam-legend-valley-country-club", "legend-valley-country-club"], ["hanam/hanam-stone-valley-golf-and-resort", "stone-valley-golf-resort"], ["ninhbinh/ninhbinh-trang-an-golf-and-resort", "trang-an-golf-resort"], ["hue/hue-golden-sands-golf-resort", "golden-sands-golf-resort"], ["phutho/phutho-stone-highland-golf-and-resort", "stone-highland-golf-resort"], ["phutho/phutho-van-lang-empire-golf-club", "van-lang-empire-golf-club"], ["quangninh/quangninh-silk-path-dong-trieu-golf-and-country-club", "silk-path-dong-trieu-golf"], ["bacgiang/bacgiang-corn-hill-luc-nam-bac-giang", "corn-hill-golf-resort"], ["binhduong/binhduong-royal-island-golf-and-villas", "royal-island-golf-villas"], ["ninhbinh/ninhbinh-royal-golf-course", "royal-golf-club-ninh-binh"], ["thanhhoa/thanhhoa-flc-golf-links-sam-son", "flc-samson-golf-links"]]) {
     const entry = legacyGolfPaths.find((item) => item.from === from);
     if (legacyGolfDestination(entry ?? {}) !== `/golf/${to}.html`) failures.push(`옛 경로 재연결 누락: ${from} → ${to}`);
   }
@@ -519,7 +519,7 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   const bamUrls = { hcm: "https://vietnambam.com/hochiminh/", danang: "https://vietnambam.com/danang/" };
   const rentPaths = ["/rent", ...rentPages.map((page) => `/rent/${page.slug}.html`), ...hcmCourses.map(golfRentPath)];
   const goOf = (pathname) => pathname === "/rent" ? null : (rentPages.find((page) => `/rent/${page.slug}.html` === pathname)?.go ?? "golf");
-  if (hcmCourses.length !== 14) failures.push(`골프장별 차량 쪽 ${hcmCourses.length}곳 (호치민권 14곳 예상)`);
+  if (hcmCourses.length !== 15) failures.push(`골프장별 차량 쪽 ${hcmCourses.length}곳 (호치민권 15곳 예상, 11-21 로얄 아일랜드 추가)`);
   for (const pathname of rentPaths) {
     const relative = pathname === "/rent" ? "rent/index.html" : pathname.slice(1);
     if (!await exists(path.join(dist, relative))) { failures.push(`렌트 쪽 없음: ${relative}`); continue; }
