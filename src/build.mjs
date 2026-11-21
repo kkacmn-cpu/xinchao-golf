@@ -1153,7 +1153,8 @@ async function build() {
     trailingSlash: false,
     redirects,
     // /go/<코드> 상담 링크(00_운영본부/상담링크/make_go_pages.py가 public/go/<코드>.html 생성)
-    rewrites: [{ source: "/go/:code", destination: "/go/:code.html" }],
+    // /zh/price: 위챗으로 보내는 중국어 가격 안내(public/zh/price.html, noindex·사이트맵 제외, 생성기 사업부/신짜오/사이트/도구/make_zh_price.py)
+    rewrites: [{ source: "/go/:code", destination: "/go/:code.html" }, { source: "/zh/price", destination: "/zh/price.html" }],
     headers,
   };
   await writeFile(path.join(root, "vercel.json"), `${JSON.stringify(vercelConfig, null, 2)}\n`);
