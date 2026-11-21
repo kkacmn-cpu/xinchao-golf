@@ -680,9 +680,8 @@ export const courses = [
     drive: "2시간 40분~3시간 40분",
     driveKm: "약 210km",
     driveNote: "판티엣 공항이 아직 운항 전이라 호치민 떤선녓 공항 기준입니다.",
-    // 사진 hq: 회사 공유폴더 보유 사진, 원 출처 미확인(요청 시 즉시 내림). 2026-11-21 반영.
-    image: "courses/golf-sea-links-golf-hq1.webp",
-    gallery: ["courses/golf-sea-links-golf.webp", "courses/golf-sea-links-golf-1.webp", "courses/golf-sea-links-golf-2.webp", "courses/golf-sea-links-golf-3.webp"],
+    image: "courses/golf-sea-links-golf.webp",
+    gallery: ["courses/golf-sea-links-golf-1.webp", "courses/golf-sea-links-golf-2.webp", "courses/golf-sea-links-golf-3.webp"],
     summary: "무이네 바닷가 언덕 위의 18홀 링크스형 코스입니다. 대부분 홀에서 바다가 보이고 바람의 영향을 많이 받습니다.",
     points: ["바다 전망 18홀", "링크스 스타일", "단지 안 숙박"],
   },
