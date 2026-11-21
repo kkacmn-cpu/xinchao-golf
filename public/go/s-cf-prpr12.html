@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>신짜오 골프</title>
+<!-- /go/s-cf-prpr12: 채널(cf-prpr12)에서 사이트로 넘어온 손님을 관제판에 기록한 뒤 ?to=(같은 사이트 경로만, 없으면 홈)로 이동 -->
+<script>
+(function(){
+  var raw=new URLSearchParams(location.search).get('to')||'/';
+  // 같은 사이트 경로만 허용: /로 시작, //·역슬래시·공백·제어문자 금지
+  var ok=raw.charAt(0)==="/"&&raw.charAt(1)!=="/";
+  for(var i=0;ok&&i<raw.length;i++){var c=raw.charCodeAt(i);if(c<=32||c===92||c===127)ok=false;}
+  var safe=ok?raw:"/";
+  window.__goTo=safe;
+  var moved=false;
+  window.__goNow=function(){if(moved)return;moved=true;location.replace(safe);};
+  setTimeout(window.__goNow,1500); // 기록 코드가 늦거나 막혀도 이동
+})();
+</script>
+<noscript><meta http-equiv="refresh" content="0;url=/"></noscript>
+<script src="https://company-site-monitor.vercel.app/tracker.js?site=xinchao-golf" data-company-site-tracker="xinchao-golf" id="co-tracker" async onload="setTimeout(window.__goNow,400)" onerror="window.__goNow()"></script>
+<style>body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;color:#555}</style>
+</head>
+<body>
+<main><h1 style="font-size:17px;font-weight:600;margin:0 0 8px">잠시 후 이동합니다</h1><p><a href="/" id="go-link">바로 가기</a></p></main>
+<script>document.getElementById('go-link').href=window.__goTo;</script>
+</body>
+</html>
