@@ -509,7 +509,8 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     if (course.image && !course.aiStaged && !course.photoSource) failures.push(`${relative}: 저작권 확인 전 사진 사용`);
     if (course.photoSource) {
       if (/^courses\/ai-/.test(course.image) || html.includes('<span class="ai-badge">AI 연출 이미지</span>')) failures.push(`${relative}: 실제 사진인데 AI 연출 표시`);
-      if (!html.includes(`alt="${course.name.replaceAll("&", "&amp;")} 골프장 전경"`)) failures.push(`${relative}: 실제 사진 alt 누락`);
+      if (!html.includes(`alt="${course.name.replaceAll("&", "&amp;")}${/골프장$/.test(course.name) ? "" : " 골프장"} 전경"`)) failures.push(`${relative}: 실제 사진 alt 누락`);
+      if (html.includes("골프장 골프장")) failures.push(`${relative}: alt에 골프장 중복`);
     } else if (course.aiStaged) {
       if (!/^courses\/ai-[a-z0-9-]+\.webp$/.test(course.image)) failures.push(`${relative}: AI 연출 사진 파일명 규칙(courses/ai-*.webp) 아님`);
       if (!html.includes('<span class="ai-badge">AI 연출 이미지</span>') || !html.includes('alt="골프 연출 이미지"') || html.includes(`alt="${course.name} 골프장 전경"`)) failures.push(`${relative}: AI 연출 표시·alt 누락`);
