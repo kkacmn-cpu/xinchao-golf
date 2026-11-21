@@ -983,3 +983,9 @@ img[src$="service-vehicle.webp"]{object-position:left center}
 /* AI 연출 대표 사진 표시(2026-11-21): 실제 골프장 사진이 아님을 알린다 */
 .near-row a{position:relative}
 .ai-badge{position:absolute;top:10px;left:10px;z-index:2;padding:4px 9px;border-radius:999px;background:rgba(10,20,16,.72);color:#fff;font-size:.72rem;font-weight:600;line-height:1.25;letter-spacing:0;pointer-events:none}
+/* 지역 타일 9개(2026-11-21 중부 추가): 마지막 줄에 하나만 남으면 가로로 채운다. 타일의 AI 연출 표시는 오른쪽 위 */
+.area-tile .ai-badge{left:auto;right:12px;top:14px}
+@media (min-width:1001px){.area-tiles .area-tile:last-child:nth-child(4n+1){grid-column:1/-1;aspect-ratio:auto;min-height:220px}}
+@media (max-width:1000px){.area-tiles .area-tile:last-child:nth-child(odd){grid-column:1/-1;aspect-ratio:auto;min-height:170px}}
+/* 좁은 휴대폰(≤430px): 지역 타일이 4:3 고정이면 개수 배지·이름·공항 줄이 겹쳐서 내용 높이에 맞춘다(2026-11-21) */
+@media (max-width:430px){.area-tiles .area-tile{aspect-ratio:auto;min-height:156px;padding-top:52px}}

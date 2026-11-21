@@ -888,6 +888,26 @@
       "permanent": true
     },
     {
+      "source": "/golf/quynhon/quynhon-flc-golf-links-quy-nhon",
+      "destination": "/golf/flc-quy-nhon-golf-links.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf/quangtri/quangtri-flc-golf-links-quang-tri",
+      "destination": "/golf/flc-quang-tri-golf-links.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf/nghean/nghean-muong-thanh-golf-club-dien-lam",
+      "destination": "/golf/muong-thanh-dien-lam-golf.html",
+      "permanent": true
+    },
+    {
+      "source": "/golf/hatinh/hatinh-muong-thanh-golf-club-xuan-thanh",
+      "destination": "/golf/muong-thanh-xuan-thanh-golf.html",
+      "permanent": true
+    },
+    {
       "source": "/golf/hanoi/hanoi-van-tri-golf-club",
       "destination": "/golf#area-hanoi",
       "permanent": true
@@ -908,38 +928,18 @@
       "permanent": true
     },
     {
-      "source": "/golf/hatinh/hatinh-muong-thanh-golf-club-xuan-thanh",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
       "source": "/golf/laocai/laocai-sapa-grand-golf-course",
       "destination": "/golf",
       "permanent": true
     },
     {
       "source": "/golf/nghean/nghean-cua-lo-golf-and-resort",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
-      "source": "/golf/nghean/nghean-muong-thanh-golf-club-dien-lam",
-      "destination": "/golf",
+      "destination": "/golf#area-central",
       "permanent": true
     },
     {
       "source": "/golf/quangtri/quangtri-blue-diamond-golf-link-quang-tri",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
-      "source": "/golf/quangtri/quangtri-flc-golf-links-quang-tri",
-      "destination": "/golf",
-      "permanent": true
-    },
-    {
-      "source": "/golf/quynhon/quynhon-flc-golf-links-quy-nhon",
-      "destination": "/golf",
+      "destination": "/golf#area-central",
       "permanent": true
     },
     {

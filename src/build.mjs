@@ -17,7 +17,7 @@ const boardOf = (course) => course.board || areaOf(course).board;
 const airportShort = (course) => (course.airport || areaOf(course).airport).replace(/\s*\(.*\)$/, "");
 // 사진 없는 골프장의 "코스 정보 카드"용 베트남 윤곽(직접 그린 단순 선, 외부 지도 아님)과 지역 점 위치(2026-11-21)
 const vnOutline = "M5.5 12.0 L9.0 8.0 L14.0 10.0 L19.0 8.0 L24.0 8.0 L29.0 6.0 L37.0 3.0 L42.0 7.0 L50.0 7.0 L51.0 13.0 L58.0 20.0 L64.0 21.0 L56.0 26.0 L51.0 29.0 L50.0 33.0 L44.0 38.0 L42.0 44.0 L40.0 48.0 L47.0 54.0 L49.0 58.0 L55.0 66.0 L62.0 72.0 L66.0 75.0 L71.0 82.0 L74.0 90.0 L76.0 98.0 L77.0 106.0 L76.0 112.0 L76.0 118.0 L73.0 123.0 L68.0 126.0 L60.0 131.0 L54.0 132.0 L51.0 134.0 L48.0 140.0 L43.0 143.0 L38.0 148.0 L34.0 150.0 L32.0 148.0 L33.0 141.0 L32.0 134.0 L29.0 132.0 L34.0 127.0 L42.0 126.0 L45.0 119.0 L49.0 117.0 L59.0 113.0 L59.0 106.0 L60.0 98.0 L59.0 89.0 L60.0 84.0 L56.0 78.0 L51.0 73.0 L49.0 69.0 L43.0 62.0 L40.0 56.0 L35.0 50.0 L29.0 47.0 L23.0 43.0 L27.0 39.0 L30.0 33.0 L24.0 27.0 L16.0 28.0 L11.0 23.0 Z";
-const vnAreaDot = { hcm: [51.0, 128.0], phanthiet: [65.0, 126.5], hanoi: [42.5, 26.0], haiphong: [51.0, 27.5], danang: [66.0, 75.5], nhatrang: [76.0, 113.5], dalat: [68.5, 116.5], phuquoc: [23.7, 133.5] };
+const vnAreaDot = { hcm: [51.0, 128.0], phanthiet: [65.0, 126.5], hanoi: [42.5, 26.0], haiphong: [51.0, 27.5], danang: [66.0, 75.5], central: [52.0, 63.0], nhatrang: [76.0, 113.5], dalat: [68.5, 116.5], phuquoc: [23.7, 133.5] };
 // 지역 점에서 많이 떨어진 골프장(예: 하노이권의 탄호아 FLC 삼선)은 course.mapDot으로 점 위치를 따로 준다.
 const vnMap = (area, dot) => { const [cx, cy] = dot || vnAreaDot[area] || vnAreaDot.hcm; return `<svg class="plate-map" viewBox="0 0 80 155" aria-hidden="true" focusable="false"><path d="${vnOutline}"/><ellipse cx="23.7" cy="133.5" rx="1.6" ry="3.2"/><circle class="plate-map-ring" cx="${cx}" cy="${cy}" r="6"/><circle class="plate-map-dot" cx="${cx}" cy="${cy}" r="3"/></svg>`; };
 const courseVisual = (course, className, loading = "lazy") => course.image
@@ -375,7 +375,7 @@ function homePage() {
     <section class="area-strip" aria-label="지역별 골프장">
       <div class="shell">
         <div class="section-heading"><div><p class="eyebrow">어디로 가시나요?</p><h2>지역을 고르면 골프장과 공항 시간이 바로 나옵니다</h2></div><a class="text-link" href="/golf">전체 보기 →</a></div>
-        <div class="area-tiles">${golfAreas.map((area) => `<a class="area-tile" href="/golf#area-${area.key}" style="--tile-img:url('/assets/images/${area.image}')"><span class="area-tile-count">${courses.filter((course) => course.area === area.key).length}곳</span><strong>${escapeHtml(area.name)}</strong><em>✈ ${escapeHtml(area.airport.replace(/\s*\(.*\)$/, ""))} 기준</em></a>`).join("")}</div>
+        <div class="area-tiles">${golfAreas.map((area) => `<a class="area-tile" href="/golf#area-${area.key}" style="--tile-img:url('/assets/images/${area.image}')">${area.image.startsWith("courses/ai-") ? `<span class="ai-badge">AI 연출 이미지</span>` : ""}<span class="area-tile-count">${courses.filter((course) => course.area === area.key).length}곳</span><strong>${escapeHtml(area.name)}</strong><em>✈ ${escapeHtml(area.airport.replace(/\s*\(.*\)$/, ""))} 기준</em></a>`).join("")}</div>
       </div>
     </section>
     <section class="signature" aria-labelledby="signature-title">
