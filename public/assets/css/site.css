@@ -989,3 +989,6 @@ img[src$="service-vehicle.webp"]{object-position:left center}
 @media (max-width:1000px){.area-tiles .area-tile:last-child:nth-child(odd){grid-column:1/-1;aspect-ratio:auto;min-height:170px}}
 /* 좁은 휴대폰(≤430px): 지역 타일이 4:3 고정이면 개수 배지·이름·공항 줄이 겹쳐서 내용 높이에 맞춘다(2026-11-21) */
 @media (max-width:430px){.area-tiles .area-tile{aspect-ratio:auto;min-height:156px;padding-top:52px}}
+/* 화면 점검 11-21 15:12: 13px 미만 글씨를 13px로, 휴대폰 하단 상담 바가 마지막 줄을 가리지 않게 본문 아래 여백을 넉넉히 */
+body .brand small,body .near-area,body .ai-badge,body .area-tile-count,body .signature-region,body .home-prep-fields label,body .home-prep-result li small,body .card-badges span,body .card-meta span,body .course-card .english-name,body .guide-list li > a > em,body .process-list li > span,body .site-footer .copyright,body .course-plate small,body .airport-table td small,body .detail-steps li,body .pay-guide-compact summary span,body .home-prep-caveat,body .plate-note,body .drive-note{font-size:13px}
+@media (max-width:700px){body{padding-bottom:calc(104px + env(safe-area-inset-bottom))}}
