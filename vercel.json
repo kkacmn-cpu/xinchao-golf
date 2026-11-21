@@ -952,6 +952,10 @@
     {
       "source": "/go/:code",
       "destination": "/go/:code.html"
+    },
+    {
+      "source": "/zh/price",
+      "destination": "/zh/price.html"
     }
   ],
   "headers": [

@@ -45,6 +45,8 @@ const exists = async (target) => { try { await access(target); return true; } ca
 for (const file of htmlFiles) {
   const relative = path.relative(dist, file).split(path.sep).join("/");
   if (/^(google|naver)[^/]+\.html$/i.test(relative)) continue;
+  // /zh/price: 위챗으로 보내는 중국어 가격 안내(noindex). 한국어 쪽 공통 검사 대신 아래 전용 검사.
+  if (relative.startsWith("zh/")) continue;
   const html = await readFile(file, "utf8");
   const redirect = /http-equiv="refresh"/i.test(html);
   if (!redirect) {
@@ -456,6 +458,16 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     if (hit) failures.push(`/go/golf-combo 금액 표기(${hit[0]})`);
   }
   if (/\/go\//.test(sitemap)) failures.push("사이트맵에 /go/ 주소 포함");
+  // /zh/price(11-21 【중국】 부킹 요청·총괄 승인): noindex, 관제판 tracker, 위챗 ID 복사, 10곳, 사이트맵·llms 제외, 카톡·전화 없음, 금지어(最·第一) 없음.
+  {
+    const zh = await readFile(path.join(dist, "zh/price.html"), "utf8");
+    if (!zh.includes('<meta name="robots" content="noindex,nofollow">')) failures.push("/zh/price noindex 누락");
+    if (!zh.includes('tracker.js?site=xinchao-golf')) failures.push("/zh/price 관제판 tracker 누락");
+    if (!zh.includes('data-copy="kkacmnvn"')) failures.push("/zh/price 위챗 ID 복사 단추 누락");
+    if (count(zh, /<li class="row">/g) !== 10) failures.push(`/zh/price 골프장 ${count(zh, /<li class="row">/g)}곳 (예상 10곳)`);
+    if (/kakao|tel:/i.test(zh) || /最|第一/.test(zh)) failures.push("/zh/price 카톡·전화·금지어 포함");
+    if (sitemap.includes("/zh/")) failures.push("사이트맵에 /zh/ 주소 포함");
+  }
   if (/\/go\//.test(llms)) failures.push("llms.txt에 /go/ 주소 포함");
 }
 
