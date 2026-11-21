@@ -61,6 +61,9 @@ export const legacyGolfPaths = [
   { from: "hanam/hanam-stone-valley-golf-and-resort", oldName: "스톤 밸리", to: "stone-valley-golf-resort", note: "새 상세 2026-11-20" },
   { from: "ninhbinh/ninhbinh-trang-an-golf-and-resort", oldName: "짱안", to: "trang-an-golf-resort", note: "새 상세 2026-11-20" },
   { from: "hue/hue-golden-sands-golf-resort", oldName: "골든 샌즈", to: "golden-sands-golf-resort", note: "새 상세 2026-11-20" },
+  { from: "phutho/phutho-stone-highland-golf-and-resort", oldName: "스톤 하이랜드", to: "stone-highland-golf-resort", note: "옛 slug는 푸토로 적었지만 실제 위치는 박닌성(구 박장성) 비엣옌. 스톤 밸리와 다른 곳. 새 상세 2026-11-21" },
+  { from: "phutho/phutho-van-lang-empire-golf-club", oldName: "반랑 엠파이어", to: "van-lang-empire-golf-club", note: "새 상세 2026-11-21" },
+  { from: "quangninh/quangninh-silk-path-dong-trieu-golf-and-country-club", oldName: "실크패스 동찌에우", to: "silk-path-dong-trieu-golf", note: "새 상세 2026-11-21" },
 
   // 이 사이트에 상세가 없는 곳: 가까운 지역 골프장 목록으로
   { from: "bacgiang/bacgiang-corn-hill-luc-nam-bac-giang", oldName: "콘 힐 룩남", area: "hanoi" },
@@ -68,10 +71,7 @@ export const legacyGolfPaths = [
   { from: "hanoi/hanoi-van-tri-golf-club", oldName: "반찌", area: "hanoi" },
   { from: "hoabinh/hoabinh-asean-onsen-golf-resort", oldName: "아세안 온센", area: "hanoi" },
   { from: "ninhbinh/ninhbinh-royal-golf-course", oldName: "로얄 골프장", area: "hanoi" },
-  { from: "phutho/phutho-stone-highland-golf-and-resort", oldName: "스톤 하이랜드", area: "hanoi" },
-  { from: "phutho/phutho-van-lang-empire-golf-club", oldName: "반랑 엠파이어", area: "hanoi" },
   { from: "quangninh/quangninh-mong-cai-golf-club", oldName: "몽까이", area: "haiphong" },
-  { from: "quangninh/quangninh-silk-path-dong-trieu-golf-and-country-club", oldName: "실크패스 동찌에우", area: "haiphong" },
   { from: "thainguyen/thainguyen-glory-golf-club-thai-nguyen", oldName: "글로리 타이응우옌", area: "hanoi" },
   // 맞는 지역 구역이 없는 곳(북부 산간·북중부·중부 해안): 골프장 전체 목록
   { from: "hatinh/hatinh-muong-thanh-golf-club-xuan-thanh", oldName: "므엉탄 쑤언탄", area: null },

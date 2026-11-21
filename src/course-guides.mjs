@@ -779,5 +779,47 @@ export const courseGuides = {
       ["골든 샌즈는 호이안의 골든 샌즈 리조트와 같은 곳인가요?", "아닙니다. 골든 샌즈 골프 리조트는 후에 시내에서 동쪽으로 약 20km 떨어진 바닷가 골프장이고, 이름이 비슷한 호이안의 호텔과는 다른 곳입니다. 숙소와 골프장 주소를 따로 적어 주시면 차량 동선을 맞춰 드립니다."],
     ],
     related: ["guide/laguna-lang-co-golf-airport-hue-route-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+  },
+  // 2026-11-21 새 상세 3곳. 홀 수·개장 시기는 아래 출처에 있는 것만, 공항 시간은 site-data.mjs driveNote(도로 경로 추정)를 따른다.
+  "silk-path-dong-trieu-golf": {
+    checkedAt: "2026-11-21",
+    sourceNote: "꽝닌성 신문의 개장 기사와 골프 설계 매체 기사를 기준으로 개장 시기와 코스 구성을 정리했습니다. 공항 이동시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["꽝닌성 신문(Báo Quảng Ninh) 실크패스 골프장 개장 기사 (2025-01)", "https://english.baoquangninh.vn/silk-path-golf-course-inaugurated-in-dong-trieu-city-3339300.html"],
+      ["Golf Course Architecture 팔도 디자인 코스 개장 기사 (2025-04)", "https://www.golfcoursearchitecture.net/content/new-faldo-design-course-opens-at-silk-path-club-in-vietnam"],
+    ],
+    faqs: [
+      ["실크패스 동찌에우는 몇 홀인가요?", "2025년 1월 11일 문을 열 때 대회 기준의 챔피언십 18홀과, 처음 치는 분도 돌기 쉬운 9홀 코스를 함께 열어 모두 27홀입니다. 일반 라운드는 18홀 코스를 기준으로 견적을 받고, 9홀 코스는 따로 요청하세요."],
+      ["하노이와 하롱 중 어디서 가는 게 편한가요?", "골프장은 하노이와 하롱 사이 꽝닌성 동찌에우에 있어, 하노이 시내에서 약 95km, 하이퐁 깟비 공항에서 약 65km입니다(지도 경로 추정). 하노이에서 하롱으로 넘어가는 날 중간에 라운드를 넣는 동선도 숙소·차량과 함께 상담합니다."],
+    ],
+    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
+  },
+  "stone-highland-golf-resort": {
+    checkedAt: "2026-11-21",
+    sourceNote: "박장성(지금 박닌성) 신문의 1단계 개장 기사와 골프 설계 매체 기사를 기준으로 코스 구성을 정리했습니다. 공항 이동시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["박닌성 신문 비엣옌(스톤 하이랜드) 골프장 1단계 개장 기사 (2023-10)", "https://en.baobacninhtv.vn/first-phase-of-viet-yen-golf-course-inaugurated.bbg"],
+      ["Golf Course Architecture 스톤 하이랜드 브라이언 컬리 코스 개장 기사 (2023-12)", "https://www.golfcoursearchitecture.net/content/new-brian-curley-course-opens-at-stone-highland-in-vietnam"],
+    ],
+    faqs: [
+      ["스톤 하이랜드와 스톤 밸리는 같은 골프장인가요?", "아닙니다. 같은 회사(쯔엉안 골프)가 만들고 둘 다 브라이언 컬리가 설계했지만, 스톤 하이랜드는 하노이 북동쪽 박닌성(구 박장성) 비엣옌, 스톤 밸리는 하노이 남쪽 닌빈성(구 하남성)에 있어 방향이 반대입니다. 예약서와 차량 요청에 Stone Highland라는 영문 이름을 꼭 적으세요."],
+      ["스톤 하이랜드는 몇 홀인가요?", "2023년 10월 1단계 18홀을 열었고, 전체는 36홀 계획입니다. 36홀로 소개하는 자료도 있지만 두 번째 18홀은 공사 중으로 소개돼 있어, 지금은 운영 중인 18홀 기준으로 상담합니다."],
+    ],
+    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+  },
+  "van-lang-empire-golf-club": {
+    checkedAt: "2026-11-21",
+    sourceNote: "베트남 신문 인민일보(난단) 기사와 골프 설계 매체 기사, 골프 여행 안내 사이트를 기준으로 개장 단계와 코스 구성을 정리했습니다. 공항 이동시간은 공식 안내가 없어 지도 경로로 잰 추정치입니다. 요금·티타임과 당일 운영은 상담 때 그날 기준으로 확인해 드립니다.",
+    sources: [
+      ["난단(Nhân Dân) 18홀 운영 준비 기사 (2025-04)", "https://nhandan.vn/chuan-bi-van-hanh-18-ho-san-golf-tt-van-lang-empire-post870980.html"],
+      ["난단(Nhân Dân) 반랑 레거시 골프 대회 기사 (2026-06)", "https://nhandan.vn/ocop/an-tuong-giai-golf-thuong-nien-van-lang-legacy-golf-journey-2026-post966265.html"],
+      ["Golf Course Architecture 반랑 엠파이어 개장 예정 기사", "https://www.golfcoursearchitecture.net/content/PgrID/573/PageID/3/artmid/574/articleid/16226"],
+      ["Văn Lang Empire T&T 골프장 정보(Golfasian)", "https://www.golfasian.com/golf-courses/vietnam-golf-courses/hanoi/van-lang-empire-tt-golf-club/"],
+    ],
+    faqs: [
+      ["반랑 엠파이어는 몇 홀인가요?", "2024년 10월 첫 9홀을 열었고, 2026년 6월 난단 기사 기준으로 18홀을 운영하고 있습니다. 전체는 36홀 계획이라 나머지 코스가 열렸는지는 예약 때 함께 확인합니다."],
+      ["하노이에서 하루에 다녀올 수 있나요?", "하노이 시내에서 약 80km, 노이바이 공항에서 약 75km라 차로 1시간 반 안팎입니다(지도 경로 추정). 이른 티오프면 하노이에서 당일 왕복도 가능하고, 숙소·차량 동선은 날짜에 맞춰 함께 상담합니다."],
+    ],
+    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
   }
 };
