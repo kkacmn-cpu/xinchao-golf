@@ -32,7 +32,7 @@ const heroImageOverride = {
   "heron-lake-golf": "courses/golf-heron-lake-golf-1.webp",
 };
 // 사진마다 잘리면 안 되는 곳(클럽하우스·그린·사람)에 맞춘 초점. 없으면 가운데.
-const photoFocus = { "course-tan-son-nhat.webp": "30% center", "courses/ai-amber-hills-golf-resort.webp": "25% center", "courses/ai-legend-valley-country-club.webp": "70% center", "courses/ai-silk-path-dong-trieu-golf.webp": "80% center", "courses/ai-stone-valley-golf-resort.webp": "35% center", "courses/ai-van-lang-empire-golf-club.webp": "25% center" };
+const photoFocus = { "course-tan-son-nhat.webp": "30% center", "courses/ai-amber-hills-golf-resort.webp": "25% center", "courses/ai-legend-valley-country-club.webp": "70% center", "courses/ai-silk-path-dong-trieu-golf.webp": "80% center", "courses/ai-stone-valley-golf-resort.webp": "35% center", "courses/ai-van-lang-empire-golf-club.webp": "25% center", "courses/ai-corn-hill-golf-resort.webp": "35% center", "courses/ai-royal-golf-club-ninh-binh.webp": "60% center", "courses/ai-flc-samson-golf-links.webp": "40% center", "courses/ai-royal-island-golf-villas.webp": "60% center" };
 // AI 연출 대표 사진(course.aiStaged): 실제 골프장 사진으로 오해하지 않게 "AI 연출 이미지" 표시를 붙이고 alt를 바꾼다.
 // 구조화 데이터(GolfCourse image)와 공유 이미지(og:image)에는 쓰지 않는다.
 const photoAlt = (course) => course.aiStaged ? "골프 연출 이미지" : `${escapeHtml(course.name)} 골프장 전경`;
@@ -793,7 +793,7 @@ function golfRentPage(course) {
     pathname,
     title: `${course.name}까지 차량 렌트 — 공항 이동시간·인승 고르기`,
     description: `${course.name}까지 차량 안내. ${airportShort(course)} 기준 약 ${course.drive}${course.driveKm ? `(${course.driveKm})` : ""} 이동, 인원·골프백에 맞는 인승과 숙소·골프 일정을 함께 한국어로 상담합니다.`,
-    image: course.image || "service-vehicle.webp",
+    image: course.image && !course.aiStaged ? course.image : "service-vehicle.webp", // AI 연출 사진은 차량 쪽에 쓰지 않는다
     eyebrow: `차량 렌트 · ${course.region} 골프장`,
     h1: `${courseLabel(course)}까지 차량`,
     lead: `${escapeHtml(course.name)}(${escapeHtml(course.location)})까지 차량을 상담합니다. ${escapeHtml(airportShort(course))}에서 평소 교통 약 ${escapeHtml(course.drive)}${km}입니다.`,
