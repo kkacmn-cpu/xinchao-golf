@@ -327,7 +327,8 @@ export const courses = [
     access: "호수 건너 코스는 보트로 이동",
     drive: "60~80분",
     driveKm: "약 55~60km",
-    image: "courses/golf-brg-kings-island.webp",
+    // 사진 hq: 회사 공유폴더 보유 사진, 원 출처 미확인(요청 시 즉시 내림). 2026-11-21 반영.
+    image: "courses/golf-brg-kings-island-hq1.webp",
     gallery: ["courses/golf-brg-kings-island-1.webp", "courses/golf-brg-kings-island-2.webp", "courses/golf-brg-kings-island-3.webp"],
     summary: "동모 호수에 레이크사이드·마운틴뷰·킹스 세 코스, 54홀을 갖춘 하노이 대표 골프장입니다.",
     points: ["54홀 3개 코스", "호수 보트 이동", "단체 라운드"],
@@ -808,8 +809,9 @@ export const courses = [
     drive: "30~40분",
     driveKm: "약 25km",
     driveNote: "골프장 공식 안내는 깟비 공항에서 15km, 약 35분이라고 적지만, 도로로는 약 25km입니다.",
-    image: "courses/golf-sono-felice-country-club.webp",
-    gallery: ["courses/golf-sono-felice-country-club-1.webp", "courses/golf-sono-felice-country-club-2.webp", "courses/golf-sono-felice-country-club-3.webp"],
+    // 사진 hq: 회사 공유폴더 보유 사진, 원 출처 미확인(요청 시 즉시 내림). 2026-11-21 반영.
+    image: "courses/golf-sono-felice-country-club-hq1.webp",
+    gallery: ["courses/golf-sono-felice-country-club-hq2.webp", "courses/golf-sono-felice-country-club.webp", "courses/golf-sono-felice-country-club-1.webp"],
     summary: "예전 송지아·소노벨 하이퐁으로 불린 한국 소노 계열 골프장입니다. 18홀 챔피언 코스와 9홀 이그제큐티브 코스가 있습니다.",
     points: ["구 송지아·소노벨", "18홀+9홀", "하롱 관광 연계"],
   },

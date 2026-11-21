@@ -14,14 +14,17 @@ const areaOf = (course) => golfAreas.find((area) => area.key === course.area);
 // 지역 게시판: 골프장에 board가 있으면(붕따우·호트람·쩌우득 → vungtau) 그쪽, 없으면 권역의 게시판.
 const boardOf = (course) => course.board || areaOf(course).board;
 const airportShort = (course) => (course.airport || areaOf(course).airport).replace(/\s*\(.*\)$/, "");
+// 사진 없는 골프장의 "코스 정보 카드"용 베트남 윤곽(직접 그린 단순 선, 외부 지도 아님)과 지역 점 위치(2026-11-21)
+const vnOutline = "M5.5 12.0 L9.0 8.0 L14.0 10.0 L19.0 8.0 L24.0 8.0 L29.0 6.0 L37.0 3.0 L42.0 7.0 L50.0 7.0 L51.0 13.0 L58.0 20.0 L64.0 21.0 L56.0 26.0 L51.0 29.0 L50.0 33.0 L44.0 38.0 L42.0 44.0 L40.0 48.0 L47.0 54.0 L49.0 58.0 L55.0 66.0 L62.0 72.0 L66.0 75.0 L71.0 82.0 L74.0 90.0 L76.0 98.0 L77.0 106.0 L76.0 112.0 L76.0 118.0 L73.0 123.0 L68.0 126.0 L60.0 131.0 L54.0 132.0 L51.0 134.0 L48.0 140.0 L43.0 143.0 L38.0 148.0 L34.0 150.0 L32.0 148.0 L33.0 141.0 L32.0 134.0 L29.0 132.0 L34.0 127.0 L42.0 126.0 L45.0 119.0 L49.0 117.0 L59.0 113.0 L59.0 106.0 L60.0 98.0 L59.0 89.0 L60.0 84.0 L56.0 78.0 L51.0 73.0 L49.0 69.0 L43.0 62.0 L40.0 56.0 L35.0 50.0 L29.0 47.0 L23.0 43.0 L27.0 39.0 L30.0 33.0 L24.0 27.0 L16.0 28.0 L11.0 23.0 Z";
+const vnAreaDot = { hcm: [51.0, 128.0], phanthiet: [65.0, 126.5], hanoi: [42.5, 26.0], haiphong: [51.0, 27.5], danang: [66.0, 75.5], nhatrang: [76.0, 113.5], dalat: [68.5, 116.5], phuquoc: [23.7, 133.5] };
+const vnMap = (area) => { const [cx, cy] = vnAreaDot[area] || vnAreaDot.hcm; return `<svg class="plate-map" viewBox="0 0 80 155" aria-hidden="true" focusable="false"><path d="${vnOutline}"/><ellipse cx="23.7" cy="133.5" rx="1.6" ry="3.2"/><circle class="plate-map-ring" cx="${cx}" cy="${cy}" r="6"/><circle class="plate-map-dot" cx="${cx}" cy="${cy}" r="3"/></svg>`; };
 const courseVisual = (course, className, loading = "lazy") => course.image
   ? `<img src="/assets/images/${course.image}" width="1200" height="800"${focusStyle(course.image)} ${loading === "eager" ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'} alt="${escapeHtml(course.name)} 골프장 전경">`
-  : `<span class="course-plate ${className}" data-area="${course.area}" role="img" aria-label="${escapeHtml(course.name)} 안내 카드"><small>${escapeHtml(areaOf(course).name)}</small><strong>${escapeHtml(course.englishName)}</strong><em>✈ ${escapeHtml(airportShort(course))}에서 차량 약 ${escapeHtml(course.drive)}</em></span>`;
+  : `<span class="course-plate ${className}" data-area="${course.area}" role="img" aria-label="${escapeHtml(course.name)} 코스 정보 카드">${vnMap(course.area)}<small>${escapeHtml(areaOf(course).name)} · ${escapeHtml(course.holes.split(" ")[0])}</small><strong>${escapeHtml(course.name)}</strong><em>✈ ${escapeHtml(airportShort(course))}에서 차량 약 <b>${escapeHtml(course.drive)}</b></em><span class="plate-note">실제 사진은 카톡 상담 때 보내 드립니다</span></span>`;
 // 상세 첫 화면 대표 사진: 기본은 course.image, 해상도가 낮으면 같은 골프장의 더 큰 사진을 쓴다(2026-11-21).
 const heroImageOverride = {
   "harmony-golf-park": "course-harmony.webp",
   "sky-lake-golf": "courses/golf-sky-lake-golf-2.webp",
-  "brg-kings-island": "courses/golf-brg-kings-island-2.webp",
   "thanh-lanh-valley-golf": "courses/golf-thanh-lanh-valley-golf-1.webp",
   "ruby-tree-golf": "courses/golf-ruby-tree-golf-1.webp",
   "heron-lake-golf": "courses/golf-heron-lake-golf-1.webp",
@@ -296,7 +299,7 @@ function courseCard(course) {
     <article class="course-card">
       <a class="card-image" href="/golf/${course.slug}.html" aria-label="${escapeHtml(course.name)} 상세보기">
         ${courseVisual(course, "course-plate-card")}
-        <span class="card-badges"><span>${escapeHtml(course.holes.split(" ")[0])}</span><span>공항에서 ${escapeHtml(course.drive)}</span></span>
+        ${course.image ? `<span class="card-badges"><span>${escapeHtml(course.holes.split(" ")[0])}</span><span>공항에서 ${escapeHtml(course.drive)}</span></span>` : ""}
       </a>
       <div class="card-body">
         <div class="card-meta"><span>${escapeHtml(course.region)}</span><span>✈ ${escapeHtml(airportShort(course).replace(" 국제공항", "").replace(" 공항", ""))} 공항</span></div>
@@ -568,12 +571,12 @@ function courseDetailPage(course) {
   const keyword = keywordCourses[course.slug];
   const content = `
     <section class="course-hero${course.image ? "" : " is-plate"}" data-area="${course.area}">
-      ${course.image ? `<div class="course-hero-media"><img src="/assets/images/${courseHeroImage(course)}" width="1200" height="800"${focusStyle(courseHeroImage(course))} fetchpriority="high" alt="${escapeHtml(course.name)} 골프장 전경"></div>` : ""}
+      ${course.image ? `<div class="course-hero-media"><img src="/assets/images/${courseHeroImage(course)}" width="1200" height="800"${focusStyle(courseHeroImage(course))} fetchpriority="high" alt="${escapeHtml(course.name)} 골프장 전경"></div>` : `<div class="course-hero-card">${courseVisual(course, "course-plate-detail", "eager")}</div>`}
       <div class="shell course-hero-copy"><p class="eyebrow">${course.region} 골프장 · ${escapeHtml(course.holes.split(" ")[0])}</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="course-keyfacts"><div><dt>✈ ${escapeHtml(airportShort(course))}에서</dt><dd>차량 약 ${escapeHtml(course.drive)}</dd></div><div><dt>위치</dt><dd>${escapeHtml(course.access)}</dd></div>${golfComboAreas.includes(course.area) ? `<div><dt>숙소</dt><dd><a href="#stay-combo">호치민 풀빌라·아파트 함께 상담 ↓</a></dd></div>` : ""}</dl><div class="hero-x-actions"><button class="button button-kakao button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡 한국어 상담</button><a class="button button-glass button-lg" href="/golf#airport-times">다른 골프장과 공항시간 비교</a></div></div>
     </section>
     <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf">베트남 골프장</a><span>›</span><a href="/golf#area-${course.area}">${escapeHtml(areaOf(course).name)}</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
-    <section class="detail-hero shell">
-      ${courseGalleryImages(course).length ? `<div class="detail-media"><div class="detail-gallery" aria-label="${escapeHtml(course.name)} 사진">${courseGalleryImages(course).map((file, index) => `<a href="/assets/images/${file}" target="_blank" rel="noopener"><img src="/assets/images/${file}" width="1200" height="800"${focusStyle(file)} loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 코스 사진 ${index + 2}"></a>`).join("")}</div></div>` : `<div class="detail-media">${courseVisual(course, "course-plate-detail", "eager")}</div>`}
+    <section class="detail-hero shell${courseGalleryImages(course).length ? "" : " no-media"}">
+      ${courseGalleryImages(course).length ? `<div class="detail-media"><div class="detail-gallery" aria-label="${escapeHtml(course.name)} 사진">${courseGalleryImages(course).map((file, index) => `<a href="/assets/images/${file}" target="_blank" rel="noopener"><img src="/assets/images/${file}" width="1200" height="800"${focusStyle(file)} loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 코스 사진 ${index + 2}"></a>`).join("")}</div></div>` : ""}
       <div class="detail-summary"><p class="eyebrow">골프장 기본 정보</p><dl class="fact-list"><div><dt>지역</dt><dd>${course.location}</dd></div><div><dt>규모</dt><dd>${course.holes}</dd></div><div><dt>공항</dt><dd>${escapeHtml(course.airport || areaOf(course).airport)}에서 차량 약 ${escapeHtml(course.drive)}${course.driveKm ? ` (${escapeHtml(course.driveKm)})` : ""}</dd></div><div><dt>이동</dt><dd>${course.access}</dd></div></dl><p class="drive-note">공항 시간은 평소 교통 기준입니다. 출퇴근·주말·우천 시 더 걸릴 수 있습니다.</p><button class="button button-kakao button-block button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡으로 예약 가능 날짜 묻기</button><ul class="detail-steps"><li>날짜·인원 보내기</li><li>티타임·조건 확인</li><li>확정 후 바우처</li></ul>${pricingGuideHtml({ variant: "compact" })}<small>홈페이지에서는 결제나 온라인 예약을 진행하지 않습니다.</small></div>
     </section>${courseStayCombo(course)}${courseEvening(course)}
     <section class="section shell detail-content">

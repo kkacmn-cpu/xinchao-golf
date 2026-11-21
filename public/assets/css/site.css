@@ -936,3 +936,46 @@ img[src$="service-vehicle.webp"]{object-position:left center}
 @media (min-width:761px){.page-hero.page-hero-photo[style*="service-vehicle.webp"]{background-position:0 0,center 74%}}
 @media (max-width:760px){.hero-x-note,.near-note,.detail-summary small,.course-plate em{font-size:15px}}
 @media (max-width:760px){.hero-x{min-height:min(100svh,940px)}}
+
+/* 2026-11-21 사진 없는 골프장: 코스 정보 카드(홈·목록 카드·상세 첫 화면 같은 디자인) */
+.course-plate,.course-plate[data-area]{position:relative;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;width:100%;aspect-ratio:3/2;padding:20px 38% 18px 20px;overflow:hidden;color:var(--g-900);background:linear-gradient(160deg,#fff 0%,var(--c-secondary) 100%);border-bottom:1px solid var(--g-300)}
+.course-plate::before,.course-plate::after{content:none}
+.course-plate .plate-map{position:absolute;top:8%;right:8%;height:84%;width:auto}
+.course-plate .plate-map path,.course-plate .plate-map ellipse{fill:#cfe3d7;stroke:#9fc3ae;stroke-width:.8;stroke-linejoin:round}
+.plate-map-ring{fill:rgba(242,118,46,.22)}
+.plate-map-dot{fill:var(--c-accent);stroke:#fff;stroke-width:1.2}
+.course-plate small{position:relative;color:var(--c-primary);font-size:.8rem;font-weight:var(--fw-semi);letter-spacing:0;opacity:1}
+.course-plate strong{position:relative;color:var(--g-900);font-size:1.2rem;line-height:1.3;font-weight:var(--fw-bold);letter-spacing:-.02em}
+.course-plate em,.course-plate-card em{position:relative;display:block;color:var(--g-700);font-size:.86rem;font-style:normal;opacity:1}
+.course-plate em b{display:block;color:var(--c-primary);font-size:1.15rem;font-weight:var(--fw-bold)}
+.plate-note{position:relative;margin-top:6px;padding-top:8px;border-top:1px solid var(--g-300);color:var(--g-500);font-size:.8rem}
+.course-plate-detail,.course-plate-detail[data-area]{aspect-ratio:3/2;border:1px solid var(--g-300);border-radius:var(--radius-card);padding:28px 38% 24px 28px;box-shadow:var(--shadow-card)}
+.course-plate-detail strong{font-size:1.6rem}
+.course-plate-detail em b{font-size:1.5rem}
+/* 상세 첫 화면: 사진 자리에 같은 카드 */
+.course-hero.is-plate{background:var(--g-100);color:var(--g-900)}
+.course-hero.is-plate h1{color:var(--g-900)}
+.course-hero.is-plate .eyebrow{color:var(--c-primary)}
+.course-hero.is-plate .english-name,.course-hero.is-plate .detail-lead{color:var(--g-700);text-shadow:none}
+.course-hero.is-plate .course-hero-copy{padding:20px 0 8px}
+.course-hero.is-plate .course-keyfacts{color:var(--g-900);background:#fff}
+.course-hero.is-plate .course-keyfacts div:first-child dd{color:var(--c-primary)}
+.course-hero.is-plate .button-glass{background:#fff;border-color:var(--c-primary);color:var(--c-primary)}
+.course-hero-card{padding:16px 14px 0}
+.detail-hero.no-media{grid-template-columns:minmax(0,760px)}
+@media (min-width:761px){
+  .course-hero.is-plate{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,520px);align-items:center;gap:40px;min-height:0;padding:40px max(20px,calc((100% - var(--shell))/2))}
+  .course-hero.is-plate .course-hero-card{order:2;padding:0}
+  .course-hero.is-plate .course-hero-copy{width:auto;padding:0}
+  .course-hero.is-plate .eyebrow,.course-hero.is-plate h1,.course-hero.is-plate .english-name,.course-hero.is-plate .detail-lead{text-shadow:none}
+  .course-hero.is-plate .course-keyfacts{background:transparent}
+}
+@media (max-width:760px){
+  .course-plate,.course-plate[data-area]{padding:16px 36% 14px 16px}
+  .course-plate strong{font-size:1.1rem}
+  .course-plate-detail,.course-plate-detail[data-area]{padding:18px 36% 16px 18px}
+  .course-plate-detail strong{font-size:1.25rem}
+  .course-plate-detail em b{font-size:1.2rem}
+  .plate-note{font-size:13px}
+  .course-hero.is-plate .english-name{display:none}
+}
