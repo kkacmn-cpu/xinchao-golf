@@ -152,12 +152,9 @@ function head({ title, description, pathname, image = "hero-golf-longthanh.webp"
     <link rel="apple-touch-icon" href="/assets/images/xinchao-golf-logo-192.webp">
     <link rel="manifest" href="/manifest.webmanifest">
     ${preloadImage ? `<link rel="preload" as="image" href="${preloadImage}" fetchpriority="high">` : ""}
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
     <link rel="preload" as="style" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&display=swap"></noscript>
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"></noscript>
     <link rel="stylesheet" href="/assets/css/site.css?v=${styleVersion}">
     ${schema.map(jsonLd).join("\n")}`;
 }
@@ -325,23 +322,25 @@ function homePage() {
   const featured = golfAreas.flatMap((area) => courses.filter((course) => course.area === area.key).slice(0, area.key === "hcm" ? 2 : 1)).slice(0, 6);
   const content = `
     <section class="hero-x">
-      <div class="hero-slides" aria-hidden="true"><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-novaworld-phan-thiet-golf.webp')"></span><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-hoiana-shores-golf-club.webp')"></span><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-ba-na-hills-golf-club.webp')"></span><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-dalat-at-1200.webp')"></span></div>
+      <div class="hero-slides" aria-hidden="true"><span class="hero-slide" style="--hero-img:url('/assets/images/courses/golf-novaworld-phan-thiet-golf.webp')"></span></div>
       <div class="shell hero-x-inner">
-        <p class="hero-x-kicker">XIN CHAO GOLF <span class="hero-x-kicker-ko">베트남의 골프를 가장 정확하게</span></p>
+        <p class="hero-x-kicker">베트남 골프 한국어 예약 상담</p>
         <h1>베트남 골프장 예약,<br>카톡 한 번으로</h1>
         <p class="hero-x-lead">베트남 골프장 ${courses.length}곳의 위치와 공항 이동시간을 비교하고, 골프장 예약·차량·숙소를 카카오톡으로 한 번에 상담하세요.</p>
         <div class="hero-x-actions">
           <a class="button button-kakao button-lg" href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer">카카오톡으로 예약 문의</a>
           <a class="button button-glass button-lg" href="/golf">골프장 ${courses.length}곳 보기</a>
         </div>
-        <ul class="hero-x-stats" aria-label="신짜오골프 안내 범위">
+      </div>
+    </section>
+    <section class="hero-facts" aria-label="신짜오골프 안내 범위"><div class="shell">
+        <ul class="fact-strip">
           <li><strong>${courses.length}곳</strong><span>베트남 골프장</span></li>
           <li><strong>${golfAreas.length}개 지역</strong><span>북부·중부·남부</span></li>
           <li><strong>공항 시간</strong><span>골프장마다 표시</span></li>
           <li><strong>한국어</strong><span>예약·차량·숙소 상담</span></li>
         </ul>
-      </div>
-    </section>
+    </div></section>
     <section class="area-strip" aria-label="지역별 골프장">
       <div class="shell">
         <div class="section-heading"><div><p class="eyebrow">어디로 가시나요?</p><h2>지역을 고르면 골프장과 공항 시간이 바로 나옵니다</h2></div><a class="text-link" href="/golf">전체 보기 →</a></div>
@@ -350,7 +349,7 @@ function homePage() {
     </section>
     <section class="signature" aria-labelledby="signature-title">
       <div class="shell">
-        <div class="section-heading"><div><p class="eyebrow">Signature Courses</p><h2 id="signature-title">한 번은 꼭 쳐봐야 할 베트남 대표 코스</h2></div><a class="text-link" href="/golf">${courses.length}곳 모두 보기 →</a></div>
+        <div class="section-heading"><div><p class="eyebrow">대표 코스</p><h2 id="signature-title">한 번은 꼭 쳐봐야 할 베트남 대표 코스</h2></div><a class="text-link" href="/golf">${courses.length}곳 모두 보기 →</a></div>
         <div class="signature-grid">${["the-bluffs-grand-ho-tram", "hoiana-shores-golf-club", "montgomerie-links-vietnam", "kn-golf-links-cam-ranh", "ba-na-hills-golf-club", "dalat-at-1200"].map((slug, index) => { const course = courses.find((item) => item.slug === slug); const img = course.image?.startsWith("courses/") ? course.image : (course.gallery?.[0] || course.image); return `<a class="signature-card${index === 0 ? " is-feature" : ""}" href="/golf/${course.slug}.html" style="--card-img:url('/assets/images/${img}')"><span class="signature-region">${escapeHtml(areaOf(course).name)}</span><strong>${escapeHtml(course.name)}</strong><em>${escapeHtml(course.holes.split(" ")[0])} · 공항에서 ${escapeHtml(course.drive)}</em></a>`; }).join("")}</div>
       </div>
     </section>
