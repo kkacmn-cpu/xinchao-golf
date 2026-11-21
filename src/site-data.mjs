@@ -968,6 +968,9 @@ export const courses = [
   // 공항 시간은 공식 안내가 없어 OSRM 도로 경로로 잰 값에 평소 교통 여유를 더한 추정치("약"). 근거는 PR 본문에 적었다.
   {
     slug: "legend-valley-country-club",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-legend-valley-country-club.webp",
+    aiStaged: true,
     area: "hanoi",
     name: "레전드 밸리 컨트리클럽",
     englishName: "Legend Valley Country Club",
@@ -985,6 +988,9 @@ export const courses = [
   },
   {
     slug: "stone-valley-golf-resort",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-stone-valley-golf-resort.webp",
+    aiStaged: true,
     area: "hanoi",
     name: "스톤 밸리 골프 리조트",
     englishName: "Stone Valley Golf Resort",
@@ -1002,6 +1008,9 @@ export const courses = [
   },
   {
     slug: "trang-an-golf-resort",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-trang-an-golf-resort.webp",
+    aiStaged: true,
     area: "hanoi",
     name: "짱안 골프 앤 리조트",
     englishName: "Trang An Golf & Resort",
@@ -1019,6 +1028,9 @@ export const courses = [
   },
   {
     slug: "amber-hills-golf-resort",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-amber-hills-golf-resort.webp",
+    aiStaged: true,
     area: "hanoi",
     name: "앰버 힐스 골프 앤 리조트 (구 옌중)",
     englishName: "Amber Hills Golf & Resort",
@@ -1036,6 +1048,9 @@ export const courses = [
   },
   {
     slug: "golden-sands-golf-resort",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-golden-sands-golf-resort.webp",
+    aiStaged: true,
     area: "danang",
     airport: "푸바이 국제공항(HUI)",
     name: "골든 샌즈 골프 리조트",
@@ -1056,6 +1071,9 @@ export const courses = [
   // 공항 시간은 공식 안내가 없어 OSRM 도로 경로(골프장·행정구역 좌표 기준)로 잰 값에 평소 교통 여유를 더한 추정치("약"). 근거는 PR 본문에 적었다.
   {
     slug: "silk-path-dong-trieu-golf",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-silk-path-dong-trieu-golf.webp",
+    aiStaged: true,
     area: "haiphong",
     name: "실크패스 동찌에우 골프 앤 컨트리클럽",
     englishName: "PGA Silk Path Dong Trieu Golf & Country Club",
@@ -1073,6 +1091,9 @@ export const courses = [
   },
   {
     slug: "stone-highland-golf-resort",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-stone-highland-golf-resort.webp",
+    aiStaged: true,
     area: "hanoi",
     name: "스톤 하이랜드 골프 리조트",
     englishName: "Stone Highland Golf & Resort (Viet Yen)",
@@ -1090,6 +1111,9 @@ export const courses = [
   },
   {
     slug: "van-lang-empire-golf-club",
+    // AI 연출 대표 사진(【공통】 이미지 11-21, 실제 이 골프장 사진 아님). 실제 사진이 오면 image를 바꾸고 aiStaged를 지운다.
+    image: "courses/ai-van-lang-empire-golf-club.webp",
+    aiStaged: true,
     area: "hanoi",
     name: "반랑 엠파이어 T&T 골프클럽",
     englishName: "Văn Lang Empire T&T Golf Club",

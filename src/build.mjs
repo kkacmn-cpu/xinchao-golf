@@ -21,7 +21,7 @@ const vnAreaDot = { hcm: [51.0, 128.0], phanthiet: [65.0, 126.5], hanoi: [42.5, 
 // 지역 점에서 많이 떨어진 골프장(예: 하노이권의 탄호아 FLC 삼선)은 course.mapDot으로 점 위치를 따로 준다.
 const vnMap = (area, dot) => { const [cx, cy] = dot || vnAreaDot[area] || vnAreaDot.hcm; return `<svg class="plate-map" viewBox="0 0 80 155" aria-hidden="true" focusable="false"><path d="${vnOutline}"/><ellipse cx="23.7" cy="133.5" rx="1.6" ry="3.2"/><circle class="plate-map-ring" cx="${cx}" cy="${cy}" r="6"/><circle class="plate-map-dot" cx="${cx}" cy="${cy}" r="3"/></svg>`; };
 const courseVisual = (course, className, loading = "lazy") => course.image
-  ? `<img src="/assets/images/${course.image}" width="1200" height="800"${focusStyle(course.image)} ${loading === "eager" ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'} alt="${escapeHtml(course.name)} 골프장 전경">`
+  ? `<img src="/assets/images/${course.image}" width="1200" height="800"${focusStyle(course.image)} ${loading === "eager" ? 'fetchpriority="high"' : 'loading="lazy" decoding="async"'} alt="${photoAlt(course)}">${aiBadge(course)}`
   : `<span class="course-plate ${className}" data-area="${course.area}" role="img" aria-label="${escapeHtml(course.name)} 코스 정보 카드">${vnMap(course.area, course.mapDot)}<small>${escapeHtml(areaOf(course).name)} · ${escapeHtml(course.holes.split(" ")[0])}</small><strong>${escapeHtml(course.name)}</strong><em>✈ ${escapeHtml(airportShort(course))}에서 차량 약 <b>${escapeHtml(course.drive)}</b></em><span class="plate-note">실제 사진은 카톡 상담 때 보내 드립니다</span></span>`;
 // 상세 첫 화면 대표 사진: 기본은 course.image, 해상도가 낮으면 같은 골프장의 더 큰 사진을 쓴다(2026-11-21).
 const heroImageOverride = {
@@ -32,7 +32,11 @@ const heroImageOverride = {
   "heron-lake-golf": "courses/golf-heron-lake-golf-1.webp",
 };
 // 사진마다 잘리면 안 되는 곳(클럽하우스·그린·사람)에 맞춘 초점. 없으면 가운데.
-const photoFocus = { "course-tan-son-nhat.webp": "30% center" };
+const photoFocus = { "course-tan-son-nhat.webp": "30% center", "courses/ai-amber-hills-golf-resort.webp": "25% center", "courses/ai-legend-valley-country-club.webp": "70% center", "courses/ai-silk-path-dong-trieu-golf.webp": "80% center", "courses/ai-stone-valley-golf-resort.webp": "35% center", "courses/ai-van-lang-empire-golf-club.webp": "25% center" };
+// AI 연출 대표 사진(course.aiStaged): 실제 골프장 사진으로 오해하지 않게 "AI 연출 이미지" 표시를 붙이고 alt를 바꾼다.
+// 구조화 데이터(GolfCourse image)와 공유 이미지(og:image)에는 쓰지 않는다.
+const photoAlt = (course) => course.aiStaged ? "골프 연출 이미지" : `${escapeHtml(course.name)} 골프장 전경`;
+const aiBadge = (course) => course.aiStaged ? `<span class="ai-badge">AI 연출 이미지</span>` : "";
 const focusStyle = (file) => photoFocus[file] ? ` style="object-position:${photoFocus[file]}"` : "";
 const courseHeroImage = (course) => heroImageOverride[course.slug] || course.image;
 const courseGalleryImages = (course) => course.image ? [course.image, ...(course.gallery || [])].filter((file) => file !== courseHeroImage(course)) : [];
@@ -357,7 +361,7 @@ function homePage() {
     </section>
     <section class="near-airport" aria-labelledby="near-airport-title"><div class="shell">
       <div class="section-heading"><div><p class="eyebrow">골프장 ${courses.length}곳 공항 이동시간</p><h2 id="near-airport-title">공항에서 가까운 골프장</h2></div><a class="text-link" href="/golf#airport-times">공항→골프장 시간표 전체 →</a></div>
-      <ul class="near-row">${courses.filter((course) => course.image).sort((a, b) => driveMinMinutes(a.drive) - driveMinMinutes(b.drive)).slice(0, 10).map((course) => `<li><a href="/golf/${course.slug}.html"><img src="/assets/images/${course.image}" width="1200" height="800"${focusStyle(course.image)} loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 골프장 전경"><span class="near-area">${escapeHtml(areaOf(course).name)}</span><strong>${escapeHtml(course.name)}</strong><em>✈ ${escapeHtml(airportShort(course))}에서 <b>${escapeHtml(course.drive)}</b></em></a></li>`).join("")}</ul>
+      <ul class="near-row">${courses.filter((course) => course.image).sort((a, b) => driveMinMinutes(a.drive) - driveMinMinutes(b.drive)).slice(0, 10).map((course) => `<li><a href="/golf/${course.slug}.html"><img src="/assets/images/${course.image}" width="1200" height="800"${focusStyle(course.image)} loading="lazy" decoding="async" alt="${photoAlt(course)}">${aiBadge(course)}<span class="near-area">${escapeHtml(areaOf(course).name)}</span><strong>${escapeHtml(course.name)}</strong><em>✈ ${escapeHtml(airportShort(course))}에서 <b>${escapeHtml(course.drive)}</b></em></a></li>`).join("")}</ul>
       <p class="near-note">골프장마다 가장 가까운 공항에서 차로 걸리는 평소 교통 기준 시간입니다.</p>
     </div></section>
     <section class="hero-facts" aria-label="신짜오골프 안내 범위"><div class="shell">
@@ -573,7 +577,7 @@ function courseDetailPage(course) {
   const keyword = keywordCourses[course.slug];
   const content = `
     <section class="course-hero${course.image ? "" : " is-plate"}" data-area="${course.area}">
-      ${course.image ? `<div class="course-hero-media"><img src="/assets/images/${courseHeroImage(course)}" width="1200" height="800"${focusStyle(courseHeroImage(course))} fetchpriority="high" alt="${escapeHtml(course.name)} 골프장 전경"></div>` : `<div class="course-hero-card">${courseVisual(course, "course-plate-detail", "eager")}</div>`}
+      ${course.image ? `<div class="course-hero-media"><img src="/assets/images/${courseHeroImage(course)}" width="1200" height="800"${focusStyle(courseHeroImage(course))} fetchpriority="high" alt="${photoAlt(course)}">${aiBadge(course)}</div>` : `<div class="course-hero-card">${courseVisual(course, "course-plate-detail", "eager")}</div>`}
       <div class="shell course-hero-copy"><p class="eyebrow">${course.region} 골프장 · ${escapeHtml(course.holes.split(" ")[0])}</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="course-keyfacts"><div><dt>✈ ${escapeHtml(airportShort(course))}에서</dt><dd>차량 약 ${escapeHtml(course.drive)}</dd></div><div><dt>위치</dt><dd>${escapeHtml(course.access)}</dd></div>${golfComboAreas.includes(course.area) ? `<div><dt>숙소</dt><dd><a href="#stay-combo">호치민 풀빌라·아파트 함께 상담 ↓</a></dd></div>` : ""}</dl><div class="hero-x-actions"><button class="button button-kakao button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡 한국어 상담</button><a class="button button-glass button-lg" href="/golf#airport-times">다른 골프장과 공항시간 비교</a></div></div>
     </section>
     <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf">베트남 골프장</a><span>›</span><a href="/golf#area-${course.area}">${escapeHtml(areaOf(course).name)}</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
@@ -594,7 +598,7 @@ function courseDetailPage(course) {
     sameAs: guide.sources[0][1],
     description: course.summary,
     url: `${site.siteUrl}/golf/${course.slug}.html`,
-    ...(course.image ? { image: `${site.siteUrl}/assets/images/${course.image}` } : {}),
+    ...(course.image && !course.aiStaged ? { image: `${site.siteUrl}/assets/images/${course.image}` } : {}),
     address: { "@type": "PostalAddress", addressCountry: "VN", addressRegion: course.province || course.region },
     mainEntityOfPage: `${site.siteUrl}/golf/${course.slug}.html`,
   }, breadcrumbSchema([
@@ -616,7 +620,7 @@ function courseDetailPage(course) {
       : `${course.name}(${course.englishName}) 위치·규모와 ${airportShort(course)}에서 차량 약 ${course.drive} 이동 정보, 한국어 골프 일정 상담 안내.`,
     pathname: `/golf/${course.slug}.html`,
     active: "golf",
-    ...(course.image ? { image: course.image } : {}),
+    ...(course.image && !course.aiStaged ? { image: course.image } : {}),
     schema,
     keywords: [
       course.name,

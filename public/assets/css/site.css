@@ -841,6 +841,7 @@ h3{font-size:1.15rem;line-height:1.4}
 
 /* 골프장 상세 첫 화면: 가로 꽉 찬 대표 사진 + 이름 + 한 줄 소개 + 단추 2개 */
 .course-hero{position:relative;background:#fff}
+.course-hero-media{position:relative}
 .course-hero-media img{display:block;width:100%;aspect-ratio:3/2;object-fit:cover}
 .course-hero-copy{padding:22px 0 6px}
 .course-hero h1{margin:0 0 4px;font-size:clamp(1.9rem,4.2vw,3.2rem)}
@@ -979,3 +980,6 @@ img[src$="service-vehicle.webp"]{object-position:left center}
   .plate-note{font-size:13px}
   .course-hero.is-plate .english-name{display:none}
 }
+/* AI 연출 대표 사진 표시(2026-11-21): 실제 골프장 사진이 아님을 알린다 */
+.near-row a{position:relative}
+.ai-badge{position:absolute;top:10px;left:10px;z-index:2;padding:4px 9px;border-radius:999px;background:rgba(10,20,16,.72);color:#fff;font-size:.72rem;font-weight:600;line-height:1.25;letter-spacing:0;pointer-events:none}
