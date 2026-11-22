@@ -606,13 +606,16 @@ function courseVehicleLink(course) {
   return `<a href="/services/vehicle.html">골프장 왕복 차량 상담</a>`;
 }
 
+// 구글 평점·후기 수(2026-11-22 대표님 "보완": 진짜 값, 확인일 표기). 자료 src/google-ratings.json.
+const googleRatings = JSON.parse(readFileSync(new URL("./google-ratings.json", import.meta.url), "utf8"));
+const ratingLine = (course) => { const r = googleRatings.items.find((x) => x.slug === course.slug); if (!r) return ""; const [y, m, d] = googleRatings.checkedAt.split("-"); return `<p class="g-rating"><a href="${escapeHtml(r.mapsUrl || "")}" target="_blank" rel="noopener"><span class="g-rating-star" aria-hidden="true">★</span> 구글 평점 <strong>${r.rating.toFixed(1)}</strong> · 후기 ${r.reviews.toLocaleString("ko-KR")}개</a> <small>(${+y}.${+m}.${+d} 구글 지도 확인)</small></p>`; };
 function courseDetailPage(course) {
   const guide = courseGuides[course.slug];
   const keyword = keywordCourses[course.slug];
   const content = `
     <section class="course-hero${course.image ? "" : " is-plate"}" data-area="${course.area}">
       ${course.image ? `<div class="course-hero-media"><img src="/assets/images/${courseHeroImage(course)}" width="1200" height="800"${focusStyle(courseHeroImage(course))} fetchpriority="high" alt="${photoAlt(course)}">${aiBadge(course)}</div>` : `<div class="course-hero-card">${courseVisual(course, "course-plate-detail", "eager")}</div>`}
-      <div class="shell course-hero-copy"><p class="eyebrow">${course.region} 골프장 · ${escapeHtml(course.holes.split(" ")[0])}</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p><dl class="course-keyfacts"><div><dt>✈ ${escapeHtml(airportShort(course))}에서</dt><dd>차량 약 ${escapeHtml(course.drive)}</dd></div><div><dt>위치</dt><dd>${escapeHtml(course.access)}</dd></div>${golfComboAreas.includes(course.area) ? `<div><dt>숙소</dt><dd><a href="#stay-combo">호치민 풀빌라·아파트 함께 상담 ↓</a></dd></div>` : ""}</dl><div class="hero-x-actions"><button class="button button-kakao button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡 한국어 상담</button><a class="button button-glass button-lg" href="/golf#airport-times">다른 골프장과 공항시간 비교</a></div></div>
+      <div class="shell course-hero-copy"><p class="eyebrow">${course.region} 골프장 · ${escapeHtml(course.holes.split(" ")[0])}</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p>${ratingLine(course)}<dl class="course-keyfacts"><div><dt>✈ ${escapeHtml(airportShort(course))}에서</dt><dd>차량 약 ${escapeHtml(course.drive)}</dd></div><div><dt>위치</dt><dd>${escapeHtml(course.access)}</dd></div>${golfComboAreas.includes(course.area) ? `<div><dt>숙소</dt><dd><a href="#stay-combo">호치민 풀빌라·아파트 함께 상담 ↓</a></dd></div>` : ""}</dl><div class="hero-x-actions"><button class="button button-kakao button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡 한국어 상담</button><a class="button button-glass button-lg" href="/golf#airport-times">다른 골프장과 공항시간 비교</a></div></div>
     </section>${quickQuoteCard(course)}
     <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf">베트남 골프장</a><span>›</span><a href="/golf#area-${course.area}">${escapeHtml(areaOf(course).name)}</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
     <section class="detail-hero shell${courseGalleryImages(course).length ? "" : " no-media"}">

@@ -1,0 +1,447 @@
+{
+ "note": "골프장 상세 구글 평점·후기 수(Google Maps에서 2026-11-22 확인한 값 그대로). 에메랄드(목록 2개)·송베(호텔로 표시)·에스추리(5.0/2,447 이상치)는 뺐다. 다시 확인할 때 이 파일만 바꾼다. 원자료: 사업부/신짜오/사이트/조사/구글평점_20261122/ratings.json",
+ "checkedAt": "2026-11-22",
+ "items": [
+  {
+   "slug": "thu-duc-country-club",
+   "rating": 4.3,
+   "reviews": 628,
+   "placeName": "Vietnam Golf & Country Club",
+   "mapsUrl": "https://www.google.com/maps/place/Vietnam+Golf+%26+Country+Club/@10.8569503,106.8243011,17z"
+  },
+  {
+   "slug": "tan-son-nhat-golf-course",
+   "rating": 4.3,
+   "reviews": 5127,
+   "placeName": "Tan Son Nhat Golf Course",
+   "mapsUrl": "https://www.google.com/maps/place/Tan+Son+Nhat+Golf+Course/@10.8299875,106.6499214,17z"
+  },
+  {
+   "slug": "twin-doves-golf-club",
+   "rating": 4.4,
+   "reviews": 2242,
+   "placeName": "Twin Doves Golf Club",
+   "mapsUrl": "https://www.google.com/maps/place/Twin+Doves+Golf+Club/@11.0228349,106.6681843,17z"
+  },
+  {
+   "slug": "leman-golf-club",
+   "rating": 4.5,
+   "reviews": 375,
+   "placeName": "Vinpearl Golf Léman",
+   "mapsUrl": "https://www.google.com/maps/place/Vinpearl+Golf+L%C3%A9man/@10.9253018,106.5054727,17z"
+  },
+  {
+   "slug": "vung-tau-paradise-golf",
+   "rating": 4,
+   "reviews": 804,
+   "placeName": "Vung Tau Paradise Golf Course",
+   "mapsUrl": "https://www.google.com/maps/place/Vung+Tau+Paradise+Golf+Course/@10.3566089,107.1033526,17z"
+  },
+  {
+   "slug": "the-bluffs-grand-ho-tram",
+   "rating": 4.6,
+   "reviews": 1026,
+   "placeName": "The Bluffs Grand Ho Tram",
+   "mapsUrl": "https://www.google.com/maps/place/The+Bluffs+Grand+Ho+Tram/@10.4805724,107.4465927,17z"
+  },
+  {
+   "slug": "long-thanh-golf-club",
+   "rating": 4.4,
+   "reviews": 3147,
+   "placeName": "Sân Golf Long Thành",
+   "mapsUrl": "https://www.google.com/maps/place/S%C3%A2n+Golf+Long+Th%C3%A0nh/@10.8629031,106.8950136,17z"
+  },
+  {
+   "slug": "dong-nai-golf-resort",
+   "rating": 4.1,
+   "reviews": 663,
+   "placeName": "Dong Nai Golf Resort",
+   "mapsUrl": "https://www.google.com/maps/place/Dong+Nai+Golf+Resort/@10.9761725,106.9983945,17z"
+  },
+  {
+   "slug": "harmony-golf-park",
+   "rating": 4.1,
+   "reviews": 1129,
+   "placeName": "Harmonie Golf Park",
+   "mapsUrl": "https://www.google.com/maps/place/Harmonie+Golf+Park/@11.030385,106.6673355,17z"
+  },
+  {
+   "slug": "west-lakes-golf-villas",
+   "rating": 4.5,
+   "reviews": 594,
+   "placeName": "WEST LAKES GOLF & VILLAS _ Sân Golf Hậu Nghĩa",
+   "mapsUrl": "https://www.google.com/maps/search/?api=1&query=West%20Lakes%20Golf%20%26%20Villas%20Vietnam&hl=en"
+  },
+  {
+   "slug": "royal-long-an-golf",
+   "rating": 4.3,
+   "reviews": 418,
+   "placeName": "Royal Long An Golf & Country Club",
+   "mapsUrl": "https://www.google.com/maps/place/Royal+Long+An+Golf+%26+Country+Club/@10.7821129,106.3419125,17z"
+  },
+  {
+   "slug": "long-bien-golf-course",
+   "rating": 4.4,
+   "reviews": 3628,
+   "placeName": "Long Bien Golf Course",
+   "mapsUrl": "https://www.google.com/maps/place/Long+Bien+Golf+Course/@21.0376812,105.8957893,17z"
+  },
+  {
+   "slug": "sky-lake-golf",
+   "rating": 4.4,
+   "reviews": 1959,
+   "placeName": "Sky Lake Resort & Golf Club",
+   "mapsUrl": "https://www.google.com/maps/place/Sky+Lake+Resort+%26+Golf+Club/@20.8342308,105.6192157,17z"
+  },
+  {
+   "slug": "brg-kings-island",
+   "rating": 4.8,
+   "reviews": 31,
+   "placeName": "BRG Kings Island Golf Resort",
+   "mapsUrl": "https://www.google.com/maps/place/BRG+Kings+Island+Golf+Resort/@21.0584904,105.48877,17z"
+  },
+  {
+   "slug": "tam-dao-golf",
+   "rating": 4.4,
+   "reviews": 2562,
+   "placeName": "Tam Dao Golf Course",
+   "mapsUrl": "https://www.google.com/maps/place/Tam+Dao+Golf+Course/@21.4098761,105.6267281,17z"
+  },
+  {
+   "slug": "thanh-lanh-valley-golf",
+   "rating": 4.6,
+   "reviews": 990,
+   "placeName": "Thanh Lanh Valley Golf & Resort",
+   "mapsUrl": "https://www.google.com/maps/place/Thanh+Lanh+Valley+Golf+%26+Resort/@21.4021352,105.6920224,17z"
+  },
+  {
+   "slug": "dai-lai-golf",
+   "rating": 4.1,
+   "reviews": 2385,
+   "placeName": "Dai Lai Golf Club",
+   "mapsUrl": "https://www.google.com/maps/place/Dai+Lai+Golf+Club/@21.326336,105.722355,17z"
+  },
+  {
+   "slug": "montana-golf-course",
+   "rating": 3.9,
+   "reviews": 128,
+   "placeName": "Sân Golf Montaña",
+   "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Monta%C3%B1a%20Golf%20Course%20Vietnam&hl=en"
+  },
+  {
+   "slug": "vinpearl-golf-hai-phong",
+   "rating": 4.3,
+   "reviews": 780,
+   "placeName": "Vinpearl Golf Haiphong",
+   "mapsUrl": "https://www.google.com/maps/place/Vinpearl+Golf+Haiphong/@20.8720454,106.728262,17z"
+  },
+  {
+   "slug": "montgomerie-links-vietnam",
+   "rating": 4.3,
+   "reviews": 1965,
+   "placeName": "Montgomerie Links Vietnam",
+   "mapsUrl": "https://www.google.com/maps/place/Montgomerie+Links+Vietnam/@15.9630008,108.2850819,17z"
+  },
+  {
+   "slug": "legend-danang-golf-resort",
+   "rating": 4.3,
+   "reviews": 2491,
+   "placeName": "Legend Danang Golf Resort",
+   "mapsUrl": "https://www.google.com/maps/place/Legend+Danang+Golf+Resort/@15.9717259,108.2757816,17z"
+  },
+  {
+   "slug": "ba-na-hills-golf-club",
+   "rating": 4.6,
+   "reviews": 2491,
+   "placeName": "Ba Na Hills Golf Club",
+   "mapsUrl": "https://www.google.com/maps/place/Ba+Na+Hills+Golf+Club/@16.0175252,108.0491866,17z"
+  },
+  {
+   "slug": "hoiana-shores-golf-club",
+   "rating": 4.8,
+   "reviews": 1909,
+   "placeName": "Hoiana Shores Golf Club",
+   "mapsUrl": "https://www.google.com/maps/place/Hoiana+Shores+Golf+Club/@15.821579,108.4045686,17z"
+  },
+  {
+   "slug": "vinpearl-golf-nam-hoi-an",
+   "rating": 4.6,
+   "reviews": 1686,
+   "placeName": "Vinpearl Golf Nam Hoi An",
+   "mapsUrl": "https://www.google.com/maps/search/?api=1&query=Vinpearl%20Golf%20Nam%20Hoi%20An%20Vietnam&hl=en"
+  },
+  {
+   "slug": "laguna-golf-lang-co",
+   "rating": 4.5,
+   "reviews": 625,
+   "placeName": "Laguna Golf Lăng Cô",
+   "mapsUrl": "https://www.google.com/maps/place/Laguna+Golf+L%C4%83ng+C%C3%B4/@16.3270704,107.9553081,17z"
+  },
+  {
+   "slug": "kn-golf-links-cam-ranh",
+   "rating": 4.5,
+   "reviews": 593,
+   "placeName": "KN Golf Links",
+   "mapsUrl": "https://www.google.com/maps/place/KN+Golf+Links/@11.9719423,109.2439145,17z"
+  },
+  {
+   "slug": "vinpearl-golf-nha-trang",
+   "rating": 4.6,
+   "reviews": 1072,
+   "placeName": "Vinpearl Golf Club Nha Trang",
+   "mapsUrl": "https://www.google.com/maps/place/Vinpearl+Golf+Club+Nha+Trang/@12.2085361,109.2564778,17z"
+  },
+  {
+   "slug": "dalat-palace-golf-club",
+   "rating": 4.1,
+   "reviews": 663,
+   "placeName": "Dalat Palace Golf Club",
+   "mapsUrl": "https://www.google.com/maps/place/Dalat+Palace+Golf+Club/@11.9524828,108.4445713,17z"
+  },
+  {
+   "slug": "sam-tuyen-lam-golf",
+   "rating": 4.4,
+   "reviews": 657,
+   "placeName": "SAM Tuyền Lâm Golf Club",
+   "mapsUrl": "https://www.google.com/maps/search/?api=1&query=SAM%20Tuyen%20Lam%20Golf%20%26%20Resorts%20Vietnam&hl=en"
+  },
+  {
+   "slug": "dalat-at-1200",
+   "rating": 3.9,
+   "reviews": 325,
+   "placeName": "Sân Golf The Dàlat at 1200",
+   "mapsUrl": "https://www.google.com/maps/place/S%C3%A2n+Golf+The+D%C3%A0lat+at+1200/@11.7897452,108.4559226,17z"
+  },
+  {
+   "slug": "vinpearl-golf-phu-quoc",
+   "rating": 4.6,
+   "reviews": 979,
+   "placeName": "Vinpearl Golf Phú Quốc",
+   "mapsUrl": "https://www.google.com/maps/place/Vinpearl+Golf+Ph%C3%BA+Qu%E1%BB%91c/@10.3447187,103.8537063,17z"
+  },
+  {
+   "slug": "novaworld-phan-thiet-golf",
+   "rating": 4.6,
+   "reviews": 462,
+   "placeName": "NovaWorld Phan Thiet Golf Club",
+   "mapsUrl": "https://www.google.com/maps/place/NovaWorld+Phan+Thiet+Golf+Club/@10.8310009,108.0271519,17z"
+  },
+  {
+   "slug": "sea-links-golf",
+   "rating": 4.4,
+   "reviews": 4252,
+   "placeName": "Sea Links Golf Country Club",
+   "mapsUrl": "https://www.google.com/maps/place/Sea+Links+Golf+Country+Club/@10.9424681,108.1822322,17z"
+  },
+  {
+   "slug": "sonadezi-chau-duc-golf",
+   "rating": 4.1,
+   "reviews": 253,
+   "placeName": "Sân Golf Châu Đức",
+   "mapsUrl": "https://www.google.com/maps/place/S%C3%A2n+Golf+Ch%C3%A2u+%C4%90%E1%BB%A9c/@10.611372,107.1838764,17z"
+  },
+  {
+   "slug": "anara-binh-tien-golf",
+   "rating": 4.5,
+   "reviews": 96,
+   "placeName": "ANARA Binh Tien Golf Club",
+   "mapsUrl": "https://www.google.com/maps/place/ANARA+Binh+Tien+Golf+Club/@11.8026817,109.1791112,17z"
+  },
+  {
+   "slug": "diamond-bay-golf",
+   "rating": 4.1,
+   "reviews": 483,
+   "placeName": "Diamond Bay Golf & Villas",
+   "mapsUrl": "https://www.google.com/maps/place/Diamond+Bay+Golf+%26+Villas/@12.1725625,109.1866875,17z"
+  },
+  {
+   "slug": "dragon-golf-links",
+   "rating": 4.3,
+   "reviews": 193,
+   "placeName": "Dragon Golf Links",
+   "mapsUrl": "https://www.google.com/maps/place/Dragon+Golf+Links/@20.6930373,106.7735578,17z"
+  },
+  {
+   "slug": "ruby-tree-golf",
+   "rating": 4.2,
+   "reviews": 599,
+   "placeName": "Ruby Tree Golf Resort",
+   "mapsUrl": "https://www.google.com/maps/place/Ruby+Tree+Golf+Resort/@20.7319402,106.778193,17z"
+  },
+  {
+   "slug": "sono-felice-country-club",
+   "rating": 4.3,
+   "reviews": 1096,
+   "placeName": "Sono Felice Country Club",
+   "mapsUrl": "https://www.google.com/maps/place/Sono+Felice+Country+Club/@20.9600022,106.6802351,17z"
+  },
+  {
+   "slug": "tuan-chau-golf",
+   "rating": 4.4,
+   "reviews": 158,
+   "placeName": "Tuan Chau Golf Resort",
+   "mapsUrl": "https://www.google.com/maps/place/Tuan+Chau+Golf+Resort/@20.9366955,106.9720155,17z"
+  },
+  {
+   "slug": "flc-ha-long-golf",
+   "rating": 4.3,
+   "reviews": 444,
+   "placeName": "Sân Golf FLC Hạ Long",
+   "mapsUrl": "https://www.google.com/maps/search/?api=1&query=FLC%20Halong%20Bay%20Golf%20Club%20Vietnam&hl=en"
+  },
+  {
+   "slug": "chi-linh-golf",
+   "rating": 4.2,
+   "reviews": 988,
+   "placeName": "Sân golf Chí Linh",
+   "mapsUrl": "https://www.google.com/maps/place/S%C3%A2n+golf+Ch%C3%AD+Linh/@21.0996909,106.4005591,17z"
+  },
+  {
+   "slug": "hanoi-golf-club",
+   "rating": 3.9,
+   "reviews": 1063,
+   "placeName": "Hanoi Golf Club",
+   "mapsUrl": "https://www.google.com/maps/place/Hanoi+Golf+Club/@21.2911958,105.764225,17z"
+  },
+  {
+   "slug": "legend-hill-country-club",
+   "rating": 4.4,
+   "reviews": 367,
+   "placeName": "Legend Hill Golf Club",
+   "mapsUrl": "https://www.google.com/maps/place/Legend+Hill+Golf+Club/@21.2969144,105.8415291,17z"
+  },
+  {
+   "slug": "heron-lake-golf",
+   "rating": 4.1,
+   "reviews": 646,
+   "placeName": "Heron Lake Golf Resort",
+   "mapsUrl": "https://www.google.com/maps/place/Heron+Lake+Golf+Resort/@21.2945494,105.6141227,17z"
+  },
+  {
+   "slug": "hilltop-valley-golf",
+   "rating": 4.3,
+   "reviews": 751,
+   "placeName": "Hilltop Valley Golf Club",
+   "mapsUrl": "https://www.google.com/maps/place/Hilltop+Valley+Golf+Club/@20.8793315,105.3529131,17z"
+  },
+  {
+   "slug": "phoenix-golf-resort",
+   "rating": 4.2,
+   "reviews": 3340,
+   "placeName": "Phoenix Golf Course Luong Son",
+   "mapsUrl": "https://www.google.com/maps/place/Phoenix+Golf+Course+Luong+Son/@20.8991378,105.4859898,17z"
+  },
+  {
+   "slug": "legend-valley-country-club",
+   "rating": 4.2,
+   "reviews": 235,
+   "placeName": "Legend Valley Country Club",
+   "mapsUrl": "https://www.google.com/maps/place/Legend+Valley+Country+Club/@20.6216465,105.8228036,17z"
+  },
+  {
+   "slug": "stone-valley-golf-resort",
+   "rating": 4.2,
+   "reviews": 625,
+   "placeName": "Stone Valley Golf Resort",
+   "mapsUrl": "https://www.google.com/maps/place/Stone+Valley+Golf+Resort/@20.5365097,105.8182147,17z"
+  },
+  {
+   "slug": "trang-an-golf-resort",
+   "rating": 4.1,
+   "reviews": 889,
+   "placeName": "Sân Golf Tràng An",
+   "mapsUrl": "https://www.google.com/maps/place/S%C3%A2n+Golf+Tr%C3%A0ng+An/@20.223989,105.7894003,17z"
+  },
+  {
+   "slug": "amber-hills-golf-resort",
+   "rating": 4,
+   "reviews": 426,
+   "placeName": "Sân Golf Amber Hills",
+   "mapsUrl": "https://www.google.com/maps/place/S%C3%A2n+Golf+Amber+Hills/@21.2138268,106.1820298,17z"
+  },
+  {
+   "slug": "golden-sands-golf-resort",
+   "rating": 4.8,
+   "reviews": 149,
+   "placeName": "Golden Sands Golf Resort",
+   "mapsUrl": "https://www.google.com/maps/place/Golden+Sands+Golf+Resort/@16.4496928,107.7950259,17z"
+  },
+  {
+   "slug": "silk-path-dong-trieu-golf",
+   "rating": 4.7,
+   "reviews": 309,
+   "placeName": "Silk Path Dong Trieu Golf & Country Club",
+   "mapsUrl": "https://www.google.com/maps/place/Silk+Path+Dong+Trieu+Golf+%26+Country+Club/@21.1463161,106.5129792,17z"
+  },
+  {
+   "slug": "stone-highland-golf-resort",
+   "rating": 4.2,
+   "reviews": 332,
+   "placeName": "Stone Highland Golf and Resort",
+   "mapsUrl": "https://www.google.com/maps/place/Stone+Highland+Golf+and+Resort/@21.271126,106.0618111,17z"
+  },
+  {
+   "slug": "van-lang-empire-golf-club",
+   "rating": 4.7,
+   "reviews": 225,
+   "placeName": "Văn Lang Empire T&T Golf Club",
+   "mapsUrl": "https://www.google.com/maps/place/V%C4%83n+Lang+Empire+T%26T+Golf+Club/@21.2724884,105.208451,17z"
+  },
+  {
+   "slug": "corn-hill-golf-resort",
+   "rating": 4.1,
+   "reviews": 260,
+   "placeName": "Corn Hill Golf & Resort",
+   "mapsUrl": "https://www.google.com/maps/place/Corn+Hill+Golf+%26+Resort/@21.284074,106.3695418,17z"
+  },
+  {
+   "slug": "royal-golf-club-ninh-binh",
+   "rating": 4.6,
+   "reviews": 853,
+   "placeName": "Royal Golf Course Ninh Binh",
+   "mapsUrl": "https://www.google.com/maps/place/Royal+Golf+Course+Ninh+Binh/@20.1257241,105.9663805,17z"
+  },
+  {
+   "slug": "flc-samson-golf-links",
+   "rating": 4.4,
+   "reviews": 1014,
+   "placeName": "FLC Golf Links Samson",
+   "mapsUrl": "https://www.google.com/maps/place/FLC+Golf+Links+Samson/@19.7713112,105.9226449,17z"
+  },
+  {
+   "slug": "royal-island-golf-villas",
+   "rating": 4,
+   "reviews": 628,
+   "placeName": "Royal Island Golf & Villas",
+   "mapsUrl": "https://www.google.com/maps/place/Royal+Island+Golf+%26+Villas/@11.0207078,106.7832896,17z"
+  },
+  {
+   "slug": "flc-quy-nhon-golf-links",
+   "rating": 4.5,
+   "reviews": 77,
+   "placeName": "Sân Golf Links FLC Quy Nhơn",
+   "mapsUrl": "https://www.google.com/maps/search/?api=1&query=FLC%20Quy%20Nhon%20Golf%20Links%20Vietnam&hl=en"
+  },
+  {
+   "slug": "flc-quang-tri-golf-links",
+   "rating": 4.4,
+   "reviews": 62,
+   "placeName": "Sân Golf Links FLC Quảng Bình",
+   "mapsUrl": "https://www.google.com/maps/place/S%C3%A2n+Golf+Links+FLC+Qu%E1%BA%A3ng+B%C3%ACnh/@17.337429,106.756965,17z"
+  },
+  {
+   "slug": "muong-thanh-dien-lam-golf",
+   "rating": 4.5,
+   "reviews": 82,
+   "placeName": "Sân Golf Mường Thanh Diễn Lâm",
+   "mapsUrl": "https://www.google.com/maps/place/S%C3%A2n+Golf+M%C6%B0%E1%BB%9Dng+Thanh+Di%E1%BB%85n+L%C3%A2m/@19.1523309,105.5067603,17z"
+  },
+  {
+   "slug": "muong-thanh-xuan-thanh-golf",
+   "rating": 4.3,
+   "reviews": 134,
+   "placeName": "Mường Thanh Golf Xuân Thành",
+   "mapsUrl": "https://www.google.com/maps/place/M%C6%B0%E1%BB%9Dng+Thanh+Golf+Xu%C3%A2n+Th%C3%A0nh/@18.62833,105.809989,17z"
+  }
+ ]
+}
