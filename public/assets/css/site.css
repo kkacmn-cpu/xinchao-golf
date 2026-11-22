@@ -1098,3 +1098,17 @@ html:not(.map-js) .map-canvas{height:auto;min-height:0}
 .mk-stay{display:inline-flex;align-items:center;gap:3px;transform:translate(-50%,-50%);white-space:nowrap;padding:3px 7px 3px 5px;border-radius:var(--r-pill);background:var(--c-primary-soft);color:var(--c-primary-dark);font:var(--w-semi) 13px/1 var(--font);box-shadow:0 1px 4px rgba(20,39,42,.25);border:1px solid var(--c-primary)}
 .mk-stay i{font-style:normal}
 .map-far .mk-stay i{display:none}
+/* ============ 우리가 일하는 방식(첫 쪽, 2026-11-22) ============ */
+.ops-section { padding: 64px 0; background: var(--cream); }
+.ops-inner { display: grid; gap: 28px; align-items: center; }
+.ops-shot { margin: 0 auto; max-width: 300px; width: 100%; }
+.ops-shot img { width: 100%; height: auto; border-radius: 16px; box-shadow: var(--shadow); border: 1px solid var(--line); background: var(--white); }
+.ops-shot figcaption { margin-top: 8px; text-align: center; font-size: 13px; color: var(--muted); }
+.ops-copy h2 { margin-bottom: 16px; }
+.ops-list { list-style: none; counter-reset: ops; margin: 0 0 20px; padding: 0; display: grid; gap: 12px; }
+.ops-list li { counter-increment: ops; position: relative; padding: 14px 16px 14px 52px; background: var(--white); border-radius: 12px; box-shadow: var(--shadow); }
+.ops-list li::before { content: counter(ops); position: absolute; left: 14px; top: 14px; width: 26px; height: 26px; border-radius: 999px; background: var(--green); color: var(--white); font-size: 14px; font-weight: 800; display: flex; align-items: center; justify-content: center; }
+.ops-list strong { display: block; font-size: 16px; }
+.ops-list span { display: block; font-size: 15px; line-height: 1.6; color: var(--muted); margin-top: 2px; }
+@media (min-width: 900px) { .ops-inner { grid-template-columns: 320px 1fr; gap: 48px; } }
+@media (max-width: 899px) { .ops-btn-g { width: 100%; justify-content: center; } }
