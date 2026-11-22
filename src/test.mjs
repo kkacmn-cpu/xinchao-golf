@@ -145,7 +145,8 @@ try { new Function(script); } catch (error) { failures.push(`site.js 문법 오�
 // 옛 상담 대화상자(중간 입력 단계)는 없어야 한다. 클립보드 복사는 홈 상담 준비표 요약에만 쓴다(2026-11-20 손님 점검 #11).
 if (/consult-dialog|consult-form|js-consult/.test(script)) failures.push("상담 스크립트에 중간 입력 경로 잔존");
 // 11-21 총괄 승인: 상세 쪽 빠른 견적 카드(.quick-quote)도 요약 복사를 쓴다(기존 카톡 단추는 그대로, 중간 입력 단계 아님). 복사는 이 두 곳뿐.
-if (count(script, /navigator\.clipboard\.writeText\(/g) !== 2 || count(script, /document\.execCommand\(/g) !== 1 || count(script, /copyPrepSummary\(/g) !== 1 || !script.includes('document.querySelector(".quick-quote")')) failures.push("클립보드 복사는 상담 준비표 요약과 빠른 견적 카드 두 곳에서만 써야 함");
+// + 상세 하단 "이 골프장으로 견적" 한 번 복사(data-one-tap, 2026-11-22)
+if (count(script, /navigator\.clipboard\.writeText\(/g) !== 3 || !script.includes('querySelectorAll("[data-one-tap]")') || count(script, /document\.execCommand\(/g) !== 1 || count(script, /copyPrepSummary\(/g) !== 1 || !script.includes('document.querySelector(".quick-quote")')) failures.push("클립보드 복사는 상담 준비표 요약과 빠른 견적 카드 두 곳에서만 써야 함");
 const home = await readFile(path.join(dist, "index.html"), "utf8");
 for (const required of ["id=\"home-prep-form\"", "name=\"region\"", "name=\"date\"", "name=\"people\"", "name=\"purpose\"", "id=\"home-prep-result\"", "id=\"home-prep-candidates\"", "id=\"home-prep-copy-status\""]) {
   if (!home.includes(required)) failures.push(`홈 상담 준비표 누락: ${required}`);
