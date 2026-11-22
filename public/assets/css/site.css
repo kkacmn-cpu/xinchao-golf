@@ -1117,3 +1117,10 @@ html:not(.map-js) .map-canvas{height:auto;min-height:0}
 .trust-line a{color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:2px}
 .trust-line span{white-space:nowrap}
 .mobile-cta-bar a.mobile-cta-kakao{display:flex;align-items:center;justify-content:center;text-decoration:none}
+/* 구글 평점(골프장 상세, 2026-11-22) */
+.g-rating { margin: -4px 0 14px; font-size: 15px; color: inherit; }
+.g-rating a { color: inherit; text-decoration: none; }
+.g-rating small { opacity: .8; }
+.g-rating strong { font-weight: 800; }
+.g-rating-star { color: #F5A623; }
+.g-rating small { font-size: 13px; }
