@@ -16,8 +16,9 @@ const markdownPosts = await loadMarkdownPosts(path.join(root, "src/content/blog"
 const guideCount = JSON.parse(await readFile(path.join(root, "src/content/guides.json"), "utf8")).length;
 // 차량 렌트(/rent 허브 1 + 상황별 + 호치민권 골프장별)가 페이지·사이트맵에 더해진다(2026-11-20).
 const rentPageCount = 1 + rentPages.length + hcmCourses.length;
-const expectedContentPages = 27 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
-const expectedSitemapUrls = 26 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
+// +1 지도 쪽(/map, 2026-11-22)
+const expectedContentPages = 28 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
+const expectedSitemapUrls = 27 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
 // 붕따우 지역 게시판(/regions/vungtau.html)이 생겨 페이지·사이트맵이 1개씩 늘었다(2026-11-20).
 // 숙소 상세 19쪽(아파트 4·빌라 15)은 호치민풀빌라로 넘겨 페이지·사이트맵에서 빠지고, 상세 주소 19개 이동 규칙이 늘었다(2026-11-20).
 const expectedRedirects = 66 + markdownPosts.length + legacyGolfPaths.length; // 66 = 기존 45 + 옛 주소→새 주소 2 + 숙소 상세 19, 닫힌 골프 사이트 옛 상세 주소 74
@@ -642,6 +643,21 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     const html = await readFile(path.join(dist, relative), "utf8");
     if (!html.includes('<a href="/rent"')) failures.push(`${relative}: 렌트 허브(/rent) 연결 누락`);
   }
+}
+
+// 지도 쪽(/map): 골프장 전부 좌표·상세·빠른 견적 링크, 숙소는 풀빌라 동네만, 지도 부품은 사이트 안 파일
+{
+  const mapHtml = await readFile(path.join(dist, "map/index.html"), "utf8");
+  const mapJson = JSON.parse(mapHtml.match(/id="mapData">([\s\S]*?)<\/script>/)[1]);
+  if (mapJson.golf.length !== courses.length) failures.push(`지도 골프장 ${mapJson.golf.length}곳 (예상 ${courses.length})`);
+  for (const course of courses) {
+    if (!mapHtml.includes(`href="/golf/${course.slug}.html#quick-quote"`)) failures.push(`지도: ${course.slug} 빠른 견적 링크 없음`);
+    const g = mapJson.golf.find((x) => x.slug === course.slug);
+    if (!g || !(g.lat > 8 && g.lat < 23.5 && g.lon > 102 && g.lon < 110)) failures.push(`지도: ${course.slug} 좌표 이상`);
+  }
+  if (!mapJson.stays.every((st) => st.pop.includes("실제 집 위치 아님"))) failures.push("지도: 숙소 표시에 동네 중심 안내 누락");
+  for (const f of ["assets/vendor/leaflet/leaflet.js", "assets/vendor/leaflet/leaflet.css", "assets/vendor/leaflet/LICENSE.txt", "assets/js/site-map.js"]) if (!await exists(path.join(dist, f))) failures.push(`지도 부품 없음: ${f}`);
+  if (!(await readFile(path.join(dist, "regions/index.html"), "utf8")).includes('href="/map"')) failures.push("지역별 골프 쪽에서 지도(/map) 연결 누락");
 }
 
 if (failures.length) {

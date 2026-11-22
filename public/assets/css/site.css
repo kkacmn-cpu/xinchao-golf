@@ -1025,3 +1025,76 @@ body .brand small,body .near-area,body .ai-badge,body .area-tile-count,body .sig
   .hero-x-lead .nowrap{white-space:nowrap}
   .hero-x::after{background:linear-gradient(180deg,rgba(10,16,13,.42) 0%,rgba(10,16,13,0) 20%,rgba(10,16,13,0) 34%,rgba(10,16,13,.5) 50%,rgba(10,16,13,.72) 68%,rgba(10,16,13,.86) 100%)}
 }
+
+/* ============ 지도 쪽(/map, 2026-11-22) — 풀빌라 사이트 지도와 같은 규칙(hochiminh-poolvilla css/style.css '지도로 보기' 묶음을 그대로 옮김).
+   풀빌라 변수 이름을 골프 사이트 색으로 이어 준다. ============ */
+.map-page{--c-primary:var(--green);--c-primary-dark:var(--green-dark);--c-primary-soft:var(--green-soft);--c-secondary:var(--ink);--g-900:var(--ink);--g-700:var(--muted);--g-500:#87918c;--g-300:var(--line);--g-100:#eef1ef;--g-50:#f7f8f6;--kakao:#FEE500;--kakao-ink:#191919;--r-lg:16px;--r-md:12px;--r-sm:8px;--r-pill:999px;--font:"Pretendard Variable",Pretendard,"Noto Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;--w-semi:600;--w-bold:800;--header-h:72px;--container:1180px}
+.map-course-meta{display:block;font-size:14px;color:var(--g-700);line-height:1.5}
+/* ============ 지도로 보기(map/hochiminh-pool-villa-map.html, 2026-11-22) ============
+   휴대폰: 지도(화면 절반) → 지도 켜고 끄기 칩 → 동네 단추 → 고른 동네 빌라. 데스크톱: 왼쪽 지도(고정), 오른쪽 목록. */
+.map-hero{padding-bottom:20px}
+.map-hero p{max-width:720px}
+.map-main{max-width:calc(var(--container) + 32px);margin:0 auto;padding:16px 16px 48px}
+.map-canvas{height:min(52vh,460px);min-height:300px;border-radius:var(--r-lg);overflow:hidden;background:var(--g-100);box-shadow:var(--shadow);z-index:0}
+.map-noscript{padding:24px;font-size:15px;color:var(--g-700)}
+html:not(.map-js) .map-canvas{height:auto;min-height:0}
+.map-layers{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0 4px}
+.map-chip{min-height:44px;padding:0 14px;border:1px solid var(--g-300);border-radius:var(--r-pill);background:var(--white);font:var(--w-semi) 15px/1 var(--font);color:var(--g-700);cursor:pointer}
+.map-chip[aria-pressed="true"]{background:var(--c-primary);border-color:var(--c-primary);color:var(--white)}
+.map-areas{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 16px}
+.map-area-btn{min-height:44px;display:inline-flex;align-items:center;gap:6px;padding:0 14px;border-radius:var(--r-pill);background:var(--c-primary-soft);color:var(--c-primary-dark);font-size:15px;font-weight:var(--w-semi)}
+.map-area-btn b{min-width:22px;height:22px;padding:0 6px;border-radius:var(--r-pill);background:var(--white);font-size:13px;display:inline-flex;align-items:center;justify-content:center}
+.map-area-btn[aria-current="true"]{background:var(--c-secondary);color:var(--white)}
+.map-area-btn[aria-current="true"] b{color:var(--c-secondary)}
+.map-panel{background:var(--white);border:1px solid var(--g-100);border-radius:var(--r-lg);padding:18px 16px;margin-bottom:16px;box-shadow:var(--shadow)}
+.map-panel h3{font-size:20px;font-weight:var(--w-bold);margin:0 0 6px}
+.map-panel h3 small{font-size:15px;font-weight:var(--w-semi);color:var(--c-primary)}
+.map-panel h4{font-size:15px;font-weight:var(--w-bold);margin:14px 0 6px;color:var(--g-900)}
+.map-facts{font-size:15px;line-height:1.6;color:var(--g-700);margin:0 0 12px}
+.map-villas{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.map-villa{display:flex;gap:12px;align-items:center;padding:8px;border-radius:var(--r-md);background:var(--g-50)}
+.map-villa img{width:96px;height:72px;object-fit:cover;border-radius:var(--r-sm);flex:none}
+.map-villa-text{display:flex;flex-direction:column;gap:2px;min-width:0;font-size:15px;color:var(--g-700)}
+.map-villa-text strong{font-size:16px;color:var(--g-900)}
+.map-villa-btns{display:flex;gap:6px;margin-top:6px;flex-wrap:wrap}
+.map-btn{min-height:40px;display:inline-flex;align-items:center;padding:0 12px;border:1px solid var(--g-300);border-radius:var(--r-md);background:var(--white);font-size:15px;font-weight:var(--w-semi);color:var(--g-900)}
+.map-btn-qq{background:var(--kakao);border-color:var(--kakao);color:var(--kakao-ink)}
+.map-golf-links{display:flex;flex-wrap:wrap;gap:6px;margin:0}
+.map-golf-links a{display:inline-flex;align-items:center;min-height:36px;padding:0 10px;border-radius:var(--r-sm);background:var(--g-50);font-size:15px;color:var(--g-900)}
+.map-golf-links small{font-size:13px;color:var(--g-500);margin-left:4px}
+.map-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+.map-actions a{flex:1;min-height:54px;display:flex;align-items:center;justify-content:center;padding:12px 16px;text-align:center;border-radius:var(--r-md);font-size:16px;font-weight:var(--w-semi)}
+.map-note{font-size:13px;line-height:1.6;color:var(--g-500);margin:14px 0 0}
+.map-js .map-panel[hidden]{display:none}
+/* 지도 표시(divIcon): 글자 표시만 쓰고 그림 파일은 쓰지 않는다 */
+.mk{background:none;border:0}
+.mk-area{display:inline-flex;align-items:center;gap:4px;transform:translate(-50%,-50%);white-space:nowrap;padding:6px 10px;border-radius:var(--r-pill);background:var(--c-primary);color:var(--white);font:var(--w-bold) 14px/1 var(--font);box-shadow:0 2px 8px rgba(20,39,42,.3);border:2px solid var(--white)}
+.mk-area b{background:var(--white);color:var(--c-primary);border-radius:var(--r-pill);padding:2px 6px;font-size:13px}
+.mk-area.mk-left{transform:translate(calc(-100% + 10px),-50%)}
+.mk-area.mk-right{transform:translate(-10px,-50%)}
+.mk-area.mk-up{transform:translate(-50%,calc(-100% + 8px))}
+.mk-area.mk-down{transform:translate(-50%,-8px)}
+.mk-on .mk-area{background:var(--c-secondary);scale:1.12}
+.mk-on{z-index:1000 !important}
+.mk-on .mk-area b{color:var(--c-secondary)}
+.mk-golf{display:inline-flex;align-items:center;gap:3px;transform:translate(-50%,-50%);white-space:nowrap;padding:3px 7px 3px 5px;border-radius:var(--r-pill);background:var(--white);color:var(--g-900);font:var(--w-semi) 13px/1 var(--font);box-shadow:0 1px 4px rgba(20,39,42,.25);border:1px solid var(--g-300)}
+.mk-golf i{font-style:normal}
+.mk-approx{border-style:dashed}
+.mk-pop-title{font-size:15px}
+.mk-pop-sub{font-size:13px;color:var(--g-500)}
+.leaflet-popup-content{font-family:var(--font);font-size:14px;line-height:1.7}
+.leaflet-popup-content a{color:var(--c-primary-dark);font-weight:var(--w-semi)}
+@media (min-width:1024px){
+  .map-main{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:28px;align-items:start;padding-top:28px}
+  .map-wrap{position:sticky;top:calc(var(--header-h) + 16px)}
+  .map-canvas{height:calc(100vh - var(--header-h) - 120px);max-height:720px}
+}
+.leaflet-container,.leaflet-container .leaflet-control-attribution,.leaflet-popup-content{font-family:var(--font)}
+.leaflet-container .leaflet-control-attribution{font-size:12px}
+@media (max-width:400px){.mk-area{font-size:13px;padding:5px 8px;gap:3px}.mk-area b{font-size:12px;padding:1px 5px}}
+.map-far .mk-golf i{display:none}
+.map-far .mk-golf{padding:3px 5px}
+.leaflet-control-zoom a{font-family:var(--font) !important}
+.mk-stay{display:inline-flex;align-items:center;gap:3px;transform:translate(-50%,-50%);white-space:nowrap;padding:3px 7px 3px 5px;border-radius:var(--r-pill);background:var(--c-primary-soft);color:var(--c-primary-dark);font:var(--w-semi) 13px/1 var(--font);box-shadow:0 1px 4px rgba(20,39,42,.25);border:1px solid var(--c-primary)}
+.mk-stay i{font-style:normal}
+.map-far .mk-stay i{display:none}

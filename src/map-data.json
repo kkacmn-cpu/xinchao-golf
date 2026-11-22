@@ -1,0 +1,468 @@
+{
+ "note": "골프 사이트 지도(/map)용 자료(2026-11-22). 풀빌라 저장소(hochiminh-poolvilla)에서 만든 것: 골프장 좌표 = scripts/fixtures/golf-map-coords.json(precision approx = 지역 중심), 숙소 = 풀빌라 동네 중심 좌표·빌라 수(정확한 집 위치 아님). 골프장·빌라 동네가 바뀌면 풀빌라 저장소 scripts/villa-map.mjs의 mapData()로 다시 만든다.",
+ "checkedAt": "2026-11-22",
+ "courses": [
+  {
+   "slug": "thu-duc-country-club",
+   "lat": 10.8565,
+   "lon": 106.82456,
+   "precision": "course"
+  },
+  {
+   "slug": "tan-son-nhat-golf-course",
+   "lat": 10.82972,
+   "lon": 106.64981,
+   "precision": "course"
+  },
+  {
+   "slug": "twin-doves-golf-club",
+   "lat": 11.02031,
+   "lon": 106.66865,
+   "precision": "course"
+  },
+  {
+   "slug": "leman-golf-club",
+   "lat": 10.97442,
+   "lon": 106.4949,
+   "precision": "approx"
+  },
+  {
+   "slug": "vung-tau-paradise-golf",
+   "lat": 10.36902,
+   "lon": 107.11051,
+   "precision": "course"
+  },
+  {
+   "slug": "the-bluffs-grand-ho-tram",
+   "lat": 10.48139,
+   "lon": 107.44637,
+   "precision": "course"
+  },
+  {
+   "slug": "taekwang-jeongsan-country-club",
+   "lat": 10.75077,
+   "lon": 106.83044,
+   "precision": "course"
+  },
+  {
+   "slug": "long-thanh-golf-club",
+   "lat": 10.86124,
+   "lon": 106.896,
+   "precision": "course"
+  },
+  {
+   "slug": "song-be-golf-resort",
+   "lat": 10.92577,
+   "lon": 106.70666,
+   "precision": "course"
+  },
+  {
+   "slug": "dong-nai-golf-resort",
+   "lat": 10.97456,
+   "lon": 106.99877,
+   "precision": "course"
+  },
+  {
+   "slug": "harmony-golf-park",
+   "lat": 11.02998,
+   "lon": 106.66978,
+   "precision": "course"
+  },
+  {
+   "slug": "west-lakes-golf-villas",
+   "lat": 10.88407,
+   "lon": 106.39812,
+   "precision": "approx"
+  },
+  {
+   "slug": "royal-long-an-golf",
+   "lat": 10.78311,
+   "lon": 106.33758,
+   "precision": "course"
+  },
+  {
+   "slug": "long-bien-golf-course",
+   "lat": 21.03841,
+   "lon": 105.89152,
+   "precision": "course"
+  },
+  {
+   "slug": "sky-lake-golf",
+   "lat": 20.83919,
+   "lon": 105.61934,
+   "precision": "course"
+  },
+  {
+   "slug": "brg-kings-island",
+   "lat": 21.05303,
+   "lon": 105.4675,
+   "precision": "course"
+  },
+  {
+   "slug": "tam-dao-golf",
+   "lat": 21.40638,
+   "lon": 105.62693,
+   "precision": "course"
+  },
+  {
+   "slug": "thanh-lanh-valley-golf",
+   "lat": 21.39719,
+   "lon": 105.68869,
+   "precision": "course"
+  },
+  {
+   "slug": "dai-lai-golf",
+   "lat": 21.33557,
+   "lon": 105.72819,
+   "precision": "course"
+  },
+  {
+   "slug": "montana-golf-course",
+   "lat": 20.84633,
+   "lon": 105.34751,
+   "precision": "approx"
+  },
+  {
+   "slug": "vinpearl-golf-hai-phong",
+   "lat": 20.87056,
+   "lon": 106.73044,
+   "precision": "course"
+  },
+  {
+   "slug": "montgomerie-links-vietnam",
+   "lat": 15.96043,
+   "lon": 108.28496,
+   "precision": "course"
+  },
+  {
+   "slug": "legend-danang-golf-resort",
+   "lat": 15.97159,
+   "lon": 108.27629,
+   "precision": "course"
+  },
+  {
+   "slug": "ba-na-hills-golf-club",
+   "lat": 16.01344,
+   "lon": 108.05399,
+   "precision": "course"
+  },
+  {
+   "slug": "hoiana-shores-golf-club",
+   "lat": 15.81965,
+   "lon": 108.40581,
+   "precision": "course"
+  },
+  {
+   "slug": "vinpearl-golf-nam-hoi-an",
+   "lat": 15.79375,
+   "lon": 108.41099,
+   "precision": "course"
+  },
+  {
+   "slug": "laguna-golf-lang-co",
+   "lat": 16.26927,
+   "lon": 108.06218,
+   "precision": "approx"
+  },
+  {
+   "slug": "kn-golf-links-cam-ranh",
+   "lat": 11.96959,
+   "lon": 109.24129,
+   "precision": "course"
+  },
+  {
+   "slug": "vinpearl-golf-nha-trang",
+   "lat": 12.21251,
+   "lon": 109.25808,
+   "precision": "course"
+  },
+  {
+   "slug": "dalat-palace-golf-club",
+   "lat": 11.94791,
+   "lon": 108.44518,
+   "precision": "course"
+  },
+  {
+   "slug": "sam-tuyen-lam-golf",
+   "lat": 11.87941,
+   "lon": 108.44952,
+   "precision": "course"
+  },
+  {
+   "slug": "dalat-at-1200",
+   "lat": 11.79202,
+   "lon": 108.45096,
+   "precision": "course"
+  },
+  {
+   "slug": "vinpearl-golf-phu-quoc",
+   "lat": 10.34893,
+   "lon": 103.85109,
+   "precision": "course"
+  },
+  {
+   "slug": "novaworld-phan-thiet-golf",
+   "lat": 10.83025,
+   "lon": 108.0272,
+   "precision": "course"
+  },
+  {
+   "slug": "sea-links-golf",
+   "lat": 10.94385,
+   "lon": 108.18334,
+   "precision": "course"
+  },
+  {
+   "slug": "sonadezi-chau-duc-golf",
+   "lat": 10.61178,
+   "lon": 107.18028,
+   "precision": "course"
+  },
+  {
+   "slug": "anara-binh-tien-golf",
+   "lat": 11.80095,
+   "lon": 109.18115,
+   "precision": "course"
+  },
+  {
+   "slug": "diamond-bay-golf",
+   "lat": 12.17966,
+   "lon": 109.24391,
+   "precision": "course"
+  },
+  {
+   "slug": "eschuri-vung-bau-golf",
+   "lat": 10.30056,
+   "lon": 103.88363,
+   "precision": "approx"
+  },
+  {
+   "slug": "dragon-golf-links",
+   "lat": 20.68474,
+   "lon": 106.7683,
+   "precision": "course"
+  },
+  {
+   "slug": "ruby-tree-golf",
+   "lat": 20.73012,
+   "lon": 106.77767,
+   "precision": "course"
+  },
+  {
+   "slug": "sono-felice-country-club",
+   "lat": 20.96119,
+   "lon": 106.67812,
+   "precision": "course"
+  },
+  {
+   "slug": "tuan-chau-golf",
+   "lat": 20.93891,
+   "lon": 106.97944,
+   "precision": "course"
+  },
+  {
+   "slug": "flc-ha-long-golf",
+   "lat": 20.95561,
+   "lon": 107.11386,
+   "precision": "course"
+  },
+  {
+   "slug": "chi-linh-golf",
+   "lat": 21.10224,
+   "lon": 106.3988,
+   "precision": "course"
+  },
+  {
+   "slug": "hanoi-golf-club",
+   "lat": 21.29276,
+   "lon": 105.76366,
+   "precision": "course"
+  },
+  {
+   "slug": "legend-hill-country-club",
+   "lat": 21.29643,
+   "lon": 105.84532,
+   "precision": "course"
+  },
+  {
+   "slug": "heron-lake-golf",
+   "lat": 21.29554,
+   "lon": 105.60926,
+   "precision": "course"
+  },
+  {
+   "slug": "hilltop-valley-golf",
+   "lat": 20.88786,
+   "lon": 105.34727,
+   "precision": "approx"
+  },
+  {
+   "slug": "phoenix-golf-resort",
+   "lat": 20.89827,
+   "lon": 105.49138,
+   "precision": "course"
+  },
+  {
+   "slug": "legend-valley-country-club",
+   "lat": 20.54266,
+   "lon": 105.90324,
+   "precision": "approx"
+  },
+  {
+   "slug": "stone-valley-golf-resort",
+   "lat": 20.56228,
+   "lon": 105.81804,
+   "precision": "approx"
+  },
+  {
+   "slug": "trang-an-golf-resort",
+   "lat": 20.32165,
+   "lon": 105.75081,
+   "precision": "approx"
+  },
+  {
+   "slug": "amber-hills-golf-resort",
+   "lat": 21.21414,
+   "lon": 106.18161,
+   "precision": "course"
+  },
+  {
+   "slug": "golden-sands-golf-resort",
+   "lat": 16.43642,
+   "lon": 107.77558,
+   "precision": "approx"
+  },
+  {
+   "slug": "silk-path-dong-trieu-golf",
+   "lat": 21.13144,
+   "lon": 106.50231,
+   "precision": "approx"
+  },
+  {
+   "slug": "stone-highland-golf-resort",
+   "lat": 21.24788,
+   "lon": 106.16628,
+   "precision": "approx"
+  },
+  {
+   "slug": "van-lang-empire-golf-club",
+   "lat": 21.30745,
+   "lon": 105.23024,
+   "precision": "approx"
+  },
+  {
+   "slug": "corn-hill-golf-resort",
+   "lat": 21.2981,
+   "lon": 106.39838,
+   "precision": "approx"
+  },
+  {
+   "slug": "royal-golf-club-ninh-binh",
+   "lat": 20.12518,
+   "lon": 105.96648,
+   "precision": "course"
+  },
+  {
+   "slug": "flc-samson-golf-links",
+   "lat": 19.77432,
+   "lon": 105.92448,
+   "precision": "course"
+  },
+  {
+   "slug": "royal-island-golf-villas",
+   "lat": 11.02569,
+   "lon": 106.78682,
+   "precision": "course"
+  },
+  {
+   "slug": "flc-quy-nhon-golf-links",
+   "lat": 13.87333,
+   "lon": 109.27517,
+   "precision": "course"
+  },
+  {
+   "slug": "flc-quang-tri-golf-links",
+   "lat": 17.3323,
+   "lon": 106.75999,
+   "precision": "course"
+  },
+  {
+   "slug": "muong-thanh-dien-lam-golf",
+   "lat": 19.1523,
+   "lon": 105.50682,
+   "precision": "course"
+  },
+  {
+   "slug": "muong-thanh-xuan-thanh-golf",
+   "lat": 18.64449,
+   "lon": 105.75753,
+   "precision": "approx"
+  }
+ ],
+ "stays": [
+  {
+   "id": "area-1",
+   "label": "타오디엔",
+   "lat": 10.8004871,
+   "lon": 106.7336512,
+   "n": 8,
+   "url": "https://hochiminhpoolvilla.com/map/hochiminh-pool-villa-map.html#area-1"
+  },
+  {
+   "id": "area-2",
+   "label": "타인미러이",
+   "lat": 10.7779824,
+   "lon": 106.7612965,
+   "n": 5,
+   "url": "https://hochiminhpoolvilla.com/map/hochiminh-pool-villa-map.html#area-2"
+  },
+  {
+   "id": "area-3",
+   "label": "빈쯩",
+   "lat": 10.7887654,
+   "lon": 106.7551053,
+   "n": 2,
+   "url": "https://hochiminhpoolvilla.com/map/hochiminh-pool-villa-map.html#area-3"
+  },
+  {
+   "id": "area-4",
+   "label": "안카인",
+   "lat": 10.7850885,
+   "lon": 106.7293654,
+   "n": 3,
+   "url": "https://hochiminhpoolvilla.com/map/hochiminh-pool-villa-map.html#area-4"
+  },
+  {
+   "id": "area-5",
+   "label": "안푸",
+   "lat": 10.8036654,
+   "lon": 106.7472268,
+   "n": 1,
+   "url": "https://hochiminhpoolvilla.com/map/hochiminh-pool-villa-map.html#area-5"
+  },
+  {
+   "id": "area-6",
+   "label": "힘람",
+   "lat": 10.7404728,
+   "lon": 106.6989939,
+   "n": 3,
+   "url": "https://hochiminhpoolvilla.com/map/hochiminh-pool-villa-map.html#area-6"
+  },
+  {
+   "id": "area-7",
+   "label": "쭝선",
+   "lat": 10.7340589,
+   "lon": 106.6891895,
+   "n": 1,
+   "url": "https://hochiminhpoolvilla.com/map/hochiminh-pool-villa-map.html#area-7"
+  },
+  {
+   "id": "area-8",
+   "label": "1군",
+   "lat": 10.7703806,
+   "lon": 106.6951066,
+   "n": 1,
+   "url": "https://hochiminhpoolvilla.com/map/hochiminh-pool-villa-map.html#area-8"
+  }
+ ]
+}

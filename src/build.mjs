@@ -8,6 +8,7 @@ import { courseFaqs, courseGuides } from "./course-guides.mjs";
 import { coursesForGuide, hubForCategory, topicHubs } from "./topic-hubs.mjs";
 import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
 import { pricing, pricingGuideHtml, pricingSummary } from "./pricing-guide.mjs";
+import { readFileSync } from "node:fs";
 import { chooseRows, courseLabel, dayTripRoutes, directionOf, golfRentFaqs, golfRentPath, hcmCourses, longDistance, luggageNote, rentGo, rentPages, vehicleTypes, vietnambam } from "./rent-data.mjs";
 
 const flatName = (name) => name.replace(/\s*\(([^)]+)\)/g, "·$1");
@@ -709,9 +710,59 @@ function regionBoardPage(board) {
   return layout({ title, description, pathname: `/regions/${board.key}.html`, active: "regions", content, schema: [breadcrumbSchema([["홈", "/"], ["지역별 골프", "/regions"], [board.name, `/regions/${board.key}.html`]])] });
 }
 
+// 지도 쪽(/map, 2026-11-22 총괄): 골프장 66곳 중심. 누르면 공항 시간(골프장 상세의 drive 그대로)과 가까운 숙소(풀빌라 동네, 직선거리)가 나온다.
+// 지도 코드·CSS는 풀빌라 사이트 지도와 같은 파일(public/assets/js/site-map.js = hochiminh-poolvilla js/villa-map.js). 자료는 src/map-data.json.
+const mapData = JSON.parse(readFileSync(new URL("./map-data.json", import.meta.url), "utf8"));
+const mapKm = (a, b) => { const r = Math.PI / 180, dLat = (b.lat - a.lat) * r, dLon = (b.lon - a.lon) * r; const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * r) * Math.cos(b.lat * r) * Math.sin(dLon / 2) ** 2; return Math.round(2 * 6371 * Math.asin(Math.sqrt(h))); };
+const MAP_STAY_KM = 45;
+const mapCoordOf = (course) => { const c = mapData.courses.find((x) => x.slug === course.slug); if (!c) throw new Error(`지도 좌표 없음: ${course.slug}`); return c; };
+const nearStays = (course) => { const c = mapCoordOf(course); return mapData.stays.map((st) => ({ ...st, km: mapKm(c, st) })).filter((st) => st.km <= MAP_STAY_KM).sort((a, b) => a.km - b.km).slice(0, 3); };
+const mapCourseFacts = (course) => {
+  const stays = nearStays(course);
+  const air = `✈️ ${escapeHtml(airportShort(course))}에서 차로 ${escapeHtml(course.drive)}${course.driveKm ? ` (${escapeHtml(course.driveKm)})` : ""}`;
+  const stay = stays.length ? `🏠 가까운 풀빌라 동네(직선) ${stays.map((st) => `<a href="${st.url}" target="_blank" rel="noopener">${escapeHtml(st.label)} 약 ${st.km}km</a>`).join(" · ")}` : "🏠 숙소는 지역에 맞춰 상담으로 안내";
+  return { air, stay };
+};
+function mapPage() {
+  const pathname = "/map";
+  const regionsOnMap = golfAreas.map((area) => ({ area, list: courses.filter((course) => course.area === area.key) })).filter((r) => r.list.length);
+  const areas = regionsOnMap.map(({ area, list }) => {
+    const pts = list.map(mapCoordOf);
+    const lat = pts.reduce((n, p) => n + p.lat, 0) / pts.length;
+    const lon = pts.reduce((n, p) => n + p.lon, 0) / pts.length;
+    return { id: `region-${area.key}`, label: area.name, title: `${area.name} 골프장 ${list.length}곳`, lat: +lat.toFixed(4), lon: +lon.toFixed(4), n: list.length, b: [[Math.min(...pts.map((p) => p.lat)), Math.min(...pts.map((p) => p.lon))], [Math.max(...pts.map((p) => p.lat)), Math.max(...pts.map((p) => p.lon))]] };
+  });
+  const golf = courses.map((course) => {
+    const c = mapCoordOf(course);
+    const f = mapCourseFacts(course);
+    const approx = c.precision === "approx";
+    return { slug: course.slug, name: course.name, short: course.shortName, area: course.area, region: course.region, lat: c.lat, lon: c.lon, url: `/golf/${course.slug}.html`, approx, pop: `<strong class="mk-pop-title">${escapeHtml(course.name)}</strong><br><span class="mk-pop-sub">${escapeHtml(course.region)} · ${escapeHtml(course.holes)}${approx ? " · 대략 위치(지역 중심)" : ""}</span><br>${f.air}<br>${f.stay}<br><a href="/golf/${course.slug}.html">골프장 자세히 보기 →</a><br><a href="/golf/${course.slug}.html#quick-quote">빠른 견적 →</a>` };
+  });
+  const stays = mapData.stays.map((st) => ({ label: `${st.label} ${st.n}채`, lat: st.lat, lon: st.lon, pop: `<strong class="mk-pop-title">🏠 ${escapeHtml(st.label)} 풀빌라 ${st.n}채</strong><br><span class="mk-pop-sub">동네 중심 위치(실제 집 위치 아님)</span><br><a href="${st.url}" target="_blank" rel="noopener">이 동네 풀빌라 보기 →</a><br><a href="${golfComboPath}">⛳ 숙소와 골프 한 번에 견적 →</a>` }));
+  const data = { areas, golf, stays, startAll: true, sideKm: 150 };
+  const approxN = golf.filter((g) => g.approx).length;
+  const panel = ({ area, list }) => `<section class="map-panel" id="region-${area.key}" data-area="region-${area.key}" aria-labelledby="region-${area.key}-title"><h3 id="region-${area.key}-title">⛳ ${escapeHtml(area.name)} <small>골프장 ${list.length}곳</small></h3><p class="map-facts">공항 기준: ${escapeHtml(area.airport)}. 시간은 골프장 상세의 평소 교통 기준, 숙소 거리는 풀빌라 동네 중심까지 직선거리입니다.</p><ul class="map-villas">${list.map((course) => {
+    const f = mapCourseFacts(course);
+    const approx = mapCoordOf(course).precision === "approx";
+    return `<li class="map-villa map-course"><div class="map-villa-text"><strong>${escapeHtml(course.name)}${approx ? " <small>(지도는 대략 위치)</small>" : ""}</strong><span class="map-course-meta">${escapeHtml(course.region)} · ${escapeHtml(course.holes)}</span><span class="map-course-meta">${f.air}</span><span class="map-course-meta">${f.stay}</span><span class="map-villa-btns"><a href="/golf/${course.slug}.html" class="map-btn">자세히</a><a href="/golf/${course.slug}.html#quick-quote" class="map-btn map-btn-qq">빠른 견적</a></span></div></li>`;
+  }).join("")}</ul></section>`;
+  const villaMapUrl = "https://hochiminhpoolvilla.com/map/hochiminh-pool-villa-map.html";
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">지도로 보기</p><h1>지도로 보는 베트남 골프장 ${courses.length}곳</h1><p>골프장을 누르면 공항에서 걸리는 시간과 가까운 풀빌라 동네가 나옵니다. 지역 단추를 누르면 그 지역 골프장만 모아 보여 드립니다.</p></div></section>
+<div class="map-page"><div class="map-main">
+<div class="map-wrap"><div id="villaMap" class="map-canvas" role="region" aria-label="베트남 골프장과 풀빌라 동네 지도"><noscript><p class="map-noscript">지도는 자바스크립트가 켜져 있어야 보입니다. 아래 지역 목록으로도 모두 보실 수 있습니다.</p></noscript></div>
+<div class="map-layers" role="group" aria-label="지도에 보일 것"><button type="button" class="map-chip" aria-pressed="true" data-layer="golf-hcm">⛳ 호치민권 골프장</button><button type="button" class="map-chip" aria-pressed="true" data-layer="golf-all">⛳ 다른 지역 골프장</button><button type="button" class="map-chip" aria-pressed="true" data-layer="stay">🏠 풀빌라 동네</button></div></div>
+<div class="map-side"><nav class="map-areas" aria-label="지역 고르기">${regionsOnMap.map(({ area, list }) => `<a href="#region-${area.key}" class="map-area-btn" data-area-btn="region-${area.key}">${escapeHtml(area.name)} <b>${list.length}</b></a>`).join("")}</nav>
+<div class="map-panels" id="mapPanels">${regionsOnMap.map(panel).join("\n")}</div>
+<div class="map-actions"><a href="${golfComboPath}" class="button button-kakao">⛳ 골프·숙소·차량 한 번에 견적</a><a href="${villaMapUrl}" class="button button-quiet" target="_blank" rel="noopener">풀빌라 지도 보기</a></div>
+<p class="map-note">골프장 ${courses.length}곳 중 ${approxN}곳은 지도 자료에 골프장 자리가 없어 그 지역 중심에 놓았습니다(점선 표시). 풀빌라는 동네 중심 위치만 보여 드립니다. 지도 © OpenStreetMap 기여자.</p></div>
+</div></div>
+<script type="application/json" id="mapData">${JSON.stringify(data).replaceAll("<", "\\u003c")}</script>
+<script src="/assets/vendor/leaflet/leaflet.js"></script><script src="/assets/js/site-map.js"></script>`;
+  return layout({ title: `지도로 보는 베트남 골프장 ${courses.length}곳`, description: `베트남 골프장 ${courses.length}곳을 한 지도에서 봅니다. 골프장을 누르면 공항에서 걸리는 시간과 가까운 풀빌라 동네가 나오고, 상세와 빠른 견적으로 바로 갑니다.`, pathname, active: "golf", content, keywords: ["베트남 골프장 지도", "호치민 골프장 지도", "하노이 골프장 지도", "다낭 골프장 위치", "골프장 가까운 숙소"], schema: [breadcrumbSchema([["홈", "/"], ["지도로 보기", pathname]])] }).replace("</head>", `<link rel="stylesheet" href="/assets/vendor/leaflet/leaflet.css">\n</head>`);
+}
 function regionsPage() {
   const boardCards = regionBoards.map((board) => `<li><a href="/regions/${board.key}.html"><strong>${board.name} 골프 게시판 <em>${regionBoardItems(board).length}개 글</em></strong><span>${board.lead}</span></a></li>`).join("");
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">베트남 골프</p><h1>지역별 베트남 골프 상담</h1><p>호치민을 중심으로 붕따우, 하노이, 다낭·호이안, 나트랑, 푸꾸옥, 달랏 골프 일정도 상담합니다. 지역을 누르면 그 지역 골프 글만 모아 볼 수 있습니다.</p><div class="guide-jump">${regionBoards.map((board) => `<a class="button button-quiet" href="/regions/${board.key}.html">${board.name}</a>`).join("")}</div></div></section><section class="section shell"><section class="guide-group"><h2>지역별 골프 게시판</h2><ul class="guide-list">${boardCards}</ul></section><div class="region-list">${regions.map((region, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><div><p class="eyebrow">${region.emphasis}</p><h2>${region.name}</h2><p>${region.text}</p></div><button class="button button-quiet js-consult" type="button" data-interest="${region.name} 골프 상담">상담하기</button></article>`).join("")}</div></section>`;
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">베트남 골프</p><h1>지역별 베트남 골프 상담</h1><p>호치민을 중심으로 붕따우, 하노이, 다낭·호이안, 나트랑, 푸꾸옥, 달랏 골프 일정도 상담합니다. 지역을 누르면 그 지역 골프 글만 모아 볼 수 있습니다.</p><div class="guide-jump"><a class="button button-quiet" href="/map">🗺️ 지도로 보기</a>${regionBoards.map((board) => `<a class="button button-quiet" href="/regions/${board.key}.html">${board.name}</a>`).join("")}</div></div></section><section class="section shell"><section class="guide-group"><h2>지역별 골프 게시판</h2><ul class="guide-list">${boardCards}</ul></section><div class="region-list">${regions.map((region, index) => `<article><span>${String(index + 1).padStart(2, "0")}</span><div><p class="eyebrow">${region.emphasis}</p><h2>${region.name}</h2><p>${region.text}</p></div><button class="button button-quiet js-consult" type="button" data-interest="${region.name} 골프 상담">상담하기</button></article>`).join("")}</div></section>`;
   return layout({ title: "지역별 베트남 골프 상담", description: "호치민, 붕따우, 하노이, 다낭·호이안, 나트랑, 푸꾸옥, 달랏 지역별 골프장 예약과 일정 글을 모아 보고, 숙소·차량 연결까지 한국어로 상담합니다.", pathname: "/regions", active: "regions", content });
 }
 
@@ -1026,6 +1077,7 @@ async function build() {
   await write("golf/index.html", golfIndexPage());
   for (const course of courses) await write(`golf/${course.slug}.html`, courseDetailPage(course));
   await write("regions/index.html", regionsPage());
+  await write("map/index.html", mapPage());
   for (const board of regionBoards) await write(`regions/${board.key}.html`, regionBoardPage(board));
   await write("services/index.html", servicesPage());
   await write("services/apartments.html", apartmentsPage());
@@ -1077,7 +1129,7 @@ async function build() {
   }
 
   const urls = [
-    "/", "/golf", "/regions", ...regionBoards.map((board) => `/regions/${board.key}.html`), "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/rent", ...rentPages.map((page) => `/rent/${page.slug}.html`), ...hcmCourses.map(golfRentPath), "/blog", "/about.html", "/editorial-policy.html", "/source-policy.html",
+    "/", "/golf", "/map", "/regions", ...regionBoards.map((board) => `/regions/${board.key}.html`), "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/rent", ...rentPages.map((page) => `/rent/${page.slug}.html`), ...hcmCourses.map(golfRentPath), "/blog", "/about.html", "/editorial-policy.html", "/source-policy.html",
     ...courses.map((course) => `/golf/${course.slug}.html`),
     ...blogPosts.map((post) => `/blog/${post.file}`),
     "/guide",
