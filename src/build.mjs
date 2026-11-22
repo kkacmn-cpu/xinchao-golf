@@ -30,6 +30,8 @@ const heroImageOverride = {
   "sky-lake-golf": "courses/golf-sky-lake-golf-2.webp",
   "thanh-lanh-valley-golf": "courses/golf-thanh-lanh-valley-golf-1.webp",
   "ruby-tree-golf": "courses/golf-ruby-tree-golf-1.webp",
+  // 11-22 대표님 "흐린 첫 사진 보완": 가진 실사 중 가장 선명한 장 + 가벼운 선명 보정(UnsharpMask)
+  "sea-links-golf": "courses/golf-sea-links-golf-3.webp",
   "heron-lake-golf": "courses/golf-heron-lake-golf-1.webp",
 };
 // 사진마다 잘리면 안 되는 곳(클럽하우스·그린·사람)에 맞춘 초점. 없으면 가운데.
@@ -212,7 +214,7 @@ function header(active = "") {
     </header>`;
 }
 
-function footer() {
+function footer(pathname = "") {
   return `
     <footer class="site-footer">
       <div class="shell footer-grid">
@@ -222,11 +224,14 @@ function footer() {
       <div class="shell copyright">© ${new Date().getFullYear()} ${site.englishName}. All rights reserved.</div>
     </footer>
     <button class="floating-consult js-consult" type="button" data-interest="빠른 상담" aria-label="카카오톡 빠른 상담">상담</button>
-    <div class="mobile-cta-bar"><a class="mobile-cta-golf" href="/golf">골프장 ${courses.length}곳</a><button class="mobile-cta-kakao js-consult" type="button" data-interest="모바일 하단 상담">카카오톡 예약 문의</button></div>
+    <div class="mobile-cta-bar"><a class="mobile-cta-golf" href="/golf">골프장 ${courses.length}곳</a>${courseOfPath(pathname) ? `<a class="mobile-cta-kakao" href="/go/quick-golf?from=${courseOfPath(pathname).slug}" data-one-tap="${escapeHtml(`[신짜오골프] ${courseOfPath(pathname).name} 견적 문의\n날짜·인원·티오프 희망 시간은 이어서 알려 드릴게요.`)}">이 골프장으로 견적</a>` : `<button class="mobile-cta-kakao js-consult" type="button" data-interest="모바일 하단 상담">카카오톡 예약 문의</button>`}</div>
     <script src="/assets/js/site.js?v=${scriptVersion}" defer></script>
     <script src="https://company-site-monitor.vercel.app/tracker.js?site=xinchao-golf" defer></script>`;
 }
 
+// 믿음 칸(한 줄, 2026-11-22 대표님 "보완"): 첫 화면 아래와 골프장 상세 맨 아래. 가격·패키지 표현 없음.
+const trustLine = (href = "/#ops") => `<div class="trust-line" aria-label="운영 안내"><span>🏢 운영 신짜오</span><span>📍 호치민 현지 사무실</span><span>💬 카톡 ID kkacmn</span><a href="/#ops">📱 실제 운영 화면</a></div>`.replace('href="/#ops"', `href="${href}"`);
+const courseOfPath = (pathname) => courses.find((course) => pathname === `/golf/${course.slug}.html`);
 function layout({ title, description, pathname, active, content, image, schema = [], robots, pageType, publishedTime, modifiedTime, keywords = [], preloadImage }) {
   const organization = {
     "@context": "https://schema.org",
@@ -298,7 +303,7 @@ function layout({ title, description, pathname, active, content, image, schema =
   return directInquiryLinks(`<!doctype html>
 <html lang="ko">
   <head>${head({ title, description, pathname, image, schema: pageSchema, robots, pageType, publishedTime, modifiedTime, keywords, preloadImage })}</head>
-  <body class="${pathname === "/" ? "home-page" : ""}${pathname === "/golf" ? " golf-index-page" : ""}">${header(active)}<main id="main">${content}</main>${footer()}</body>
+  <body class="${pathname === "/" ? "home-page" : ""}${pathname === "/golf" ? " golf-index-page" : ""}">${header(active)}<main id="main">${content}${courseOfPath(pathname) ? trustLine() : ""}</main>${footer(pathname)}</body>
 </html>`);
 }
 
@@ -361,7 +366,7 @@ function homePage() {
         <p class="hero-x-note">한국어로 상담합니다 · 문의는 확인 후 순서대로 답변드립니다</p>
       </div>
     </section>
-    <section class="near-airport" aria-labelledby="near-airport-title"><div class="shell">
+    ${trustLine("#ops")}<section class="near-airport" aria-labelledby="near-airport-title"><div class="shell">
       <div class="section-heading"><div><p class="eyebrow">골프장 ${courses.length}곳 공항 이동시간</p><h2 id="near-airport-title">공항에서 가까운 골프장</h2></div><a class="text-link" href="/golf#airport-times">공항→골프장 시간표 전체 →</a></div>
       <ul class="near-row">${courses.filter((course) => course.image).sort((a, b) => driveMinMinutes(a.drive) - driveMinMinutes(b.drive)).slice(0, 10).map((course) => `<li><a href="/golf/${course.slug}.html"><img src="/assets/images/${course.image}" width="1200" height="800"${focusStyle(course.image)} loading="lazy" decoding="async" alt="${photoAlt(course)}">${aiBadge(course)}<span class="near-area">${escapeHtml(areaOf(course).name)}</span><strong>${escapeHtml(course.name)}</strong><em>✈ ${escapeHtml(airportShort(course))}에서 <b>${escapeHtml(course.drive)}</b></em></a></li>`).join("")}</ul>
       <p class="near-note">골프장마다 가장 가까운 공항에서 차로 걸리는 평소 교통 기준 시간입니다.</p>
@@ -426,7 +431,7 @@ function homePage() {
       <div class="service-grid">${services.map((service) => `<article class="service-card"><img src="/assets/images/${service.image}" width="1200" height="700" loading="lazy" decoding="async" alt="${service.name} 상담"><div><h3>${service.name}</h3><p>${service.text}</p>${service.slug === "villa" || service.slug === "apartment" ? `<a class="text-link" href="${service.slug === "villa" ? poolvilla.villaList : poolvilla.apartmentList}" target="_blank" rel="noopener">${poolvilla.name}에서 ${service.name} 목록 보기 →</a><br>` : ""}<button class="text-button js-consult" type="button" data-interest="${service.name} 상담">${service.name} 상담하기 →</button></div></article>`).join("")}</div>
     </section>
     <section class="section process-section"><div class="shell"><div class="section-heading"><div><p class="eyebrow">진행 과정</p><h2>상담부터 바우처까지</h2></div></div><ol class="process-list"><li><span>01</span><strong>일정 상담</strong><p>날짜·인원·희망 지역을 확인합니다.</p></li><li><span>02</span><strong>가능 여부 확인</strong><p>골프장과 차량·숙소 일정을 확인합니다.</p></li><li><span>03</span><strong>예약 진행</strong><p>안내된 조건을 확인한 뒤 예약을 진행합니다.</p></li><li><span>04</span><strong>바우처 안내</strong><p>부킹 완료 후 필요한 내용을 전달합니다.</p></li></ol></div></section>
-    <section class="ops-section" aria-labelledby="ops-title"><div class="shell ops-inner">
+    <section class="ops-section" id="ops" aria-labelledby="ops-title"><div class="shell ops-inner">
       <figure class="ops-shot"><img src="/assets/images/ops/zalo-pickup.webp" alt="손님 전용 단톡방 실제 운영 화면(이름·사진·지도는 가림)" width="440" height="905" loading="lazy"><figcaption>실제 운영 화면(개인정보 가림)</figcaption></figure>
       <div class="ops-copy"><p class="eyebrow">실제 운영 화면</p><h2 id="ops-title">우리가 일하는 방식</h2>
         <ol class="ops-list"><li><strong>손님 한 팀마다 기사·숙소와 전용 단톡방</strong><span>담당 기사와 숙소 담당이 같은 방에서 손님 일정을 함께 챙깁니다.</span></li><li><strong>"왔어요?" 한마디에 기사가 실시간 위치 공유</strong><span>공항·숙소·골프장 어디서든 기사가 지금 어디쯤인지 바로 알려 드립니다.</span></li><li><strong>출발부터 귀국까지 한 방에서</strong><span>공항 픽업부터 숙소·골프장 이동, 귀국 샌딩까지 한 단톡방에서 안내합니다.</span></li></ol>

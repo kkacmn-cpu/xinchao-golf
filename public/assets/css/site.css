@@ -1112,3 +1112,8 @@ html:not(.map-js) .map-canvas{height:auto;min-height:0}
 .ops-list span { display: block; font-size: 15px; line-height: 1.6; color: var(--muted); margin-top: 2px; }
 @media (min-width: 900px) { .ops-inner { grid-template-columns: 320px 1fr; gap: 48px; } }
 @media (max-width: 899px) { .ops-btn-g { width: 100%; justify-content: center; } }
+/* ============ 믿음 칸(한 줄, 2026-11-22 대표님 "보완") + 상세 하단 '이 ○○로 견적' ============ */
+.trust-line{display:flex;flex-wrap:wrap;justify-content:center;gap:6px 14px;padding:12px 16px;margin:0;background:#F2F4F6;color:#4E5968;font-size:14px;line-height:1.5;text-align:center}
+.trust-line a{color:inherit;font-weight:600;text-decoration:underline;text-underline-offset:2px}
+.trust-line span{white-space:nowrap}
+.mobile-cta-bar a.mobile-cta-kakao{display:flex;align-items:center;justify-content:center;text-decoration:none}

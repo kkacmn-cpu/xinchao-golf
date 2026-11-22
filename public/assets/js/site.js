@@ -178,3 +178,12 @@
     });
   }
 })();
+// 상세 하단 "이 골프장으로 견적"(2026-11-22): 한 번 누르면 골프장 이름이 든 요약을 복사하고 카톡(/go/quick-golf)으로 간다.
+document.querySelectorAll("[data-one-tap]").forEach((link) => {
+  link.addEventListener("click", async (event) => {
+    event.preventDefault();
+    const text = `${link.dataset.oneTap}\n${location.href.split("#")[0]}`;
+    try { if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text); } catch {}
+    setTimeout(() => { location.href = link.href; }, 250);
+  });
+});
