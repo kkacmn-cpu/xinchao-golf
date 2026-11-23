@@ -147,7 +147,8 @@ try { new Function(script); } catch (error) { failures.push(`site.js 문법 오�
 if (/consult-dialog|consult-form|js-consult/.test(script)) failures.push("상담 스크립트에 중간 입력 경로 잔존");
 // 11-21 총괄 승인: 상세 쪽 빠른 견적 카드(.quick-quote)도 요약 복사를 쓴다(기존 카톡 단추는 그대로, 중간 입력 단계 아님). 복사는 이 두 곳뿐.
 // + 상세 하단 "이 골프장으로 견적" 한 번 복사(data-one-tap, 2026-11-22)
-if (count(script, /navigator\.clipboard\.writeText\(/g) !== 3 || !script.includes('querySelectorAll("[data-one-tap]")') || count(script, /document\.execCommand\(/g) !== 1 || count(script, /copyPrepSummary\(/g) !== 1 || !script.includes('document.querySelector(".quick-quote")')) failures.push("클립보드 복사는 상담 준비표 요약과 빠른 견적 카드 두 곳에서만 써야 함");
+// + 골프장 비교 담기 '이 골프장들로 견적' 요약 복사(.cmp-quote, 2026-11-23 총괄 '우리만 있는 기능')
+if (count(script, /navigator\.clipboard\.writeText\(/g) !== 4 || !script.includes('querySelectorAll("[data-one-tap]")') || count(script, /document\.execCommand\(/g) !== 1 || count(script, /copyPrepSummary\(/g) !== 1 || !script.includes('document.querySelector(".quick-quote")')) failures.push("클립보드 복사는 상담 준비표 요약과 빠른 견적 카드 두 곳에서만 써야 함");
 const home = await readFile(path.join(dist, "index.html"), "utf8");
 for (const required of ["id=\"home-prep-form\"", "name=\"region\"", "name=\"date\"", "name=\"people\"", "name=\"purpose\"", "id=\"home-prep-result\"", "id=\"home-prep-candidates\"", "id=\"home-prep-copy-status\""]) {
   if (!home.includes(required)) failures.push(`홈 상담 준비표 누락: ${required}`);
@@ -390,7 +391,7 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     const hit = sections.match(PRICE);
     if (hit) failures.push(`${relative}: 지역 섹션에 금액 표기(${hit[0]})`);
     if (/<h[23][^>]*>[^<]*후기/.test(html)) failures.push(`${relative}: 후기 섹션(실제 후기 없음)`);
-    for (const course of courses.filter((item) => boardOf(item) === key)) if (!html.includes(`<article class="course-card">`) || !html.includes(`href="/golf/${course.slug}.html" aria-label=`)) failures.push(`${relative}: 골프장 카드 누락 (${course.slug})`);
+    for (const course of courses.filter((item) => boardOf(item) === key)) if (!/<article class="course-card"[ >]/.test(html) || !html.includes(`href="/golf/${course.slug}.html" aria-label=`)) failures.push(`${relative}: 골프장 카드 누락 (${course.slug})`);
     for (const sentence of [pricing.greenFee, pricing.fee, pricing.split, pricing.howTo, pricing.reply]) once(text, sentence, relative);
   }
   for (const key of ["hanoi", "phuquoc"]) {

@@ -310,9 +310,18 @@ function layout({ title, description, pathname, active, content, image, schema =
 </html>`);
 }
 
+// 골프장 비교 담기(2026-11-23, 우리만 있는 기능): 카드 2~3곳을 담아 공항 시간·홀·평점·지역을 한 표로 보고, 그 골프장들로 한 번에 카톡 견적.
+function compareData(course) {
+  const r = googleRatings.items.find((x) => x.slug === course.slug);
+  const airport = airportShort(course).replace(" 국제공항", "").replace(" 공항", "");
+  return [["slug", course.slug], ["name", course.name], ["region", course.region], ["airport", `${airport} 공항에서 ${course.drive}`], ["holes", course.holes], ["rating", r ? `★ ${r.rating.toFixed(1)} (후기 ${r.reviews.toLocaleString("ko-KR")}개)` : "확인 중"]]
+    .map(([k, v]) => `data-cmp-${k}="${escapeHtml(v)}"`).join(" ");
+}
+
 function courseCard(course) {
   return `
-    <article class="course-card">
+    <article class="course-card" ${compareData(course)}>
+      <button class="cmp-add" type="button" aria-pressed="false" aria-label="${escapeHtml(course.name)} 비교에 담기">＋ 비교</button>
       <a class="card-image" href="/golf/${course.slug}.html" aria-label="${escapeHtml(course.name)} 상세보기">
         ${courseVisual(course, "course-plate-card")}
         ${course.image ? `<span class="card-badges"><span>${escapeHtml(course.holes.split(" ")[0])}</span><span>공항에서 ${escapeHtml(course.drive)}</span></span>` : ""}

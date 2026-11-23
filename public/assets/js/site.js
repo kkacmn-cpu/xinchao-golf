@@ -187,3 +187,64 @@ document.querySelectorAll("[data-one-tap]").forEach((link) => {
     setTimeout(() => { location.href = link.href; }, 250);
   });
 });
+
+// 골프장 비교 담기(2026-11-23): 카드의 "＋ 비교"로 최대 3곳 → 아래 막대에서 표 보기·한 번에 견적.
+(() => {
+  const cards = [...document.querySelectorAll(".course-card[data-cmp-slug]")];
+  if (!cards.length) return;
+  const MAX = 3;
+  let picked = [];
+  try { picked = JSON.parse(sessionStorage.getItem("cmpGolf") || "[]").filter((x) => x && x.slug); } catch { picked = []; }
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const bar = document.createElement("div");
+  bar.className = "cmp-bar";
+  bar.hidden = true;
+  bar.setAttribute("role", "region");
+  bar.setAttribute("aria-label", "골프장 비교");
+  bar.innerHTML = '<p class="cmp-count"></p><div class="cmp-actions"><button type="button" class="cmp-open">표로 비교</button><a class="cmp-quote" href="/go/quick-golf?from=compare">이 골프장들로 견적</a><button type="button" class="cmp-clear" aria-label="비교 비우기">✕</button></div>';
+  const dlg = document.createElement("dialog");
+  dlg.className = "cmp-dialog";
+  document.body.append(bar, dlg);
+  const save = () => { try { sessionStorage.setItem("cmpGolf", JSON.stringify(picked)); } catch {} };
+  const render = () => {
+    cards.forEach((card) => {
+      const on = picked.some((p) => p.slug === card.dataset.cmpSlug);
+      const btn = card.querySelector(".cmp-add");
+      btn.setAttribute("aria-pressed", on ? "true" : "false");
+      btn.textContent = on ? "✓ 담음" : "＋ 비교";
+    });
+    bar.hidden = picked.length === 0;
+    bar.querySelector(".cmp-count").textContent = picked.length < 2 ? `${picked.length}곳 담음 · 1곳 더 담으면 비교` : `${picked.length}곳 담음 (최대 ${MAX}곳)`;
+    bar.querySelector(".cmp-open").disabled = picked.length < 2;
+  };
+  cards.forEach((card) => {
+    card.querySelector(".cmp-add").addEventListener("click", () => {
+      const d = card.dataset;
+      const i = picked.findIndex((p) => p.slug === d.cmpSlug);
+      if (i >= 0) picked.splice(i, 1);
+      else {
+        if (picked.length >= MAX) picked.shift();
+        picked.push({ slug: d.cmpSlug, name: d.cmpName, region: d.cmpRegion, airport: d.cmpAirport, holes: d.cmpHoles, rating: d.cmpRating });
+      }
+      save();
+      render();
+    });
+  });
+  async function quote(event) {
+    event.preventDefault();
+    const text = `[신짜오골프] 골프장 비교 견적 문의\n${picked.map((p) => `- ${p.name}`).join("\n")}\n날짜·인원·티오프 희망 시간은 이어서 알려 드릴게요.`;
+    try { if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text); } catch {}
+    setTimeout(() => { location.href = "/go/quick-golf?from=compare"; }, 250);
+  }
+  const rows = [["지역", "region"], ["공항에서 차로", "airport"], ["홀", "holes"], ["구글 평점", "rating"]];
+  bar.querySelector(".cmp-open").addEventListener("click", () => {
+    dlg.innerHTML = `<div class="cmp-head"><h2>골프장 ${picked.length}곳 비교</h2><button type="button" class="cmp-close" aria-label="닫기">✕</button></div><div class="cmp-scroll"><table class="cmp-table"><thead><tr><th scope="col"></th>${picked.map((p) => `<th scope="col"><a href="/golf/${esc(p.slug)}.html">${esc(p.name)}</a></th>`).join("")}</tr></thead><tbody>${rows.map(([label, key]) => `<tr><th scope="row">${label}</th>${picked.map((p) => `<td>${esc(p[key] || "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div><p class="cmp-note">공항 시간은 평소 교통 기준, 평점은 구글 지도 확인 값입니다. 티오프·요금은 견적 때 확인합니다.</p><a class="button button-kakao cmp-quote" href="/go/quick-golf?from=compare">이 ${picked.length}곳으로 견적 받기</a>`;
+    dlg.querySelector(".cmp-close").addEventListener("click", () => dlg.close());
+    dlg.querySelector(".cmp-quote").addEventListener("click", quote);
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+  });
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+  bar.querySelector(".cmp-quote").addEventListener("click", quote);
+  bar.querySelector(".cmp-clear").addEventListener("click", () => { picked = []; save(); render(); });
+  render();
+})();
