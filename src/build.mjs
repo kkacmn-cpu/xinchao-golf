@@ -598,6 +598,9 @@ function courseStayCombo(course) {
 
 // 골프 후 저녁 일정(2026-11-20 차별화: 낮엔 골프, 저녁엔 숙소, 이동은 렌트, 밤엔 베트남밤).
 // 베트남밤은 호치민·다낭만 열려 있어 그 권역 골프장에만 넣는다. 풀빌라 묶음 블록과는 따로 둔다(숙소 사이트 안내에 섞지 않음).
+const cancelPolicyFull = "<div class=\"cancel-policy\" id=\"cancel-policy\"><h3>취소·환불 규정</h3><table class=\"cancel-table\"><thead><tr><th scope=\"col\">취소 시점</th><th scope=\"col\">환불</th></tr></thead><tbody><tr><th scope=\"row\">이용일 31일 전까지</th><td>전액 환불</td></tr><tr><th scope=\"row\">21~30일 전</th><td>10% 공제</td></tr><tr><th scope=\"row\">11~20일 전</th><td>30% 공제</td></tr><tr><th scope=\"row\">6~10일 전</th><td>50% 공제</td></tr><tr><th scope=\"row\">5일 이내(당일 포함)</th><td>100% 공제(환불 없음)</td></tr></tbody></table><p class=\"cancel-note\">날짜는 이용일(라운드·체크인·차량 이용일) 기준입니다. 취소는 카톡으로 말씀해 주세요.</p></div>";
+const cancelPolicyMini = "<details class=\"cancel-policy cancel-mini\"><summary>취소·환불 규정 보기</summary><table class=\"cancel-table\"><thead><tr><th scope=\"col\">취소 시점</th><th scope=\"col\">환불</th></tr></thead><tbody><tr><th scope=\"row\">이용일 31일 전까지</th><td>전액 환불</td></tr><tr><th scope=\"row\">21~30일 전</th><td>10% 공제</td></tr><tr><th scope=\"row\">11~20일 전</th><td>30% 공제</td></tr><tr><th scope=\"row\">6~10일 전</th><td>50% 공제</td></tr><tr><th scope=\"row\">5일 이내(당일 포함)</th><td>100% 공제(환불 없음)</td></tr></tbody></table><p class=\"cancel-note\">날짜는 이용일(라운드·체크인·차량 이용일) 기준입니다. 취소는 카톡으로 말씀해 주세요.</p></details>";
+
 function courseBookingSteps(course) {
   const steps = [
     ["카톡으로 날짜·인원", "아래 단추를 누르면 골프장 이름이 들어간 글이 준비됩니다. 날짜·인원·희망 티오프 시간만 이어서 보내 주세요."],
@@ -607,7 +610,7 @@ function courseBookingSteps(course) {
   ];
   const oneTap = escapeHtml(`[신짜오골프] ${course.name} 견적 문의
 날짜·인원·티오프 희망 시간은 이어서 알려 드릴게요.`);
-  return `<section class="section shell booking-steps" aria-labelledby="booking-steps-title"><p class="eyebrow">예약 순서</p><h2 id="booking-steps-title">${escapeHtml(course.shortName)} 예약은 이렇게 진행됩니다</h2><ol class="booking-steps-list">${steps.map(([t, d], i) => `<li><span class="booking-step-no">${i + 1}</span><strong>${t}</strong><p>${d}</p></li>`).join("")}</ol><dl class="booking-notes"><div><dt>캐디팁</dt><dd>손님이 캐디에게 직접 드리는 돈이라 견적 총액에 넣지 않습니다. 대략 금액은 견적서 참고비용 칸에 적어 드립니다.</dd></div><div><dt>현장 결제</dt><dd>현장에서 내실 것은 견적서에 적힌 항목뿐입니다.</dd></div><div><dt>티타임</dt><dd>골프장 사정으로 바뀔 수 있고, 바뀌면 바로 카톡으로 알려 드립니다.</dd></div></dl><a class="button button-kakao button-lg" href="/go/quick-golf?from=${course.slug}" data-one-tap="${oneTap}">이 골프장으로 견적 시작</a></section>`;
+  return `<section class="section shell booking-steps" aria-labelledby="booking-steps-title"><p class="eyebrow">예약 순서</p><h2 id="booking-steps-title">${escapeHtml(course.shortName)} 예약은 이렇게 진행됩니다</h2><ol class="booking-steps-list">${steps.map(([t, d], i) => `<li><span class="booking-step-no">${i + 1}</span><strong>${t}</strong><p>${d}</p></li>`).join("")}</ol><dl class="booking-notes"><div><dt>캐디팁</dt><dd>손님이 캐디에게 직접 드리는 돈이라 견적 총액에 넣지 않습니다. 대략 금액은 견적서 참고비용 칸에 적어 드립니다.</dd></div><div><dt>현장 결제</dt><dd>현장에서 내실 것은 견적서에 적힌 항목뿐입니다.</dd></div><div><dt>티타임</dt><dd>골프장 사정으로 바뀔 수 있고, 바뀌면 바로 카톡으로 알려 드립니다.</dd></div></dl>${cancelPolicyFull}<a class="button button-kakao button-lg" href="/go/quick-golf?from=${course.slug}" data-one-tap="${oneTap}">이 골프장으로 견적 시작</a></section>`;
 }
 
 function courseEvening(course) {
@@ -857,6 +860,7 @@ function comboReqCard() {
       <label class="req-text">희망 골프장 <small>(알면)</small><input class="qq-input" type="text" data-field="희망 골프장" placeholder="예: 롱탄, 트윈도브 / 아직 모름" autocomplete="off"></label>
       ${reqFoot("카톡으로 묶음 견적 받기")}
       <p class="qq-note">티오프·숙소·차량 가능 여부와 요금은 상담 때 확인합니다. <a href="/airport">공항 픽업·패스트트랙만 필요하면 →</a></p>
+      ${cancelPolicyMini}
     </section>`;
 }
 
@@ -891,6 +895,7 @@ function airportPage() {
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">공항에서 바로 골프</p><h2>도착일 라운드, 이동시간부터 보세요</h2></div></div>
       <div class="guide-jump"><a class="button button-quiet" href="/golf#airport-times">공항→골프장 시간표</a><a class="button button-quiet" href="/guide/arrival-day-airport-hotel-golfbag-plan.html">도착일 공항·숙소·골프백 순서</a><a class="button button-quiet" href="/rent/family-luggage.html">짐 많은 일정 차량</a><a class="button button-quiet" href="/#combo">골프·숙소·차량 한 번에 견적</a><a class="button button-quiet" href="https://vietnambam.com/hochiminh/" target="_blank" rel="noopener">도착한 날 저녁 — 베트남밤</a></div>
     </section>
+    <section class="section shell">${cancelPolicyFull}</section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2>공항 픽업·패스트트랙 FAQ</h2></div></div><dl class="home-faq-list">${faqs.map(([q, a]) => `<div><dt>${escapeHtml(q)}</dt><dd>${escapeHtml(a)}</dd></div>`).join("")}</dl></section>
     <section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">편명·인원·짐만</p><h2>공항부터 숙소까지,<br>카톡 한 번으로 맡기세요</h2><p>요금은 날짜·차량·시간대에 따라 달라 견적으로 안내합니다. 홈페이지에서는 결제하지 않습니다.</p></div><a class="button button-kakao button-lg" href="#req">1분 요청서 쓰기</a></div></section>`;
   return layout({ title: "호치민 공항 픽업·샌딩·패스트트랙 예약 | 탄손녓 공항", description: "호치민 탄손녓 공항 픽업·샌딩 차량과 입국·출국 패스트트랙을 카카오톡 한 번에 요청하세요. 편명·인원·골프백 수에 맞춰 7인승·16인승 차량과 패스트트랙을 함께 잡아 드립니다.", pathname: "/airport", active: "airport", image: "service-vehicle.webp", keywords: ["호치민 공항 픽업", "탄손녓 공항 픽업", "호치민 패스트트랙", "탄손녓 패스트트랙", "호치민 공항 샌딩", "호치민 골프 공항 픽업"], schema: [faqSchema(faqs), breadcrumbSchema([["홈", "/"], ["공항 픽업·패스트트랙", "/airport"]])], content });
