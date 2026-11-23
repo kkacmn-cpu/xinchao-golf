@@ -1155,3 +1155,16 @@ html:not(.map-js) .map-canvas{height:auto;min-height:0}
 .home-bam-row > strong{min-width:52px}
 .home-bam-row .bam-chips{margin-top:0}
 .course-evening-line .bam-chips a{text-decoration:none}
+.booking-steps { padding-top: 0; }
+.booking-steps h2 { margin: 4px 0 16px; word-break: keep-all; }
+.booking-steps-list { list-style: none; padding: 0; margin: 0 0 18px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.booking-steps-list li { padding: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: #fff; }
+.booking-step-no { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 50%; background: var(--green, #1f5d3a); color: #fff; font-weight: 700; margin-bottom: 8px; }
+.booking-steps-list strong { display: block; margin-bottom: 4px; }
+.booking-steps-list p { margin: 0; color: var(--muted); font-size: 15px; }
+.booking-notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 0 0 20px; }
+.booking-notes div { padding: 14px 16px; border-radius: var(--radius); background: var(--green-soft); }
+.booking-notes dt { font-weight: 700; margin-bottom: 4px; }
+.booking-notes dd { margin: 0; font-size: 15px; color: var(--muted); }
+@media (max-width: 900px) { .booking-steps-list { grid-template-columns: repeat(2, 1fr); } .booking-notes { grid-template-columns: 1fr; } }
+@media (max-width: 520px) { .booking-steps-list { grid-template-columns: 1fr; } }

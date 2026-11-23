@@ -598,6 +598,18 @@ function courseStayCombo(course) {
 
 // 골프 후 저녁 일정(2026-11-20 차별화: 낮엔 골프, 저녁엔 숙소, 이동은 렌트, 밤엔 베트남밤).
 // 베트남밤은 호치민·다낭만 열려 있어 그 권역 골프장에만 넣는다. 풀빌라 묶음 블록과는 따로 둔다(숙소 사이트 안내에 섞지 않음).
+function courseBookingSteps(course) {
+  const steps = [
+    ["카톡으로 날짜·인원", "아래 단추를 누르면 골프장 이름이 들어간 글이 준비됩니다. 날짜·인원·희망 티오프 시간만 이어서 보내 주세요."],
+    ["견적 한 장", "골프장에 티오프 가능 여부를 확인하고, 골프·숙소·차량을 한 장의 견적으로 보내 드립니다. 견적은 무료입니다."],
+    ["영문 성함·입금", "진행하실 분 영문 성함을 받고 입금 안내를 드립니다. 입금이 확인되면 골프장에 예약합니다."],
+    ["확정·바우처", "예약이 확정되면 바우처를 카톡으로 보내 드립니다. 도착 뒤에는 손님 단톡방에서 기사와 바로 연락합니다."],
+  ];
+  const oneTap = escapeHtml(`[신짜오골프] ${course.name} 견적 문의
+날짜·인원·티오프 희망 시간은 이어서 알려 드릴게요.`);
+  return `<section class="section shell booking-steps" aria-labelledby="booking-steps-title"><p class="eyebrow">예약 순서</p><h2 id="booking-steps-title">${escapeHtml(course.shortName)} 예약은 이렇게 진행됩니다</h2><ol class="booking-steps-list">${steps.map(([t, d], i) => `<li><span class="booking-step-no">${i + 1}</span><strong>${t}</strong><p>${d}</p></li>`).join("")}</ol><dl class="booking-notes"><div><dt>캐디팁</dt><dd>손님이 캐디에게 직접 드리는 돈이라 견적 총액에 넣지 않습니다. 대략 금액은 견적서 참고비용 칸에 적어 드립니다.</dd></div><div><dt>현장 결제</dt><dd>현장에서 내실 것은 견적서에 적힌 항목뿐입니다.</dd></div><div><dt>티타임</dt><dd>골프장 사정으로 바뀔 수 있고, 바뀌면 바로 카톡으로 알려 드립니다.</dd></div></dl><a class="button button-kakao button-lg" href="/go/quick-golf?from=${course.slug}" data-one-tap="${oneTap}">이 골프장으로 견적 시작</a></section>`;
+}
+
 function courseEvening(course) {
   const bam = vietnambam[course.area];
   if (!bam) return "";
@@ -633,7 +645,7 @@ function courseDetailPage(course) {
     <section class="section shell detail-content">
       <article><p class="eyebrow">선택 포인트</p><h2>${course.shortName}, 이런 일정에 검토하세요</h2><ul class="point-list">${course.points.map((point) => `<li>${point}</li>`).join("")}</ul>${courseKeywordSections(course)}${courseGuideContent(course, guide)}</article>
       <aside class="side-consult"><strong>빠른 상담</strong><p>${course.shortName} 가능 여부와 이동 일정을 확인해드립니다.</p><button class="button button-kakao button-block js-consult" type="button" data-interest="${course.name} 티오프 및 차량 상담">카톡으로 일정 확인</button></aside>
-    </section>
+    </section>${courseBookingSteps(course)}
     <section class="section section-tint"><div class="shell"><div class="section-heading"><div><p class="eyebrow">함께 보기</p><h2>${escapeHtml(areaOf(course).name)} 다른 골프장</h2></div><a class="text-link" href="/golf#area-${course.area}">전체 보기 →</a></div><div class="course-grid">${[...courses.filter((item) => item.slug !== course.slug && item.area === course.area), ...courses.filter((item) => item.area !== course.area)].slice(0, 3).map(courseCard).join("")}</div></div></section>`;
   const schema = [{
     "@context": "https://schema.org",
