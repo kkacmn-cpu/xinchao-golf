@@ -1222,3 +1222,8 @@ html:not(.map-js) .map-canvas{height:auto;min-height:0}
   .cmp-table th, .cmp-table td { min-width: 0; padding: 8px 6px; }
   .cmp-table tbody th { white-space: normal; width: 64px; }
 }
+
+/* 12월 티타임 카톡(11-23) */
+.dec-cta { padding-top: 16px; padding-bottom: 8px; }
+.dec-cta-line { margin: 0 0 10px; font-size: 15px; font-weight: 700; color: var(--green-dark, #14402a); }
+.dec-cta-btn { width: 100%; max-width: 520px; justify-content: center; }

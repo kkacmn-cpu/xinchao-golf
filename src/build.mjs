@@ -226,7 +226,7 @@ function footer(pathname = "") {
       <div class="shell copyright">© ${new Date().getFullYear()} ${site.englishName}. All rights reserved.</div>
     </footer>
     <button class="floating-consult js-consult" type="button" data-interest="빠른 상담" aria-label="카카오톡 빠른 상담">상담</button>
-    <div class="mobile-cta-bar"><a class="mobile-cta-golf" href="/golf">골프장 ${courses.length}곳</a>${courseOfPath(pathname) ? `<a class="mobile-cta-kakao" href="/go/quick-golf?from=${courseOfPath(pathname).slug}" data-one-tap="${escapeHtml(`[신짜오골프] ${courseOfPath(pathname).name} 견적 문의\n날짜·인원·티오프 희망 시간은 이어서 알려 드릴게요.`)}">이 골프장으로 견적</a>` : `<button class="mobile-cta-kakao js-consult" type="button" data-interest="모바일 하단 상담">카카오톡 예약 문의</button>`}</div>
+    <div class="mobile-cta-bar"><a class="mobile-cta-golf" href="/golf">골프장 ${courses.length}곳</a>${courseOfPath(pathname) ? `<a class="mobile-cta-kakao" href="/go/quick-golf?from=${courseOfPath(pathname).slug}" data-one-tap="${escapeHtml(`[신짜오골프] ${courseOfPath(pathname).name} 견적 문의\n날짜·인원·티오프 희망 시간은 이어서 알려 드릴게요.`)}">12월 티타임·견적 카톡</a>` : `<button class="mobile-cta-kakao js-consult" type="button" data-interest="모바일 하단 상담">카카오톡 예약 문의</button>`}</div>
     <script src="/assets/js/site.js?v=${scriptVersion}" defer></script>
     <script src="/assets/js/req-card.js?v=${reqCardVersion}" defer></script>
     <script src="https://company-site-monitor.vercel.app/tracker.js?site=xinchao-golf" defer></script>`;
@@ -619,7 +619,13 @@ function courseBookingSteps(course) {
   ];
   const oneTap = escapeHtml(`[신짜오골프] ${course.name} 견적 문의
 날짜·인원·티오프 희망 시간은 이어서 알려 드릴게요.`);
-  return `<section class="section shell booking-steps" aria-labelledby="booking-steps-title"><p class="eyebrow">예약 순서</p><h2 id="booking-steps-title">${escapeHtml(course.shortName)} 예약은 이렇게 진행됩니다</h2><ol class="booking-steps-list">${steps.map(([t, d], i) => `<li><span class="booking-step-no">${i + 1}</span><strong>${t}</strong><p>${d}</p></li>`).join("")}</ol><dl class="booking-notes"><div><dt>캐디팁</dt><dd>손님이 캐디에게 직접 드리는 돈이라 견적 총액에 넣지 않습니다. 대략 금액은 견적서 참고비용 칸에 적어 드립니다.</dd></div><div><dt>현장 결제</dt><dd>현장에서 내실 것은 견적서에 적힌 항목뿐입니다.</dd></div><div><dt>티타임</dt><dd>골프장 사정으로 바뀔 수 있고, 바뀌면 바로 카톡으로 알려 드립니다.</dd></div></dl>${cancelPolicyFull}<a class="button button-kakao button-lg" href="/go/quick-golf?from=${course.slug}" data-one-tap="${oneTap}">이 골프장으로 견적 시작</a></section>`;
+  return `<section class="section shell booking-steps" aria-labelledby="booking-steps-title"><p class="eyebrow">예약 순서</p><h2 id="booking-steps-title">${escapeHtml(course.shortName)} 예약은 이렇게 진행됩니다</h2><ol class="booking-steps-list">${steps.map(([t, d], i) => `<li><span class="booking-step-no">${i + 1}</span><strong>${t}</strong><p>${d}</p></li>`).join("")}</ol><dl class="booking-notes"><div><dt>캐디팁</dt><dd>손님이 캐디에게 직접 드리는 돈이라 견적 총액에 넣지 않습니다. 대략 금액은 견적서 참고비용 칸에 적어 드립니다.</dd></div><div><dt>현장 결제</dt><dd>현장에서 내실 것은 견적서에 적힌 항목뿐입니다.</dd></div><div><dt>티타임</dt><dd>골프장 사정으로 바뀔 수 있고, 바뀌면 바로 카톡으로 알려 드립니다.</dd></div></dl>${cancelPolicyFull}<a class="button button-kakao button-lg" href="/go/quick-golf?from=${course.slug}" data-one-tap="${oneTap}">💬 이 골프장 12월 티타임·견적 카톡</a></section>`;
+}
+
+// 12월 티타임 카톡(2026-11-23 대표님 "골프도 문의 더 늘리게 해"): 상세 첫 화면 바로 아래 큰 단추 + 성수기 한 줄(가격 숫자 없음).
+function decemberCta(course) {
+  const oneTap = escapeHtml(`[신짜오골프] ${course.name} 12월 티타임·견적 문의\n날짜·인원·티오프 희망 시간은 이어서 알려 드릴게요.`);
+  return `<section class="shell dec-cta" aria-label="12월 티타임 문의"><p class="dec-cta-line">12월은 건기 성수기라 연말 티타임이 먼저 찹니다. 원하는 날짜가 있으면 빨리 알려 주세요.</p><a class="button button-kakao button-lg dec-cta-btn" href="/go/quick-golf?from=${course.slug}" data-one-tap="${oneTap}">💬 이 골프장 12월 티타임·견적 카톡</a></section>`;
 }
 
 function courseEvening(course) {
@@ -649,7 +655,7 @@ function courseDetailPage(course) {
     <section class="course-hero${course.image ? "" : " is-plate"}" data-area="${course.area}">
       ${course.image ? `<div class="course-hero-media"><img src="/assets/images/${courseHeroImage(course)}" width="1200" height="800"${focusStyle(courseHeroImage(course))} fetchpriority="high" alt="${photoAlt(course)}">${aiBadge(course)}</div>` : `<div class="course-hero-card">${courseVisual(course, "course-plate-detail", "eager")}</div>`}
       <div class="shell course-hero-copy"><p class="eyebrow">${course.region} 골프장 · ${escapeHtml(course.holes.split(" ")[0])}</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p>${ratingLine(course)}<dl class="course-keyfacts"><div><dt>✈ ${escapeHtml(airportShort(course))}에서</dt><dd>차량 약 ${escapeHtml(course.drive)}</dd></div><div><dt>위치</dt><dd>${escapeHtml(course.access)}</dd></div>${golfComboAreas.includes(course.area) ? `<div><dt>숙소</dt><dd><a href="#stay-combo">호치민 풀빌라·아파트 함께 상담 ↓</a></dd></div>` : ""}</dl><div class="hero-x-actions"><button class="button button-kakao button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡 한국어 상담</button><a class="button button-glass button-lg" href="/golf#airport-times">다른 골프장과 공항시간 비교</a></div></div>
-    </section>${quickQuoteCard(course)}
+    </section>${decemberCta(course)}${quickQuoteCard(course)}
     <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf">베트남 골프장</a><span>›</span><a href="/golf#area-${course.area}">${escapeHtml(areaOf(course).name)}</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
     <section class="detail-hero shell${courseGalleryImages(course).length ? "" : " no-media"}">
       ${courseGalleryImages(course).length ? `<div class="detail-media"><div class="detail-gallery" aria-label="${escapeHtml(course.name)} 사진">${courseGalleryImages(course).map((file, index) => `<a href="/assets/images/${file}" target="_blank" rel="noopener"><img src="/assets/images/${file}" width="1200" height="800"${focusStyle(file)} loading="lazy" decoding="async" alt="${escapeHtml(course.name)} 코스 사진 ${index + 2}"></a>`).join("")}</div></div>` : ""}
