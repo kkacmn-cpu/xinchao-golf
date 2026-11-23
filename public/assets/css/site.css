@@ -1144,3 +1144,14 @@ html:not(.map-js) .map-canvas{height:auto;min-height:0}
 @media (min-width:900px){.airport-steps{grid-template-columns:repeat(5,1fr)}.airport-steps li{padding:56px 16px 16px}}
 .option-grid article > span{font-size:13px}
 @media (min-width:900px){.req-card.shell{max-width:820px}}
+/* 베트남밤 연결(2026-11-23) */
+.course-evening-line strong{display:block;margin:2px 0 4px;font-size:1.05rem}
+.course-evening-line p{margin:0 0 4px;color:var(--muted)}
+.course-evening-line .eyebrow{margin:0}
+.bam-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.bam-chips .button{min-height:44px}
+.home-bam-lead{margin:0 0 12px;color:var(--muted);font-size:15px}
+.home-bam-row{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:10px}
+.home-bam-row > strong{min-width:52px}
+.home-bam-row .bam-chips{margin-top:0}
+.course-evening-line .bam-chips a{text-decoration:none}
