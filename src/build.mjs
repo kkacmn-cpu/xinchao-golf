@@ -435,6 +435,7 @@ function homePage() {
       <div class="service-grid">${services.map((service) => `<article class="service-card"><img src="/assets/images/${service.image}" width="1200" height="700" loading="lazy" decoding="async" alt="${service.name} 상담"><div><h3>${service.name}</h3><p>${service.text}</p>${service.slug === "villa" || service.slug === "apartment" ? `<a class="text-link" href="${service.slug === "villa" ? poolvilla.villaList : poolvilla.apartmentList}" target="_blank" rel="noopener">${poolvilla.name}에서 ${service.name} 목록 보기 →</a><br>` : ""}<button class="text-button js-consult" type="button" data-interest="${service.name} 상담">${service.name} 상담하기 →</button></div></article>`).join("")}</div>
     </section>
     <section class="section process-section"><div class="shell"><div class="section-heading"><div><p class="eyebrow">진행 과정</p><h2>상담부터 바우처까지</h2></div></div><ol class="process-list"><li><span>01</span><strong>일정 상담</strong><p>날짜·인원·희망 지역을 확인합니다.</p></li><li><span>02</span><strong>가능 여부 확인</strong><p>골프장과 차량·숙소 일정을 확인합니다.</p></li><li><span>03</span><strong>예약 진행</strong><p>안내된 조건을 확인한 뒤 예약을 진행합니다.</p></li><li><span>04</span><strong>바우처 안내</strong><p>부킹 완료 후 필요한 내용을 전달합니다.</p></li></ol></div></section>
+    ${homeBam()}
     <section class="ops-section" id="ops" aria-labelledby="ops-title"><div class="shell ops-inner">
       <figure class="ops-shot"><img src="/assets/images/ops/zalo-pickup.webp" alt="손님 전용 단톡방 실제 운영 화면(이름·사진·지도는 가림)" width="440" height="905" loading="lazy"><figcaption>실제 운영 화면(개인정보 가림)</figcaption></figure>
       <div class="ops-copy"><p class="eyebrow">실제 운영 화면</p><h2 id="ops-title">우리가 일하는 방식</h2>
@@ -600,8 +601,11 @@ function courseStayCombo(course) {
 function courseEvening(course) {
   const bam = vietnambam[course.area];
   if (!bam) return "";
-  return `<section class="section shell course-evening" aria-label="골프 후 저녁 일정"><p class="course-evening-line"><a href="${bam.url}" target="_blank" rel="noopener">${escapeHtml(bam.label)} →</a></p></section>`;
+  return `<section class="section shell course-evening" aria-label="골프 후 저녁 일정"><div class="course-evening-line"><p class="eyebrow">라운드 끝나고 저녁</p><strong>${bam.city} 마사지·스파·가라오케는 베트남밤에서</strong><p>구글 평점·지금 영업 중 여부를 보고 카톡으로 예약을 물을 수 있습니다. 숙소까지 차량은 골프 일정과 같이 잡아 드립니다.</p>${bamChips(course.area)}</div></section>`;
 }
+// 베트남밤 종류별 칩(2026-11-23 대표님: 골프→베트남밤 연결 강화). 새 창으로 연다.
+const bamChips = (key) => `<div class="bam-chips">${vietnambam[key].cats.map(([slug, name]) => `<a class="button button-quiet" href="${vietnambam[key].url}${slug}/" target="_blank" rel="noopener">${vietnambam[key].city} ${name}</a>`).join("")}<a class="button button-quiet" href="${vietnambam[key].url}" target="_blank" rel="noopener">전체 보기 →</a></div>`;
+const homeBam = () => `<section class="section shell home-bam" aria-labelledby="home-bam-title"><div class="section-heading"><div><p class="eyebrow">낮엔 골프, 저녁엔</p><h2 id="home-bam-title">라운드 끝나고 저녁은 베트남밤에서</h2></div><a class="text-link" href="https://vietnambam.com/" target="_blank" rel="noopener">베트남밤 바로가기 →</a></div><p class="home-bam-lead">호치민·다낭 마사지·스파·가라오케를 구글 평점과 영업 중 여부로 찾고 카톡으로 예약을 물을 수 있는 자매 사이트입니다. 골프장·숙소·차량과 같은 카톡에서 함께 상담합니다.</p>${["hcm", "danang"].map((key) => `<div class="home-bam-row"><strong>${vietnambam[key].city}</strong>${bamChips(key)}</div>`).join("")}</section>`;
 
 // 골프장 상세 "차량" 링크: 호치민권은 그 골프장 차량 쪽, 판티엣·무이네는 무이네 차량 쪽, 나머지는 차량 상담 쪽.
 function courseVehicleLink(course) {
@@ -873,7 +877,7 @@ function airportPage() {
         <ol class="ops-list"><li><strong>손님 한 팀마다 기사와 전용 단톡방</strong><span>도착 전에 기사 이름·차량 정보를 받고, 같은 방에서 바로 연락합니다.</span></li><li><strong>기사가 실시간 위치 공유</strong><span>출구에 나오기 전부터 기사가 지금 어디쯤인지 보입니다.</span></li><li><strong>픽업부터 귀국 샌딩까지 한 방에서</strong><span>골프장 이동·숙소 연락도 같은 단톡방에서 이어집니다.</span></li></ol></div></div></section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">차량 고르기</p><h2>인원과 골프백 수로 고르세요</h2></div><a class="text-link" href="/rent">상황별 차량 전체 →</a></div>${chooseTable("인원·짐별 공항 차량")}</section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">공항에서 바로 골프</p><h2>도착일 라운드, 이동시간부터 보세요</h2></div></div>
-      <div class="guide-jump"><a class="button button-quiet" href="/golf#airport-times">공항→골프장 시간표</a><a class="button button-quiet" href="/guide/arrival-day-airport-hotel-golfbag-plan.html">도착일 공항·숙소·골프백 순서</a><a class="button button-quiet" href="/rent/family-luggage.html">짐 많은 일정 차량</a><a class="button button-quiet" href="/#combo">골프·숙소·차량 한 번에 견적</a></div>
+      <div class="guide-jump"><a class="button button-quiet" href="/golf#airport-times">공항→골프장 시간표</a><a class="button button-quiet" href="/guide/arrival-day-airport-hotel-golfbag-plan.html">도착일 공항·숙소·골프백 순서</a><a class="button button-quiet" href="/rent/family-luggage.html">짐 많은 일정 차량</a><a class="button button-quiet" href="/#combo">골프·숙소·차량 한 번에 견적</a><a class="button button-quiet" href="https://vietnambam.com/hochiminh/" target="_blank" rel="noopener">도착한 날 저녁 — 베트남밤</a></div>
     </section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2>공항 픽업·패스트트랙 FAQ</h2></div></div><dl class="home-faq-list">${faqs.map(([q, a]) => `<div><dt>${escapeHtml(q)}</dt><dd>${escapeHtml(a)}</dd></div>`).join("")}</dl></section>
     <section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">편명·인원·짐만</p><h2>공항부터 숙소까지,<br>카톡 한 번으로 맡기세요</h2><p>요금은 날짜·차량·시간대에 따라 달라 견적으로 안내합니다. 홈페이지에서는 결제하지 않습니다.</p></div><a class="button button-kakao button-lg" href="#req">1분 요청서 쓰기</a></div></section>`;

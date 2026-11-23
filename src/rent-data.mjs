@@ -10,8 +10,8 @@ export const rentGo = (code) => `/go/rent-${code}`;
 
 // 베트남밤(자매 사이트)은 지금 호치민·다낭 두 지역만 열려 있다. 그 지역 골프장·호치민 시내 일정 페이지에만 링크한다.
 export const vietnambam = {
-  hcm: { url: "https://vietnambam.com/hochiminh/", label: "골프 후 저녁 일정 — 호치민 마사지·스파·가라오케 안내(베트남밤)" },
-  danang: { url: "https://vietnambam.com/danang/", label: "골프 후 저녁 일정 — 다낭 마사지·스파·가라오케 안내(베트남밤)" },
+  hcm: { url: "https://vietnambam.com/hochiminh/", city: "호치민", label: "골프 후 저녁 일정 — 호치민 마사지·스파·가라오케 안내(베트남밤)", cats: [["massage", "마사지"], ["spa", "스파"], ["karaoke", "가라오케"]] },
+  danang: { url: "https://vietnambam.com/danang/", city: "다낭", label: "골프 후 저녁 일정 — 다낭 마사지·스파·가라오케 안내(베트남밤)", cats: [["massage", "마사지"], ["spa", "스파"], ["karaoke", "가라오케"]] },
 };
 
 // 차량 종류(사진·설명은 기존 /services/vehicle.html 그대로).

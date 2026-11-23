@@ -7,7 +7,7 @@ import { apartments, courses, golfAreas, site, villas } from "./site-data.mjs";
 import { topicHubs } from "./topic-hubs.mjs";
 import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
 import { pricing } from "./pricing-guide.mjs";
-import { golfRentPath, hcmCourses, rentGoCodes, rentPages } from "./rent-data.mjs";
+import { golfRentPath, hcmCourses, rentGoCodes, rentPages, vietnambam } from "./rent-data.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -607,8 +607,10 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     const relative = path.relative(dist, file).split(path.sep).join("/");
     const html = await readFile(file, "utf8");
     const links = [...html.matchAll(/<a\b[^>]*href="(https:\/\/vietnambam\.com[^"]*)"[^>]*>/g)];
+    // 2026-11-23 대표님 '골프→베트남밤 연결 강화': 도시 쪽 + 종류 쪽(마사지·스파·가라오케, 모두 200 확인) 허용, 홈·공항 쪽에도 둔다.
+    const okUrl = (url) => url === "https://vietnambam.com/" || Object.entries(vietnambam).some(([, b]) => url === b.url || b.cats.some(([slug]) => url === `${b.url}${slug}/`));
     for (const link of links) {
-      if (!Object.values(bamUrls).includes(link[1])) failures.push(`${relative}: 열리지 않은 베트남밤 주소 ${link[1]}`);
+      if (!okUrl(link[1])) failures.push(`${relative}: 열리지 않은 베트남밤 주소 ${link[1]}`);
       if (!/target="_blank"/.test(link[0]) || !/rel="[^"]*noopener/.test(link[0])) failures.push(`${relative}: 베트남밤 링크 새 탭 noopener 누락`);
     }
     const urls = links.map((link) => link[1]);
@@ -616,11 +618,11 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     if (course) {
       const expected = bamUrls[course.area];
       if (!expected) { if (urls.length) failures.push(`${relative}: 호치민·다낭권이 아닌데 베트남밤 링크`); continue; }
-      if (urls.length !== 1 || urls[0] !== expected) failures.push(`${relative}: 베트남밤 링크는 ${expected} 1개여야 함 (${urls.join(", ")})`);
+      if (!urls.includes(expected) || urls.some((url) => !url.startsWith(expected))) failures.push(`${relative}: 베트남밤 링크는 ${expected} 쪽만이어야 함 (${urls.join(", ")})`);
       else bamCourses += 1;
       continue;
     }
-    if (urls.length && !relative.startsWith("rent/")) failures.push(`${relative}: 골프장·렌트 쪽이 아닌데 베트남밤 링크`);
+    if (urls.length && !relative.startsWith("rent/") && !["index.html", "airport/index.html"].includes(relative)) failures.push(`${relative}: 골프장·렌트·홈·공항 쪽이 아닌데 베트남밤 링크`);
     if (relative.startsWith("rent/") && urls.some((url) => url !== bamUrls.hcm)) failures.push(`${relative}: 렌트(호치민) 쪽에 호치민 밖 베트남밤 링크`);
     if (/^go\//.test(relative) && urls.length) failures.push(`${relative}: 상담 이동 쪽에 베트남밤 링크`);
   }
