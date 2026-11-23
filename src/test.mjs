@@ -234,7 +234,7 @@ if (!robots.includes(`Sitemap: ${site.siteUrl}/sitemap.xml`)) failures.push("rob
 
 // 주제별 모음(골프장별 가격·예약 방법·일정 짜기): 사이트맵·llms.txt·가이드 위치 표시에 연결되고, 금액을 적지 않는다.
 const llms = await readFile(path.join(dist, "llms.txt"), "utf8");
-const PRICE = /\d{1,3}(?:,\d{3})+|\d+\s*(?:VND|동|원|달러|USD)(?![가-힣])|\d+만\s*원/;
+const PRICE = /\d{1,3}(?:,\d{3})+(?!\d|야드)|\d+\s*(?:VND|동|원|달러|USD)(?![가-힣])|\d+만\s*원/;
 // 모음 페이지에 새로 쓴 문구(제목·설명·안내·질문)에는 금액을 넣지 않는다. 기존 글 제목은 각 글의 출처를 따른다.
 for (const hub of topicHubs) {
   const hit = JSON.stringify([hub.title, hub.description, hub.lead, hub.notice, hub.stepsTitle, hub.courseTitle, hub.faq]).match(PRICE);

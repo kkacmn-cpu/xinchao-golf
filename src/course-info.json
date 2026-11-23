@@ -1,0 +1,579 @@
+{
+  "checkedAt": "2026-11-23",
+  "items": [
+    {
+      "slug": "thu-duc-country-club",
+      "opened": "1994년 (West) · 1997년 (East)",
+      "par": "72 · 72 (2개 코스)",
+      "designer": "Chen King Shih (West), Lee Trevino (East)",
+      "facilities": [
+        "드라이빙 레인지",
+        "레스토랑",
+        "프로숍",
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "Vietnam Golf & Country Club 공식 사이트 - 소개",
+          "url": "https://vietnamgolfcc.com/en/about.html"
+        },
+        {
+          "title": "Vietnam Golf & Country Club 공식 사이트 - 코스",
+          "url": "https://vietnamgolfcc.com/en/golf-course.html"
+        },
+        {
+          "title": "Vietnam Golf & Country Club 공식 사이트 - 시설",
+          "url": "https://vietnamgolfcc.com/en/facilities.html"
+        }
+      ]
+    },
+    {
+      "slug": "tan-son-nhat-golf-course",
+      "par": "9홀 코스 4개, 각 36",
+      "designer": "Nelson & Haworth Golf Course Architects (HK) Ltd.",
+      "facilities": [
+        "드라이빙 레인지",
+        "야간 라운드",
+        "레스토랑",
+        "프로숍"
+      ],
+      "sources": [
+        {
+          "title": "탄손넛 골프장 공식 사이트",
+          "url": "https://www.tansonnhatgolf.vn/"
+        }
+      ]
+    },
+    {
+      "slug": "the-bluffs-grand-ho-tram",
+      "designer": "Greg Norman",
+      "facilities": [
+        "드라이빙 레인지",
+        "레스토랑",
+        "라커·샤워",
+        "프로숍",
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "The Bluffs Grand Ho Tram 공식 사이트",
+          "url": "https://thebluffshotram.com/"
+        },
+        {
+          "title": "Greg Norman Golf Course Design 코스 소개",
+          "url": "https://gngcd.com/courses/the-bluffs/"
+        }
+      ]
+    },
+    {
+      "slug": "long-thanh-golf-club",
+      "facilities": [
+        "드라이빙 레인지",
+        "야간 라운드",
+        "레스토랑",
+        "라커·샤워",
+        "프로숍"
+      ],
+      "sources": [
+        {
+          "title": "롱탄 골프 공식 사이트 홈",
+          "url": "https://longthanhgolfresort.com/"
+        },
+        {
+          "title": "롱탄 골프 공식 사이트 시설 페이지",
+          "url": "https://longthanhgolfresort.com/tien-ich"
+        }
+      ]
+    },
+    {
+      "slug": "song-be-golf-resort",
+      "par": "9홀 코스 3개, 각 36",
+      "sources": [
+        {
+          "title": "송베 골프 리조트 공식 사이트 코스 페이지",
+          "url": "https://songbegolf.com.vn/san-golf.html"
+        }
+      ]
+    },
+    {
+      "slug": "harmony-golf-park",
+      "designer": "Jim Engh",
+      "facilities": [
+        "드라이빙 레인지",
+        "레스토랑"
+      ],
+      "sources": [
+        {
+          "title": "Harmonie Golf Park 공식 사이트 홈",
+          "url": "https://harmoniegolfpark.com/"
+        },
+        {
+          "title": "Harmonie Golf Park 공식 사이트 영어 페이지",
+          "url": "https://harmoniegolfpark.com/en/"
+        }
+      ]
+    },
+    {
+      "slug": "west-lakes-golf-villas",
+      "opened": "2018년 말 완공",
+      "lengthYards": "7,100야드 이상",
+      "designer": "Thomson Perrett",
+      "facilities": [
+        "드라이빙 레인지",
+        "레스토랑",
+        "라커·샤워",
+        "프로숍",
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "West Lakes Golf & Villas 공식 사이트",
+          "url": "https://westlakesgolf.com"
+        }
+      ]
+    },
+    {
+      "slug": "royal-long-an-golf",
+      "designer": "Faldo Design (Sir Nick Faldo)",
+      "sources": [
+        {
+          "title": "Faldo Design 보도자료(설계사 공식)",
+          "url": "https://nickfaldodesign.com/news/faldo-design-and-royal-group-sign-agreement-for-golf-project-in-long-an-vietnam/"
+        }
+      ]
+    },
+    {
+      "slug": "long-bien-golf-course",
+      "designer": "Nelson & Haworth Golf Course Architects",
+      "facilities": [
+        "야간 라운드",
+        "레스토랑",
+        "라커·샤워"
+      ],
+      "sources": [
+        {
+          "title": "롱비엔 골프 공식 사이트 소개",
+          "url": "https://longbiengolf.vn/gioi-thieu"
+        },
+        {
+          "title": "롱비엔 골프 공식 사이트 롱비엔 코스",
+          "url": "https://longbiengolf.vn/gioi-thieu/san-golf-long-bien.html"
+        }
+      ]
+    },
+    {
+      "slug": "sky-lake-golf",
+      "facilities": [
+        "드라이빙 레인지",
+        "레스토랑",
+        "프로숍"
+      ],
+      "sources": [
+        {
+          "title": "윈덤 스카이레이크 리조트 편의시설(리조트 공식)",
+          "url": "https://www.wyndhamhotels.com/en-ca/wyndham/hanoi-vietnam/wyndham-sky-lake-resort-and-villas/services-amenities"
+        }
+      ]
+    },
+    {
+      "slug": "brg-kings-island",
+      "opened": "1993년 (레이크사이드 코스)",
+      "designer": "Jack Nicklaus II (킹스 코스)",
+      "sources": [
+        {
+          "title": "BRG 그룹 30주년 소식",
+          "url": "https://www.brggroup.vn/vi/to-hop-san-gon-kings-island-golf-resort-chao-don-tuoi-30-voi-su-kien-30th-anniversary-championship-d449"
+        },
+        {
+          "title": "BRG 그룹 54홀 확장 소식",
+          "url": "https://www.brggroup.vn/vi/tap-doan-brg-mo-rong-san-gon-brg-kings-island-len-54-ho-voi-san-kings-course-mang-dau-an-thiet-ke-dinh-cao-cua-jack-nicklaus-ii-d74"
+        }
+      ]
+    },
+    {
+      "slug": "tam-dao-golf",
+      "opened": "2007년",
+      "par": "72",
+      "lengthYards": "7,169야드",
+      "designer": "IMG",
+      "facilities": [
+        "드라이빙 레인지",
+        "야간 라운드",
+        "레스토랑",
+        "프로숍",
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "IMG 프레스티지 땀다오 골프 리조트 페이지(운영사)",
+          "url": "https://www.imgprestige.com/tam-dao-golf-resort"
+        }
+      ]
+    },
+    {
+      "slug": "thanh-lanh-valley-golf",
+      "opened": "2021년",
+      "designer": "Nick Faldo",
+      "facilities": [
+        "레스토랑",
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "탄라잉 밸리 골프 리조트 공식 사이트",
+          "url": "https://thanhlanhvalleygolfresort.com.vn"
+        }
+      ]
+    },
+    {
+      "slug": "vinpearl-golf-hai-phong",
+      "designer": "IMG Worldwide",
+      "facilities": [
+        "드라이빙 레인지",
+        "야간 라운드",
+        "라커·샤워"
+      ],
+      "sources": [
+        {
+          "title": "빈펄 골프 하이퐁 공식 페이지",
+          "url": "https://vinpearl.com/en/vinpearl-golf-hai-phong"
+        },
+        {
+          "title": "빈펄 골프 하이퐁 공식 페이지(베트남어)",
+          "url": "https://vinpearl.com/vi/vinpearl-golf-hai-phong-remove"
+        }
+      ]
+    },
+    {
+      "slug": "montgomerie-links-vietnam",
+      "designer": "Colin Montgomerie",
+      "facilities": [
+        "드라이빙 레인지",
+        "레스토랑",
+        "프로숍",
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "몽고메리 링크스 공식 사이트",
+          "url": "https://montgomerielinks.com"
+        },
+        {
+          "title": "몽고메리 링크스 코스 소개",
+          "url": "https://montgomerielinks.com/the-course"
+        }
+      ]
+    },
+    {
+      "slug": "legend-danang-golf-resort",
+      "par": "73 (니클라우스) · 72 (노먼)",
+      "lengthYards": "7,380야드 (니클라우스 코스)",
+      "designer": "Jack Nicklaus / Greg Norman",
+      "sources": [
+        {
+          "title": "Danang Golf Club 공식 - 홈",
+          "url": "https://dananggolfclub.com/home"
+        },
+        {
+          "title": "Danang Golf Club 공식 - 니클라우스 코스",
+          "url": "https://dananggolfclub.com/Nicklaus-Course"
+        },
+        {
+          "title": "Danang Golf Club 공식 - 노먼 코스",
+          "url": "https://dananggolfclub.com/Norman-Course"
+        }
+      ]
+    },
+    {
+      "slug": "ba-na-hills-golf-club",
+      "par": "72",
+      "designer": "Luke Donald (IMG 운영)",
+      "sources": [
+        {
+          "title": "Sun World 바나힐스 공식 골프 소개(검색 결과 요약)",
+          "url": "https://sunworld.vn/vi/banahills/an-choi/tron-ven-trai-nghiem-choi-golf-tai-ba-na-hills-dang-nho-17883"
+        }
+      ]
+    },
+    {
+      "slug": "hoiana-shores-golf-club",
+      "opened": "2020년",
+      "par": "71",
+      "lengthYards": "7,004야드",
+      "designer": "Robert Trent Jones II",
+      "facilities": [
+        "레스토랑",
+        "프로숍",
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "RTJ II 설계사 공식 포트폴리오",
+          "url": "https://www.rtj2.com/portfolio/hoiana-shores-golf-club"
+        },
+        {
+          "title": "Hoiana 공식 골프 페이지",
+          "url": "https://www.hoiana.com/golf"
+        }
+      ]
+    },
+    {
+      "slug": "laguna-golf-lang-co",
+      "par": "71",
+      "designer": "Sir Nick Faldo",
+      "facilities": [
+        "드라이빙 레인지",
+        "레스토랑",
+        "프로숍"
+      ],
+      "sources": [
+        {
+          "title": "Laguna Lăng Cô 공식 - 코스 디자인·시설",
+          "url": "https://lagunalangco.com/golf/design-facilities/"
+        },
+        {
+          "title": "Laguna Lăng Cô 공식 - 골프",
+          "url": "https://www.lagunalangco.com/golf/"
+        }
+      ]
+    },
+    {
+      "slug": "kn-golf-links-cam-ranh",
+      "lengthYards": "7,152야드 (The Links)",
+      "designer": "Greg Norman",
+      "facilities": [
+        "드라이빙 레인지"
+      ],
+      "sources": [
+        {
+          "title": "KN Golf Links 공식 홈",
+          "url": "https://kngolflinks.com"
+        },
+        {
+          "title": "KN Golf Links 공식 - 골프 코스",
+          "url": "https://kngolflinks.com/golf-courses"
+        }
+      ]
+    },
+    {
+      "slug": "vinpearl-golf-nha-trang",
+      "designer": "IMG Worldwide",
+      "sources": [
+        {
+          "title": "Vinpearl 공식 - 빈펄 골프 나트랑(검색 결과 요약)",
+          "url": "https://vinpearl.com/en/vinpearl-golf-nha-trang"
+        }
+      ]
+    },
+    {
+      "slug": "sam-tuyen-lam-golf",
+      "opened": "2014년",
+      "lengthYards": "7,035야드 이상",
+      "sources": [
+        {
+          "title": "SAM Tuyen Lam 공식 소개",
+          "url": "https://samtuyenlam.vn/about-us/?lang=en"
+        }
+      ]
+    },
+    {
+      "slug": "dalat-at-1200",
+      "opened": "2015년",
+      "par": "73",
+      "sources": [
+        {
+          "title": "The Dalat at 1200 공식 홈",
+          "url": "https://www.dalat1200.com"
+        },
+        {
+          "title": "The Dalat at 1200 공식 - 홀 설명",
+          "url": "https://www.dalat1200.com/golf-hole-description"
+        },
+        {
+          "title": "The Dalat at 1200 공식 - 코스 소개",
+          "url": "https://www.dalat1200.com/golf-courses-in-dalat"
+        }
+      ]
+    },
+    {
+      "slug": "vinpearl-golf-phu-quoc",
+      "designer": "IMG Worldwide",
+      "sources": [
+        {
+          "title": "Vinpearl 공식 - 푸꾸옥 골프(검색 결과 요약)",
+          "url": "https://vinpearl.com/en/vinpearl-golf-phu-quoc-luxurious-golfing-experiences"
+        }
+      ]
+    },
+    {
+      "slug": "sonadezi-chau-duc-golf",
+      "facilities": [
+        "레스토랑"
+      ],
+      "sources": [
+        {
+          "title": "쩌우득 골프장 공식 사이트",
+          "url": "https://chauducgolfcourse.com.vn"
+        },
+        {
+          "title": "소나데지 쩌우득 공식 사이트(골프장 사이트 링크 확인)",
+          "url": "https://www.sonadezichauduc.com.vn"
+        }
+      ]
+    },
+    {
+      "slug": "eschuri-vung-bau-golf",
+      "lengthYards": "7,508야드",
+      "designer": "IMG",
+      "facilities": [
+        "사우나",
+        "레스토랑",
+        "라커·샤워"
+      ],
+      "sources": [
+        {
+          "title": "선 푸꾸옥 항공(선그룹) 공식 소개 페이지",
+          "url": "https://www.sunphuquocairways.com/sg/en/explore/elevate-experience/eschuri-vung-bau-golf"
+        }
+      ]
+    },
+    {
+      "slug": "dragon-golf-links",
+      "par": "72",
+      "designer": "Greg Norman Golf Course Design",
+      "facilities": [
+        "드라이빙 레인지",
+        "사우나",
+        "레스토랑",
+        "라커·샤워"
+      ],
+      "sources": [
+        {
+          "title": "드래곤 골프 링크스 공식 사이트",
+          "url": "https://dragongolflinks.vn"
+        }
+      ]
+    },
+    {
+      "slug": "ruby-tree-golf",
+      "par": "72",
+      "designer": "Pacific Coast Design",
+      "facilities": [
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "루비트리 공식 사이트 홈",
+          "url": "https://rubytreegolf.vn/2/56/Home"
+        },
+        {
+          "title": "루비트리 공식 사이트 소개",
+          "url": "https://rubytreegolf.vn/2/161/default"
+        }
+      ]
+    },
+    {
+      "slug": "hanoi-golf-club",
+      "facilities": [
+        "야간 라운드",
+        "레스토랑"
+      ],
+      "sources": [
+        {
+          "title": "하노이 골프클럽 공식 소개",
+          "url": "https://hanoigolfclub.com/en/about-us/"
+        },
+        {
+          "title": "하노이 골프클럽 공식 코스 안내",
+          "url": "https://hanoigolfclub.com/en/service/golf-course/"
+        }
+      ]
+    },
+    {
+      "slug": "legend-hill-country-club",
+      "opened": "2015년",
+      "designer": "Nicklaus Design",
+      "sources": [
+        {
+          "title": "BRG 그룹 공식 개장 보도자료(2015.8)",
+          "url": "https://www.brggroup.vn/brg-legend-hill-golf-resort-the-first-nicklaus-design-golf-course-in-vietnam--officially-opens-its-unique-twin-green-design-concept-d189"
+        }
+      ]
+    },
+    {
+      "slug": "hilltop-valley-golf",
+      "opened": "2019년",
+      "designer": "IMG",
+      "facilities": [
+        "드라이빙 레인지",
+        "야간 라운드",
+        "레스토랑",
+        "라커·샤워",
+        "프로숍"
+      ],
+      "sources": [
+        {
+          "title": "힐탑밸리 공식 소개",
+          "url": "https://hilltopvalleygolf.com/introduce/"
+        },
+        {
+          "title": "힐탑밸리 공식 홈페이지",
+          "url": "https://hilltopvalleygolf.com/"
+        },
+        {
+          "title": "겔렉시임코 공식 사이트(검색 결과)",
+          "url": "https://www.geleximco.vn/tin-tuc-su-kien/nhieu-loi-the-phat-trien-du-lich-golf-tai-viet-nam-nd616.html"
+        }
+      ]
+    },
+    {
+      "slug": "legend-valley-country-club",
+      "designer": "Jack Nicklaus",
+      "sources": [
+        {
+          "title": "BRG 그룹 공식 레전드밸리 안내(2023.1)",
+          "url": "https://www.brggroup.vn/brg-rose-canyon-golf-resort-new-destination-for-vietnamese-golfers-in-2023-d441"
+        }
+      ]
+    },
+    {
+      "slug": "trang-an-golf-resort",
+      "par": "72 (챔피언 코스)",
+      "lengthYards": "7,200야드 (챔피언 코스)",
+      "designer": "Mark Rathert (챔피언 코스)",
+      "facilities": [
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "짱안 골프 앤 리조트 공식 사이트",
+          "url": "https://trangangolf.com"
+        }
+      ]
+    },
+    {
+      "slug": "golden-sands-golf-resort",
+      "designer": "Nicklaus Design",
+      "sources": [
+        {
+          "title": "BRG 그룹 공식 골든샌즈 마스터플랜 소식",
+          "url": "https://www.brggroup.vn/golden-sands-golf-resort-master-plan-wins-gold-at-the-4th-national-urban-planning-awards-d543"
+        },
+        {
+          "title": "BRG 그룹 공식 36홀 소개",
+          "url": "https://www.brggroup.vn/offers-36hole-golf-masterpiece-by-worlds-top-course-designers-nicklaus-norman-d245"
+        }
+      ]
+    },
+    {
+      "slug": "van-lang-empire-golf-club",
+      "designer": "Greg Norman Golf Course Design",
+      "sources": [
+        {
+          "title": "Greg Norman Golf Course Design 공식 사이트",
+          "url": "https://gngcd.com/?p=5106"
+        }
+      ]
+    }
+  ]
+}

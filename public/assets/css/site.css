@@ -1228,3 +1228,10 @@ html:not(.map-js) .map-canvas{height:auto;min-height:0}
 .dec-cta { padding-top: 16px; padding-bottom: 8px; }
 .dec-cta-line { margin: 0 0 10px; font-size: 15px; font-weight: 700; color: var(--green-dark, #14402a); }
 .dec-cta-btn { width: 100%; max-width: 520px; justify-content: center; }
+/* 코스 정보 시설·출처(2026-11-23) */
+.course-facilities{margin:12px 0 4px}
+.course-facilities .cf-title{margin:0 0 6px;font-size:14px;font-weight:700;color:var(--g-700,#444)}
+.course-facilities ul{display:flex;flex-wrap:wrap;gap:6px;margin:0;padding:0;list-style:none}
+.course-facilities li{padding:4px 10px;border:1px solid var(--g-300,#d6d6d6);border-radius:999px;font-size:14px;line-height:1.4;background:#fff}
+.course-info-src{display:block;margin:6px 0 14px;line-height:1.5;font-size:13px;color:var(--g-600,#666);word-break:keep-all;overflow-wrap:anywhere}
+.course-info-src a{color:inherit;text-decoration:underline}
