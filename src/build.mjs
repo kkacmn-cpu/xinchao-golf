@@ -880,6 +880,21 @@ function comboReqCard() {
     </section>`;
 }
 
+// 주제 모음(가격·예약·일정) 1분 요청서(2026-11-23): 방문 2·3위 쪽에서 바로 카톡 견적. 금액은 적지 않는다.
+function hubReqCard(hub) {
+  const t = { price: ["같은 조건으로 가격 받기", "날짜·인원·홀 수를 누르면 이 조건 그대로 카톡에 붙습니다. 그린피·캐디·카트·차량을 나눠 견적 드립니다.", "카톡으로 가격 받기"], booking: ["티타임 가능 여부부터 확인", "날짜·인원·홀 수를 누르면 카톡 입력창에 붙습니다. 골프장 회신을 받아 티오프를 알려 드립니다.", "카톡으로 예약 문의"], itinerary: ["일정 그대로 상담 받기", "날짜·인원·라운드 수를 누르면 카톡 입력창에 붙습니다. 골프장·이동 순서를 맞춰 드립니다.", "카톡으로 일정 상담"] }[hub.key] || ["카톡으로 바로 상담", "날짜·인원을 누르면 카톡 입력창에 붙습니다.", "카톡으로 보내기"];
+  return `<section class="req-card shell" id="req" aria-labelledby="req-title" data-go="/go/quick-golf" data-head="[신짜오골프 ${escapeHtml(hub.label)} 문의]">
+      <div class="qq-head"><p class="eyebrow">1분 요청서 · 12월은 연말 티타임이 먼저 찹니다</p><h2 id="req-title">${t[0]}</h2><p>${t[1]}</p></div>
+      ${reqDate(reqChip('data-v="12월 중(날짜 상담)"', "12월 중"))}
+      ${reqPeople([2, 4, 8, 12])}
+      ${reqGroup("홀·라운드", "홀·라운드", ["18홀 1회", "18홀 2회", "36홀(하루 2번)", "라운드 3회 이상"].map((v) => reqChip(`data-v="${v}"`, v)).join(""))}
+      ${reqGroup("함께 필요한 것", "함께 필요한 것 <small>(여러 개 가능)</small>", [["공항·골프장 차량", "차량"], ["숙소(풀빌라·호텔)", "숙소"], ["입국 패스트트랙", "패스트트랙"]].map(([v, label]) => reqChip(`data-v="${v}"`, label)).join(""), { multi: true })}
+      <label class="req-text">희망 골프장 <small>(알면)</small><input class="qq-input" type="text" data-field="희망 골프장" placeholder="예: 롱탄, 트윈도브 / 아직 모름" autocomplete="off"></label>
+      ${reqFoot(t[2])}
+      <p class="qq-note">요금은 날짜·인원·홀 수·티타임에 따라 달라 견적으로 안내합니다. 홈페이지에서는 결제하지 않습니다.</p>
+    </section>`;
+}
+
 function airportPage() {
   const faqs = [
     ["비행기가 늦게 도착하면 기사는 어떻게 하나요?", "편명을 함께 보내 주시면 실제 도착 시각에 맞춰 기사 일정을 잡습니다. 지연 때 대기 조건은 예약할 때 미리 안내해 드립니다."],
@@ -1064,7 +1079,8 @@ function topicHubPage(hub) {
   const others = topicHubs.filter((item) => item.key !== hub.key);
   const guideItem = (guide, tag) => `<li><a href="/guide/${guide.slug}.html">${tag ? `<em>${tag}</em>` : ""}<strong>${escapeHtml(guide.title)}</strong><span>${escapeHtml(guide.sub)}</span></a></li>`;
   const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/guide">예약 가이드</a><span>›</span><span aria-current="page">${escapeHtml(hub.label)}</span></nav>
-<section class="page-hero"><div class="shell"><p class="eyebrow">${escapeHtml(hub.category)}</p><h1>${escapeHtml(hub.title)}</h1><p>${escapeHtml(hub.lead)}</p><div class="guide-jump">${others.map((item) => `<a class="button button-quiet" href="${item.path}">${escapeHtml(item.title)}</a>`).join("")}<a class="button button-quiet" href="/guide">예약 가이드 전체</a></div></div></section>
+<section class="page-hero"><div class="shell"><p class="eyebrow">${escapeHtml(hub.category)}</p><h1>${escapeHtml(hub.title)}</h1><p>${escapeHtml(hub.lead)}</p><div class="hero-x-actions"><a class="button button-kakao" href="#req">1분 요청서로 ${hub.key === "price" ? "가격 받기" : hub.key === "booking" ? "예약 문의" : "일정 상담"}</a></div><div class="guide-jump">${others.map((item) => `<a class="button button-quiet" href="${item.path}">${escapeHtml(item.title)}</a>`).join("")}<a class="button button-quiet" href="/guide">예약 가이드 전체</a></div></div></section>
+${hubReqCard(hub)}
 <section class="section shell">
 <p class="hub-notice">${escapeHtml(hub.notice)}</p>
 <section class="guide-group"><h2>${escapeHtml(hub.stepsTitle)}</h2><ol class="guide-list">${stepGuides.map((guide, index) => guideItem(guide, String(index + 1).padStart(2, "0"))).join("")}</ol>${hub.key === "itinerary" ? `<p class="hub-more"><a href="/golf#airport-times">공항→골프장 이동시간표</a> · <a href="/services/vehicle.html">골프장 왕복 차량 상담</a></p>` : ""}</section>
