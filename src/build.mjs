@@ -55,6 +55,7 @@ const assetVersion = async (relative) => createHash("sha256")
   .digest("hex").slice(0, 12);
 const styleVersion = await assetVersion("css/site.css");
 const scriptVersion = await assetVersion("js/site.js");
+const reqCardVersion = await assetVersion("js/req-card.js");
 
 const legacyBlogPosts = [
   {
@@ -195,6 +196,7 @@ function header(active = "") {
     ["guide", "/guide", "예약 가이드"],
     ["services", "/services", "숙소·차량"],
     ["rent", "/rent", "차량 렌트"],
+    ["airport", "/airport", "공항 픽업"],
     ["blog", "/blog", "골프정보"],
   ];
   return `
@@ -226,6 +228,7 @@ function footer(pathname = "") {
     <button class="floating-consult js-consult" type="button" data-interest="빠른 상담" aria-label="카카오톡 빠른 상담">상담</button>
     <div class="mobile-cta-bar"><a class="mobile-cta-golf" href="/golf">골프장 ${courses.length}곳</a>${courseOfPath(pathname) ? `<a class="mobile-cta-kakao" href="/go/quick-golf?from=${courseOfPath(pathname).slug}" data-one-tap="${escapeHtml(`[신짜오골프] ${courseOfPath(pathname).name} 견적 문의\n날짜·인원·티오프 희망 시간은 이어서 알려 드릴게요.`)}">이 골프장으로 견적</a>` : `<button class="mobile-cta-kakao js-consult" type="button" data-interest="모바일 하단 상담">카카오톡 예약 문의</button>`}</div>
     <script src="/assets/js/site.js?v=${scriptVersion}" defer></script>
+    <script src="/assets/js/req-card.js?v=${reqCardVersion}" defer></script>
     <script src="https://company-site-monitor.vercel.app/tracker.js?site=xinchao-golf" defer></script>`;
 }
 
@@ -360,12 +363,13 @@ function homePage() {
         <h1>베트남 골프장 예약,<br>카톡 한 번으로</h1>
         <p class="hero-x-lead"><span class="lead-long">베트남 골프장 ${courses.length}곳의 위치와 공항 이동시간을 비교하고, 골프장 예약·차량·숙소를 카카오톡으로 한 번에 상담하세요.</span><span class="lead-short">골프장 ${courses.length}곳 공항 이동시간 비교, <span class="nowrap">예약·차량·숙소는</span> 한국어로 한 번에.</span></p>
         <div class="hero-x-actions">
-          <a class="button button-kakao button-lg" href="${site.kakaoUrl}" target="_blank" rel="noopener noreferrer">카카오톡 한국어 예약 문의</a>
+          <a class="button button-kakao button-lg" href="#combo">골프·숙소·차량 한 번에 견적</a>
           <a class="button button-glass button-lg" href="/golf">골프장 ${courses.length}곳 공항시간 보기</a>
         </div>
         <p class="hero-x-note">한국어로 상담합니다 · 문의는 확인 후 순서대로 답변드립니다</p>
       </div>
     </section>
+    ${comboReqCard()}
     ${trustLine("#ops")}<section class="near-airport" aria-labelledby="near-airport-title"><div class="shell">
       <div class="section-heading"><div><p class="eyebrow">골프장 ${courses.length}곳 공항 이동시간</p><h2 id="near-airport-title">공항에서 가까운 골프장</h2></div><a class="text-link" href="/golf#airport-times">공항→골프장 시간표 전체 →</a></div>
       <ul class="near-row">${courses.filter((course) => course.image).sort((a, b) => driveMinMinutes(a.drive) - driveMinMinutes(b.drive)).slice(0, 10).map((course) => `<li><a href="/golf/${course.slug}.html"><img src="/assets/images/${course.image}" width="1200" height="800"${focusStyle(course.image)} loading="lazy" decoding="async" alt="${photoAlt(course)}">${aiBadge(course)}<span class="near-area">${escapeHtml(areaOf(course).name)}</span><strong>${escapeHtml(course.name)}</strong><em>✈ ${escapeHtml(airportShort(course))}에서 <b>${escapeHtml(course.drive)}</b></em></a></li>`).join("")}</ul>
@@ -803,10 +807,83 @@ function villasPage() {
   return lodgingIntroPage({ eyebrow: "풀빌라", heading: "호치민 풀빌라 안내", kind: "풀빌라", listUrl: poolvilla.villaList, title: "호치민 골프 풀빌라 안내", description: `호치민 단체 골프여행 풀빌라 목록은 자매 사이트 ${poolvilla.name}에서 안내합니다. 골프장·차량과 함께 잡을 숙소는 카카오톡으로 상담합니다.`, pathname: "/services/villas.html" });
 }
 
+// ── 요청서 카드(2026-11-23 총괄: 공항 픽업·패스트트랙 / 묶음 견적) ───────────────────
+// public/assets/js/req-card.js가 고른 칩을 요약해 복사하고 data-go(카톡 /go/)로 보낸다. 견적기·가격은 건드리지 않는다.
+const reqChip = (attrs, label, pressed = false) => `<button type="button" class="qq-chip" aria-pressed="${pressed}" ${attrs}>${label}</button>`;
+const reqGroup = (field, legend, chips, { multi = false, required = false, input = "" } = {}) => `<fieldset class="qq-group" data-field="${field}"${multi ? " data-multi" : ""}${required ? " data-required" : ""}><legend>${legend}</legend><div class="qq-chips">${chips}</div>${input}</fieldset>`;
+const reqDate = (extra = "") => reqGroup("날짜", "날짜", `${reqChip('data-date="sat0"', "이번 주 토")}${reqChip('data-date="sat1"', "다음 주 토")}${extra}${reqChip("data-pick", "직접 고르기")}`, { required: true, input: `<input class="qq-input" type="date" hidden aria-label="날짜 직접 고르기">` });
+const reqPeople = (list) => reqGroup("인원", "인원", `${list.map((n) => reqChip(`data-v="${n}명"`, `${n}명`)).join("")}${reqChip("data-pick", "직접")}`, { required: true, input: `<input class="qq-input" type="number" min="1" max="99" inputmode="numeric" placeholder="인원 수" hidden aria-label="인원 직접 입력">` });
+const reqFoot = (label) => `<button class="button button-kakao button-lg req-send" type="button">${label}</button><p class="qq-status" role="status" aria-live="polite"></p><textarea class="qq-fallback" readonly hidden aria-label="요청 요약"></textarea>`;
+
+const airportGo = "/go/airport-pickup";
+function airportReqCard() {
+  return `<section class="req-card shell" id="req" aria-labelledby="req-title" data-go="${airportGo}" data-head="[신짜오골프 공항 픽업·패스트트랙 요청]">
+      <div class="qq-head"><p class="eyebrow">1분 요청서</p><h2 id="req-title">누르기만 하면 카톡으로 요청 끝</h2><p>로그인·결제 없이, 고른 내용이 요약돼 카톡 입력창에 붙습니다.</p></div>
+      ${reqGroup("필요한 것", "필요한 것 <small>(여러 개 가능)</small>", [["공항 픽업(도착)", "공항 픽업", true], ["공항 샌딩(출국)", "공항 샌딩"], ["입국 패스트트랙", "입국 패스트트랙"], ["출국 패스트트랙", "출국 패스트트랙"]].map(([v, label, on]) => reqChip(`data-v="${v}"`, label, !!on)).join(""), { multi: true, required: true })}
+      ${reqDate()}
+      ${reqPeople([1, 2, 3, 4, 8])}
+      ${reqGroup("짐", "짐 <small>(선택)</small>", [["골프백 있음", "골프백"], ["캐리어 3개 이상", "캐리어 많음"], ["유모차·어린이 동반", "유모차·어린이"]].map(([v, label]) => reqChip(`data-v="${v}"`, label)).join(""), { multi: true })}
+      ${reqGroup("도착 후 가는 곳", "도착 후 가는 곳 <small>(선택)</small>", ["시내 호텔·아파트", "풀빌라", "바로 골프장", "아직 모름"].map((v) => reqChip(`data-v="${v}"`, v)).join(""))}
+      <label class="req-text">편명·도착 시각 <small>(알면)</small><input class="qq-input" type="text" data-field="편명·시각" placeholder="예: VJ861 22:40 도착" autocomplete="off"></label>
+      ${reqFoot("카톡으로 요청 보내기")}
+      <p class="qq-note">차량·패스트트랙 가능 여부와 요금은 날짜·인원·짐에 따라 달라 견적으로 안내합니다. 홈페이지에서는 결제하지 않습니다.</p>
+    </section>`;
+}
+
+function comboReqCard() {
+  return `<section class="req-card shell combo-card" id="combo" aria-labelledby="combo-title" data-go="${golfComboPath}" data-head="[신짜오골프 골프·숙소·차량 한 번에 견적]">
+      <div class="qq-head"><p class="eyebrow">12월 성수기 · 연말 티타임은 먼저 찹니다</p><h2 id="combo-title">골프·숙소·차량, 한 장의 견적으로</h2><p>골프장·숙소·공항 차량을 따로 알아보지 마세요. 날짜·인원만 누르면 세 가지를 묶어 카톡으로 견적 드립니다.</p></div>
+      ${reqDate(reqChip('data-v="12월 중(날짜 상담)"', "12월 중"))}
+      ${reqPeople([2, 4, 8, 12])}
+      ${reqGroup("라운드", "라운드 수", ["1회", "2회", "3회", "4회 이상"].map((v) => reqChip(`data-v="${v}"`, v)).join(""))}
+      ${reqGroup("숙소", "숙소", [["풀빌라", "풀빌라"], ["아파트", "아파트"], ["호텔", "호텔"], ["숙소 필요 없음", "필요 없음"]].map(([v, label]) => reqChip(`data-v="${v}"`, label)).join(""))}
+      ${reqGroup("차량", "차량 <small>(기본 포함, 빼려면 누르기)</small>", [["공항 픽업·샌딩", "공항 픽업·샌딩", true], ["숙소↔골프장 왕복", "골프장 왕복", true], ["입국 패스트트랙", "입국 패스트트랙"]].map(([v, label, on]) => reqChip(`data-v="${v}"`, label, !!on)).join(""), { multi: true })}
+      <label class="req-text">희망 골프장 <small>(알면)</small><input class="qq-input" type="text" data-field="희망 골프장" placeholder="예: 롱탄, 트윈도브 / 아직 모름" autocomplete="off"></label>
+      ${reqFoot("카톡으로 묶음 견적 받기")}
+      <p class="qq-note">티오프·숙소·차량 가능 여부와 요금은 상담 때 확인합니다. <a href="/airport">공항 픽업·패스트트랙만 필요하면 →</a></p>
+    </section>`;
+}
+
+function airportPage() {
+  const faqs = [
+    ["비행기가 늦게 도착하면 기사는 어떻게 하나요?", "편명을 함께 보내 주시면 실제 도착 시각에 맞춰 기사 일정을 잡습니다. 지연 때 대기 조건은 예약할 때 미리 안내해 드립니다."],
+    ["밤늦게·새벽에 도착해도 픽업되나요?", "네. 늦은 밤·새벽 도착도 상담합니다. 시간대에 따라 요금이 달라질 수 있어 편명과 도착 시각을 보내 주시면 견적으로 안내합니다."],
+    ["패스트트랙은 무엇이고 언제까지 신청해야 하나요?", "공항 담당 직원이 이름 피켓으로 맞이해 입국(또는 출국) 심사를 전용 줄로 안내하는 서비스입니다. 여권 이름과 편명이 필요해 미리 신청할수록 확실합니다. 맞이하는 위치와 끝나는 지점은 예약 때 안내합니다."],
+    ["골프백이 있으면 어떤 차가 맞나요?", "2~3명과 골프백 2~3개는 7인승, 4~8명이거나 골프백·캐리어가 많으면 16인승을 권합니다. 인원과 골프백·캐리어 수를 함께 알려 주세요."],
+    ["공항에서 바로 골프장으로 갈 수 있나요?", "네. 도착일 라운드는 입국 심사·짐 찾기 시간과 공항→골프장 이동시간을 더해 티오프를 잡습니다. 골프장마다 공항 이동시간을 표로 정리해 두었습니다."],
+  ];
+  const services = [
+    ["공항 픽업", "도착", "출구에서 기사가 이름 피켓으로 맞이하고 숙소·골프장까지 모십니다.", "편명·도착 시각, 인원, 골프백·캐리어 수, 숙소 주소"],
+    ["공항 샌딩", "출국", "숙소·골프장에서 짐을 싣고 출국 시간에 맞춰 공항으로 모십니다.", "출국 편명·시각, 출발 장소, 인원·짐 수"],
+    ["입국 패스트트랙", "도착", "공항 직원이 맞이해 입국 심사를 전용 줄로 안내합니다. 부모님·아이 동반, 단체에 많이 씁니다.", "여권 영문 이름, 편명, 인원(성인·아동)"],
+    ["출국 패스트트랙", "출국", "체크인 뒤 출국 심사·보안 검색을 전용 줄로 안내합니다.", "여권 영문 이름, 출국 편명, 인원"],
+  ];
+  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><span aria-current="page">공항 픽업·패스트트랙</span></nav>
+    <section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/service-vehicle.webp')"><div class="shell"><p class="eyebrow">공항 픽업·샌딩 · 패스트트랙</p><h1>호치민 공항 픽업·패스트트랙,<br>카톡 한 번에 예약</h1><p>탄손녓(떤선녓) 공항 도착부터 숙소·골프장까지. 편명·인원·짐만 보내 주시면 차량과 패스트트랙을 함께 잡아 드립니다.</p><div class="hero-x-actions"><a class="button button-kakao" href="#req">1분 요청서 쓰기</a><a class="button button-glass" href="${airportGo}">카톡 바로 문의</a></div></div></section>
+    ${airportReqCard()}
+    <section class="section shell"><div class="section-heading"><div><p class="eyebrow">도착하는 날</p><h2>비행기에서 숙소까지 이렇게 진행됩니다</h2></div></div>
+      <ol class="airport-steps"><li><strong>예약 확정</strong><span>편명·인원·짐을 보내 주시면 차량과 패스트트랙을 확정하고 기사 정보를 카톡으로 보내 드립니다.</span></li><li><strong>입국 패스트트랙 <small>(신청 시)</small></strong><span>공항 직원이 이름 피켓으로 맞이해 입국 심사를 전용 줄로 안내합니다.</span></li><li><strong>짐 찾기</strong><span>골프백·캐리어를 모두 받은 뒤 출구로 나옵니다.</span></li><li><strong>기사 미팅</strong><span>출구에서 이름 피켓을 든 기사를 만납니다. 손님 단톡방에서 기사가 실시간 위치를 알려 드립니다.</span></li><li><strong>숙소·골프장 도착</strong><span>시내 숙소, 풀빌라, 또는 바로 골프장으로 이동합니다.</span></li></ol>
+    </section>
+    <section class="section section-tint"><div class="shell"><div class="section-heading"><div><p class="eyebrow">맡길 수 있는 것</p><h2>네 가지를 한 번에 또는 따로</h2></div></div>
+      <div class="option-grid">${services.map(([name, tag, text, need]) => `<article><span>${tag}</span><h3>${name}</h3><p>${text}</p><p class="airport-need"><b>보내 주실 것</b> ${need}</p></article>`).join("")}</div>
+    </div></section>
+    <section class="ops-section" aria-labelledby="ops-title"><div class="shell ops-inner">
+      <figure class="ops-shot"><img src="/assets/images/ops/zalo-pickup.webp" alt="손님 전용 단톡방 실제 운영 화면(이름·사진·지도는 가림)" width="440" height="905" loading="lazy"><figcaption>실제 공항 픽업 단톡방(개인정보 가림)</figcaption></figure>
+      <div class="ops-copy"><p class="eyebrow">신짜오만의 방식</p><h2 id="ops-title">"어디세요?" 할 필요 없이</h2>
+        <ol class="ops-list"><li><strong>손님 한 팀마다 기사와 전용 단톡방</strong><span>도착 전에 기사 이름·차량 정보를 받고, 같은 방에서 바로 연락합니다.</span></li><li><strong>기사가 실시간 위치 공유</strong><span>출구에 나오기 전부터 기사가 지금 어디쯤인지 보입니다.</span></li><li><strong>픽업부터 귀국 샌딩까지 한 방에서</strong><span>골프장 이동·숙소 연락도 같은 단톡방에서 이어집니다.</span></li></ol></div></div></section>
+    <section class="section shell"><div class="section-heading"><div><p class="eyebrow">차량 고르기</p><h2>인원과 골프백 수로 고르세요</h2></div><a class="text-link" href="/rent">상황별 차량 전체 →</a></div>${chooseTable("인원·짐별 공항 차량")}</section>
+    <section class="section shell"><div class="section-heading"><div><p class="eyebrow">공항에서 바로 골프</p><h2>도착일 라운드, 이동시간부터 보세요</h2></div></div>
+      <div class="guide-jump"><a class="button button-quiet" href="/golf#airport-times">공항→골프장 시간표</a><a class="button button-quiet" href="/guide/arrival-day-airport-hotel-golfbag-plan.html">도착일 공항·숙소·골프백 순서</a><a class="button button-quiet" href="/rent/family-luggage.html">짐 많은 일정 차량</a><a class="button button-quiet" href="/#combo">골프·숙소·차량 한 번에 견적</a></div>
+    </section>
+    <section class="section shell"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2>공항 픽업·패스트트랙 FAQ</h2></div></div><dl class="home-faq-list">${faqs.map(([q, a]) => `<div><dt>${escapeHtml(q)}</dt><dd>${escapeHtml(a)}</dd></div>`).join("")}</dl></section>
+    <section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">편명·인원·짐만</p><h2>공항부터 숙소까지,<br>카톡 한 번으로 맡기세요</h2><p>요금은 날짜·차량·시간대에 따라 달라 견적으로 안내합니다. 홈페이지에서는 결제하지 않습니다.</p></div><a class="button button-kakao button-lg" href="#req">1분 요청서 쓰기</a></div></section>`;
+  return layout({ title: "호치민 공항 픽업·샌딩·패스트트랙 예약 | 탄손녓 공항", description: "호치민 탄손녓 공항 픽업·샌딩 차량과 입국·출국 패스트트랙을 카카오톡 한 번에 요청하세요. 편명·인원·골프백 수에 맞춰 7인승·16인승 차량과 패스트트랙을 함께 잡아 드립니다.", pathname: "/airport", active: "airport", image: "service-vehicle.webp", keywords: ["호치민 공항 픽업", "탄손녓 공항 픽업", "호치민 패스트트랙", "탄손녓 패스트트랙", "호치민 공항 샌딩", "호치민 골프 공항 픽업"], schema: [faqSchema(faqs), breadcrumbSchema([["홈", "/"], ["공항 픽업·패스트트랙", "/airport"]])], content });
+}
+
 function vehiclePage() {
   const options = [
     ["골프장 왕복", "호텔·아파트·풀빌라에서 골프장까지 일정에 맞춰 상담합니다.", "/rent/golf-transfer.html", "골프장별 차량 보기"],
-    ["공항 픽업·샌딩", "항공편 시간과 인원, 짐 수량에 맞는 차량을 확인합니다.", "/rent/family-luggage.html", "짐 많은 일정 차량 보기"],
+    ["공항 픽업·샌딩", "항공편 시간과 인원, 짐 수량에 맞는 차량과 입국 패스트트랙을 확인합니다.", "/airport", "공항 픽업·패스트트랙 보기"],
     ["당일 전용 차량", "골프와 식사·관광 일정을 함께 이동할 때 상담합니다.", "/rent/city-full-day.html", "종일 전용 차량 보기"],
     ["시외·장거리", "호치민에서 붕따우·호트람·무이네 등 장거리 이동을 확인합니다.", "/rent/vungtau-day-trip.html", "붕따우 당일 차량 보기"],
   ];
@@ -1095,6 +1172,7 @@ async function build() {
   await write("services/apartments.html", apartmentsPage());
   await write("services/villas.html", villasPage());
   await write("services/vehicle.html", vehiclePage());
+  await write("airport/index.html", airportPage());
   await write("rent/index.html", rentHubPage());
   for (const page of rentPages) await write(`rent/${page.slug}.html`, rentSituationPage(page));
   for (const course of hcmCourses) await write(golfRentPath(course).slice(1), golfRentPage(course));
@@ -1141,7 +1219,7 @@ async function build() {
   }
 
   const urls = [
-    "/", "/golf", "/map", "/regions", ...regionBoards.map((board) => `/regions/${board.key}.html`), "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/rent", ...rentPages.map((page) => `/rent/${page.slug}.html`), ...hcmCourses.map(golfRentPath), "/blog", "/about.html", "/editorial-policy.html", "/source-policy.html",
+    "/", "/golf", "/map", "/regions", ...regionBoards.map((board) => `/regions/${board.key}.html`), "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/airport", "/rent", ...rentPages.map((page) => `/rent/${page.slug}.html`), ...hcmCourses.map(golfRentPath), "/blog", "/about.html", "/editorial-policy.html", "/source-policy.html",
     ...courses.map((course) => `/golf/${course.slug}.html`),
     ...blogPosts.map((post) => `/blog/${post.file}`),
     "/guide",
