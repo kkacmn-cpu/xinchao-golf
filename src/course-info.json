@@ -29,8 +29,10 @@
     },
     {
       "slug": "tan-son-nhat-golf-course",
+      "opened": "2015년",
       "par": "9홀 코스 4개, 각 36",
       "designer": "Nelson & Haworth Golf Course Architects (HK) Ltd.",
+      "cartRule": "캐디·공용 전동카트 요금 포함, 카트 도로로만 주행",
       "facilities": [
         "드라이빙 레인지",
         "야간 라운드",
@@ -41,6 +43,18 @@
         {
           "title": "탄손넛 골프장 공식 사이트",
           "url": "https://www.tansonnhatgolf.vn/"
+        },
+        {
+          "title": "탄손넛 골프장 공식 사이트 - 소개(설립 2015)",
+          "url": "https://tansonnhatgolf.vn/gioi-thieu"
+        },
+        {
+          "title": "탄손넛 골프장 공식 사이트 - 코스·규정",
+          "url": "https://tansonnhatgolf.vn/san-golf"
+        },
+        {
+          "title": "탄손넛 골프장 공식 사이트 - 요금표",
+          "url": "https://tansonnhatgolf.vn/bang-gia-dich-vu"
         }
       ]
     },
@@ -67,6 +81,9 @@
     },
     {
       "slug": "long-thanh-golf-club",
+      "par": "72 · 72 (코스별)",
+      "designer": "Ron Fream",
+      "cartRule": "캐디·공용 전동카트 요금 포함",
       "facilities": [
         "드라이빙 레인지",
         "야간 라운드",
@@ -82,6 +99,18 @@
         {
           "title": "롱탄 골프 공식 사이트 시설 페이지",
           "url": "https://longthanhgolfresort.com/tien-ich"
+        },
+        {
+          "title": "롱탄 골프 공식 사이트 - 소개(설계자·36홀)",
+          "url": "https://longthanhgolfresort.com/profile.html"
+        },
+        {
+          "title": "롱탄 골프 공식 사이트 - 플레이 안내(par·요금)",
+          "url": "https://longthanhgolfresort.com/choi-golf.html"
+        },
+        {
+          "title": "롱탄 골프 공식 사이트 - 카트 Fairway Access 공지",
+          "url": "https://longthanhgolfresort.com/khuyen-mai/-chao-don-trai-nghiem-moi-xe-dien-chay-vao-co---fairway-access.html"
         }
       ]
     },
@@ -226,6 +255,35 @@
       ]
     },
     {
+      "slug": "dai-lai-golf",
+      "cartRule": "전동카트 대여(1대 골퍼 2명), 카트 도로로만 주행",
+      "facilities": [
+        "드라이빙 레인지",
+        "야간 라운드",
+        "레스토랑",
+        "프로숍",
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "Dai Lai Golf(대라이 골프) 공식 사이트 - 27홀 코스 설명",
+          "url": "https://dailaigolf.com.vn/mo-ta-18-ho-gon.html"
+        },
+        {
+          "title": "Dai Lai Golf 공식 사이트 - 일반 규정(카트·야간·운영일)",
+          "url": "https://dailaigolf.com.vn/quy-dinh-chung.html"
+        },
+        {
+          "title": "Dai Lai Golf 공식 사이트 - 호텔",
+          "url": "https://dailaigolf.com.vn/khach-san.html"
+        },
+        {
+          "title": "Dai Lai Golf 공식 사이트 - 연습장",
+          "url": "https://dailaigolf.com.vn/san-tap.html"
+        }
+      ]
+    },
+    {
       "slug": "vinpearl-golf-hai-phong",
       "designer": "IMG Worldwide",
       "facilities": [
@@ -318,6 +376,33 @@
       ]
     },
     {
+      "slug": "vinpearl-golf-nam-hoi-an",
+      "opened": "2018년",
+      "par": "72",
+      "lengthYards": "7,038야드",
+      "designer": "IMG Worldwide",
+      "facilities": [
+        "드라이빙 레인지",
+        "레스토랑",
+        "프로숍",
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "Vinpearl 공식 사이트 - Vinpearl Golf Nam Hoi An",
+          "url": "https://vinpearl.com/en/vinpearl-golf-nam-hoi-an"
+        },
+        {
+          "title": "Vinpearl 공식 사이트 - 코스 소개",
+          "url": "https://vinpearl.com/en/vinpearl-golf-nam-hoi-an-remove"
+        },
+        {
+          "title": "Vinpearl 공식 사이트 - 소개 기사(2018 정식 운영·조명)",
+          "url": "https://vinpearl.com/en/discover-vinpearl-golf-nam-hoi-an-the-best-golf-resort-in-asia"
+        }
+      ]
+    },
+    {
       "slug": "laguna-golf-lang-co",
       "par": "71",
       "designer": "Sir Nick Faldo",
@@ -406,6 +491,36 @@
       ]
     },
     {
+      "slug": "sea-links-golf",
+      "opened": "2008년",
+      "lengthYards": "7,617야드",
+      "designer": "Golfplan (Ronald Fream)",
+      "facilities": [
+        "드라이빙 레인지",
+        "레스토랑",
+        "프로숍",
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "Sea Links City 공식 사이트 - 골프장 코스 소개",
+          "url": "https://www.sealinkscity.com/golf/san-gon-120.html"
+        },
+        {
+          "title": "Sea Links City 공식 사이트 - 골프 서비스·시설",
+          "url": "https://www.sealinkscity.com/golf/dich-vu-121.html"
+        },
+        {
+          "title": "Sea Links City 공식 사이트 - 소개(연혁)",
+          "url": "https://www.sealinkscity.com/gioi-thieu-100.html"
+        },
+        {
+          "title": "Sea Links City 공식 사이트 - 골프 홈",
+          "url": "https://www.sealinkscity.com/golf/"
+        }
+      ]
+    },
+    {
       "slug": "sonadezi-chau-duc-golf",
       "facilities": [
         "레스토랑"
@@ -469,6 +584,35 @@
         {
           "title": "루비트리 공식 사이트 소개",
           "url": "https://rubytreegolf.vn/2/161/default"
+        }
+      ]
+    },
+    {
+      "slug": "sono-felice-country-club",
+      "par": "72 (18홀) · 29 (9홀)",
+      "lengthYards": "7,213야드",
+      "facilities": [
+        "드라이빙 레인지",
+        "레스토랑",
+        "프로숍",
+        "숙박(골프텔·리조트)"
+      ],
+      "sources": [
+        {
+          "title": "소노펠리체 CC 하이퐁 공식 사이트 - 브랜드 스토리(코스 제원)",
+          "url": "https://www.sonofelicecchp.com/content/about_brandStory"
+        },
+        {
+          "title": "소노펠리체 CC 하이퐁 공식 사이트 - 클럽하우스",
+          "url": "https://www.sonofelicecchp.com/content/golf_clubhouse"
+        },
+        {
+          "title": "소노펠리체 CC 하이퐁 공식 사이트 - 골프 아카데미·연습장",
+          "url": "https://www.sonofelicecchp.com/content/golf_academy"
+        },
+        {
+          "title": "Sono Hotels & Resorts 공식 - Sono Felice Hai Phong",
+          "url": "https://www.sonohotelsresortsasia.com/sono-felice-hai-phong"
         }
       ]
     },
