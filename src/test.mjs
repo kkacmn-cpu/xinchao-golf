@@ -17,8 +17,9 @@ const guideCount = JSON.parse(await readFile(path.join(root, "src/content/guides
 // 차량 렌트(/rent 허브 1 + 상황별 + 호치민권 골프장별)가 페이지·사이트맵에 더해진다(2026-11-20).
 const rentPageCount = 1 + rentPages.length + hcmCourses.length;
 // +1 지도 쪽(/map, 2026-11-22)
-const expectedContentPages = 28 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
-const expectedSitemapUrls = 27 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
+// 2026-11-23: /airport(공항 픽업·패스트트랙) 1쪽 추가 → 29·28.
+const expectedContentPages = 29 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
+const expectedSitemapUrls = 28 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
 // 붕따우 지역 게시판(/regions/vungtau.html)이 생겨 페이지·사이트맵이 1개씩 늘었다(2026-11-20).
 // 숙소 상세 19쪽(아파트 4·빌라 15)은 호치민풀빌라로 넘겨 페이지·사이트맵에서 빠지고, 상세 주소 19개 이동 규칙이 늘었다(2026-11-20).
 const expectedRedirects = 66 + markdownPosts.length + legacyGolfPaths.length; // 66 = 기존 45 + 옛 주소→새 주소 2 + 숙소 상세 19, 닫힌 골프 사이트 옛 상세 주소 74
