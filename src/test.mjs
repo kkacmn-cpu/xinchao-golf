@@ -357,7 +357,7 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     if (/class="property-card"/.test(html)) failures.push(`${relative}: 숙소 카드 잔존`);
     const main = html.match(/<main\b[\s\S]*?<\/main>/)?.[0] ?? "";
     if (!main.includes(`href="${site.kakaoUrl}"`)) failures.push(`${relative}: 본문 카카오톡 상담 버튼 누락`);
-    const hit = main.replace(/<[^>]+>/g, " ").match(PRICE);
+    const hit = main.replace(/<span class="card-rating"[^>]*>[\s\S]*?<\/small><\/span>/g, " ").replace(/<[^>]+>/g, " ").match(PRICE);
     if (hit) failures.push(`${relative}: 금액 표기(${hit[0]})`);
   }
 }
@@ -367,7 +367,7 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
 {
   const visibleText = (html) => html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, "").replace(/<head>[\s\S]*?<\/head>/i, "");
   // 해발·거리(1,200m·약 105km)는 금액이 아니므로 금액 검사 전에 뺀다.
-  const plain = (html) => html.replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
+  const plain = (html) => html.replace(/<span class="card-rating"[^>]*>[\s\S]*?<\/small><\/span>/g, " ").replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
   const once = (text, sentence, label) => { const found = text.split(sentence).length - 1; if (found !== 1) failures.push(`${label}: 요금 문장 ${found}번 (1번이어야 함) — ${sentence.slice(0, 20)}`); };
   const boardOf = (course) => course.board || golfAreas.find((area) => area.key === course.area).board;
   if (!await exists(path.join(dist, "regions/vungtau.html"))) failures.push("붕따우 지역 쪽 없음: regions/vungtau.html");
@@ -428,7 +428,7 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   const comboPath = "/go/golf-combo";
   const villaList = "https://hochiminhpoolvilla.com/villa/villa.html";
   const apartmentList = "https://hochiminhpoolvilla.com/apartment/apartment.html";
-  const plain = (html) => html.replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
+  const plain = (html) => html.replace(/<span class="card-rating"[^>]*>[\s\S]*?<\/small><\/span>/g, " ").replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
   const targets = courses.filter((course) => course.area === "hcm");
   if (targets.length < 13 || targets.length > 16) failures.push(`묶음 견적 대상 골프장 ${targets.length}곳 (13~16곳 예상)`);
   for (const course of courses) {
@@ -490,7 +490,7 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
 {
   const { courseGuides } = await import("./course-guides.mjs");
   const added = ["legend-valley-country-club", "stone-valley-golf-resort", "trang-an-golf-resort", "amber-hills-golf-resort", "golden-sands-golf-resort", "silk-path-dong-trieu-golf", "stone-highland-golf-resort", "van-lang-empire-golf-club", "corn-hill-golf-resort", "royal-golf-club-ninh-binh", "flc-samson-golf-links", "royal-island-golf-villas", "flc-quy-nhon-golf-links", "flc-quang-tri-golf-links", "muong-thanh-dien-lam-golf", "muong-thanh-xuan-thanh-golf"];
-  const plain = (html) => html.replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
+  const plain = (html) => html.replace(/<span class="card-rating"[^>]*>[\s\S]*?<\/small><\/span>/g, " ").replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
   const golfIndex = await readFile(path.join(dist, "golf/index.html"), "utf8");
   const boardOf = (course) => course.board || golfAreas.find((area) => area.key === course.area).board;
   for (const slug of added) {
@@ -556,7 +556,7 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
 // 렌트 쪽 존재·사이트맵·llms.txt, /go/rent-* noindex·사이트맵 제외, 금액 0, FAQ 화면=FAQPage, 베트남밤은 호치민·다낭 골프장에만.
 {
   const decode = (value) => value.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"").replace(/&#039;/g, "'").replace(/&amp;/g, "&");
-  const plain = (html) => html.replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
+  const plain = (html) => html.replace(/<span class="card-rating"[^>]*>[\s\S]*?<\/small><\/span>/g, " ").replace(/<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>/gi, " ").replace(/<[^>]+>/g, " ").replace(/\d[\d,.]*\s*k?m(?![a-z])/gi, " ");
   const bamUrls = { hcm: "https://vietnambam.com/hochiminh/", danang: "https://vietnambam.com/danang/" };
   const rentPaths = ["/rent", ...rentPages.map((page) => `/rent/${page.slug}.html`), ...hcmCourses.map(golfRentPath)];
   const goOf = (pathname) => pathname === "/rent" ? null : (rentPages.find((page) => `/rent/${page.slug}.html` === pathname)?.go ?? "golf");

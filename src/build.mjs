@@ -318,7 +318,7 @@ function courseCard(course) {
         ${course.image ? `<span class="card-badges"><span>${escapeHtml(course.holes.split(" ")[0])}</span><span>공항에서 ${escapeHtml(course.drive)}</span></span>` : ""}
       </a>
       <div class="card-body">
-        <div class="card-meta"><span>${escapeHtml(course.region)}</span><span>✈ ${escapeHtml(airportShort(course).replace(" 국제공항", "").replace(" 공항", ""))} 공항</span></div>
+        <div class="card-meta"><span>${escapeHtml(course.region)}</span>${cardRating(course)}<span>✈ ${escapeHtml(airportShort(course).replace(" 국제공항", "").replace(" 공항", ""))} 공항</span></div>
         <h3><a href="/golf/${course.slug}.html">${escapeHtml(course.name)}</a></h3>
         <p class="english-name">${escapeHtml(course.englishName)}</p>
         <p>${escapeHtml(course.summary)}</p>
@@ -631,6 +631,7 @@ function courseVehicleLink(course) {
 
 // 구글 평점·후기 수(2026-11-22 대표님 "보완": 진짜 값, 확인일 표기). 자료 src/google-ratings.json.
 const googleRatings = JSON.parse(readFileSync(new URL("./google-ratings.json", import.meta.url), "utf8"));
+const cardRating = (course) => { const r = googleRatings.items.find((x) => x.slug === course.slug); return r ? `<span class="card-rating" title="구글 지도 평점·후기 수(${googleRatings.checkedAt} 확인)"><b aria-hidden="true">★</b> ${r.rating.toFixed(1)} <small>후기 ${r.reviews.toLocaleString("ko-KR")}개</small></span>` : ""; };
 const ratingLine = (course) => { const r = googleRatings.items.find((x) => x.slug === course.slug); if (!r) return ""; const [y, m, d] = googleRatings.checkedAt.split("-"); return `<p class="g-rating"><a href="${escapeHtml(r.mapsUrl || "")}" target="_blank" rel="noopener"><span class="g-rating-star" aria-hidden="true">★</span> 구글 평점 <strong>${r.rating.toFixed(1)}</strong> · 후기 ${r.reviews.toLocaleString("ko-KR")}개</a> <small>(${+y}.${+m}.${+d} 구글 지도 확인)</small></p>`; };
 function courseDetailPage(course) {
   const guide = courseGuides[course.slug];

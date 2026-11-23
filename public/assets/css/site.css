@@ -1181,3 +1181,7 @@ html:not(.map-js) .map-canvas{height:auto;min-height:0}
 .cancel-mini { margin: 12px 0 0; }
 .cancel-mini summary { cursor: pointer; font-size: 15px; font-weight: 700; padding: 6px 0; }
 .cancel-mini .cancel-table { margin-top: 8px; }
+/* 카드 구글 평점(1위 카드에 별점 있음, 11-23) */
+.card-rating { color: #1d2b22; font-weight: 700; }
+.card-rating b { color: #f2a900; }
+.card-rating small { font-size: 13px; font-weight: 400; color: var(--muted); }
