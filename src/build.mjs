@@ -453,8 +453,8 @@ function homePage() {
     <section class="section shell home-faq" id="faq" aria-labelledby="faq-title"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2 id="faq-title">예약 전에 많이 묻는 질문</h2></div><a class="text-link" href="/golf#airport-times">공항→골프장 시간표 →</a></div><dl class="home-faq-list">${faqs.map(([question, answer]) => `<div><dt>${escapeHtml(question)}</dt><dd>${escapeHtml(answer)}</dd></div>`).join("")}</dl></section>
     <section class="cta-section cta-photo" style="--hero-img:url('/assets/images/courses/golf-hoiana-shores-golf-club.webp')"><div class="shell cta-inner"><div><p class="eyebrow">날짜와 인원만 알려주세요</p><h2>베트남 어디든,<br>골프 일정부터 카톡으로 상담하세요</h2><p>골프장·티타임·공항 차량·숙소까지 한국어로 한 번에 맞춰 드립니다. 홈페이지에서는 결제하지 않습니다.</p></div><button class="button button-kakao button-lg js-consult" type="button" data-interest="베트남 골프 빠른 상담">카카오톡 예약 문의</button></div></section>`;
   return layout({
-    title: "베트남 골프장 상담 전문 신짜오골프",
-    description: "호치민·하노이·다낭·하롱·나트랑·달랏·푸꾸옥 베트남 골프장 정보와 공항 이동시간. 골프장 예약과 차량, 아파트, 풀빌라를 한국어로 한 번에 상담하세요.",
+    title: "호치민 골프 예약 — 베트남 골프장 66곳 티타임·공항 픽업·숙소 | 신짜오골프",
+    description: "호치민 골프 예약을 카톡 한 번에. 롱탄·트윈도브·탄손녓 등 베트남 골프장 66곳 티타임과 공항 픽업, 골프장 왕복 차량, 풀빌라·아파트를 한국어로 묶어 견적 드립니다. 12월 연말 티타임은 먼저 찹니다.",
     pathname: "/",
     content: deferHomeBackgrounds(content),
     schema: [{ "@context": "https://schema.org", "@type": "FAQPage", "@id": `${site.siteUrl}/#faq`, mainEntity: faqs.map(([name, text]) => ({ "@type": "Question", name, acceptedAnswer: { "@type": "Answer", text } })) }],
@@ -929,7 +929,7 @@ function airportPage() {
     <section class="section shell">${cancelPolicyFull}</section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2>공항 픽업·패스트트랙 FAQ</h2></div></div><dl class="home-faq-list">${faqs.map(([q, a]) => `<div><dt>${escapeHtml(q)}</dt><dd>${escapeHtml(a)}</dd></div>`).join("")}</dl></section>
     <section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">편명·인원·짐만</p><h2>공항부터 숙소까지,<br>카톡 한 번으로 맡기세요</h2><p>요금은 날짜·차량·시간대에 따라 달라 견적으로 안내합니다. 홈페이지에서는 결제하지 않습니다.</p></div><a class="button button-kakao button-lg" href="#req">1분 요청서 쓰기</a></div></section>`;
-  return layout({ title: "호치민 공항 픽업·샌딩·패스트트랙 예약 | 탄손녓 공항", description: "호치민 탄손녓 공항 픽업·샌딩 차량과 입국·출국 패스트트랙을 카카오톡 한 번에 요청하세요. 편명·인원·골프백 수에 맞춰 7인승·16인승 차량과 패스트트랙을 함께 잡아 드립니다.", pathname: "/airport", active: "airport", image: "service-vehicle.webp", keywords: ["호치민 공항 픽업", "탄손녓 공항 픽업", "호치민 패스트트랙", "탄손녓 패스트트랙", "호치민 공항 샌딩", "호치민 골프 공항 픽업"], schema: [faqSchema(faqs), breadcrumbSchema([["홈", "/"], ["공항 픽업·패스트트랙", "/airport"]])], content });
+  return layout({ title: "호치민 공항 픽업·샌딩·패스트트랙 예약 | 골프백 차량·탄손녓 공항", description: "호치민 탄손녓 공항 픽업·샌딩 차량과 입국·출국 패스트트랙을 카카오톡 한 번에 요청하세요. 편명·인원·골프백 수에 맞춰 7인승·16인승 차량과 패스트트랙을 함께 잡아 드립니다.", pathname: "/airport", active: "airport", image: "service-vehicle.webp", keywords: ["호치민 공항 픽업", "탄손녓 공항 픽업", "호치민 패스트트랙", "탄손녓 패스트트랙", "호치민 공항 샌딩", "호치민 골프 공항 픽업"], schema: [faqSchema(faqs), breadcrumbSchema([["홈", "/"], ["공항 픽업·패스트트랙", "/airport"]])], content });
 }
 
 function vehiclePage() {
