@@ -1131,6 +1131,7 @@ html:not(.map-js) .map-canvas{height:auto;min-height:0}
 .req-card .qq-head p{margin:0;color:var(--muted)}
 .req-card .qq-group legend small,.req-text small{font-weight:400;color:var(--muted);font-size:14px}
 .req-card .qq-input{display:block;width:100%;max-width:360px;box-sizing:border-box}
+.req-card .qq-input[hidden]{display:none}
 .req-text{display:block;margin-top:16px;font-weight:var(--fw-semi)}
 .req-send{margin-top:18px;width:100%;max-width:360px}
 .combo-card{position:relative;z-index:2}
