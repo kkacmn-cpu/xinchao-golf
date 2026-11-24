@@ -1,3 +1,61 @@
+// 골프 일정 담기(2026-11-24, 1위 '장바구니' 따라잡기): 골프장 상세의 빠른 견적에서 날짜·인원·홀을 고른 라운드를
+// 여러 골프장에 걸쳐 담고, 아래 막대에서 한 번에 카톡 견적 요약으로 보낸다. 가격·결제 없음. 3일 지나면 비운다.
+window.golfTrip = (() => {
+  const KEY = "golfTrip", MAX = 6, TTL = 3 * 864e5;
+  const read = () => { try { const v = JSON.parse(localStorage.getItem(KEY) || "{}"); return v.at && Date.now() - v.at < TTL && Array.isArray(v.rounds) ? v.rounds : []; } catch { return []; } };
+  const write = (rounds) => { try { localStorage.setItem(KEY, JSON.stringify({ at: Date.now(), rounds })); } catch {} };
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  let bar;
+  const render = () => {
+    const rounds = read();
+    if (!bar) {
+      if (!rounds.length) return;
+      bar = document.createElement("div");
+      bar.className = "trip-bar";
+      bar.setAttribute("role", "region");
+      bar.setAttribute("aria-label", "담은 골프 일정");
+      bar.innerHTML = '<details class="trip-list"><summary class="trip-count"></summary><ol></ol></details><div class="trip-actions"><button type="button" class="trip-send">한 번에 견적</button><button type="button" class="trip-clear" aria-label="일정 비우기">✕</button></div>';
+      bar.querySelector(".trip-send").addEventListener("click", () => send());
+      bar.querySelector(".trip-clear").addEventListener("click", () => { write([]); render(); });
+      bar.querySelector("ol").addEventListener("click", (e) => { const b = e.target.closest("[data-i]"); if (!b) return; const r = read(); r.splice(Number(b.dataset.i), 1); write(r); render(); });
+      document.body.append(bar);
+    }
+    bar.hidden = rounds.length === 0;
+    document.body.classList.toggle("has-trip", rounds.length > 0);
+    bar.querySelector(".trip-count").textContent = `골프 일정 ${rounds.length}라운드 담음`;
+    bar.querySelector("ol").innerHTML = rounds.map((r, i) => `<li>${esc(r.date)} · ${esc(r.name)}${r.holes ? ` · ${esc(r.holes)}` : ""} · ${esc(r.people)} <button type="button" data-i="${i}" aria-label="이 라운드 빼기">빼기</button></li>`).join("");
+  };
+  const add = (round) => {
+    const rounds = read().filter((r) => !(r.slug === round.slug && r.date === round.date));
+    rounds.push(round);
+    rounds.sort((a, b) => a.date.localeCompare(b.date));
+    while (rounds.length > MAX) rounds.shift();
+    write(rounds);
+    render();
+    return rounds.length;
+  };
+  const text = (rounds) => [
+    "[신짜오골프 일정 견적]",
+    ...rounds.map((r, i) => `${i + 1}) ${r.date} ${r.name}${r.holes ? ` ${r.holes}` : ""} · ${r.people}`),
+    `보낸 쪽: ${location.origin}${location.pathname}`,
+    "이 일정으로 티오프 가능 여부와 견적 부탁드립니다.",
+  ].join("\n");
+  const copy = async (t) => {
+    try { if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(t); return true; } } catch {}
+    const ta = document.createElement("textarea"); ta.value = t; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand("copy"); } catch {} ta.remove(); return ok;
+  };
+  const send = async () => {
+    const rounds = read();
+    if (!rounds.length) return;
+    const t = text(rounds);
+    if (await copy(t)) { setTimeout(() => { location.href = "/go/quick-golf?from=trip"; }, 400); }
+    else { window.prompt("아래 요약을 복사한 뒤 카톡에 붙여넣어 주세요.", t); location.href = "/go/quick-golf?from=trip"; }
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", render); else render();
+  return { add, send, list: read, text };
+})();
+
 (() => {
   const header = document.querySelector(".site-header");
   const onScroll = () => header?.classList.toggle("is-scrolled", window.scrollY > 40);
@@ -113,7 +171,7 @@
   // 빠른 견적 카드(골프 상세): 날짜·인원 칩 → 요약 복사 → /go/quick-golf(카톡). 11-21
   const qq = document.querySelector(".quick-quote");
   if (qq) {
-    const state = { date: "", people: "", extras: new Set(), arrival: "" };
+    const state = { date: "", people: "", holes: "", extras: new Set(), arrival: "" };
     const days = ["일", "월", "화", "수", "목", "금", "토"];
     const fmt = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}(${days[d.getDay()]})`;
     const base = new Date(); base.setHours(12, 0, 0, 0);
@@ -145,6 +203,7 @@
       if (btn.dataset.date) { press(group, btn); dateInput.hidden = true; state.date = fmt(pick[btn.dataset.date]); }
       else if (btn.hasAttribute("data-date-pick")) { press(group, btn); dateInput.hidden = false; dateInput.focus(); state.date = dateInput.value ? fmt(new Date(dateInput.value + "T12:00")) : ""; }
       else if (btn.dataset.people) { press(group, btn); peopleInput.hidden = true; state.people = `${btn.dataset.people}명`; }
+      else if (btn.dataset.holes) { const on = btn.getAttribute("aria-pressed") !== "true"; press(group, on ? btn : null); state.holes = on ? btn.dataset.holes : ""; }
       else if (btn.hasAttribute("data-people-pick")) { press(group, btn); peopleInput.hidden = false; peopleInput.focus(); state.people = peopleInput.value ? `${peopleInput.value}명` : ""; }
       else if (btn.dataset.extra) { const on = btn.getAttribute("aria-pressed") !== "true"; btn.setAttribute("aria-pressed", String(on)); on ? state.extras.add(btn.dataset.extra) : state.extras.delete(btn.dataset.extra); }
       else if (btn.hasAttribute("data-arrival")) { const on = btn.getAttribute("aria-pressed") !== "true"; btn.setAttribute("aria-pressed", String(on)); arrivalBox.hidden = !on; if (on) qq.querySelector(".qq-time").focus(); else { state.arrival = ""; } }
@@ -153,13 +212,25 @@
     dateInput.addEventListener("change", () => { state.date = dateInput.value ? fmt(new Date(dateInput.value + "T12:00")) : ""; });
     peopleInput.addEventListener("input", () => { state.people = peopleInput.value ? `${peopleInput.value}명` : ""; });
     qq.querySelector(".qq-time").addEventListener("input", calcArrival);
+    const round = () => ({ slug: qq.dataset.slug, name: qq.dataset.name, date: state.date, people: state.people, holes: state.holes || "" });
+    const need = () => (!state.date ? "날짜를 골라 주세요." : !state.people ? "인원을 골라 주세요." : "");
+    const trip = window.golfTrip;
+    qq.querySelector(".qq-trip-add")?.addEventListener("click", () => {
+      const msg = need();
+      if (msg) { status.textContent = msg; return; }
+      const n = trip.add(round());
+      status.textContent = `일정에 담았어요(${n}라운드). 다른 골프장에서도 담은 뒤 아래 막대의 '한 번에 견적'을 누르세요.`;
+    });
     qq.querySelector(".qq-send").addEventListener("click", async () => {
-      if (!state.date || !state.people) { status.textContent = !state.date ? "날짜를 골라 주세요." : "인원을 골라 주세요."; return; }
+      const msg = need();
+      if (msg) { status.textContent = msg; return; }
+      if (trip && trip.list().length) { trip.add(round()); trip.send(); return; }
       const lines = [
         "[신짜오골프 빠른 견적]",
         `골프장: ${qq.dataset.name}`,
         `날짜: ${state.date}`,
         `인원: ${state.people}`,
+        ...(state.holes ? [`홀: ${state.holes}`] : []),
         ...(state.extras.size ? [`같이: ${[...state.extras].join(" · ")}`] : []),
         ...(state.arrival ? [`도착일: ${state.arrival}`] : []),
         `보낸 쪽: ${location.origin}${location.pathname}`,

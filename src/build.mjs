@@ -590,9 +590,11 @@ function quickQuoteCard(course) {
       <div class="qq-head"><p class="eyebrow">빠른 견적</p><h2 id="qq-title">날짜·인원만 누르면 카톡으로 견적 요청</h2><p>로그인·결제 없이 ${escapeHtml(course.shortName)} 이름이 들어간 요약을 카톡으로 보냅니다.</p></div>
       <fieldset class="qq-group" data-qq="date"><legend>날짜</legend><div class="qq-chips">${chip('data-date="sat0"', "이번 주 토")}${chip('data-date="sun0"', "이번 주 일")}${chip('data-date="sat1"', "다음 주 토")}${chip("data-date-pick", "직접 고르기")}</div><input class="qq-input qq-date" type="date" hidden aria-label="날짜 직접 고르기"></fieldset>
       <fieldset class="qq-group" data-qq="people"><legend>인원</legend><div class="qq-chips">${[2, 3, 4, 8].map((n) => chip(`data-people="${n}"`, `${n}명`)).join("")}${chip("data-people-pick", "직접")}</div><input class="qq-input qq-people" type="number" min="1" max="60" inputmode="numeric" placeholder="인원 수" hidden aria-label="인원 직접 입력"></fieldset>
+      <fieldset class="qq-group" data-qq="holes"><legend>홀 <small>(선택)</small></legend><div class="qq-chips">${["18홀", "27홀", "36홀"].map((h) => chip(`data-holes="${h}"`, h)).join("")}</div></fieldset>
       <fieldset class="qq-group" data-qq="extra"><legend>같이 견적 <small>(선택)</small></legend><div class="qq-chips">${chip('data-extra="숙소(풀빌라·아파트)"', "숙소")}${chip('data-extra="차량(공항·골프장)"', "차량")}${others ? chip('data-extra="같은 지역 2라운드 후보"', "2라운드 후보") : ""}${chip("data-arrival", "도착일에 라운드")}</div>
         <div class="qq-arrival" hidden><label>항공 도착 시각 <input class="qq-input qq-time" type="time"></label><p class="qq-arrival-result" aria-live="polite"></p></div></fieldset>
       <button class="button button-kakao button-lg qq-send" type="button">카톡으로 견적 받기</button>
+      <button class="qq-trip-add" type="button">＋ 일정에 담고 다른 골프장도 고르기</button>
       <p class="qq-status" role="status" aria-live="polite"></p>
       <textarea class="qq-fallback" readonly hidden aria-label="견적 요청 요약"></textarea>
       <p class="qq-note">예약 가능 여부·티오프·요금은 상담 때 확인합니다. 누르면 요약이 복사되고 카톡이 열립니다 — 붙여넣고 보내 주세요.</p>
