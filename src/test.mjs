@@ -469,7 +469,10 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
     if (!zh.includes('<meta name="robots" content="noindex,nofollow">')) failures.push("/zh/price noindex 누락");
     if (!zh.includes('tracker.js?site=xinchao-golf')) failures.push("/zh/price 관제판 tracker 누락");
     if (!zh.includes('data-copy="kkacmnvn"')) failures.push("/zh/price 위챗 ID 복사 단추 누락");
-    if (count(zh, /<li class="row">/g) !== 10) failures.push(`/zh/price 골프장 ${count(zh, /<li class="row">/g)}곳 (예상 10곳)`);
+    // 11-24: 달마다 표 하나(11월·12월 두 표, 베트남 12-01 00:00에 자동 전환) → 표마다 10곳.
+    const zhLists = [...zh.matchAll(/<ul class="list" data-month="(\d+)"[\s\S]*?<\/ul>/g)];
+    if (!zhLists.length) failures.push("/zh/price 가격표 없음");
+    for (const [block, month] of zhLists) if (count(block, /<li class="row">/g) !== 10) failures.push(`/zh/price ${month}월 표 골프장 ${count(block, /<li class="row">/g)}곳 (예상 10곳)`);
     if (/kakao|tel:/i.test(zh) || /最|第一/.test(zh)) failures.push("/zh/price 카톡·전화·금지어 포함");
     if (sitemap.includes("/zh/")) failures.push("사이트맵에 /zh/ 주소 포함");
   }
