@@ -221,7 +221,7 @@ function footer(pathname = "") {
     <footer class="site-footer">
       <div class="shell footer-grid">
         <div><strong>${site.name}</strong><p>베트남 골프장·차량·숙소 한국어 상담</p><p>상담 채널: 카카오톡 「신짜오베트남 골프예약」</p></div>
-        <div><p>홈페이지에서는 상품을 판매하거나 결제받지 않습니다.</p><p><a href="/about.html">브랜드 소개</a> · <a href="/editorial-policy.html">편집 원칙</a> · <a href="/source-policy.html">출처 원칙</a></p><button class="text-button js-consult" type="button" data-interest="홈페이지 상담">카카오톡 상담하기 →</button></div>
+        <div><p>홈페이지에서는 상품을 판매하거나 결제받지 않습니다.</p><p><a href="/faq.html">자주 묻는 질문</a> · <a href="/about.html">브랜드 소개</a> · <a href="/editorial-policy.html">편집 원칙</a> · <a href="/source-policy.html">출처 원칙</a></p><button class="text-button js-consult" type="button" data-interest="홈페이지 상담">카카오톡 상담하기 →</button></div>
       </div>
       <div class="shell copyright">© ${new Date().getFullYear()} ${site.englishName}. All rights reserved.</div>
     </footer>
@@ -450,7 +450,7 @@ function homePage() {
       <div class="ops-copy"><p class="eyebrow">실제 운영 화면</p><h2 id="ops-title">우리가 일하는 방식</h2>
         <ol class="ops-list"><li><strong>손님 한 팀마다 기사·숙소와 전용 단톡방</strong><span>담당 기사와 숙소 담당이 같은 방에서 손님 일정을 함께 챙깁니다.</span></li><li><strong>"왔어요?" 한마디에 기사가 실시간 위치 공유</strong><span>공항·숙소·골프장 어디서든 기사가 지금 어디쯤인지 바로 알려 드립니다.</span></li><li><strong>출발부터 귀국까지 한 방에서</strong><span>공항 픽업부터 숙소·골프장 이동, 귀국 샌딩까지 한 단톡방에서 안내합니다.</span></li></ol>
         <a class="button button-kakao ops-btn-g" href="/go/golf-combo">골프·숙소·차량 카톡 상담</a></div></div></section><section class="section shell pay-guide-section" id="pricing" aria-labelledby="pricing-title"><div class="section-heading"><div><p class="eyebrow">요금과 결제</p><h2 id="pricing-title">요금 구성·결제·변경/취소, 견적 받는 법</h2></div><a class="text-link" href="/golf-price">가격 확인 가이드 →</a></div>${pricingGuideHtml({ kakaoUrl: site.kakaoUrl })}</section>
-    <section class="section shell home-faq" id="faq" aria-labelledby="faq-title"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2 id="faq-title">예약 전에 많이 묻는 질문</h2></div><a class="text-link" href="/golf#airport-times">공항→골프장 시간표 →</a></div><dl class="home-faq-list">${faqs.map(([question, answer]) => `<div><dt>${escapeHtml(question)}</dt><dd>${escapeHtml(answer)}</dd></div>`).join("")}</dl></section>
+    <section class="section shell home-faq" id="faq" aria-labelledby="faq-title"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2 id="faq-title">예약 전에 많이 묻는 질문</h2></div><a class="text-link" href="/faq.html">자주 묻는 질문 전체 보기 →</a></div><dl class="home-faq-list">${faqs.map(([question, answer]) => `<div><dt>${escapeHtml(question)}</dt><dd>${escapeHtml(answer)}</dd></div>`).join("")}</dl></section>
     <section class="cta-section cta-photo" style="--hero-img:url('/assets/images/courses/golf-hoiana-shores-golf-club.webp')"><div class="shell cta-inner"><div><p class="eyebrow">날짜와 인원만 알려주세요</p><h2>베트남 어디든,<br>골프 일정부터 카톡으로 상담하세요</h2><p>골프장·티타임·공항 차량·숙소까지 한국어로 한 번에 맞춰 드립니다. 홈페이지에서는 결제하지 않습니다.</p></div><button class="button button-kakao button-lg js-consult" type="button" data-interest="베트남 골프 빠른 상담">카카오톡 예약 문의</button></div></section>`;
   return layout({
     title: "호치민 골프 예약 — 베트남 골프장 66곳 티타임·공항 픽업·숙소 | 신짜오골프",
@@ -1170,6 +1170,32 @@ function notFoundPage() {
   return layout({ title: "페이지를 찾을 수 없습니다", description: "요청한 페이지를 찾을 수 없습니다. 신짜오골프 주요 메뉴를 이용해 주세요.", pathname: "/404.html", content, robots: "noindex,nofollow" });
 }
 
+// 자주 묻는 질문 모음(2026-11-24): 블로그·검색 창 FAQ 후보 80개 중 골프·차량·공통 55개(src/site-faq.json, 사이트/도구/faq_md_to_json.mjs).
+// 질문 찾기·분류 칩·질문마다 "이 질문 카톡으로 묻기"(질문을 복사하고 /go/quick-golf?from=faq). 근거 글이 있으면 링크.
+const siteFaq = JSON.parse(readFileSync(new URL("./site-faq.json", import.meta.url), "utf8"));
+const FAQ_GROUPS = [["골프", "faq-golf", "⛳ 골프 예약·라운드"], ["차량", "faq-car", "🚐 차량·공항 이동"], ["공통", "faq-common", "💬 견적·결제·숙소"]];
+const golfFaqItems = () => siteFaq.items.filter((item) => FAQ_GROUPS.some(([cat]) => cat === item.cat));
+const FAQ_ASK = "[신짜오골프] 자주 묻는 질문 보고 문의\n날짜·인원·골프장은 이어서 알려 드릴게요.";
+function faqPage() {
+  const items = golfFaqItems();
+  const refHref = (item) => !item.path ? "" : item.site === "골프" ? item.path : `${poolvilla.siteUrl}${item.path}`;
+  const askText = (question) => `[신짜오골프] 자주 묻는 질문 보고 문의
+질문: ${question}
+날짜·인원은 이어서 알려 드릴게요.`;
+  const groups = FAQ_GROUPS.map(([cat, id, label]) => {
+    const list = items.filter((item) => item.cat === cat);
+    return `<section class="faq-group" id="${id}" aria-labelledby="${id}-title"><h2 id="${id}-title">${label} <small>${list.length}</small></h2><div class="faq-list">${list.map((item) => `<details class="faq-item"><summary>${escapeHtml(item.q)}</summary><div class="faq-a"><p>${escapeHtml(item.a)}</p><p class="faq-more">${refHref(item) ? `<a href="${escapeHtml(refHref(item))}"${item.site === "골프" ? "" : ' target="_blank" rel="noopener"'}>자세한 글 보기 →</a>` : ""}<a class="faq-ask" href="/go/quick-golf?from=faq" data-one-tap="${escapeHtml(askText(item.q))}">💬 이 질문 카톡으로 묻기</a></p></div></details>`).join("")}</div></section>`;
+  }).join("");
+  const title = `호치민 골프 예약 자주 묻는 질문 ${items.length}개`;
+  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><span aria-current="page">자주 묻는 질문</span></nav>
+    <section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/hero-golf-longthanh.webp')"><div class="shell"><p class="eyebrow">자주 묻는 질문</p><h1>${escapeHtml(title)}</h1><p>티타임·조인·복장·비 오는 날·차량·공항·견적·결제까지, 카톡 상담에서 실제로 많이 받는 질문에 답했습니다. 찾는 답이 없으면 질문 그대로 카톡으로 보내 주세요.</p><div class="hero-x-actions"><a class="button button-kakao" href="/go/quick-golf?from=faq" data-one-tap="${escapeHtml(FAQ_ASK)}">카카오톡으로 바로 묻기</a><a class="button button-glass" href="/golf">골프장 ${courses.length}곳 보기</a></div></div></section>
+    <section class="section shell faq-page"><div class="faq-tools"><label class="faq-search-label" for="faq-search">궁금한 말로 찾기</label><input id="faq-search" class="faq-search" type="search" placeholder="예: 조인, 비, 16인승, 바우처" autocomplete="off"><div class="faq-chips">${FAQ_GROUPS.map(([, id, label]) => `<a class="faq-chip" href="#${id}">${label}</a>`).join("")}</div><p class="faq-count" role="status" aria-live="polite"></p></div>${groups}
+      <p class="faq-empty" hidden>맞는 질문이 없습니다. 궁금한 점을 그대로 카톡으로 보내 주세요.</p>
+      <div class="stay-combo-box rent-cta"><p class="eyebrow">바로 상담</p><h2>날짜·인원·골프장을 보내 주세요</h2><p>골프 부킹만, 차량만, 숙소까지 한 번에 — 필요한 것만 골라 견적을 드립니다. 요금은 날짜·인원에 따라 달라 견적으로 안내합니다.</p><a class="button button-kakao button-lg" href="/go/quick-golf?from=faq" data-one-tap="${escapeHtml(FAQ_ASK)}">카카오톡으로 견적 받기</a></div>
+    </section>`;
+  return layout({ title, description: `호치민 골프 예약 전 많이 묻는 ${items.length}가지 — 티타임·조인 라운드·복장·우천·티타임 변경, 7인승·16인승 차량과 공항 픽업, 견적서·바우처·결제 확인까지 한곳에 정리했습니다.`, pathname: "/faq.html", content, keywords: ["호치민 골프 자주 묻는 질문", "호치민 골프 예약 방법", "베트남 골프 조인", "호치민 골프 차량", "골프 바우처 확인"], schema: [breadcrumbSchema([["홈", "/"], ["자주 묻는 질문", "/faq.html"]]), faqSchema(items.map((item) => [item.q, item.a]))] });
+}
+
 function trustPage({ title, description, pathname, content }) {
   return layout({
     title,
@@ -1196,7 +1222,7 @@ async function llmsTxt(urls) {
     const description = decode(html.match(/<meta name="description" content="([^"]*)"/)?.[1] || "").replace(/\s+/g, " ").trim();
     return { url, line: `- [${title}](${site.siteUrl}${url})${description ? `: ${description}` : ""}` };
   }));
-  const core = ["/", "/golf", "/regions", "/services", "/guide", "/blog"];
+  const core = ["/", "/golf", "/regions", "/services", "/guide", "/blog", "/faq.html"];
   const groups = [
     ["핵심 페이지", (url) => core.includes(url)],
     ["주제별 모음", (url) => topicHubs.some((hub) => hub.path === url)],
@@ -1257,6 +1283,7 @@ async function build() {
     pathname: "/source-policy.html",
     content: "<h2>출처 우선순위</h2><p>골프장과 서비스 운영 주체가 제공하는 공식 안내처럼 원정보에 가까운 출처를 우선합니다. 제3자 자료는 비교와 발견을 돕는 보조 자료로 사용합니다.</p><h2>변동 정보</h2><p>가격, 티오프, 포함 항목, 휴장과 차량 가능 여부는 수시로 달라질 수 있습니다. 확인 시점이 오래됐거나 출처가 서로 다르면 확정 정보로 표시하지 않고 상담 시점에 다시 확인합니다.</p><h2>표시하지 않는 정보</h2><p>근거가 부족한 최저가, 보장되지 않은 예약 가능 여부, 검증되지 않은 평점과 후기는 구조화 데이터나 본문에 넣지 않습니다.</p>",
   }));
+  await write("faq.html", faqPage());
   await write("404.html", notFoundPage());
 
   for (const course of courses.filter((item) => item.legacy)) {
@@ -1277,7 +1304,7 @@ async function build() {
   }
 
   const urls = [
-    "/", "/golf", "/map", "/regions", ...regionBoards.map((board) => `/regions/${board.key}.html`), "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/airport", "/rent", ...rentPages.map((page) => `/rent/${page.slug}.html`), ...hcmCourses.map(golfRentPath), "/blog", "/about.html", "/editorial-policy.html", "/source-policy.html",
+    "/", "/golf", "/map", "/regions", ...regionBoards.map((board) => `/regions/${board.key}.html`), "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/airport", "/rent", ...rentPages.map((page) => `/rent/${page.slug}.html`), ...hcmCourses.map(golfRentPath), "/blog", "/faq.html", "/about.html", "/editorial-policy.html", "/source-policy.html",
     ...courses.map((course) => `/golf/${course.slug}.html`),
     ...blogPosts.map((post) => `/blog/${post.file}`),
     "/guide",

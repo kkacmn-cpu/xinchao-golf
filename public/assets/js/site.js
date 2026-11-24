@@ -248,3 +248,23 @@ document.querySelectorAll("[data-one-tap]").forEach((link) => {
   bar.querySelector(".cmp-clear").addEventListener("click", () => { picked = []; save(); render(); });
   render();
 })();
+
+// 자주 묻는 질문 찾기(2026-11-24): 입력한 말이 든 질문만 남기고 펼친다. 띄어쓰기는 무시.
+(() => {
+  const input = document.querySelector(".faq-search");
+  if (!input) return;
+  const items = [...document.querySelectorAll(".faq-item")];
+  const groups = [...document.querySelectorAll(".faq-group")];
+  const count = document.querySelector(".faq-count");
+  const empty = document.querySelector(".faq-empty");
+  const norm = (t) => t.toLowerCase().replace(/\s+/g, "");
+  const texts = items.map((item) => norm(item.textContent.replace("💬 이 질문 카톡으로 묻기", "").replace("자세한 글 보기 →", "")));
+  input.addEventListener("input", () => {
+    const q = norm(input.value);
+    let shown = 0;
+    items.forEach((item, i) => { const hit = !q || texts[i].includes(q); item.hidden = !hit; item.open = !!q && hit; if (hit) shown++; });
+    groups.forEach((group) => { group.hidden = !group.querySelector(".faq-item:not([hidden])"); });
+    if (count) count.textContent = q ? `${shown}개 질문` : "";
+    if (empty) empty.hidden = shown > 0;
+  });
+})();

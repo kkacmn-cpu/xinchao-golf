@@ -1235,3 +1235,25 @@ html:not(.map-js) .map-canvas{height:auto;min-height:0}
 .course-facilities li{padding:4px 10px;border:1px solid var(--g-300,#d6d6d6);border-radius:999px;font-size:14px;line-height:1.4;background:#fff}
 .course-info-src{display:block;margin:6px 0 14px;line-height:1.5;font-size:13px;color:var(--g-600,#666);word-break:keep-all;overflow-wrap:anywhere}
 .course-info-src a{color:inherit;text-decoration:underline}
+
+/* 자주 묻는 질문 쪽(2026-11-24) */
+.faq-tools{margin:0 0 20px;padding:0 0 12px;border-bottom:1px solid var(--line,#e6e6e6)}
+.faq-search-label{display:block;margin:0 0 6px;font-size:15px;font-weight:700}
+.faq-search{width:100%;box-sizing:border-box;padding:12px 14px;border:1px solid var(--g-300,#cfcfcf);border-radius:12px;font:inherit;font-size:16px;background:#fff}
+.faq-chips{display:flex;gap:8px;margin:10px 0 0;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch}
+.faq-chip{flex:0 0 auto;padding:7px 12px;border:1px solid var(--g-300,#d6d6d6);border-radius:999px;font-size:14px;white-space:nowrap;text-decoration:none;color:inherit;background:#fff}
+.faq-count{margin:8px 0 0;font-size:14px;color:var(--g-600,#666);min-height:1em}
+.faq-group{margin:0 0 28px;scroll-margin-top:90px}
+.faq-group h2{font-size:21px;margin:0 0 10px}
+.faq-group h2 small{font-size:14px;font-weight:400;color:var(--g-600,#666)}
+.faq-item{border:1px solid var(--line,#e6e6e6);border-radius:12px;margin:0 0 8px;background:#fff}
+.faq-item summary{cursor:pointer;padding:14px 40px 14px 14px;font-size:16px;font-weight:700;line-height:1.5;list-style:none;position:relative;word-break:keep-all;overflow-wrap:anywhere}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:"+";position:absolute;right:14px;top:12px;font-size:20px;font-weight:400;color:var(--g-600,#666)}
+.faq-item[open] summary::after{content:"−"}
+.faq-a{padding:0 14px 14px}
+.faq-a p{margin:0 0 10px;font-size:15px;line-height:1.7;word-break:keep-all;overflow-wrap:anywhere}
+.faq-more{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center}
+.faq-more a{font-size:15px}
+.faq-ask{font-weight:700;color:#3a1d1d;background:#FEE500;border-radius:999px;padding:7px 12px;text-decoration:none}
+.faq-empty{padding:16px;border-radius:12px;background:var(--g-100,#f5f5f5)}
