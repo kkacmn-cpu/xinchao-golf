@@ -268,3 +268,28 @@ document.querySelectorAll("[data-one-tap]").forEach((link) => {
     if (empty) empty.hidden = shown > 0;
   });
 })();
+
+// 카톡 단추 위치 이름(data-cta) — 관제판 '단추별 클릭'용(11-24). HTML에 data-cta가 이미 있으면 그대로 둔다.
+// 누르는 순간 위치를 보고 붙인다: header·float(고정 막대)·footer·form(요청서)·card·hero(첫 화면)·page-end(아래 30%)·mid.
+(function () {
+  var KAKAO = /^https?:\/\/(pf|open)\.kakao\.com\//;
+  function place(a) {
+    if (a.closest("header")) return "header";
+    for (var n = a; n && n !== document.body; n = n.parentElement) {
+      var p = getComputedStyle(n).position;
+      if (p === "fixed" || p === "sticky") return "float";
+    }
+    if (a.closest("footer")) return "footer";
+    if (a.closest('form, [class*="req-"], [class*="quick"]')) return "form";
+    if (a.closest('[class*="card"]')) return "card";
+    var top = a.getBoundingClientRect().top + window.scrollY;
+    if (top < window.innerHeight) return "hero";
+    if (top > document.documentElement.scrollHeight * 0.7) return "page-end";
+    return "mid";
+  }
+  window.addEventListener("click", function (e) {
+    var a = e.target instanceof Element ? e.target.closest("a[href]") : null;
+    if (!a || a.hasAttribute("data-cta") || !KAKAO.test(a.href)) return;
+    try { a.setAttribute("data-cta", place(a)); } catch (err) {}
+  }, true);
+})();
