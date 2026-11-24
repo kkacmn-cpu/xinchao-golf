@@ -18,8 +18,8 @@ const guideCount = JSON.parse(await readFile(path.join(root, "src/content/guides
 const rentPageCount = 1 + rentPages.length + hcmCourses.length;
 // +1 지도 쪽(/map, 2026-11-22)
 // 2026-11-23: /airport(공항 픽업·패스트트랙) 1쪽 추가 → 29·28.
-const expectedContentPages = 29 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
-const expectedSitemapUrls = 28 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
+const expectedContentPages = 30 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount; // +1 자주 묻는 질문(/faq.html, 2026-11-24)
+const expectedSitemapUrls = 29 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
 // 붕따우 지역 게시판(/regions/vungtau.html)이 생겨 페이지·사이트맵이 1개씩 늘었다(2026-11-20).
 // 숙소 상세 19쪽(아파트 4·빌라 15)은 호치민풀빌라로 넘겨 페이지·사이트맵에서 빠지고, 상세 주소 19개 이동 규칙이 늘었다(2026-11-20).
 const expectedRedirects = 66 + markdownPosts.length + legacyGolfPaths.length; // 66 = 기존 45 + 옛 주소→새 주소 2 + 숙소 상세 19, 닫힌 골프 사이트 옛 상세 주소 74
@@ -664,6 +664,20 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   for (const f of ["assets/vendor/leaflet/leaflet.js", "assets/vendor/leaflet/leaflet.css", "assets/vendor/leaflet/LICENSE.txt", "assets/js/site-map.js"]) if (!await exists(path.join(dist, f))) failures.push(`지도 부품 없음: ${f}`);
   if (!(await readFile(path.join(dist, "regions/index.html"), "utf8")).includes('href="/map"')) failures.push("지역별 골프 쪽에서 지도(/map) 연결 누락");
 }
+
+// 자주 묻는 질문 쪽(2026-11-24): 55문항, 보이는 문답 = FAQPage JSON-LD, 금액 없음, 근거 링크 대상이 있음, 질문마다 카톡 단추.
+{
+  const faqHtml = await readFile(path.join(dist, "faq.html"), "utf8");
+  const decodeF = (v) => v.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"").replace(/&#39;/g, "'").replace(/&amp;/g, "&");
+  const shown = [...faqHtml.matchAll(/<summary>([\s\S]*?)<\/summary><div class="faq-a"><p>([\s\S]*?)<\/p>/g)].map((m) => [decodeF(m[1]), decodeF(m[2])]);
+  const ld = [...faqHtml.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1])).find((d) => d["@type"] === "FAQPage");
+  if (shown.length !== 55) failures.push(`FAQ 쪽 ${shown.length}문항 (55여야 함)`);
+  if (JSON.stringify(shown) !== JSON.stringify((ld?.mainEntity ?? []).map((q) => [q.name, q.acceptedAnswer.text]))) failures.push("FAQ 쪽 보이는 문답과 FAQPage 불일치");
+  for (const [q, a] of shown) { const hit = `${q} ${a}`.match(PRICE); if (hit) failures.push(`FAQ 쪽 금액 표기(${hit[0]}): ${q}`); }
+  if (count(faqHtml, /class="faq-ask"/g) !== 55) failures.push("FAQ 쪽 질문별 카톡 단추 수");
+  for (const m of faqHtml.matchAll(/<a href="(\/[^"#?]+)">자세한 글 보기/g)) { const p = m[1]; const f = path.join(dist, p.endsWith(".html") ? p : `${p}/index.html`); try { await readFile(f.endsWith(".html") ? f : `${f}`); } catch { try { await readFile(path.join(dist, `${p}.html`)); } catch { failures.push(`FAQ 근거 링크 없음: ${p}`); } } }
+}
+
 
 if (failures.length) {
   console.error(`검수 실패 ${failures.length}건`);
