@@ -376,9 +376,9 @@ function homePage() {
     <section class="hero-x">
       <picture class="hero-photo"><source media="(max-width: 760px)" srcset="/assets/images/hero/golf_mobile_b.webp" width="1080" height="2340"><img src="/assets/images/courses/golf-novaworld-phan-thiet-golf.webp" width="1200" height="800" fetchpriority="high" alt="골프 연출 이미지"></picture><span class="ai-badge hero-ai-badge">AI 연출 이미지</span>
       <div class="shell hero-x-inner">
-        <p class="hero-x-kicker">베트남 골프 한국어 예약 상담</p>
-        <h1>베트남 골프장 예약,<br>카톡 한 번으로</h1>
-        <p class="hero-x-lead"><span class="lead-long">베트남 골프장 ${courses.length}곳의 위치와 공항 이동시간을 비교하고, 골프장 예약·차량·숙소를 카카오톡으로 한 번에 상담하세요.</span><span class="lead-short">골프장 ${courses.length}곳 공항 이동시간 비교, <span class="nowrap">예약·차량·숙소는</span> 한국어로 한 번에.</span></p>
+        <p class="hero-x-kicker">호치민 골프 예약 · 한국어 상담</p>
+        <h1>호치민 골프 예약,<br>카톡 한 번으로</h1>
+        <p class="hero-x-lead"><span class="lead-long">호치민 골프 예약부터 베트남 골프장 ${courses.length}곳의 위치와 공항 이동시간을 비교하고, 골프장 예약·차량·숙소를 카카오톡으로 한 번에 상담하세요.</span><span class="lead-short">골프장 ${courses.length}곳 공항 이동시간 비교, <span class="nowrap">예약·차량·숙소는</span> 한국어로 한 번에.</span></p>
         <div class="hero-x-actions">
           <a class="button button-kakao button-lg" href="#combo">골프·숙소·차량 한 번에 견적</a>
           <a class="button button-glass button-lg" href="/golf">골프장 ${courses.length}곳 공항시간 보기</a>
