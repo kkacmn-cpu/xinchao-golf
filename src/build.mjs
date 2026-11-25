@@ -844,8 +844,8 @@ function servicesPage() {
 }
 
 // 숙소 목록 2쪽은 짧은 소개 + 자매 사이트 호치민풀빌라 목록 연결만 남긴다(2026-11-20). 상세 19쪽은 풀빌라 사이트로 308.
-function lodgingIntroPage({ eyebrow, heading, kind, listUrl, title, description, pathname }) {
-  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">${eyebrow}</p><h1>${heading}</h1><p>골프 일정에 맞는 ${kind}는 자매 사이트 ${poolvilla.name}에서 안내합니다. 사진과 객실 구성은 아래 버튼으로 호치민풀빌라 목록을 열어 보시고, 골프장·차량과 함께 잡을 날짜와 인원은 카카오톡으로 알려 주세요.</p></div></section><section class="section shell"><div class="compact-copy"><p class="eyebrow">자매 사이트 안내</p><h2>${poolvilla.name}의 ${kind} 목록</h2><p>${kind} 정보는 ${poolvilla.name}에서 한곳에 모아 관리합니다. 가능 여부와 조건은 이용 날짜와 인원에 따라 달라 상담 시 확인합니다.</p><div class="inline-actions"><a class="button" href="${listUrl}" target="_blank" rel="noopener">${poolvilla.name}에서 ${kind} 목록 보기</a><button class="button button-outline js-consult" type="button" data-interest="골프 일정 ${kind} 상담">카카오톡으로 상담하기</button></div></div></section>`;
+function lodgingIntroPage({ eyebrow, heading, kind, listUrl, title, description, pathname, topLink = "" }) {
+  const content = `<section class="page-hero"><div class="shell"><p class="eyebrow">${eyebrow}</p><h1>${heading}</h1>${topLink}<p>골프 일정에 맞는 ${kind}는 자매 사이트 ${poolvilla.name}에서 안내합니다. 사진과 객실 구성은 아래 버튼으로 호치민풀빌라 목록을 열어 보시고, 골프장·차량과 함께 잡을 날짜와 인원은 카카오톡으로 알려 주세요.</p></div></section><section class="section shell"><div class="compact-copy"><p class="eyebrow">자매 사이트 안내</p><h2>${poolvilla.name}의 ${kind} 목록</h2><p>${kind} 정보는 ${poolvilla.name}에서 한곳에 모아 관리합니다. 가능 여부와 조건은 이용 날짜와 인원에 따라 달라 상담 시 확인합니다.</p><div class="inline-actions"><a class="button" href="${listUrl}" target="_blank" rel="noopener">${poolvilla.name}에서 ${kind} 목록 보기</a><button class="button button-outline js-consult" type="button" data-interest="골프 일정 ${kind} 상담">카카오톡으로 상담하기</button></div></div></section>`;
   return layout({ title, description, pathname, active: "services", content });
 }
 
@@ -854,7 +854,7 @@ function apartmentsPage() {
 }
 
 function villasPage() {
-  return lodgingIntroPage({ eyebrow: "풀빌라", heading: "호치민 풀빌라 안내", kind: "풀빌라", listUrl: poolvilla.villaList, title: "호치민 골프 풀빌라 안내", description: `호치민 단체 골프여행 풀빌라 목록은 자매 사이트 ${poolvilla.name}에서 안내합니다. 골프장·차량과 함께 잡을 숙소는 카카오톡으로 상담합니다.`, pathname: "/services/villas.html" });
+  return lodgingIntroPage({ eyebrow: "풀빌라", heading: "호치민 풀빌라 안내", kind: "풀빌라", listUrl: poolvilla.villaList, title: "호치민 골프 풀빌라 안내", description: `호치민 단체 골프여행 풀빌라 목록은 자매 사이트 ${poolvilla.name}에서 안내합니다. 골프장·차량과 함께 잡을 숙소는 카카오톡으로 상담합니다.`, pathname: "/services/villas.html", topLink: `<p class="villa-site-cta"><a class="button button-lg" href="${poolvilla.villaList}?from=xg-services" data-cta="villa-site">풀빌라 37채 전용 사이트 →</a></p>` });
 }
 
 // ── 요청서 카드(2026-11-23 총괄: 공항 픽업·패스트트랙 / 묶음 견적) ───────────────────
