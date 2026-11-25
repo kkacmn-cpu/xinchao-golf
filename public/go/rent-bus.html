@@ -24,6 +24,8 @@ a.kakao{display:inline-block;background:#fee500;color:#191919;font-weight:700;te
 <script>
 (function(){
   var a=document.getElementById('go-kakao'),moved=false,started=Date.now();
+  // 관제판은 주소 뒤 ?from= 을 지우므로 단추 이름(data-cta)으로 넘긴다(2026-11-25): go-<from>
+  try{var f=(new URLSearchParams(location.search).get('from')||'').toLowerCase().replace(/[^a-z0-9-]/g,'').slice(0,27);if(f)a.setAttribute('data-cta','go-'+f);}catch(e){}
   function go(){if(moved)return;moved=true;location.href=a.href;}
   // tracker가 클릭(booking_kakao_open)을 기록할 틈을 주고 이동
   a.addEventListener('click',function(e){e.preventDefault();setTimeout(go,350);});

@@ -47,7 +47,7 @@ window.golfTrip = (() => {
     let ok = false; try { ok = document.execCommand("copy"); } catch {} ta.remove(); return ok;
   };
   // 일행에게 보내기(2026-11-25, 1위 'URL 복사' 따라잡기 + 우리만: 링크를 연 일행에게 같은 일정이 담긴다).
-  const shareUrl = (rounds) => `${location.origin}/golf/${rounds[0].slug}.html?trip=${encodeURIComponent(JSON.stringify(rounds.map((r) => [r.slug, r.name, r.date, r.people, r.holes || ""])))}&from=trip-share`;
+  const shareUrl = (rounds) => `${location.origin}/go/trip-share?to=${rounds[0].slug}&trip=${encodeURIComponent(JSON.stringify(rounds.map((r) => [r.slug, r.name, r.date, r.people, r.holes || ""])))}`; // 중간 쪽 /go/trip-share 열림 = 관제판 '링크 열림'(2026-11-25);
   const share = async () => {
     const rounds = read();
     if (!rounds.length) return;

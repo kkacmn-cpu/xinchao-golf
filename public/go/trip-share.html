@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<noscript><meta http-equiv="refresh" content="0;url=/"></noscript>
+<title>신짜오 골프 일행 일정 열기</title>
+<script src="https://company-site-monitor.vercel.app/tracker.js?site=xinchao-golf" data-company-site-tracker="xinchao-golf" id="co-tracker" async onload="window.__coLoaded=1;if(window.__coCb)window.__coCb()" onerror="window.__coFail=1;if(window.__coCb)window.__coCb()"></script>
+<style>body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;background:#f6f7f9;color:#222;display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center}h1{font-size:17px;font-weight:600;color:#444;padding:0 20px;line-height:1.6}</style>
+</head>
+<body>
+<h1 id="msg">일행이 보낸 후보를 여는 중입니다…</h1>
+<script>
+/* 일행에게 보내기 링크가 열린 횟수를 관제판에 남기는 중간 쪽(2026-11-25). 관제판은 경로만 저장하므로 이 쪽 열림 = 링크 열림.
+   ?to=<첫 slug>&trip=… → /golf/<slug>.html?trip=…&from=trip-share */
+(function(){
+  var q=new URLSearchParams(location.search),to=(q.get('to')||'').toLowerCase().replace(/[^a-z0-9-]/g,'').slice(0,80),v=q.get('trip'),moved=false;
+  var dest=to?'/golf/'+to+'.html?'+(v?'trip='+encodeURIComponent(v)+'&':'')+'from=trip-share':'/';
+  var link=document.createElement('a');link.href=dest;link.textContent='바로 열기';document.getElementById('msg').append(' ',link);
+  function go(){if(moved)return;moved=true;location.replace(dest);}
+  function ready(){setTimeout(go,window.__coFail?0:400);}
+  if(window.__coLoaded||window.__coFail)ready();else window.__coCb=ready;
+  setTimeout(go,2500);
+})();
+</script>
+</body>
+</html>
