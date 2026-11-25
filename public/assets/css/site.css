@@ -1201,6 +1201,9 @@ html:not(.map-js) .map-canvas{height:auto;min-height:0}
 .trip-count { min-height: 40px; display: flex; align-items: center; font-size: 15px; font-weight: 700; cursor: pointer; }
 .trip-list ol { margin: 4px 0 6px; padding-left: 20px; font-size: 15px; line-height: 1.5; }
 .trip-list li button { margin-left: 6px; padding: 2px 8px; border: 1px solid rgba(255,255,255,.6); border-radius: 8px; background: transparent; color: #fff; font: inherit; font-size: 14px; cursor: pointer; }
+.trip-share { display: block; width: 100%; min-height: 44px; margin: 2px 0 4px; padding: 0 12px; border: 1px solid rgba(255,255,255,.7); border-radius: 10px; background: transparent; color: #fff; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+.trip-note { margin: 4px 0 2px; font-size: 15px; line-height: 1.5; }
+.trip-note:empty { display: none; }
 .trip-actions { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
 .trip-send { min-height: 40px; padding: 0 14px; border: 0; border-radius: 10px; background: #fee500; color: #191919; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
 .trip-clear { min-width: 40px; min-height: 40px; border: 0; background: transparent; color: #fff; font-size: 16px; cursor: pointer; }

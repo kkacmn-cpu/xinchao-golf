@@ -14,9 +14,10 @@ window.golfTrip = (() => {
       bar.className = "trip-bar";
       bar.setAttribute("role", "region");
       bar.setAttribute("aria-label", "담은 골프 일정");
-      bar.innerHTML = '<details class="trip-list"><summary class="trip-count"></summary><ol></ol></details><div class="trip-actions"><button type="button" class="trip-send">한 번에 견적</button><button type="button" class="trip-clear" aria-label="일정 비우기">✕</button></div>';
+      bar.innerHTML = '<details class="trip-list"><summary class="trip-count"></summary><ol></ol><button type="button" class="trip-share" data-cta="trip-share">일행에게 보내기</button><p class="trip-note" role="status"></p></details><div class="trip-actions"><button type="button" class="trip-send">한 번에 견적</button><button type="button" class="trip-clear" aria-label="일정 비우기">✕</button></div>';
       bar.querySelector(".trip-send").addEventListener("click", () => send());
       bar.querySelector(".trip-clear").addEventListener("click", () => { write([]); render(); });
+      bar.querySelector(".trip-share").addEventListener("click", () => share());
       bar.querySelector("ol").addEventListener("click", (e) => { const b = e.target.closest("[data-i]"); if (!b) return; const r = read(); r.splice(Number(b.dataset.i), 1); write(r); render(); });
       document.body.append(bar);
     }
@@ -45,6 +46,30 @@ window.golfTrip = (() => {
     const ta = document.createElement("textarea"); ta.value = t; ta.setAttribute("readonly", ""); ta.style.position = "fixed"; ta.style.opacity = "0"; document.body.appendChild(ta); ta.select();
     let ok = false; try { ok = document.execCommand("copy"); } catch {} ta.remove(); return ok;
   };
+  // 일행에게 보내기(2026-11-25, 1위 'URL 복사' 따라잡기 + 우리만: 링크를 연 일행에게 같은 일정이 담긴다).
+  const shareUrl = (rounds) => `${location.origin}/golf/${rounds[0].slug}.html?trip=${encodeURIComponent(JSON.stringify(rounds.map((r) => [r.slug, r.name, r.date, r.people, r.holes || ""])))}&from=trip-share`;
+  const share = async () => {
+    const rounds = read();
+    if (!rounds.length) return;
+    const url = shareUrl(rounds);
+    const body = ["[신짜오골프] 같이 갈 골프 일정", ...rounds.map((r, i) => `${i + 1}) ${r.date} ${r.name}${r.holes ? ` ${r.holes}` : ""} · ${r.people}`), "링크를 열면 같은 일정이 담겨 있어요. 고칠 곳 있으면 말해 주세요."].join("\n");
+    const note = bar.querySelector(".trip-note");
+    if (navigator.share) { try { await navigator.share({ title: "골프 일정", text: body, url }); return; } catch (e) { if (e && e.name === "AbortError") return; } }
+    note.textContent = (await copy(`${body}\n${url}`)) ? "일정과 링크가 복사됐어요. 카톡 단톡방에 붙여넣어 보내세요." : "복사가 안 됐어요. 주소창의 링크를 길게 눌러 보내 주세요.";
+  };
+  const load = () => {
+    let raw = null;
+    try { raw = new URLSearchParams(location.search).get("trip"); } catch {}
+    if (!raw) return;
+    let list = [];
+    try { list = JSON.parse(raw); } catch {}
+    const ok = (v, n) => typeof v === "string" && v.length <= n;
+    const rounds = (Array.isArray(list) ? list.slice(0, MAX) : []).filter((r) => Array.isArray(r) && /^[a-z0-9-]{1,80}$/.test(r[0]) && ok(r[1], 60) && ok(r[2], 20) && ok(r[3], 12) && ok(r[4] || "", 12) && r[2] && r[3])
+      .map(([slug, name, date, people, holes]) => ({ slug, name, date, people, holes: holes || "" }));
+    rounds.forEach((r) => add(r));
+    try { const u = new URL(location.href); u.searchParams.delete("trip"); history.replaceState(null, "", u.pathname + u.search + u.hash); } catch {}
+    if (rounds.length && bar) { bar.querySelector(".trip-list").open = true; bar.querySelector(".trip-note").textContent = `일행이 보낸 일정 ${rounds.length}라운드가 담겼어요. '한 번에 견적'으로 바로 문의할 수 있어요.`; }
+  };
   const send = async () => {
     const rounds = read();
     if (!rounds.length) return;
@@ -52,8 +77,9 @@ window.golfTrip = (() => {
     if (await copy(t)) { setTimeout(() => { location.href = "/go/quick-golf?from=trip"; }, 400); }
     else { window.prompt("아래 요약을 복사한 뒤 카톡에 붙여넣어 주세요.", t); location.href = "/go/quick-golf?from=trip"; }
   };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", render); else render();
-  return { add, send, list: read, text };
+  const init = () => { render(); load(); };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+  return { add, send, share, list: read, text };
 })();
 
 (() => {
@@ -219,7 +245,7 @@ window.golfTrip = (() => {
       const msg = need();
       if (msg) { status.textContent = msg; return; }
       const n = trip.add(round());
-      status.textContent = `일정에 담았어요(${n}라운드). 다른 골프장에서도 담은 뒤 아래 막대의 '한 번에 견적'을 누르세요.`;
+      status.textContent = `일정에 담았어요(${n}라운드). 다른 골프장에서도 담은 뒤 아래 막대의 '한 번에 견적'을 누르세요. 일행과 맞추려면 막대를 펼쳐 '일행에게 보내기'.`;
     });
     qq.querySelector(".qq-send").addEventListener("click", async () => {
       const msg = need();
