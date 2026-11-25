@@ -599,13 +599,13 @@ function quickQuoteCard(course) {
       <fieldset class="qq-group" data-qq="date"><legend>날짜</legend><div class="qq-chips">${chip('data-date="sat0"', "이번 주 토")}${chip('data-date="sun0"', "이번 주 일")}${chip('data-date="sat1"', "다음 주 토")}${chip("data-date-pick", "직접 고르기")}</div><input class="qq-input qq-date" type="date" hidden aria-label="날짜 직접 고르기"></fieldset>
       <fieldset class="qq-group" data-qq="people"><legend>인원</legend><div class="qq-chips">${[2, 3, 4, 8].map((n) => chip(`data-people="${n}"`, `${n}명`)).join("")}${chip("data-people-pick", "직접")}</div><input class="qq-input qq-people" type="number" min="1" max="60" inputmode="numeric" placeholder="인원 수" hidden aria-label="인원 직접 입력"></fieldset>
       <fieldset class="qq-group" data-qq="holes"><legend>홀 <small>(선택)</small></legend><div class="qq-chips">${["18홀", "27홀", "36홀"].map((h) => chip(`data-holes="${h}"`, h)).join("")}</div></fieldset>
-      <fieldset class="qq-group" data-qq="extra"><legend>같이 견적 <small>(선택)</small></legend><div class="qq-chips">${chip('data-extra="숙소(풀빌라·아파트)"', "숙소")}${chip('data-extra="차량(공항·골프장)"', "차량")}${others ? chip('data-extra="같은 지역 2라운드 후보"', "2라운드 후보") : ""}${chip("data-arrival", "도착일에 라운드")}</div>
+      <fieldset class="qq-group" data-qq="extra"><legend>같이 견적 <small>(선택)</small></legend><div class="qq-chips">${chip('data-extra="숙소(풀빌라·아파트)"', "숙소")}${chip('data-extra="차량(공항·골프장)"', "차량")}${course.area === "hcm" ? chip('data-extra="골프채 대여(세트 번호·장갑 사이즈는 상담)"', "골프채 대여") : ""}${others ? chip('data-extra="같은 지역 2라운드 후보"', "2라운드 후보") : ""}${chip("data-arrival", "도착일에 라운드")}</div>
         <div class="qq-arrival" hidden><label>항공 도착 시각 <input class="qq-input qq-time" type="time"></label><p class="qq-arrival-result" aria-live="polite"></p></div></fieldset>
       <button class="button button-kakao button-lg qq-send" type="button">카톡으로 견적 받기</button>
       <button class="qq-trip-add" type="button">＋ 일정에 담고 다른 골프장도 고르기</button>
       <p class="qq-status" role="status" aria-live="polite"></p>
       <textarea class="qq-fallback" readonly hidden aria-label="견적 요청 요약"></textarea>
-      <p class="qq-note">예약 가능 여부·티오프·요금은 상담 때 확인합니다. 누르면 요약이 복사되고 카톡이 열립니다 — 붙여넣고 보내 주세요.</p>
+      <p class="qq-note">예약 가능 여부·티오프·요금은 상담 때 확인합니다. 누르면 요약이 복사되고 카톡이 열립니다 — 붙여넣고 보내 주세요.</p>${course.area === "hcm" ? '<p class="qq-note qq-club">골프백 없이 오시나요? <a href="/club-rental">골프채 대여 추가 — 남성용 4세트·볼·티·새 장갑 →</a></p>' : ""}
     </section>`;
 }
 
@@ -903,7 +903,7 @@ function hubReqCard(hub) {
       ${reqDate(reqChip('data-v="12월 중(날짜 상담)"', "12월 중"))}
       ${reqPeople([2, 4, 8, 12])}
       ${reqGroup("홀·라운드", "홀·라운드", ["18홀 1회", "18홀 2회", "36홀(하루 2번)", "라운드 3회 이상"].map((v) => reqChip(`data-v="${v}"`, v)).join(""))}
-      ${reqGroup("함께 필요한 것", "함께 필요한 것 <small>(여러 개 가능)</small>", [["공항·골프장 차량", "차량"], ["숙소(풀빌라·호텔)", "숙소"], ["입국 패스트트랙", "패스트트랙"]].map(([v, label]) => reqChip(`data-v="${v}"`, label)).join(""), { multi: true })}
+      ${reqGroup("함께 필요한 것", "함께 필요한 것 <small>(여러 개 가능)</small>", [["공항·골프장 차량", "차량"], ["숙소(풀빌라·호텔)", "숙소"], ["입국 패스트트랙", "패스트트랙"], ["골프채 대여(호치민 라운드)", "골프채 대여"]].map(([v, label]) => reqChip(`data-v="${v}"`, label)).join(""), { multi: true })}
       <label class="req-text">희망 골프장 <small>(알면)</small><input class="qq-input" type="text" data-field="희망 골프장" placeholder="예: 롱탄, 트윈도브 / 아직 모름" autocomplete="off"></label>
       ${reqFoot(t[2])}
       <p class="qq-note">요금은 날짜·인원·홀 수·티타임에 따라 달라 견적으로 안내합니다. 홈페이지에서는 결제하지 않습니다.</p>
@@ -945,6 +945,62 @@ function airportPage() {
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2>공항 픽업·패스트트랙 FAQ</h2></div></div><dl class="home-faq-list">${faqs.map(([q, a]) => `<div><dt>${escapeHtml(q)}</dt><dd>${escapeHtml(a)}</dd></div>`).join("")}</dl></section>
     <section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">편명·인원·짐만</p><h2>공항부터 숙소까지,<br>카톡 한 번으로 맡기세요</h2><p>요금은 날짜·차량·시간대에 따라 달라 견적으로 안내합니다. 홈페이지에서는 결제하지 않습니다.</p></div><a class="button button-kakao button-lg" href="#req">1분 요청서 쓰기</a></div></section>`;
   return layout({ title: "호치민 공항 픽업·샌딩·패스트트랙 예약 | 골프백 차량·탄손녓 공항", description: "호치민 탄손녓 공항 픽업·샌딩 차량과 입국·출국 패스트트랙을 카카오톡 한 번에 요청하세요. 편명·인원·골프백 수에 맞춰 7인승·16인승 차량과 패스트트랙을 함께 잡아 드립니다.", pathname: "/airport", active: "airport", image: "service-vehicle.webp", keywords: ["호치민 공항 픽업", "탄손녓 공항 픽업", "호치민 패스트트랙", "탄손녓 패스트트랙", "호치민 공항 샌딩", "호치민 골프 공항 픽업"], schema: [faqSchema(faqs), breadcrumbSchema([["홈", "/"], ["공항 픽업·패스트트랙", "/airport"]])], content });
+}
+
+// 호치민 골프채 대여(2026-11-25 대표님 새 상품, 총괄 지시): 호치민 라운드 전용·남성용 4세트. 금액 숫자·타사 비교 없음.
+// 자료 = 총괄연락/골프채대여_상담용_20261125/골프채대여_상담안내.md. 세트 사진은 제조사 카탈로그라 싣지 않고 구성만 글로 보여 준다(실물 사진 오면 넣음).
+const clubGo = "/go/quick-golf?from=club";
+const clubSets = [
+  ["SET 1", "테일러메이드 M4 세트", "한 브랜드로 맞춘 세트, 웨지까지", [["드라이버", "테일러메이드 M4"], ["우드", "테일러메이드 제트스피드 3번(15°)"], ["유틸리티", "테일러메이드 M4 레스큐 3번(19°)"], ["아이언", "테일러메이드 M4"], ["웨지", "테일러메이드 M4"], ["퍼터", "오디세이 VERSA #2 또는 도깨비 KDX-333P"]]],
+  ["SET 2", "캘러웨이·브리지스톤·스릭슨 세트", "우드 2개+하이브리드, 가장 많은 구성", [["드라이버", "캘러웨이 패러다임"], ["우드", "브리지스톤 TOUR B JGR 3번, 5번"], ["유틸리티", "코브라 다크스피드 하이브리드"], ["아이언", "스릭슨 Z545"], ["퍼터", "오디세이 O-Works R-Line"]]],
+  ["SET 3", "캘러웨이·브리지스톤·스릭슨 세트", "우드 2개", [["드라이버", "캘러웨이 패러다임"], ["우드", "브리지스톤 TOUR B XD-F 3번, 5번"], ["아이언", "스릭슨 Z 시리즈"], ["퍼터", "오디세이 화이트 핫 OG 빅T"]]],
+  ["SET 4", "핑·야마하 세트", "간단한 구성(우드 없이 하이브리드)", [["드라이버", "핑 G430 9°"], ["유틸리티", "핑 G430 하이브리드 4번(22°)"], ["아이언", "야마하 인프레스 RMX"], ["퍼터", "오디세이 트리플 트랙 TEN"]]],
+];
+
+function clubReqCard() {
+  return `<section class="req-card shell" id="req" aria-labelledby="req-title" data-go="/go/quick-golf" data-from="club" data-head="[신짜오골프 골프채 대여 요청]">
+      <div class="qq-head"><p class="eyebrow">1분 요청서</p><h2 id="req-title">세트 번호·장갑 사이즈만 누르세요</h2><p>로그인·결제 없이, 고른 내용이 요약돼 카톡 입력창에 붙습니다. 골프 예약과 함께 보내셔도 됩니다.</p></div>
+      ${reqGroup("세트", "세트 번호 <small>(여러 명이면 번호를 다르게, 여러 개 가능)</small>", clubSets.map(([no]) => reqChip(`data-v="${no}"`, no)).join("") + reqChip('data-v="세트 추천 부탁"', "추천해 주세요"), { multi: true, required: true })}
+      ${reqDate()}
+      ${reqPeople([1, 2, 3, 4])}
+      ${reqGroup("장갑", "장갑 사이즈 <small>(남성용, 오른손잡이는 왼손 장갑)</small>", ["22", "23", "24", "25", "26"].map((v) => reqChip(`data-v="${v}호"`, `${v}호`)).join("") + reqChip('data-v="사이즈 모름(상담)"', "잘 모름"), { multi: true })}
+      <label class="req-text">골프장 <small>(알면)</small><input class="qq-input" type="text" data-field="골프장" placeholder="예: 롱탄, 트윈도브 / 아직 모름" autocomplete="off"></label>
+      ${reqFoot("카톡으로 대여 요청 보내기")}
+      <p class="qq-note">요금은 견적서에 골프 예약과 함께 항목으로 넣어 드립니다. 전달·반납 시간과 장소는 차량 배차와 함께 견적서에 적어 드립니다.</p>
+    </section>`;
+}
+
+function clubRentalPage() {
+  const faqs = [
+    ["호치민 말고 다른 지역 라운드도 빌릴 수 있나요?", "골프채 대여는 호치민 라운드 손님만 해 드립니다. 다른 지역 라운드는 카톡으로 문의해 주세요."],
+    ["여성용·왼손용도 있나요?", "지금은 남성용 오른손 기준 4세트입니다. 여성·왼손 골퍼는 카톡으로 말씀해 주시면 가능한 방법을 확인해 드립니다."],
+    ["여러 명이 같은 세트를 빌릴 수 있나요?", "세트마다 한 벌씩이라 여러 분이면 세트 번호를 다르게 골라 주세요. 최대 4명까지 한 번에 빌릴 수 있습니다."],
+    ["요금은 얼마인가요?", "골프장에서 빌리는 것보다 저렴하게 잡았습니다. 날짜·라운드 수에 맞춰 견적서에 골프 예약과 함께 항목으로 넣어 드립니다."],
+    ["언제, 어디서 받고 돌려주나요?", "라운드 날 차량 배차와 함께 정해 견적서에 적어 드립니다."],
+  ];
+  const perks = [
+    ["가격", "골프장 대여보다 저렴", "골프장에서 빌리는 것보다 저렴하게, 견적서에 골프 예약과 함께 넣어 드립니다."],
+    ["서비스", "볼·티를 함께 드림", "라운드에 쓸 서비스 볼과 티를 함께 드립니다."],
+    ["새 장갑", "새 장갑을 넣어 드림", "알려 주신 사이즈로 새 장갑을 사서 넣어 드립니다."],
+    ["치기 쉬움", "한국 골퍼가 많이 쓰는 브랜드", "테일러메이드·캘러웨이·핑·스릭슨·브리지스톤·오디세이로 치기 쉽게 맞췄습니다."],
+  ];
+  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><span aria-current="page">골프채 대여</span></nav>
+    <section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/hero-golf-longthanh.webp')"><div class="shell"><p class="eyebrow">호치민 라운드 전용 · 남성용 4세트</p><h1>호치민 골프채 대여,<br>세트 번호만 고르세요</h1><p>골프백 없이 가볍게 오세요. 브랜드 클럽 4세트 중 번호와 장갑 사이즈만 알려 주시면 볼·티·새 장갑까지 챙겨 드립니다.</p><div class="hero-x-actions"><a class="button button-kakao" href="#req">1분 요청서 쓰기</a><a class="button button-glass" href="${clubGo}">카톡 바로 문의</a></div></div></section>
+    <section class="section shell"><div class="section-heading"><div><p class="eyebrow">신짜오 골프채 대여</p><h2>골프장에서 빌리는 것보다 나은 네 가지</h2></div></div>
+      <div class="option-grid club-perks">${perks.map(([tag, name, text]) => `<article><span>${tag}</span><h3>${name}</h3><p>${text}</p></article>`).join("")}</div>
+    </section>
+    <section class="section section-tint" id="sets"><div class="shell"><div class="section-heading"><div><p class="eyebrow">세트 4가지</p><h2>번호만 골라 주세요</h2></div></div>
+      <div class="club-sets">${clubSets.map(([no, name, fit, rows]) => `<article class="club-set"><p class="club-set-no">${no}</p><h3>${escapeHtml(name)}</h3><p class="club-set-fit">${escapeHtml(fit)}</p><dl>${rows.map(([k, v]) => `<div><dt>${k}</dt><dd>${escapeHtml(v)}</dd></div>`).join("")}</dl></article>`).join("")}</div>
+      <p class="vehicle-note">모두 남성용 오른손 기준입니다. 세트마다 한 벌씩이라 여러 분이면 번호를 다르게 골라 주세요.</p>
+    </div></section>
+    ${clubReqCard()}
+    <section class="section shell"><div class="section-heading"><div><p class="eyebrow">예약할 때</p><h2>이것만 보내 주시면 됩니다</h2></div></div>
+      <ol class="airport-steps"><li><strong>라운드 날짜·골프장</strong><span>골프 예약과 함께 보내 주시면 한 번에 견적 드립니다.</span></li><li><strong>빌릴 인원과 세트 번호</strong><span>1~4명, 사람마다 다른 세트 번호. 고르기 어려우면 '추천해 주세요'.</span></li><li><strong>장갑 사이즈</strong><span>새 장갑을 그 사이즈로 넣어 드립니다. 오른손잡이는 왼손 장갑입니다.</span></li><li><strong>견적서로 확정</strong><span>요금과 전달·반납 시간·장소를 차량 배차와 함께 견적서에 적어 드립니다.</span></li></ol>
+      <div class="guide-jump"><a class="button button-quiet" href="/golf-booking">호치민 골프 예약 방법</a><a class="button button-quiet" href="/regions/hochiminh.html">호치민 골프장 보기</a><a class="button button-quiet" href="/airport">공항 픽업·패스트트랙</a><a class="button button-quiet" href="/#combo">골프·숙소·차량 한 번에 견적</a></div>
+    </section>
+    <section class="section shell"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2>골프채 대여 FAQ</h2></div></div><dl class="home-faq-list">${faqs.map(([q, a]) => `<div><dt>${escapeHtml(q)}</dt><dd>${escapeHtml(a)}</dd></div>`).join("")}</dl></section>
+    <section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">골프백 없이 가볍게</p><h2>세트 번호와 장갑 사이즈,<br>카톡 한 번이면 끝</h2><p>요금은 골프 예약 견적서에 항목으로 함께 넣어 드립니다. 홈페이지에서는 결제하지 않습니다.</p></div><a class="button button-kakao button-lg" href="#req">1분 요청서 쓰기</a></div></section>`;
+  return layout({ title: "호치민 골프채 대여 | 남성용 브랜드 클럽 4세트·볼·티·새 장갑", description: "호치민 라운드 전용 골프채 대여. 테일러메이드·캘러웨이·핑 등 남성용 4세트 중 번호와 장갑 사이즈만 알려 주세요. 골프장 대여보다 저렴하고 서비스 볼·티·새 장갑을 넣어 드립니다.", pathname: "/club-rental", active: "services", image: "hero-golf-longthanh.webp", keywords: ["호치민 골프채 대여", "호치민 골프채 렌탈", "호치민 골프 클럽 렌탈", "베트남 골프채 대여", "호치민 골프 예약"], schema: [faqSchema(faqs), breadcrumbSchema([["홈", "/"], ["골프채 대여", "/club-rental"]])], content });
 }
 
 function vehiclePage() {
@@ -1267,6 +1323,7 @@ async function build() {
   await write("services/villas.html", villasPage());
   await write("services/vehicle.html", vehiclePage());
   await write("airport/index.html", airportPage());
+  await write("club-rental/index.html", clubRentalPage());
   await write("rent/index.html", rentHubPage());
   for (const page of rentPages) await write(`rent/${page.slug}.html`, rentSituationPage(page));
   for (const course of hcmCourses) await write(golfRentPath(course).slice(1), golfRentPage(course));
@@ -1314,7 +1371,7 @@ async function build() {
   }
 
   const urls = [
-    "/", "/golf", "/map", "/regions", ...regionBoards.map((board) => `/regions/${board.key}.html`), "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/airport", "/rent", ...rentPages.map((page) => `/rent/${page.slug}.html`), ...hcmCourses.map(golfRentPath), "/blog", "/faq.html", "/about.html", "/editorial-policy.html", "/source-policy.html",
+    "/", "/golf", "/map", "/regions", ...regionBoards.map((board) => `/regions/${board.key}.html`), "/services", "/services/apartments.html", "/services/villas.html", "/services/vehicle.html", "/airport", "/club-rental", "/rent", ...rentPages.map((page) => `/rent/${page.slug}.html`), ...hcmCourses.map(golfRentPath), "/blog", "/faq.html", "/about.html", "/editorial-policy.html", "/source-policy.html",
     ...courses.map((course) => `/golf/${course.slug}.html`),
     ...blogPosts.map((post) => `/blog/${post.file}`),
     "/guide",
