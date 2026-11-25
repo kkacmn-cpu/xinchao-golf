@@ -67,7 +67,7 @@
       lines.push("보낸 쪽: " + location.origin + location.pathname);
       lines.push("이대로 보내 주시면 확인해서 견적을 드립니다.");
       var text = lines.join("\n");
-      var go = card.getAttribute("data-go") + "?from=" + encodeURIComponent(location.pathname);
+      var go = card.getAttribute("data-go") + "?from=" + encodeURIComponent(card.getAttribute("data-from") || location.pathname);
       copy(text).then(function (ok) {
         if (ok) { status.textContent = "요약이 복사됐어요. 카톡이 열리면 입력창을 길게 눌러 붙여넣고 보내 주세요."; setTimeout(function () { location.href = go; }, 700); }
         else { var box = card.querySelector(".qq-fallback"); box.hidden = false; box.value = text; box.select(); status.innerHTML = '자동 복사가 안 됐어요. 위 요약을 길게 눌러 복사한 뒤 <a href="' + go + '">카톡 열기</a>를 눌러 붙여넣어 주세요.'; }
