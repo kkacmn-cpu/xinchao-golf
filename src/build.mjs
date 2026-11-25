@@ -210,10 +210,18 @@ function header(active = "") {
         <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu">메뉴</button>
         <nav id="site-menu" class="site-nav" aria-label="주요 메뉴">
           ${items.map(([key, href, label]) => `<a href="${href}"${active === key ? ' aria-current="page"' : ""}>${label}</a>`).join("")}
+          ${bookingCheckLink()}
           <button class="button button-small js-consult" type="button" data-interest="빠른 상담">상담하기</button>
         </nav>
       </div>
     </header>`;
+}
+
+// 예약 확인(2026-11-25 총괄 '1위 예약확인 간이 대응'): 예약 DB 없이 카톡으로 예약자 이름·날짜를 보내면 상담원이 확인.
+// 누르면 확인용 양식을 복사(data-one-tap)하고 카톡 채널로 간다. data-cta=booking-check로 관제판 '단추별 클릭'에서 잰다.
+const BOOKING_CHECK = "[신짜오골프 예약 확인]\n예약자 이름: \n라운드 날짜: \n(예약번호가 있으면 함께 적어 주세요)";
+function bookingCheckLink(className = "nav-booking-check") {
+  return `<a class="${className}" href="${site.kakaoUrl}" data-cta="booking-check" data-one-tap="${escapeHtml(BOOKING_CHECK)}">예약 확인</a>`;
 }
 
 function footer(pathname = "") {
@@ -221,7 +229,7 @@ function footer(pathname = "") {
     <footer class="site-footer">
       <div class="shell footer-grid">
         <div><strong>${site.name}</strong><p>베트남 골프장·차량·숙소 한국어 상담</p><p>상담 채널: 카카오톡 「신짜오베트남 골프예약」</p></div>
-        <div><p>홈페이지에서는 상품을 판매하거나 결제받지 않습니다.</p><p><a href="/faq.html">자주 묻는 질문</a> · <a href="/about.html">브랜드 소개</a> · <a href="/editorial-policy.html">편집 원칙</a> · <a href="/source-policy.html">출처 원칙</a></p><button class="text-button js-consult" type="button" data-interest="홈페이지 상담">카카오톡 상담하기 →</button></div>
+        <div><p>홈페이지에서는 상품을 판매하거나 결제받지 않습니다.</p><p><a href="/faq.html">자주 묻는 질문</a> · ${bookingCheckLink("footer-booking-check")} · <a href="/about.html">브랜드 소개</a> · <a href="/editorial-policy.html">편집 원칙</a> · <a href="/source-policy.html">출처 원칙</a></p><button class="text-button js-consult" type="button" data-interest="홈페이지 상담">카카오톡 상담하기 →</button></div>
       </div>
       <div class="shell copyright">© ${new Date().getFullYear()} ${site.englishName}. All rights reserved.</div>
     </footer>
