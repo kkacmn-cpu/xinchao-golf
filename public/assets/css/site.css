@@ -1295,3 +1295,16 @@ body.has-trip .cmp-bar { bottom: 84px; }
 .villa-site-cta{margin:14px 0 18px}
 .villa-site-cta .button{min-height:56px;padding-inline:26px;font-size:18px;font-weight:700}
 @media (max-width:767px){.villa-site-cta .button{display:flex;width:100%;justify-content:center}}
+/* 일정 예시 담기(11-26, /regions/hochiminh.html) */
+.plan-grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));margin-top:16px}
+.plan-card{display:flex;flex-direction:column;gap:10px;padding:var(--pad-card,20px);border:1px solid var(--g-300);border-radius:var(--radius-card,14px);background:#fff;box-shadow:var(--shadow-card)}
+.plan-card h3{margin:0;font-size:19px}
+.plan-card p{margin:0;font-size:15px}
+.plan-days{margin:0;padding:0;list-style:none;display:grid;gap:6px;font-size:15px}
+.plan-days b{display:inline-block;min-width:3.6em;color:var(--c-primary)}
+.plan-days small{display:block;padding-left:3.9em;color:var(--muted,#5b6470);font-size:15px}
+.plan-form{display:flex;flex-wrap:wrap;gap:10px}
+.plan-form label{display:flex;flex-direction:column;gap:4px;font-size:15px;flex:1 1 130px}
+.plan-form input,.plan-form select{min-height:44px;padding:8px 10px;border:1px solid var(--g-300);border-radius:10px;font:inherit;font-size:16px;background:#fff;width:100%;box-sizing:border-box}
+.plan-card .plan-add{margin-top:auto;width:100%}
+.plan-note{min-height:1em;color:var(--c-primary)}

@@ -74,10 +74,29 @@ window.golfTrip = (() => {
     const rounds = read();
     if (!rounds.length) return;
     const t = text(rounds);
-    if (await copy(t)) { setTimeout(() => { location.href = "/go/quick-golf?from=trip"; }, 400); }
-    else { window.prompt("아래 요약을 복사한 뒤 카톡에 붙여넣어 주세요.", t); location.href = "/go/quick-golf?from=trip"; }
+    const go = `/go/quick-golf?from=${rounds.some((r) => r.plan) ? "plan" : "trip"}`; // 일정 예시에서 담은 것 = from=plan(11-26)
+    if (await copy(t)) { setTimeout(() => { location.href = go; }, 400); }
+    else { window.prompt("아래 요약을 복사한 뒤 카톡에 붙여넣어 주세요.", t); location.href = go; }
   };
-  const init = () => { render(); load(); };
+  // 일정 예시 담기(11-26, /regions/hochiminh.html): 출발일(1일차) 다음 날부터 하루 한 라운드씩 18홀로 담는다.
+  const initPlans = () => {
+    const days = ["일", "월", "화", "수", "목", "금", "토"];
+    const fmt = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}(${days[d.getDay()]})`;
+    document.querySelectorAll(".plan-card").forEach((card) => {
+      const dateEl = card.querySelector(".plan-date"), note = card.querySelector(".plan-note");
+      const today = new Date(); dateEl.min = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
+      card.querySelector(".plan-add").addEventListener("click", () => {
+        if (!dateEl.value) { note.textContent = "출발일을 골라 주세요."; dateEl.focus(); return; }
+        let list = []; try { list = JSON.parse(card.dataset.rounds); } catch {}
+        const people = card.querySelector(".plan-people").value, start = new Date(dateEl.value + "T12:00");
+        let n = 0;
+        list.forEach(([slug, name], i) => { const d = new Date(start); d.setDate(d.getDate() + i + 1); n = add({ slug, name, date: fmt(d), people, holes: "18홀", plan: card.dataset.plan }); });
+        if (bar) bar.querySelector(".trip-list").open = true;
+        note.textContent = `${list.length}라운드를 담았어요(모두 ${n}라운드). 아래 막대에서 고치거나 '한 번에 견적'을 누르세요.`;
+      });
+    });
+  };
+  const init = () => { render(); load(); initPlans(); };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
   return { add, send, share, list: read, text };
 })();
