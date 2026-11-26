@@ -1,3 +1,5 @@
+// 12-01 0시(베트남) 골프 하한 12월 전환·기한 지난 안내 숨김(11-26): 빌드가 그 시각 전이면 [data-dec]에 다음 값이 있다. 빌드가 뒤면 이 속성이 없어 할 일 없음.
+(() => { const now = Date.now(); document.querySelectorAll("[data-dec]").forEach((el) => { if (now >= Date.parse(el.dataset.decFrom)) el.textContent = el.dataset.dec; }); document.querySelectorAll("[data-hide-after]").forEach((el) => { if (now >= Date.parse(el.dataset.hideAfter)) el.hidden = true; }); })();
 // 골프 일정 담기(2026-11-24, 1위 '장바구니' 따라잡기): 골프장 상세의 빠른 견적에서 날짜·인원·홀을 고른 라운드를
 // 여러 골프장에 걸쳐 담고, 아래 막대에서 한 번에 카톡 견적 요약으로 보낸다. 가격·결제 없음. 3일 지나면 비운다.
 window.golfTrip = (() => {

@@ -1248,6 +1248,9 @@ body.has-trip .cmp-bar { bottom: 84px; }
 .dec-cta { padding-top: 16px; padding-bottom: 8px; }
 .dec-cta-line { margin: 0 0 10px; font-size: 15px; font-weight: 800; color: var(--green-dark, #14402a); }
 .dec-cta-btn { width: 100%; max-width: 520px; justify-content: center; }
+.dec-hot { margin: 0 0 10px; padding: 10px 12px; border-left: 4px solid #d9480f; background: #fff4e6; color: #7a2e0b; font-size: 15px; font-weight: 600; line-height: 1.5; border-radius: 6px; }
+.dec-hot-box { margin-top: 14px; max-width: 560px; }
+.dec-hot-box .button { max-width: 100%; }
 /* 코스 정보 시설·출처(2026-11-23) */
 .course-facilities{margin:12px 0 4px}
 .course-facilities .cf-title{margin:0 0 6px;font-size:15px;font-weight:800;color:var(--g-700,#444)}

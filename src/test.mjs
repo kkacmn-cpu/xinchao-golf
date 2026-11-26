@@ -701,8 +701,8 @@ console.log(`검수 통과: 콘텐츠 ${contentPages.length}페이지, 전체 HT
   const bad = [];
   for (const f of floor.items) {
     const html = await readRaw(path.join(path.dirname(fileURLToPath(import.meta.url)), "../dist/golf", `${f.slug}.html`), "utf8");
-    if (!html.includes(`<p class="hero-price">1인 1라운드 <strong>${f.man}만 원~</strong>`)) bad.push(`${f.slug}: 상세 하한 표시 없음/다름`);
+    const live = Date.now() >= Date.parse(floor.next.from); const n = floor.next.items.find((x) => x.slug === f.slug); const now = live ? n : f; const hero = (html.match(/<p class="hero-price">[\s\S]*?<\/p>/) || [""])[0]; const want = !live && n.man !== f.man ? `<span data-dec="${n.man}" data-dec-from="${floor.next.from}">${f.man}</span>만 원~` : `${now.man}만 원~`; if (!hero.includes(want) || !hero.includes(floor.next.label)) bad.push(`${f.slug}: 상세 하한 표시 없음/다름`);
   }
   if (bad.length) { console.error(bad.join(" / ")); process.exit(1); }
-  console.log(`골프장 1인 하한 ${floor.items.length}곳 확인`);
+  console.log(`골프장 1인 하한 ${floor.items.length}곳 확인(12월 값 ${floor.next.from}부터)`);
 }
