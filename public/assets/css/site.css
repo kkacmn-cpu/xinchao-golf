@@ -1308,3 +1308,14 @@ body.has-trip .cmp-bar { bottom: 84px; }
 .plan-form input,.plan-form select{min-height:44px;padding:8px 10px;border:1px solid var(--g-300);border-radius:10px;font:inherit;font-size:16px;background:#fff;width:100%;box-sizing:border-box}
 .plan-card .plan-add{margin-top:auto;width:100%}
 .plan-note{min-height:1em;color:var(--c-primary)}
+/* 1인 1라운드 하한(11-26) */
+.card-price{margin:4px 0 8px;font-size:15px;color:var(--ink,#1d2b22)}
+.card-price strong{color:var(--c-primary);font-size:17px}
+.card-price small,.hero-price small{font-size:15px;color:var(--muted,#5b6470);font-weight:400}
+.hero-price{margin:12px 0 0;font-size:16px}
+.hero-price strong{font-size:20px;color:var(--c-primary)}
+.hero-price small{display:block;margin-top:2px}
+.region-floor strong{color:var(--c-primary)}
+.course-card .card-body p.card-price,.course-card .card-body p.card-price small,body .course-hero-copy p.hero-price,body .course-hero-copy p.hero-price small,body .region-floor{font-size:15px}
+.course-card .card-body p.card-price strong{font-size:17px}
+body .course-hero-copy p.hero-price strong{font-size:20px}
