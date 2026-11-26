@@ -375,7 +375,7 @@ function homePage() {
   const featured = golfAreas.flatMap((area) => courses.filter((course) => course.area === area.key).slice(0, area.key === "hcm" ? 2 : 1)).slice(0, 6);
   const content = `
     <section class="hero-x">
-      <picture class="hero-photo"><img src="/assets/images/courses/golf-long-thanh-golf-club-1.webp" width="1200" height="800" fetchpriority="high" style="object-position:45% 50%" alt="호치민 롱탄 골프클럽 호수 위 그린"></picture>
+      <picture class="hero-photo"><source media="(max-width: 760px)" srcset="/assets/images/hero/golf-longthanh-m.webp" width="1092" height="1365"><img src="/assets/images/hero/golf-longthanh-pc.webp" width="1920" height="1080" fetchpriority="high" alt="호치민 롱탄 골프클럽 코스 전경"></picture>
       <div class="shell hero-x-inner">
         <p class="hero-x-kicker">호치민 골프 예약 · 한국어 상담</p>
         <h1>호치민 골프 예약,<br>카톡 한 번으로</h1>
