@@ -1,4 +1,8 @@
-import { access, readFile, readdir } from "node:fs/promises";
+import { access, readFile as readRaw, readdir } from "node:fs/promises";
+// 11-26 총괄 결정: 골프장 1인 하한(견적기 값, card-price·hero-price·region-floor·floor-cell)만 금액 표시를 허용한다.
+// 아래 금액 금지 검사는 이 표시를 뺀 HTML로 하고, 하한 값 자체는 맨 아래 검사에서 견적기 자료와 맞춰 본다.
+const FLOOR_MARKUP = /<p class="(?:card-price|hero-price|region-floor)">[\s\S]*?<\/p>|<td class="floor-cell">[\s\S]*?<\/td>|<th scope="col">1인 1라운드<\/th>/g;
+const readFile = async (file, enc) => { const s = await readRaw(file, enc); return enc && String(file).endsWith(".html") ? s.replace(FLOOR_MARKUP, " ") : s; };
 import { createHash } from "node:crypto";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -690,3 +694,15 @@ if (failures.length) {
 }
 
 console.log(`검수 통과: 콘텐츠 ${contentPages.length}페이지, 전체 HTML ${htmlFiles.length}개, 내부 경로·SEO 기본값 정상`);
+
+// 11-26 골프장 1인 하한: 표시 값 = src/golf-price-floor.json(견적기 값) 그대로
+{
+  const floor = JSON.parse(await readRaw(new URL("./golf-price-floor.json", import.meta.url), "utf8"));
+  const bad = [];
+  for (const f of floor.items) {
+    const html = await readRaw(path.join(path.dirname(fileURLToPath(import.meta.url)), "../dist/golf", `${f.slug}.html`), "utf8");
+    if (!html.includes(`<p class="hero-price">1인 1라운드 <strong>${f.man}만 원~</strong>`)) bad.push(`${f.slug}: 상세 하한 표시 없음/다름`);
+  }
+  if (bad.length) { console.error(bad.join(" / ")); process.exit(1); }
+  console.log(`골프장 1인 하한 ${floor.items.length}곳 확인`);
+}
