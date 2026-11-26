@@ -1,0 +1,30 @@
+# 12-01 0시(베트남, UTC+7) 골프 하한 12월 전환 재빌드(11-26 총괄 결정).
+# 페이지 안 site.js가 0시에 값을 바꾸지만, 정적 HTML(검색엔진·스크립트 끈 손님)도 12월 값이 되도록 0시 뒤 첫 커밋이 없으면 빈 커밋으로 Vercel 재빌드.
+# GitHub 예약 실행은 늦거나 빠질 수 있어 4번 시도하고, 이미 전환 뒤 커밋이 있으면 아무것도 안 한다.
+name: Dec price floor rebuild
+on:
+  schedule:
+    - cron: '3 17 30 11 *'
+    - cron: '3 19 30 11 *'
+    - cron: '3 23 30 11 *'
+    - cron: '3 3 1 12 *'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Empty commit after switch time
+        run: |
+          switch=$(date -d '2026-12-01T00:00:00+07:00' +%s)
+          now=$(date +%s)
+          if [ "$now" -lt "$switch" ]; then echo "before switch"; exit 0; fi
+          if [ "$now" -gt $((switch + 3*86400)) ]; then echo "window over"; exit 0; fi
+          last=$(git log -1 --format=%ct)
+          if [ "$last" -ge "$switch" ]; then echo "already rebuilt after switch"; exit 0; fi
+          git config user.name "$(git log -1 --format=%an)"
+          git config user.email "$(git log -1 --format=%ae)"
+          git commit --allow-empty -m "chore: 12-01 골프 하한 12월 값으로 재빌드"
+          git push

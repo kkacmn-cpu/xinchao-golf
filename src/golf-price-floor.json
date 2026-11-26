@@ -1,7 +1,6 @@
 {
-  "source": "xinchao-reservation publicQuoteCatalog.json",
-  "golfRevision": "2026-09",
-  "validMonth": "2026-09",
+  "source": "견적기 골프 요금표 견적기_골프_2026-11판_본체.json + publicQuoteCatalog.json 예약수수료",
+  "validMonth": "2026-11",
   "rate": {
     "vndPerUsd": 26960,
     "krwPerUsd": 1450
@@ -26,10 +25,10 @@
     {
       "slug": "twin-doves-golf-club",
       "catalogId": "hochiminh-twin-doves-golf-club",
-      "greenFeeVnd": 1950000,
+      "greenFeeVnd": 2300000,
       "bookingFeeUsd": 6,
-      "man": 11,
-      "usd": 78
+      "man": 13,
+      "usd": 91
     },
     {
       "slug": "leman-golf-club",
@@ -42,10 +41,10 @@
     {
       "slug": "taekwang-jeongsan-country-club",
       "catalogId": "hochiminh-emerald-country-club-taekwang-jeongsan-country-club",
-      "greenFeeVnd": 1550000,
+      "greenFeeVnd": 2600000,
       "bookingFeeUsd": 6,
-      "man": 9,
-      "usd": 63
+      "man": 14,
+      "usd": 102
     },
     {
       "slug": "long-thanh-golf-club",
@@ -58,10 +57,10 @@
     {
       "slug": "song-be-golf-resort",
       "catalogId": "hochiminh-song-be-golf-resort",
-      "greenFeeVnd": 2550000,
+      "greenFeeVnd": 2420000,
       "bookingFeeUsd": 6,
-      "man": 14,
-      "usd": 100
+      "man": 13,
+      "usd": 95
     },
     {
       "slug": "dong-nai-golf-resort",
@@ -82,26 +81,130 @@
     {
       "slug": "west-lakes-golf-villas",
       "catalogId": "longan-west-lakes-golf-and-villa",
-      "greenFeeVnd": 1550000,
+      "greenFeeVnd": 1500000,
       "bookingFeeUsd": 6,
-      "man": 9,
-      "usd": 63
+      "man": 8,
+      "usd": 61
     },
     {
       "slug": "royal-long-an-golf",
       "catalogId": "longan-royal-long-an-golf-and-country-club",
-      "greenFeeVnd": 1100000,
+      "greenFeeVnd": 1800000,
       "bookingFeeUsd": 6,
-      "man": 6,
-      "usd": 46
+      "man": 10,
+      "usd": 72
     },
     {
       "slug": "royal-island-golf-villas",
       "catalogId": "binhduong-royal-island-golf-and-villas",
-      "greenFeeVnd": 1900000,
+      "greenFeeVnd": 2200000,
       "bookingFeeUsd": 6,
-      "man": 11,
-      "usd": 76
+      "man": 12,
+      "usd": 87
     }
-  ]
+  ],
+  "next": {
+    "validMonth": "2026-12",
+    "from": "2026-12-01T00:00:00+07:00",
+    "label": "12월 예상",
+    "rule": "견적기 2026-11판 + 1인 1라운드 300,000동",
+    "items": [
+      {
+        "slug": "thu-duc-country-club",
+        "catalogId": "hochiminh-vietnam-golf-and-country-club",
+        "greenFeeVnd": 2590000,
+        "bookingFeeUsd": 6,
+        "man": 14,
+        "usd": 102
+      },
+      {
+        "slug": "tan-son-nhat-golf-course",
+        "catalogId": "hochiminh-tan-son-nhat-golf-course",
+        "greenFeeVnd": 2650000,
+        "bookingFeeUsd": 6,
+        "man": 15,
+        "usd": 104
+      },
+      {
+        "slug": "twin-doves-golf-club",
+        "catalogId": "hochiminh-twin-doves-golf-club",
+        "greenFeeVnd": 2600000,
+        "bookingFeeUsd": 6,
+        "man": 14,
+        "usd": 102
+      },
+      {
+        "slug": "leman-golf-club",
+        "catalogId": "hochiminh-vinpearl-golf-leman",
+        "greenFeeVnd": 2850000,
+        "bookingFeeUsd": 6,
+        "man": 16,
+        "usd": 111
+      },
+      {
+        "slug": "taekwang-jeongsan-country-club",
+        "catalogId": "hochiminh-emerald-country-club-taekwang-jeongsan-country-club",
+        "greenFeeVnd": 2900000,
+        "bookingFeeUsd": 6,
+        "man": 16,
+        "usd": 113
+      },
+      {
+        "slug": "long-thanh-golf-club",
+        "catalogId": "hochiminh-long-thanh-golf-club",
+        "greenFeeVnd": 2730000,
+        "bookingFeeUsd": 6,
+        "man": 15,
+        "usd": 107
+      },
+      {
+        "slug": "song-be-golf-resort",
+        "catalogId": "hochiminh-song-be-golf-resort",
+        "greenFeeVnd": 2720000,
+        "bookingFeeUsd": 6,
+        "man": 15,
+        "usd": 106
+      },
+      {
+        "slug": "dong-nai-golf-resort",
+        "catalogId": "hochiminh-dong-nai-golf-resort",
+        "greenFeeVnd": 1980000,
+        "bookingFeeUsd": 6,
+        "man": 11,
+        "usd": 79
+      },
+      {
+        "slug": "harmony-golf-park",
+        "catalogId": "hochiminh-harmonie-golf-park",
+        "greenFeeVnd": 2700000,
+        "bookingFeeUsd": 6,
+        "man": 15,
+        "usd": 106
+      },
+      {
+        "slug": "west-lakes-golf-villas",
+        "catalogId": "longan-west-lakes-golf-and-villa",
+        "greenFeeVnd": 1800000,
+        "bookingFeeUsd": 6,
+        "man": 10,
+        "usd": 72
+      },
+      {
+        "slug": "royal-long-an-golf",
+        "catalogId": "longan-royal-long-an-golf-and-country-club",
+        "greenFeeVnd": 2100000,
+        "bookingFeeUsd": 6,
+        "man": 12,
+        "usd": 83
+      },
+      {
+        "slug": "royal-island-golf-villas",
+        "catalogId": "binhduong-royal-island-golf-and-villas",
+        "greenFeeVnd": 2500000,
+        "bookingFeeUsd": 6,
+        "man": 14,
+        "usd": 98
+      }
+    ]
+  }
 }
