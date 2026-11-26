@@ -375,7 +375,7 @@ function homePage() {
   const featured = golfAreas.flatMap((area) => courses.filter((course) => course.area === area.key).slice(0, area.key === "hcm" ? 2 : 1)).slice(0, 6);
   const content = `
     <section class="hero-x">
-      <picture class="hero-photo"><source media="(max-width: 760px)" srcset="/assets/images/hero/golf_mobile_b.webp" width="1080" height="2340"><img src="/assets/images/courses/golf-novaworld-phan-thiet-golf.webp" width="1200" height="800" fetchpriority="high" alt="골프 연출 이미지"></picture><span class="ai-badge hero-ai-badge">AI 연출 이미지</span>
+      <picture class="hero-photo"><img src="/assets/images/courses/golf-long-thanh-golf-club-1.webp" width="1200" height="800" fetchpriority="high" style="object-position:45% 50%" alt="호치민 롱탄 골프클럽 호수 위 그린"></picture>
       <div class="shell hero-x-inner">
         <p class="hero-x-kicker">호치민 골프 예약 · 한국어 상담</p>
         <h1>호치민 골프 예약,<br>카톡 한 번으로</h1>
