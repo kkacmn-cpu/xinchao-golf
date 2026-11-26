@@ -767,13 +767,32 @@ const hcmDecFaq = JSON.parse(readFileSync(new URL("./hcm-dec-faq.json", import.m
 // 11-26 1위 비교(조사/2026-11-26_골프_차이표): 1위는 지역 쪽에 일정 유형 묶음과 자주 묻는 질문 메뉴가 있음 → 호치민 쪽에 12월 질문 10개(FAQPage)·일정 유형 묶음·골프장 ItemList를 추가. 금액 약속 없음.
 function hcmDecSections() {
   return `<section class="guide-group course-guide" id="region-types"><h2>호치민 골프, 이렇게 골라 보세요</h2><ul class="guide-list"><li><a href="/golf-booking"><strong>골프장만 부킹하기</strong><span>날짜·인원·티타임만 보내면 가능한 골프장을 확인합니다.</span></a></li><li><a href="/#combo"><strong>골프·숙소·차량 한 번에 견적</strong><span>골프장과 풀빌라·차량을 견적서 한 장으로 받습니다.</span></a></li><li><a href="/airport"><strong>공항 픽업·패스트트랙</strong><span>탄손녓 공항 도착부터 골프장·숙소까지 이어서 잡습니다.</span></a></li><li><a href="/club-rental"><strong>골프채 대여</strong><span>골프백 없이 라운드할 수 있게 클럽 세트를 준비합니다.</span></a></li></ul></section>
+    ${hcmPlanSection()}
     <section class="guide-group course-guide" id="region-dec-faq"><h2>12월 호치민 골프 자주 묻는 질문</h2><dl class="home-faq-list">${hcmDecFaq.map(([q, a]) => `<div><dt>${escapeHtml(q)}</dt><dd>${escapeHtml(a)}</dd></div>`).join("")}</dl></section>`;
+}
+// 11-26 1위 차이(베트남골프투어스 2박4일·3박4일 패키지, 베트남해피골프 3박5일 54홀·4박6일 72홀): 1위는 정해진 패키지를 판다.
+// 우리는 일정 예시를 보여 주고, 출발일·인원만 고르면 라운드 전체가 '골프 일정 담기'에 한 번에 담긴다(날짜 자동). 가격·결제 없음.
+// 마지막 골프 날은 공항 10~20분 탄손넛(밤 비행기 전), 첫 라운드는 이동 짧은 곳부터.
+const hcmPlans = [
+  { key: "2n4d", title: "2박 4일 · 2라운드", lead: "밤에 도착해 이틀 치고 밤 비행기로 돌아가는 짧은 일정", days: ["long-thanh-golf-club", "tan-son-nhat-golf-course"] },
+  { key: "3n5d", title: "3박 5일 · 3라운드", lead: "가장 많이 찾는 일정. 동나이·빈즈엉 명문 두 곳과 마지막 날 공항 옆 코스", days: ["long-thanh-golf-club", "song-be-golf-resort", "tan-son-nhat-golf-course"] },
+  { key: "4n6d", title: "4박 6일 · 4라운드", lead: "코스를 골고루 도는 일정. 하루는 시내 가까운 곳으로 쉬어 갑니다", days: ["twin-doves-golf-club", "long-thanh-golf-club", "taekwang-jeongsan-country-club", "tan-son-nhat-golf-course"] },
+];
+function hcmPlanSection() {
+  const cards = hcmPlans.map((plan) => {
+    const list = plan.days.map((slug) => { const c = courses.find((x) => x.slug === slug); if (!c) throw new Error(`일정 예시 골프장 없음: ${slug}`); return c; });
+    const nights = Number(plan.key[0]);
+    const rows = [`<li><b>1일차</b> 밤 도착 · 공항 픽업 · 숙소</li>`, ...list.map((c, i) => `<li><b>${i + 2}일차</b> <a href="/golf/${c.slug}.html">${escapeHtml(c.name)}</a> 18홀 <small>공항에서 ${escapeHtml(c.drive)}${i === list.length - 1 ? " · 샤워 뒤 밤 비행기" : ""}</small></li>`), `<li><b>${nights + 2}일차</b> 새벽 한국 도착</li>`].join("");
+    const data = escapeHtml(JSON.stringify(list.map((c) => [c.slug, c.name])));
+    return `<article class="plan-card" data-plan="${plan.key}" data-rounds="${data}"><h3>${plan.title}</h3><p>${plan.lead}</p><ol class="plan-days">${rows}</ol><div class="plan-form"><label>출발일(1일차) <input type="date" class="plan-date"></label><label>인원 <select class="plan-people">${[2, 3, 4, 6, 8, 12, 16].map((n) => `<option${n === 4 ? " selected" : ""}>${n}명</option>`).join("")}</select></label></div><button type="button" class="button plan-add" data-cta="plan-${plan.key}">이 일정 그대로 담기</button><p class="plan-note" role="status"></p></article>`;
+  }).join("");
+  return `<section class="guide-group course-guide" id="region-plans"><h2>호치민 골프 일정 예시 — 출발일만 고르면 한 번에 담깁니다</h2><p>정해진 패키지가 아니라 예시입니다. 담은 뒤 아래 막대에서 골프장·날짜를 빼거나 다른 골프장 쪽에서 더 담고, '한 번에 견적'으로 카톡에 보내 주세요. 숙소·차량은 견적에서 같이 맞춰 드립니다.</p><div class="plan-grid">${cards}</div></section>`;
 }
 function regionBoardPage(board) {
   const items = regionBoardItems(board);
   const courseCount = courses.filter((course) => boardOf(course) === board.key).length;
   const others = regionBoards.filter((item) => item.key !== board.key).map((item) => `<a class="button button-quiet" href="/regions/${item.key}.html">${item.name}</a>`).join("");
-  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/regions">지역별 골프</a><span>›</span><span aria-current="page">${board.name}</span></nav><section class="page-hero"><div class="shell"><p class="eyebrow">지역별 골프 게시판</p><h1>${board.sections ? `${board.name} 골프장 ${courseCount}곳 가격·예약·이동시간 안내` : `${board.name} 골프 예약·일정 안내`}</h1><p>${board.lead}</p><div class="guide-jump">${others}</div></div></section><section class="section shell">${regionKeywordSections(board)}${board.key === "hochiminh" ? hcmDecSections() : ""}<section class="guide-group"><h2>${board.name} 골프 글 <span>${items.length}</span></h2>${items.length ? `<ul class="guide-list">${items.map((item) => `<li><a href="${item.href}"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.text || "")}</span></a></li>`).join("")}</ul>` : `<p>아직 이 지역 글을 준비 중입니다. 원하는 골프장과 날짜를 알려주시면 상담으로 먼저 안내해 드립니다.</p>`}</section></section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">${board.name} 골프 상담</p><h2>날짜·인원·희망 골프장을 알려주세요</h2><p>골프장 예약과 숙소·차량까지 일정에 맞춰 한 번에 안내해 드립니다.</p></div><button class="button js-consult" type="button" data-interest="${board.name} 골프 상담">${board.name} 골프 상담하기</button></div></section>`;
+  const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/regions">지역별 골프</a><span>›</span><span aria-current="page">${board.name}</span></nav><section class="page-hero"><div class="shell"><p class="eyebrow">지역별 골프 게시판</p><h1>${board.sections ? `${board.name} 골프장 ${courseCount}곳 가격·예약·이동시간 안내` : `${board.name} 골프 예약·일정 안내`}</h1><p>${board.lead}</p><div class="guide-jump">${board.key === "hochiminh" ? `<a class="button button-quiet" href="#region-plans">일정 예시 2박4일·3박5일·4박6일</a>` : ""}${others}</div></div></section><section class="section shell">${regionKeywordSections(board)}${board.key === "hochiminh" ? hcmDecSections() : ""}<section class="guide-group"><h2>${board.name} 골프 글 <span>${items.length}</span></h2>${items.length ? `<ul class="guide-list">${items.map((item) => `<li><a href="${item.href}"><strong>${escapeHtml(item.title)}</strong><span>${escapeHtml(item.text || "")}</span></a></li>`).join("")}</ul>` : `<p>아직 이 지역 글을 준비 중입니다. 원하는 골프장과 날짜를 알려주시면 상담으로 먼저 안내해 드립니다.</p>`}</section></section><section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">${board.name} 골프 상담</p><h2>날짜·인원·희망 골프장을 알려주세요</h2><p>골프장 예약과 숙소·차량까지 일정에 맞춰 한 번에 안내해 드립니다.</p></div><button class="button js-consult" type="button" data-interest="${board.name} 골프 상담">${board.name} 골프 상담하기</button></div></section>`;
   // 11-21 검색 맞춤: 제목은 "<지역> 골프"로 시작(손님 검색어 "호치민 골프"), H1은 "<지역> 골프장 N곳"
   const title = board.sections ? `${board.name} 골프 — 골프장 ${courseCount}곳 가격·예약·이동시간${board.key === "hochiminh" ? " · 12월 티타임" : ""}` : `${board.name} 골프 예약·일정 안내`;
   const description = board.sections
