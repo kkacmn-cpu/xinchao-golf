@@ -13,7 +13,7 @@ export const retiredGuides = {
   "group-flight-tee-time-request": { to: "/guide/group-pairing-final-submission-check.html" },
   "late-arrival-next-day-tee-time-fasttrack": { to: "/guide/first-day-flight-tee-time-buffer.html" },
   "rain": { to: "/guide/vietnam-golf-weather-contingency-plan.html" },
-  "tee-time": { to: "/guide/tee-time-confirmation-course-name-check.html" },
+  "tee-time": { to: "/guide/hochiminh-golf-heat-tee-time-plan.html" },
   "two-player-join-request": { to: "/golf-booking" },
   // 일정 짜기 묶음 11
   "2n3d": { to: "/golf-itinerary" },
