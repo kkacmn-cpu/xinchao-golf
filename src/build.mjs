@@ -1018,16 +1018,16 @@ function clubRentalPage() {
     ["호치민 말고 다른 지역 라운드도 빌릴 수 있나요?", "골프채 대여는 호치민 라운드 손님만 해 드립니다. 다른 지역 라운드는 카톡으로 문의해 주세요."],
     ["여성용·왼손용도 있나요?", "지금은 남성용 오른손 기준 4세트입니다. 여성·왼손 골퍼는 카톡으로 말씀해 주시면 가능한 방법을 확인해 드립니다."],
     ["여러 명이 같은 세트를 빌릴 수 있나요?", "세트마다 한 벌씩이라 여러 분이면 세트 번호를 다르게 골라 주세요. 최대 4명까지 한 번에 빌릴 수 있습니다."],
-    ["요금은 얼마인가요?", "골프장에서 빌리는 것보다 저렴하게 잡았습니다. 날짜·라운드 수에 맞춰 견적서에 골프 예약과 함께 항목으로 넣어 드립니다."],
+    ["요금은 얼마인가요?", "1세트 × 1라운드 1,100,000동(약 59,000원 · $41)입니다. 서비스 볼 5개와 티가 함께 나갑니다. 세트 수·라운드 수만큼 견적서에 골프 예약과 함께 항목으로 넣어 드립니다(원화·$는 견적기 환율로 바꾼 참고값)."],
     ["언제, 어디서 받고 돌려주나요?", "라운드 날 차량 배차와 함께 정해 견적서에 적어 드립니다."],
   ];
   const perks = [
-    ["가격", "골프장 대여보다 저렴", "골프장에서 빌리는 것보다 저렴하게, 견적서에 골프 예약과 함께 넣어 드립니다."],
-    ["서비스", "볼·티를 함께 드림", "라운드에 쓸 서비스 볼과 티를 함께 드립니다."],
+    ["가격", "1세트 × 1라운드 1,100,000동", "약 59,000원($41). 골프장에서 빌리는 것보다 저렴하게, 견적서에 골프 예약과 함께 넣어 드립니다."],
+    ["서비스", "볼 5개·티 무료", "라운드에 쓸 서비스 볼 5개와 티를 함께 드립니다. 새 장갑은 별도 판매입니다."],
     ["치기 쉬움", "한국 골퍼가 많이 쓰는 브랜드", "테일러메이드·캘러웨이·핑·스릭슨·브리지스톤·오디세이로 치기 쉽게 맞췄습니다."],
   ];
   const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><span aria-current="page">골프채 대여</span></nav>
-    <section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/hero-golf-longthanh.webp')"><div class="shell"><p class="eyebrow">호치민 라운드 전용 · 남성용 4세트</p><h1>호치민 골프채 대여,<br>세트 번호만 고르세요</h1><p>골프백 없이 가볍게 오세요. 브랜드 클럽 4세트 중 번호만 알려 주시면 볼·티는 무료로 챙겨 드립니다. 새 장갑은 별도 판매이며, 원하시면 사이즈를 맞춰 준비해 드립니다.</p><div class="hero-x-actions"><a class="button button-kakao" href="#req">1분 요청서 쓰기</a><a class="button button-glass" href="${clubGo}">카톡 바로 문의</a></div></div></section>
+    <section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/hero-golf-longthanh.webp')"><div class="shell"><p class="eyebrow">호치민 라운드 전용 · 남성용 4세트</p><h1>호치민 골프채 대여,<br>세트 번호만 고르세요</h1><p>골프백 없이 가볍게 오세요. 브랜드 클럽 4세트 중 번호만 알려 주시면 됩니다. <strong>1세트 × 1라운드 1,100,000동(약 59,000원)</strong>, 볼 5개·티는 무료로 챙겨 드립니다. 새 장갑은 별도 판매이며, 원하시면 사이즈를 맞춰 준비해 드립니다.</p><div class="hero-x-actions"><a class="button button-kakao" href="#req">1분 요청서 쓰기</a><a class="button button-glass" href="${clubGo}">카톡 바로 문의</a></div></div></section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">신짜오 골프채 대여</p><h2>골프장에서 빌리는 것보다 나은 세 가지</h2></div></div>
       <div class="option-grid club-perks">${perks.map(([tag, name, text]) => `<article><span>${tag}</span><h3>${name}</h3><p>${text}</p></article>`).join("")}</div>
     </section>
@@ -1042,7 +1042,7 @@ function clubRentalPage() {
     </section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2>골프채 대여 FAQ</h2></div></div><dl class="home-faq-list">${faqs.map(([q, a]) => `<div><dt>${escapeHtml(q)}</dt><dd>${escapeHtml(a)}</dd></div>`).join("")}</dl></section>
     <section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">골프백 없이 가볍게</p><h2>세트 번호만 고르면,<br>카톡 한 번이면 끝</h2><p>요금은 골프 예약 견적서에 항목으로 함께 넣어 드립니다. 홈페이지에서는 결제하지 않습니다.</p></div><a class="button button-kakao button-lg" href="#req">1분 요청서 쓰기</a></div></section>`;
-  return layout({ title: "호치민 골프채 대여 | 남성용 브랜드 클럽 4세트·볼·티 서비스", description: "호치민 라운드 전용 골프채 대여. 테일러메이드·캘러웨이·핑 등 남성용 4세트 중 번호만 알려 주세요. 골프장 대여보다 저렴하고 볼·티는 무료입니다. 새 장갑은 별도 판매(원하시면 사이즈 맞춰 준비).", pathname: "/club-rental", active: "services", image: "hero-golf-longthanh.webp", keywords: ["호치민 골프채 대여", "호치민 골프채 렌탈", "호치민 골프 클럽 렌탈", "베트남 골프채 대여", "호치민 골프 예약"], schema: [faqSchema(faqs), breadcrumbSchema([["홈", "/"], ["골프채 대여", "/club-rental"]])], content });
+  return layout({ title: "호치민 골프채 대여 | 남성용 브랜드 클럽 4세트·볼·티 서비스", description: "호치민 라운드 전용 골프채 대여. 테일러메이드·캘러웨이·핑 등 남성용 4세트 중 번호만 알려 주세요. 1세트 × 1라운드 1,100,000동(약 59,000원), 볼 5개·티 무료. 새 장갑은 별도 판매(원하시면 사이즈 맞춰 준비).", pathname: "/club-rental", active: "services", image: "hero-golf-longthanh.webp", keywords: ["호치민 골프채 대여", "호치민 골프채 렌탈", "호치민 골프 클럽 렌탈", "베트남 골프채 대여", "호치민 골프 예약"], schema: [faqSchema(faqs), breadcrumbSchema([["홈", "/"], ["골프채 대여", "/club-rental"]])], content });
 }
 
 function vehiclePage() {
