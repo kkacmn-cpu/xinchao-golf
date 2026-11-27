@@ -10,6 +10,7 @@ import { loadMarkdownPosts } from "./blog-content.mjs";
 import { apartments, courses, golfAreas, site, villas } from "./site-data.mjs";
 import { topicHubs } from "./topic-hubs.mjs";
 import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
+import { retiredGuides } from "./retired-guides.mjs";
 import { pricing } from "./pricing-guide.mjs";
 import { golfRentPath, hcmCourses, rentGoCodes, rentPages, vietnambam } from "./rent-data.mjs";
 
@@ -26,7 +27,7 @@ const expectedContentPages = 31 + courses.length + markdownPosts.length + 1 + gu
 const expectedSitemapUrls = 30 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
 // 붕따우 지역 게시판(/regions/vungtau.html)이 생겨 페이지·사이트맵이 1개씩 늘었다(2026-11-20).
 // 숙소 상세 19쪽(아파트 4·빌라 15)은 호치민풀빌라로 넘겨 페이지·사이트맵에서 빠지고, 상세 주소 19개 이동 규칙이 늘었다(2026-11-20).
-const expectedRedirects = 66 + markdownPosts.length + legacyGolfPaths.length; // 66 = 기존 45 + 옛 주소→새 주소 2 + 숙소 상세 19, 닫힌 골프 사이트 옛 상세 주소 74
+const expectedRedirects = 66 + markdownPosts.length + legacyGolfPaths.length + Object.keys(retiredGuides).length; // 66 = 기존 45 + 옛 주소→새 주소 2 + 숙소 상세 19, 닫힌 골프 사이트 옛 상세 주소 74, 거둔 같은 틀 안내글 42(2026-11-27)
 
 async function collect(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -184,6 +185,11 @@ for (const icon of ["xinchao-golf-logo-192.webp", "xinchao-golf-logo-512.webp"])
 const vercel = JSON.parse(await readFile(path.join(root, "vercel.json"), "utf8"));
 if (vercel.buildCommand !== "npm run build && (node scripts/indexnow.mjs --build || true)") failures.push("Vercel 빌드 명령 오류(빌드 + IndexNow 운영 제출)");
 if (vercel.outputDirectory !== "dist") failures.push("Vercel 결과 폴더 오류");
+for (const [slug, item] of Object.entries(retiredGuides)) {
+  const rule = vercel.redirects?.find((r) => r.source === `/guide/${slug}.html`);
+  if (!rule || rule.destination !== item.to) failures.push(`거둔 안내글 308 없음/다름: ${slug}`);
+  if (await access(path.join(dist, "guide", `${slug}.html`)).then(() => true, () => false)) failures.push(`거둔 안내글 쪽이 아직 만들어짐: ${slug}`);
+}
 if (!Array.isArray(vercel.redirects) || vercel.redirects.length !== expectedRedirects) failures.push(`301 이전 규칙 ${vercel.redirects?.length ?? 0}개 (예상 ${expectedRedirects}개)`);
 if (vercel.redirects?.filter((rule) => rule.source === "/golf/compare-regions" && rule.destination === "/regions" && rule.permanent === true).length !== 1) failures.push("이전 지역 비교 URL의 영구 이전 규칙 누락 또는 중복");
 for (const source of ["/blog/vietnam-golf-caddie-tip-checklist.html", "/vietnam-golf-caddie-tip-checklist.html"]) {
