@@ -145,14 +145,16 @@
   {
    "slug": "legend-danang-golf-resort",
    "rating": 4.3,
-   "reviews": 2491,
+   "reviews": null,
+   "reviewsNote": "11-27 두 곳이 같은 2491이라 복사 오류 의심 — 지도 확인 전까지 숨김",
    "placeName": "Legend Danang Golf Resort",
    "mapsUrl": "https://www.google.com/maps/place/Legend+Danang+Golf+Resort/@15.9717259,108.2757816,17z"
   },
   {
    "slug": "ba-na-hills-golf-club",
    "rating": 4.6,
-   "reviews": 2491,
+   "reviews": null,
+   "reviewsNote": "11-27 두 곳이 같은 2491이라 복사 오류 의심 — 지도 확인 전까지 숨김",
    "placeName": "Ba Na Hills Golf Club",
    "mapsUrl": "https://www.google.com/maps/place/Ba+Na+Hills+Golf+Club/@16.0175252,108.0491866,17z"
   },
