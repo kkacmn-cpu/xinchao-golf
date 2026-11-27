@@ -327,7 +327,7 @@ function layout({ title, description, pathname, active, content, image, schema =
 function compareData(course) {
   const r = googleRatings.items.find((x) => x.slug === course.slug);
   const airport = airportShort(course).replace(" 국제공항", "").replace(" 공항", "");
-  return [["slug", course.slug], ["name", course.name], ["region", course.region], ["airport", `${airport} 공항에서 ${course.drive}`], ["holes", course.holes], ["rating", r ? `★ ${r.rating.toFixed(1)} (후기 ${r.reviews.toLocaleString("ko-KR")}개)` : "확인 중"]]
+  return [["slug", course.slug], ["name", course.name], ["region", course.region], ["airport", `${airport} 공항에서 ${course.drive}`], ["holes", course.holes], ["rating", r ? `★ ${r.rating.toFixed(1)} ${r.reviews ? ` (후기 ${r.reviews.toLocaleString("ko-KR")}개)` : ""}` : "확인 중"]]
     .map(([k, v]) => `data-cmp-${k}="${escapeHtml(v)}"`).join(" ");
 }
 
@@ -679,7 +679,7 @@ function homeGolftel() {
 // 그 지역 골프장으로 날짜별 조합을 바로 보여 주고, 한 번 누르면 그 일정이 든 글을 복사해 카톡(/go/quick-golf?from=plan)으로 간다.
 // 가격은 넣지 않는다(가격 값 그대로). 예약 가능 여부·티타임은 상담에서 확인한다고 적는다.
 function homePlan() {
-  const data = courses.filter((course) => course.image).map((course) => { const r = googleRatings.items.find((x) => x.slug === course.slug); return { s: course.slug, n: course.shortName, a: course.area, d: course.drive, m: driveMinMinutes(course.drive), ap: airportShort(course).replace(" 국제공항", "").replace(" 공항", ""), r: r ? r.rating : 0, v: r ? r.reviews : 0, h: course.holes.split(" ")[0], i: course.image }; });
+  const data = courses.filter((course) => course.image).map((course) => { const r = googleRatings.items.find((x) => x.slug === course.slug); return { s: course.slug, n: course.shortName, a: course.area, d: course.drive, m: driveMinMinutes(course.drive), ap: airportShort(course).replace(" 국제공항", "").replace(" 공항", ""), r: r ? r.rating : 0, v: r ? r.reviews || 0 : 0, h: course.holes.split(" ")[0], i: course.image }; });
   const areas = golfAreas.filter((area) => data.some((x) => x.a === area.key));
   const chips = (name, list, on) => list.map(([value, label]) => `<button type="button" class="plan-chip" data-plan="${name}" data-value="${value}" aria-pressed="${value === on}">${label}</button>`).join("");
   return `<section class="section shell golf-plan" id="plan" aria-labelledby="plan-title"><div class="section-heading"><div><p class="eyebrow">골프 일정 바로 짜기</p><h2 id="plan-title">누르기만 하면 날짜별 골프장 조합이 나옵니다</h2></div></div>
@@ -722,8 +722,8 @@ const floorNote = dec(escapeHtml(floorNoteOf(decLive ? priceFloor.next.validMont
 const decLabel = (tail) => (decLive ? `${priceFloor.next.label}${tail}` : dec("", `${priceFloor.next.label}${tail}`));
 const cardPrice = (course) => { const f = floorOf(course); const n = nextOf(course); return f ? `<p class="card-price">${decLabel(" ")}1인 1라운드 <strong>${dec(f.man, n?.man)}만 원~</strong> <small>($${dec(f.usd, n?.usd)}~)</small></p>` : ""; };
 const heroPrice = (course) => { const f = floorOf(course); const n = nextOf(course); return f ? `<p class="hero-price">${decLabel(" ")}1인 1라운드 <strong>${dec(f.man, n?.man)}만 원~</strong> <small>($${dec(f.usd, n?.usd)}~) 견적기 평일 최저 요금 기준 · 날짜·시간대·카트 조건에 따라 달라집니다</small></p>` : ""; };
-const cardRating = (course) => { const r = googleRatings.items.find((x) => x.slug === course.slug); return r ? `<span class="card-rating" title="구글 지도 평점·후기 수(${googleRatings.checkedAt} 확인)"><b aria-hidden="true">★</b> ${r.rating.toFixed(1)} <small>후기 ${r.reviews.toLocaleString("ko-KR")}개</small></span>` : ""; };
-const ratingLine = (course) => { const r = googleRatings.items.find((x) => x.slug === course.slug); if (!r) return ""; const [y, m, d] = googleRatings.checkedAt.split("-"); return `<p class="g-rating"><a href="${escapeHtml(r.mapsUrl || "")}" target="_blank" rel="noopener"><span class="g-rating-star" aria-hidden="true">★</span> 구글 평점 <strong>${r.rating.toFixed(1)}</strong> · 후기 ${r.reviews.toLocaleString("ko-KR")}개</a> <small>(${+y}.${+m}.${+d} 구글 지도 확인)</small></p>`; };
+const cardRating = (course) => { const r = googleRatings.items.find((x) => x.slug === course.slug); return r ? `<span class="card-rating" title="구글 지도 평점·후기 수(${googleRatings.checkedAt} 확인)"><b aria-hidden="true">★</b> ${r.rating.toFixed(1)} ${r.reviews ? `<small>후기 ${r.reviews.toLocaleString("ko-KR")}개</small>` : ""}</span>` : ""; };
+const ratingLine = (course) => { const r = googleRatings.items.find((x) => x.slug === course.slug); if (!r) return ""; const [y, m, d] = googleRatings.checkedAt.split("-"); return `<p class="g-rating"><a href="${escapeHtml(r.mapsUrl || "")}" target="_blank" rel="noopener"><span class="g-rating-star" aria-hidden="true">★</span> 구글 평점 <strong>${r.rating.toFixed(1)}</strong>${r.reviews ? ` · 후기 ${r.reviews.toLocaleString("ko-KR")}개` : ""}</a> <small>(${+y}.${+m}.${+d} 구글 지도 확인)</small></p>`; };
 function courseDetailPage(course) {
   const guide = courseGuides[course.slug];
   const keyword = keywordCourses[course.slug];
