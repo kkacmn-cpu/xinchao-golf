@@ -685,10 +685,10 @@ for (const [hubPath, label] of [["/golf-price", "골프장별 가격"], ["/golf-
   const decodeF = (v) => v.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, "\"").replace(/&#39;/g, "'").replace(/&amp;/g, "&");
   const shown = [...faqHtml.matchAll(/<summary>([\s\S]*?)<\/summary><div class="faq-a"><p>([\s\S]*?)<\/p>/g)].map((m) => [decodeF(m[1]), decodeF(m[2])]);
   const ld = [...faqHtml.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => JSON.parse(m[1])).find((d) => d["@type"] === "FAQPage");
-  if (shown.length !== 55) failures.push(`FAQ 쪽 ${shown.length}문항 (55여야 함)`);
+  if (shown.length !== 56) failures.push(`FAQ 쪽 ${shown.length}문항 (56여야 함)`);
   if (JSON.stringify(shown) !== JSON.stringify((ld?.mainEntity ?? []).map((q) => [q.name, q.acceptedAnswer.text]))) failures.push("FAQ 쪽 보이는 문답과 FAQPage 불일치");
   for (const [q, a] of shown) { const hit = `${q} ${a}`.match(PRICE); if (hit) failures.push(`FAQ 쪽 금액 표기(${hit[0]}): ${q}`); }
-  if (count(faqHtml, /class="faq-ask"/g) !== 55) failures.push("FAQ 쪽 질문별 카톡 단추 수");
+  if (count(faqHtml, /class="faq-ask"/g) !== 56) failures.push("FAQ 쪽 질문별 카톡 단추 수");
   for (const m of faqHtml.matchAll(/<a href="(\/[^"#?]+)">자세한 글 보기/g)) { const p = m[1]; const f = path.join(dist, p.endsWith(".html") ? p : `${p}/index.html`); try { await readFile(f.endsWith(".html") ? f : `${f}`); } catch { try { await readFile(path.join(dist, `${p}.html`)); } catch { failures.push(`FAQ 근거 링크 없음: ${p}`); } } }
 }
 
