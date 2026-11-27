@@ -444,6 +444,7 @@ function homePage() {
       <div class="section-heading"><div><p class="eyebrow">지역별 대표 골프장</p><h2>호치민부터 푸꾸옥까지, 공항 이동시간과 함께</h2></div><a class="text-link" href="/golf">전체 ${courses.length}곳 보기 →</a></div>
       <div class="course-grid">${featured.map(courseCard).join("")}</div>
     </section>
+    ${homeGolftel()}
     <section class="section shell">
       <div class="section-heading"><div><p class="eyebrow">예약 전에 읽어보세요</p><h2>베트남 골프 예약 가이드</h2></div><a class="text-link" href="/guide">가이드 전체 보기 →</a></div>
       <ul class="guide-list guide-list-home">${guideCategories.flatMap((category) => guides.filter((guide) => guide.category === category).slice(0, 2)).map((guide) => `<li><a href="/guide/${guide.slug}.html"><em>${guide.category}</em><strong>${escapeHtml(guide.title)}</strong><span>${escapeHtml(guide.sub)}</span></a></li>`).join("")}</ul>
@@ -634,6 +635,17 @@ function courseBookingSteps(course) {
   return `<section class="section shell booking-steps" aria-labelledby="booking-steps-title"><p class="eyebrow">예약 순서</p><h2 id="booking-steps-title">${escapeHtml(course.shortName)} 예약은 이렇게 진행됩니다</h2><ol class="booking-steps-list">${steps.map(([t, d], i) => `<li><span class="booking-step-no">${i + 1}</span><strong>${t}</strong><p>${d}</p></li>`).join("")}</ol><dl class="booking-notes"><div><dt>캐디팁</dt><dd>손님이 캐디에게 직접 드리는 돈이라 견적 총액에 넣지 않습니다. 대략 금액은 견적서 참고비용 칸에 적어 드립니다.</dd></div><div><dt>현장 결제</dt><dd>현장에서 내실 것은 견적서에 적힌 항목뿐입니다.</dd></div><div><dt>티타임</dt><dd>골프장 사정으로 바뀔 수 있고, 바뀌면 바로 카톡으로 알려 드립니다.</dd></div></dl>${cancelPolicyFull}<a class="button button-kakao button-lg" href="/go/quick-golf?from=${course.slug}" data-one-tap="${oneTap}">💬 이 골프장 12월 티타임·견적 카톡</a></section>`;
 }
 
+// 라운드 전 체크 4가지(2026-11-27 총괄 42차: 1위 '골프장 체크 사항'·'여권/비자' 따라잡기). 조인·우천은 site-faq.json 답과 같은 사실, 비자는 공식 사이트 재확인 문구.
+const DAY_CHECKS = [
+  ["👥 조인 라운드", "한 팀이 4명이라 2~3명이면 빈자리에 다른 분이 함께 칠 수 있고, 조인 상대는 골프장이 그날 배정합니다. 둘이서만 치고 싶으면 첫 문의에 \"2인 단독 희망\"이라고 적어 주세요.", "/blog/hochiminh-golf-two-player-booking.html", "2명 예약 안내"],
+  ["👕 복장", "카라 있는 셔츠가 무난합니다. 반바지 길이·벨트, 골프화 스파이크 기준은 골프장마다 달라 예약이 정해지면 그 골프장 기준으로 함께 확인해 드립니다.", "/blog/hochiminh-golf-clothing-guide.html", "복장·골프화 확인법"],
+  ["🌧 비 오는 날", "비가 와도 자동 취소로 단정할 수 없고 골프장의 운영 판단을 따릅니다. 중단되면 마친 홀 수와 중단 시각을 현장 안내와 함께 기록해 두세요.", "/blog/vietnam-golf-rain-delay-resume-condition-check.html", "우천 중단·재개 기준"],
+  ["🛂 입국 서류", "한국 여권은 무비자로 최대 45일 머물 수 있고, 입국 때 여권 남은 기간이 6개월 이상이어야 합니다. 더 머물면 전자비자(최대 90일)를 베트남 정부 공식 사이트에서만 신청하세요. 규정은 바뀔 수 있어 출발 전 공식 안내를 다시 확인하세요.", "https://evisa.gov.vn/", "전자비자 공식 사이트"],
+];
+function courseDayCheck(course) {
+  return `<section class="section shell day-check" aria-labelledby="day-check-title"><p class="eyebrow">라운드 전에 확인</p><h2 id="day-check-title">${escapeHtml(course.shortName)} 가기 전 체크 4가지</h2><ul class="day-check-list">${DAY_CHECKS.map(([t, d, href, label]) => `<li><strong>${t}</strong><p>${escapeHtml(d)}</p><a class="text-link" href="${href}"${href.startsWith("http") ? ' target="_blank" rel="noopener"' : ""}>${label} →</a></li>`).join("")}</ul></section>`;
+}
+
 // 12월 티타임 카톡(2026-11-23 대표님 "골프도 문의 더 늘리게 해"): 상세 첫 화면 바로 아래 큰 단추 + 성수기 한 줄(가격 숫자 없음).
 // 12/26·27 주말 오전 티타임 한 줄(11-26 총괄 결정, 8곳 표는 블로그 몫): 호치민 쪽 골프장 상세·/regions/hochiminh.html. 12-28 0시(베트남) 뒤에는 site.js가 숨김.
 const xmasWeekendLine = `<p class="dec-hot" data-hide-after="2026-12-28T00:00:00+07:00">12/26·27 주말 오전 티타임은 일찍 마감 — 날짜 정해지면 먼저 카톡</p>`;
@@ -650,6 +662,13 @@ function courseEvening(course) {
 // 베트남밤 종류별 칩(2026-11-23 대표님: 골프→베트남밤 연결 강화). 새 창으로 연다.
 const bamChips = (key) => `<div class="bam-chips">${vietnambam[key].cats.map(([slug, name]) => `<a class="button button-quiet" href="${vietnambam[key].url}${slug}/" target="_blank" rel="noopener">${vietnambam[key].city} ${name}</a>`).join("")}<a class="button button-quiet" href="${vietnambam[key].url}" target="_blank" rel="noopener">전체 보기 →</a></div>`;
 const homeBam = () => `<section class="section shell home-bam" aria-labelledby="home-bam-title"><div class="section-heading"><div><p class="eyebrow">낮엔 골프, 저녁엔</p><h2 id="home-bam-title">라운드 끝나고 저녁은 베트남밤에서</h2></div><a class="text-link" href="https://vietnambam.com/" target="_blank" rel="noopener">베트남밤 바로가기 →</a></div><p class="home-bam-lead">호치민·다낭 마사지·스파·가라오케를 구글 평점과 영업 중 여부로 찾고 카톡으로 예약을 물을 수 있는 자매 사이트입니다. 골프장·숙소·차량과 같은 카톡에서 함께 상담합니다.</p>${["hcm", "danang"].map((key) => `<div class="home-bam-row"><strong>${vietnambam[key].city}</strong>${bamChips(key)}</div>`).join("")}</section>`;
+
+// 골프텔·리조트 코스(2026-11-27 총괄 42차: 1위 '골프텔 BEST' 따라잡기). course-info.json 시설에 '숙박(골프텔·리조트)'가 있는 골프장만, 지역 순서대로. 가격은 넣지 않는다.
+function homeGolftel() {
+  const list = golfAreas.flatMap((area) => courses.filter((course) => course.area === area.key && infoOf(course)?.facilities?.includes("숙박(골프텔·리조트)")));
+  if (!list.length) return "";
+  return `<section class="section shell home-golftel" id="golftel" aria-labelledby="home-golftel-title"><div class="section-heading"><div><p class="eyebrow">골프텔·리조트</p><h2 id="home-golftel-title">골프장 안에서 자고 바로 치는 코스 ${list.length}곳</h2></div><a class="text-link" href="/go/golf-combo">숙박+라운드 카톡 견적 →</a></div><p class="home-golftel-lead">코스 안이나 바로 옆에 골프텔·리조트가 있는 골프장입니다. 이동 없이 이틀 연속 라운드하거나 아침 첫 티타임을 잡기 좋습니다. 객실 종류와 가능한 날짜는 날짜·인원으로 확인해 드립니다.</p><ul class="golftel-list">${list.map((course) => `<li><a href="/golf/${course.slug}.html"><span class="golftel-thumb">${courseVisual(course, "course-plate-card")}</span><span class="golftel-text"><strong>${escapeHtml(course.shortName)}</strong><small>${escapeHtml(areaOf(course).name)} · ✈ 공항 ${escapeHtml(course.drive)}</small></span></a></li>`).join("")}</ul></section>`;
+}
 
 // 골프장 상세 "차량" 링크: 호치민권은 그 골프장 차량 쪽, 판티엣·무이네는 무이네 차량 쪽, 나머지는 차량 상담 쪽.
 function courseVehicleLink(course) {
@@ -696,7 +715,7 @@ function courseDetailPage(course) {
     <section class="section shell detail-content">
       <article><p class="eyebrow">선택 포인트</p><h2>${course.shortName}, 이런 일정에 검토하세요</h2><ul class="point-list">${course.points.map((point) => `<li>${point}</li>`).join("")}</ul>${courseKeywordSections(course)}${courseGuideContent(course, guide)}</article>
       <aside class="side-consult"><strong>빠른 상담</strong><p>${course.shortName} 가능 여부와 이동 일정을 확인해드립니다.</p><button class="button button-kakao button-block js-consult" type="button" data-interest="${course.name} 티오프 및 차량 상담">카톡으로 일정 확인</button></aside>
-    </section>${courseBookingSteps(course)}
+    </section>${courseBookingSteps(course)}${courseDayCheck(course)}
     <section class="section section-tint"><div class="shell"><div class="section-heading"><div><p class="eyebrow">함께 보기</p><h2>${escapeHtml(areaOf(course).name)} 다른 골프장</h2></div><a class="text-link" href="/golf#area-${course.area}">전체 보기 →</a></div><div class="course-grid">${[...courses.filter((item) => item.slug !== course.slug && item.area === course.area), ...courses.filter((item) => item.area !== course.area)].slice(0, 3).map(courseCard).join("")}</div></div></section>`;
   const schema = [{
     "@context": "https://schema.org",

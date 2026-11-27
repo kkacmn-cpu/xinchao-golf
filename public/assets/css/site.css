@@ -1326,3 +1326,24 @@ body.has-trip .cmp-bar { bottom: 84px; }
 .course-card .card-body p.card-price strong{font-size:17px}
 body .course-hero-copy p.hero-price strong{font-size:20px}
 .leaflet-control-zoom-in,.leaflet-control-zoom-out{font-weight:800!important}
+
+/* 라운드 전 체크 4가지·골프텔 코스(2026-11-27 1위 따라잡기) */
+.day-check { padding-top: 0; }
+.day-check h2 { margin: 4px 0 16px; word-break: keep-all; }
+.day-check-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+.day-check-list li { padding: 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--cream); display: flex; flex-direction: column; }
+.day-check-list strong { display: block; margin-bottom: 6px; font-size: 17px; }
+.day-check-list p { margin: 0 0 10px; color: var(--muted); font-size: 15px; flex: 1; }
+.day-check-list .text-link { font-size: 15px; }
+.home-golftel-lead { margin: -6px 0 16px; color: var(--muted); max-width: 760px; }
+.golftel-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.golftel-list li { display: flex; }
+.golftel-list a { flex: 1; display: flex; gap: 12px; align-items: center; padding: 10px; border: 1px solid var(--line); border-radius: 14px; background: #fff; color: inherit; text-decoration: none; min-height: 84px; }
+.golftel-list a:hover { border-color: var(--green); }
+.golftel-thumb { flex: 0 0 96px; width: 96px; height: 64px; border-radius: 10px; overflow: hidden; display: block; }
+.golftel-thumb > *, .golftel-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; margin: 0; }
+.golftel-text { min-width: 0; }
+.golftel-text strong { display: block; font-size: 16px; line-height: 1.35; }
+.golftel-text small { display: block; color: var(--muted); font-size: 15px; line-height: 1.4; margin-top: 2px; }
+@media (max-width: 900px) { .day-check-list { grid-template-columns: repeat(2, 1fr); } .golftel-list { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 560px) { .day-check-list { grid-template-columns: 1fr; } .golftel-list { display: grid; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 72%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; } .golftel-list li { scroll-snap-align: start; } .golftel-list a { flex-direction: column; align-items: stretch; gap: 8px; } .golftel-thumb { flex: none; width: 100%; height: 132px; } }
