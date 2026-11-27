@@ -301,7 +301,10 @@ document.querySelectorAll("[data-one-tap]").forEach((link) => {
   link.addEventListener("click", async (event) => {
     event.preventDefault();
     const text = `${link.dataset.oneTap}\n${location.href.split("#")[0]}`;
-    try { if (navigator.clipboard?.writeText) await navigator.clipboard.writeText(text); } catch {}
+    let copied = false;
+    try { if (navigator.clipboard?.writeText) { await navigator.clipboard.writeText(text); copied = true; } } catch {}
+    if (!copied) { try { const ta = document.createElement("textarea"); ta.value = text; ta.setAttribute("readonly", ""); ta.style.cssText = "position:fixed;top:0;left:0;opacity:0"; document.body.appendChild(ta); ta.select(); copied = document.execCommand("copy"); ta.remove(); } catch {} }
+    if (!copied) window.prompt("아래 글을 복사해 카톡에 붙여 넣어 주세요", text);
     setTimeout(() => { location.href = link.href; }, 250);
   });
 });
@@ -424,10 +427,12 @@ document.querySelectorAll("[data-one-tap]").forEach((link) => {
   const go = box.querySelector("#plan-go");
   const dateInput = box.querySelector("#plan-date");
   const DAYS = ["일", "월", "화", "수", "목", "금", "토"];
+  const ymd = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  dateInput.min = ymd(new Date());
   const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const peopleLabel = (p) => (p === "8" ? "5~8명" : p === "9" ? "9명 이상" : `${p}명`);
   const dayOf = (i) => {
-    if (!dateInput.value) return null;
+    if (!dateInput.value || dateInput.value < dateInput.min) return null;
     const d = new Date(`${dateInput.value}T00:00:00`);
     if (Number.isNaN(d.getTime())) return null;
     d.setDate(d.getDate() + i);
@@ -436,6 +441,13 @@ document.querySelectorAll("[data-one-tap]").forEach((link) => {
   const draw = () => {
     const pool = all.filter((c) => c.a === state.area).sort((a, b) => (state.sort === "near" ? a.m - b.m || b.v - a.v : b.v - a.v || a.m - b.m));
     if (!pool.length) { list.innerHTML = ""; return; }
+    box.querySelectorAll('[data-plan="rounds"]').forEach((b) => { b.disabled = Number(b.dataset.value) > pool.length; });
+    if (state.rounds > pool.length) {
+      state.rounds = pool.length;
+      box.querySelectorAll('[data-plan="rounds"]').forEach((b) => b.setAttribute("aria-pressed", String(Number(b.dataset.value) === state.rounds)));
+    }
+    const cap = box.querySelector("#plan-cap");
+    if (cap) { cap.hidden = pool.length >= 4; cap.textContent = `이 지역은 상세 정보가 있는 골프장이 ${pool.length}곳이라 최대 ${pool.length}라운드까지 짭니다. 같은 곳을 다시 치고 싶으면 카톡에 적어 주세요.`; }
     const picks = [];
     for (let i = 0; i < state.rounds; i += 1) picks.push(pool[(state.shift + i) % pool.length]);
     const seen = new Set();
@@ -445,12 +457,13 @@ document.querySelectorAll("[data-one-tap]").forEach((link) => {
       const d = dayOf(i);
       const when = d ? `${d.getMonth() + 1}/${d.getDate()}(${DAYS[d.getDay()]})` : `${i + 1}일째`;
       const weekend = d && (d.getDay() === 0 || d.getDay() === 6);
-      lines.push(`${i + 1}. ${when} ${c.n}${again ? "(한 번 더)" : ""}`);
+      lines.push(`${i + 1}. ${when} ${c.n}`);
       return `<li><a href="/golf/${c.s}.html"><img src="/assets/images/${esc(c.i)}" width="120" height="80" loading="lazy" decoding="async" alt=""><span class="plan-text"><span class="plan-when">${i + 1}라운드 · ${esc(when)}${weekend ? ' <em class="plan-weekend">주말</em>' : ""}</span><strong>${esc(c.n)}${again ? " <small>(한 번 더)</small>" : ""}</strong><small>${esc(c.h)} · ✈ ${esc(c.ap)} 공항 ${esc(c.d)}${c.r ? ` · ★ ${c.r.toFixed(1)}` : ""}</small></span></a></li>`;
     }).join("");
     const areaName = box.querySelector(`[data-plan="area"][data-value="${state.area}"]`)?.textContent || "";
-    go.dataset.oneTap = `[신짜오골프] 골프 일정 견적 문의\n지역: ${areaName} / 인원: ${peopleLabel(state.people)} / 라운드 ${state.rounds}번\n${lines.join("\n")}\n이 일정으로 티타임·견적 부탁드려요.`;
-    box.querySelector("#plan-next").hidden = pool.length <= state.rounds && state.shift === 0 && pool.length <= 1;
+    const first = dayOf(0);
+    go.dataset.oneTap = `[신짜오골프] 골프 일정 견적 문의\n지역: ${areaName} / 인원: ${peopleLabel(state.people)} / 라운드 ${state.rounds}번\n첫 라운드 날짜: ${first ? `${ymd(first)}(${DAYS[first.getDay()]})` : "미정"}\n${lines.join("\n")}\n이 일정으로 티타임·견적 부탁드려요.`;
+    box.querySelector("#plan-next").hidden = pool.length <= state.rounds;
   };
   box.addEventListener("click", (event) => {
     const chip = event.target.closest(".plan-chip");
