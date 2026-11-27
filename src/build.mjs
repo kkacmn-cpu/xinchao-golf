@@ -7,6 +7,7 @@ import { apartments, courses, golfAreas, legacyHost, poolvilla, regions, service
 import { courseFaqs, courseGuides } from "./course-guides.mjs";
 import { coursesForGuide, hubForCategory, topicHubs } from "./topic-hubs.mjs";
 import { legacyGolfDestination, legacyGolfPaths } from "./legacy-golf-paths.mjs";
+import { retiredGuides } from "./retired-guides.mjs";
 import { pricing, pricingGuideHtml, pricingSummary } from "./pricing-guide.mjs";
 import { readFileSync } from "node:fs";
 import { chooseRows, courseLabel, dayTripRoutes, directionOf, golfRentFaqs, golfRentPath, hcmCourses, longDistance, luggageNote, rentGo, rentPages, vehicleTypes, vietnambam } from "./rent-data.mjs";
@@ -981,7 +982,7 @@ function airportPage() {
         <ol class="ops-list"><li><strong>손님 한 팀마다 기사와 전용 단톡방</strong><span>도착 전에 기사 이름·차량 정보를 받고, 같은 방에서 바로 연락합니다.</span></li><li><strong>기사가 실시간 위치 공유</strong><span>출구에 나오기 전부터 기사가 지금 어디쯤인지 보입니다.</span></li><li><strong>픽업부터 귀국 샌딩까지 한 방에서</strong><span>골프장 이동·숙소 연락도 같은 단톡방에서 이어집니다.</span></li></ol></div></div></section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">차량 고르기</p><h2>인원과 골프백 수로 고르세요</h2></div><a class="text-link" href="/rent">상황별 차량 전체 →</a></div>${chooseTable("인원·짐별 공항 차량")}</section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">공항에서 바로 골프</p><h2>도착일 라운드, 이동시간부터 보세요</h2></div></div>
-      <div class="guide-jump"><a class="button button-quiet" href="/golf#airport-times">공항→골프장 시간표</a><a class="button button-quiet" href="/guide/arrival-day-airport-hotel-golfbag-plan.html">도착일 공항·숙소·골프백 순서</a><a class="button button-quiet" href="/rent/family-luggage.html">짐 많은 일정 차량</a><a class="button button-quiet" href="/#combo">골프·숙소·차량 한 번에 견적</a><a class="button button-quiet" href="https://vietnambam.com/hochiminh/" target="_blank" rel="noopener">도착한 날 저녁 — 베트남밤</a></div>
+      <div class="guide-jump"><a class="button button-quiet" href="/golf#airport-times">공항→골프장 시간표</a><a class="button button-quiet" href="/guide/first-day-flight-tee-time-buffer.html">첫날 항공·티오프 간격</a><a class="button button-quiet" href="/rent/family-luggage.html">짐 많은 일정 차량</a><a class="button button-quiet" href="/#combo">골프·숙소·차량 한 번에 견적</a><a class="button button-quiet" href="https://vietnambam.com/hochiminh/" target="_blank" rel="noopener">도착한 날 저녁 — 베트남밤</a></div>
     </section>
     <section class="section shell">${cancelPolicyFull}</section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2>공항 픽업·패스트트랙 FAQ</h2></div></div><dl class="home-faq-list">${faqs.map(([q, a]) => `<div><dt>${escapeHtml(q)}</dt><dd>${escapeHtml(a)}</dd></div>`).join("")}</dl></section>
@@ -1489,6 +1490,8 @@ async function build() {
     ]),
     // 닫힌 골프 사이트 3곳의 골프장 상세 /golf/<지역>/<옛slug> → 새 상세 또는 지역 골프장 목록(대응표: src/legacy-golf-paths.mjs). 끝 / 는 trailingSlash:false가 먼저 떼고 308하므로 규칙은 / 없는 것 하나면 된다
     ...legacyGolfPaths.map((entry) => ({ source: `/golf/${entry.from}`, destination: legacyGolfDestination(entry), permanent: true })),
+    // 같은 틀 안내글 42편 거둠(2026-11-27, src/retired-guides.mjs) → 가장 가까운 원래 글·모음·상세로 308
+    ...Object.entries(retiredGuides).map(([slug, item]) => ({ source: `/guide/${slug}.html`, destination: item.to, permanent: true })),
   ];
   if (redirects.length > 1024) throw new Error(`Vercel redirects 한도 1024개 초과: ${redirects.length}개`);
   const headers = [

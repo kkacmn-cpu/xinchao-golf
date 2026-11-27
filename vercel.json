@@ -946,6 +946,216 @@
       "source": "/golf/yenbai/yenbai-yen-bai-star-golf",
       "destination": "/golf",
       "permanent": true
+    },
+    {
+      "source": "/guide/booking-order.html",
+      "destination": "/golf-booking",
+      "permanent": true
+    },
+    {
+      "source": "/guide/booking-payment-name-receipt-check.html",
+      "destination": "/guide/player-name-handicap-submission-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/booking-voucher-final-check.html",
+      "destination": "/guide/tee-time-confirmation-course-name-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/cancellation.html",
+      "destination": "/guide/tee-time-change-cancellation-deadline-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/first-trip.html",
+      "destination": "/golf-booking",
+      "permanent": true
+    },
+    {
+      "source": "/guide/golfer-name-correction-request.html",
+      "destination": "/guide/player-name-handicap-submission-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/group-flight-tee-time-request.html",
+      "destination": "/guide/group-pairing-final-submission-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/late-arrival-next-day-tee-time-fasttrack.html",
+      "destination": "/guide/first-day-flight-tee-time-buffer.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/rain.html",
+      "destination": "/guide/vietnam-golf-weather-contingency-plan.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/tee-time.html",
+      "destination": "/guide/tee-time-confirmation-course-name-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/two-player-join-request.html",
+      "destination": "/golf-booking",
+      "permanent": true
+    },
+    {
+      "source": "/guide/2n3d.html",
+      "destination": "/golf-itinerary",
+      "permanent": true
+    },
+    {
+      "source": "/guide/3n5d.html",
+      "destination": "/guide/hochiminh-golf-3-nights-5-days-itinerary.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/4n5d-three-rounds.html",
+      "destination": "/guide/hochiminh-golf-3-nights-5-days-itinerary.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/accommodation.html",
+      "destination": "/golf-itinerary",
+      "permanent": true
+    },
+    {
+      "source": "/guide/arrival-day-airport-hotel-golfbag-plan.html",
+      "destination": "/guide/first-day-flight-tee-time-buffer.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/departure-day-round-risk-check.html",
+      "destination": "/guide/round-next-day-flight-transfer-plan.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/golf-trip-day-zero-airport-fasttrack-plan.html",
+      "destination": "/guide/first-day-flight-tee-time-buffer.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/group.html",
+      "destination": "/golf-itinerary",
+      "permanent": true
+    },
+    {
+      "source": "/guide/hochiminh-3n4d-two-round-buffer.html",
+      "destination": "/guide/hochiminh-golf-3-nights-5-days-itinerary.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/hochiminh-golf-rest-day-plan.html",
+      "destination": "/golf-itinerary",
+      "permanent": true
+    },
+    {
+      "source": "/guide/transport.html",
+      "destination": "/rent/golf-transfer.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/exchange-rate.html",
+      "destination": "/guide/quote-currency-exchange-payment-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/fasttrack-golf-trip-total-cost.html",
+      "destination": "/golf-price",
+      "permanent": true
+    },
+    {
+      "source": "/guide/group-budget.html",
+      "destination": "/golf-price",
+      "permanent": true
+    },
+    {
+      "source": "/guide/group-quote-per-person-total-check.html",
+      "destination": "/golf-price",
+      "permanent": true
+    },
+    {
+      "source": "/guide/included-items.html",
+      "destination": "/guide/caddie-tip-onsite-cost-separation-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/price-reading.html",
+      "destination": "/golf-price",
+      "permanent": true
+    },
+    {
+      "source": "/guide/quote-included-excluded-check.html",
+      "destination": "/guide/caddie-tip-onsite-cost-separation-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/quote-payment-deadline-hold-check.html",
+      "destination": "/golf-price",
+      "permanent": true
+    },
+    {
+      "source": "/guide/quote-validity-exchange-rate-check.html",
+      "destination": "/guide/quote-currency-exchange-payment-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/weekday-weekend.html",
+      "destination": "/guide/weekend-holiday-time-rate-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/weekend-holiday-price-comparison.html",
+      "destination": "/guide/weekend-holiday-time-rate-check.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/brg-da-nang-golf-booking-tee-time-check.html",
+      "destination": "/golf/legend-danang-golf-resort.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/laguna-lang-co-golf-booking-caddie-cart-check.html",
+      "destination": "/golf/laguna-golf-lang-co.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/long-thanh-golf-booking-player-transfer-check.html",
+      "destination": "/golf/long-thanh-golf-club.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/dalat-palace-golf-group-flight-transport-plan.html",
+      "destination": "/golf/dalat-palace-golf-club.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/hanoi-golf-group-course-transport-plan.html",
+      "destination": "/regions/hanoi.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/phu-quoc-golf-group-flight-stay-plan.html",
+      "destination": "/regions/phuquoc.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/long-bien-golf-course-price-included-check.html",
+      "destination": "/golf/long-bien-golf-course.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/vinpearl-golf-nam-hoi-an-price-included-check.html",
+      "destination": "/golf/vinpearl-golf-nam-hoi-an.html",
+      "permanent": true
+    },
+    {
+      "source": "/guide/vinpearl-golf-phu-quoc-price-included-check.html",
+      "destination": "/golf/vinpearl-golf-phu-quoc.html",
+      "permanent": true
     }
   ],
   "rewrites": [

@@ -139,7 +139,7 @@ export const courseGuides = {
       ["롱비엔 골프장은 하노이 시내에서 가깝나요?", "롱비엔은 하노이 시내 안에 있는 27홀 골프장이라 시내 호텔에서 이동 부담이 적은 편입니다. 다만 출퇴근 시간 다리 구간이 막힐 수 있으니 숙소 주소와 티오프를 함께 보내 차량 시간을 맞추세요."],
       ["롱비엔 야간 라운드는 아무 날이나 되나요?", "공식 소개에 조명 시설이 있지만 모든 날짜·시간의 야간 티오프를 보장하지는 않습니다. 희망일의 마지막 출발 시간, A·B·C 코스 배정과 귀가 차량을 같은 확정서에서 확인하세요."]
     ],
-    related: ["guide/long-bien-golf-course-night-round-booking.html", "guide/long-bien-golf-course-price-included-check.html"]
+    related: ["guide/long-bien-golf-course-night-round-booking.html", "guide/hanoi-business-trip-golf-course.html"]
   },
   "sky-lake-golf": {
     checkedAt: "2026-11-14",
@@ -148,7 +148,7 @@ export const courseGuides = {
       ["스카이레이크 Sky 코스와 Lake 코스는 어떻게 다른가요?", "스카이레이크는 Sky 18홀과 Lake 18홀, 두 코스로 운영됩니다. 같은 골프장이라도 배정 코스에 따라 라운드 느낌이 달라지므로 희망 코스를 적고 실제 배정 코스를 확정서에서 확인하세요."],
       ["스카이레이크 예약은 언제까지 해야 하나요?", "공식 한국어 예약 안내는 마감 시한과 확인 전화 절차를 따로 안내합니다. 출발이 가까울수록 원하는 시간이 없을 수 있으니 날짜·인원·희망 티오프를 미리 정해 문의하세요."]
     ],
-    related: ["guide/sky-lake-online-booking-48-hour-confirmation-call.html", "guide/hanoi-golf-group-course-transport-plan.html"]
+    related: ["guide/sky-lake-online-booking-48-hour-confirmation-call.html", "guide/multi-course-consecutive-round-transfer-plan.html"]
   },
   "brg-kings-island": {
     checkedAt: "2026-11-14",
@@ -157,7 +157,7 @@ export const courseGuides = {
       ["킹스아일랜드의 세 코스는 어떻게 고르나요?", "킹스아일랜드는 레이크사이드·마운틴뷰·킹스 세 코스, 총 54홀입니다. 호수 건너 코스는 보트로 이동하므로 배정 코스에 따라 체크인 후 출발까지 걸리는 시간이 달라집니다. 희망 코스와 실제 배정을 함께 확인하세요."],
       ["킹스아일랜드 예약은 며칠 전까지 해야 하나요?", "공식 규정에 예약 가능 기간과 한 조 인원 기준이 있습니다. 단체는 조 수가 늘수록 같은 시간대 확보가 어려우니 날짜·인원·대체 시간을 먼저 정해 문의하세요."]
     ],
-    related: ["guide/kings-island-booking-window-player-limit-check.html", "guide/hanoi-golf-group-course-transport-plan.html"]
+    related: ["guide/kings-island-booking-window-player-limit-check.html", "guide/multi-course-consecutive-round-transfer-plan.html"]
   },
   "tam-dao-golf": {
     checkedAt: "2026-11-14",
@@ -175,7 +175,7 @@ export const courseGuides = {
       ["탄라잉 골프장은 어떤 곳인가요?", "탄라잉 밸리는 하노이 북서쪽 탄라잉 호수 계곡에 있는 18홀 골프장으로, 닉 팔도 설계로 소개됩니다. 산과 호수가 둘러싼 지형이라 하노이 시내 코스와 다른 풍경을 원하는 분들이 많이 찾습니다."],
       ["탄라잉 차량은 무엇을 기사에게 보내야 하나요?", "비슷한 이름의 장소가 있어 골프장 공식 주소와 지도 핀을 함께 보내야 합니다. 숙소 주소, 인원·골프백 수, 확정 티오프와 라운드 뒤 목적지까지 한 번에 전달하세요."]
     ],
-    related: ["guide/thanh-lanh-hanoi-day-trip-address-route-check.html", "guide/hanoi-golf-group-course-transport-plan.html"]
+    related: ["guide/thanh-lanh-hanoi-day-trip-address-route-check.html", "guide/multi-course-consecutive-round-transfer-plan.html"]
   },
   "dai-lai-golf": {
     checkedAt: "2026-11-14",
@@ -184,7 +184,7 @@ export const courseGuides = {
       ["다이라이 골프장은 몇 홀인가요?", "다이라이 골프클럽 공식 코스 설명은 A·B·C 세 구간, 27홀을 안내합니다. 18홀을 칠 때 어느 두 구간이 배정되는지는 예약일에 따라 다르니 확정서에서 확인하세요."],
       ["다이라이 호수에 골프장이 여러 곳인가요?", "다이라이 호수 주변에는 이름이 비슷한 다른 골프장도 있습니다. 예약서와 차량 목적지에 Dai Lai Golf Club이라는 정확한 이름과 공식 주소를 함께 적어야 엉뚱한 곳으로 가는 일을 막을 수 있습니다."]
     ],
-    related: ["dai-lai-golf-booking-27-holes.html", "guide/hanoi-golf-group-course-transport-plan.html"]
+    related: ["dai-lai-golf-booking-27-holes.html", "guide/multi-course-consecutive-round-transfer-plan.html"]
   },
   "montana-golf-course": {
     checkedAt: "2026-11-14",
@@ -193,7 +193,7 @@ export const courseGuides = {
       ["몬타냐 골프장은 지금 몇 홀을 칠 수 있나요?", "몬타냐는 전체 36홀로 계획된 새 골프장이고, 2026년 East 코스 18홀부터 운영을 시작했습니다. 전체 개발 규모와 예약일에 실제로 열리는 코스를 구분해 확인하세요."],
       ["몬타냐 골프장 위치는 어디인가요?", "공식 예약 안내는 푸토성 틴민을 위치로 표시합니다. 행정구역 통합 전 지명과 섞여 혼동이 생길 수 있으니 차량에는 공식 지도 위치를 보내고, 산길 이동 시간을 넉넉하게 잡으세요."]
     ],
-    related: ["montana-golf-course-october-booking-check.html", "guide/hanoi-golf-group-course-transport-plan.html"]
+    related: ["montana-golf-course-october-booking-check.html", "guide/multi-course-consecutive-round-transfer-plan.html"]
   },
   "vinpearl-golf-hai-phong": {
     checkedAt: "2026-11-14",
@@ -220,7 +220,7 @@ export const courseGuides = {
       ["레전드 다낭과 BRG 다낭은 같은 골프장인가요?", "네. 예전 BRG 다낭 골프 리조트가 지금 Legend Danang Golf Resort라는 이름을 쓰고 있습니다. 예전 일정표나 기사 안내에 BRG라는 이름이 남아 있다면 현재 이름과 같은 곳인지 함께 확인하세요."],
       ["레전드 다낭 노먼 코스와 니클라우스 코스 중 어디를 고르나요?", "그렉 노먼 코스와 잭 니클라우스 코스, 두 개의 18홀이 있습니다. 풍경과 경기 부담을 같은 질문으로 비교해 고르고, 희망 시간에 자리가 없을 때 다른 코스도 괜찮은지 미리 정해 두세요."]
     ],
-    related: ["guide/danang-legend-norman-nicklaus-course-differences.html", "guide/brg-da-nang-golf-booking-tee-time-check.html"]
+    related: ["guide/danang-legend-norman-nicklaus-course-differences.html", "guide/danang-airport-montgomerie-links-arrival-day-plan.html"]
   },
   "ba-na-hills-golf-club": {
     checkedAt: "2026-11-14",
@@ -247,7 +247,7 @@ export const courseGuides = {
       ["빈펄 남호이안은 다낭 공항에서 얼마나 먼가요?", "빈펄 공식 안내는 약 30km로 적지만, 다낭 공항에서 도로로는 약 50km·차량 1시간 안팎입니다. 숙소 위치에 따라 차량 시간이 달라집니다. 다낭 시내보다 호이안 남쪽에 가까워 리조트 숙박과 묶는 일정이 편합니다."],
       ["빈펄 남호이안 티오프는 어떻게 확정하나요?", "온라인 요청을 보낸 것과 확정은 다릅니다. 날짜·인원·홀 수·희망 시간을 보낸 뒤 예약번호와 확정 티오프가 적힌 회신을 받아야 일정표에 넣을 수 있습니다."]
     ],
-    related: ["guide/vinpearl-nam-hoi-an-tee-time-arrival-check.html", "guide/vinpearl-golf-nam-hoi-an-price-included-check.html"]
+    related: ["guide/vinpearl-nam-hoi-an-tee-time-arrival-check.html", "guide/hoi-an-golf-old-town-itinerary.html"]
   },
   "laguna-golf-lang-co": {
     checkedAt: "2026-11-14",
@@ -256,7 +256,7 @@ export const courseGuides = {
       ["라구나 랑꼬는 다낭에서 어떻게 가나요?", "다낭에서 하이반 터널을 지나 북쪽으로 약 1시간 거리입니다. 후에 푸바이 공항에서도 비슷한 거리라 다낭과 후에 일정을 잇는 중간 지점으로 많이 씁니다."],
       ["라구나 랑꼬 예약을 취소하면 언제부터 비용이 생기나요?", "공식 예약 안내는 인원과 취소 시점에 따라 취소 기준을 나눠 둡니다. 결제 전에 취소 기한과 비용이 생기는 시점을 확정서에서 확인하세요."]
     ],
-    related: ["guide/laguna-lang-co-golf-booking-caddie-cart-check.html", "guide/laguna-lang-co-golf-airport-hue-route-plan.html"]
+    related: ["guide/laguna-lang-co-1-to-8-player-cancellation-deadline.html", "guide/laguna-lang-co-golf-airport-hue-route-plan.html"]
   },
   "kn-golf-links-cam-ranh": {
     checkedAt: "2026-11-14",
@@ -283,7 +283,7 @@ export const courseGuides = {
       ["달랏 팰리스 골프장은 시내에서 가깝나요?", "달랏 팰리스는 달랏 시내 쑤언흐엉 호수 북쪽 언덕에 있어 시내 숙소에서 차로 5분 안팎입니다. 공항에서는 약 30km 떨어져 있으니 도착일보다 둘째 날 라운드가 여유롭습니다."],
       ["달랏 팰리스 단체는 조 편성을 어떻게 하나요?", "8명이 넘으면 조가 나뉘어 출발 시간이 달라집니다. 조별 명단과 티오프 간격을 먼저 확정하고, 차량은 첫 조 출발 시간에 맞춰 배차하세요."]
     ],
-    related: ["guide/dalat-palace-golf-group-flight-transport-plan.html", "guide/dalat-golf-2-night-3-day-two-course-schedule.html"]
+    related: ["guide/dalat-golf-palace-tuyen-lam-sightseeing.html", "guide/dalat-golf-2-night-3-day-two-course-schedule.html"]
   },
   "sam-tuyen-lam-golf": {
     checkedAt: "2026-11-14",
@@ -446,7 +446,7 @@ export const courseGuides = {
       ]
     ],
     "related": [
-      "guide/phu-quoc-golf-group-flight-stay-plan.html",
+      "guide/phu-quoc-parents-golf-stay.html",
       "guide/vinpearl-phu-quoc-arrival-day-3pm-tee-window.html"
     ]
   },
@@ -586,7 +586,7 @@ export const courseGuides = {
       ]
     ],
     "related": [
-      "guide/hanoi-golf-group-course-transport-plan.html",
+      "guide/multi-course-consecutive-round-transfer-plan.html",
       "guide/multi-city-transfer-day-plan.html"
     ]
   },
@@ -609,8 +609,8 @@ export const courseGuides = {
       ]
     ],
     "related": [
-      "guide/hanoi-golf-group-course-transport-plan.html",
-      "guide/arrival-day-airport-hotel-golfbag-plan.html"
+      "guide/multi-course-consecutive-round-transfer-plan.html",
+      "guide/first-day-flight-tee-time-buffer.html"
     ]
   },
   "legend-hill-country-club": {
@@ -633,8 +633,8 @@ export const courseGuides = {
       ]
     ],
     "related": [
-      "guide/hanoi-golf-group-course-transport-plan.html",
-      "guide/arrival-day-airport-hotel-golfbag-plan.html"
+      "guide/multi-course-consecutive-round-transfer-plan.html",
+      "guide/first-day-flight-tee-time-buffer.html"
     ]
   },
   "heron-lake-golf": {
@@ -657,8 +657,8 @@ export const courseGuides = {
       ]
     ],
     "related": [
-      "guide/hanoi-golf-group-course-transport-plan.html",
-      "guide/arrival-day-airport-hotel-golfbag-plan.html"
+      "guide/multi-course-consecutive-round-transfer-plan.html",
+      "guide/first-day-flight-tee-time-buffer.html"
     ]
   },
   "hilltop-valley-golf": {
@@ -680,7 +680,7 @@ export const courseGuides = {
       ]
     ],
     "related": [
-      "guide/hanoi-golf-group-course-transport-plan.html",
+      "guide/multi-course-consecutive-round-transfer-plan.html",
       "guide/multi-city-transfer-day-plan.html"
     ]
   },
@@ -708,7 +708,7 @@ export const courseGuides = {
       ]
     ],
     "related": [
-      "guide/hanoi-golf-group-course-transport-plan.html",
+      "guide/multi-course-consecutive-round-transfer-plan.html",
       "guide/multi-city-transfer-day-plan.html"
     ]
   },
@@ -725,7 +725,7 @@ export const courseGuides = {
       ["레전드 밸리와 레전드힐은 같은 골프장인가요?", "아닙니다. 둘 다 BRG 계열이지만 레전드힐은 하노이 북쪽 속선, 레전드 밸리는 하노이 남쪽 닌빈성(구 하남성) 낌방 지역에 있습니다. 이동 방향이 반대라 예약서와 차량 요청에 Legend Valley Country Club이라는 영문 이름을 꼭 적으세요."],
       ["레전드 밸리는 몇 홀인가요?", "BRG 그룹 발표에 따르면 2026년 5월 16일 캐니언 코스를 처음 열었고, 닌빈성 신문 기사대로 10월 10일 캐니언 코스 18홀을 모두 열어 먼저 운영하던 로즈 코스와 합쳐 36홀이 됐습니다. 두 코스 모두 니클라우스 디자인 설계입니다. 어느 코스로 배정되는지는 날짜마다 달라 예약 때 함께 확인합니다."],
     ],
-    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
+    related: ["guide/multi-course-consecutive-round-transfer-plan.html", "guide/multi-city-transfer-day-plan.html"]
   },
   "stone-valley-golf-resort": {
     checkedAt: "2026-11-20",
@@ -738,7 +738,7 @@ export const courseGuides = {
       ["스톤 밸리는 몇 홀인가요?", "2018년 브라이언 컬리 설계 18홀로 문을 열었고, 2022년 8월 같은 설계가의 9홀을 더해 27홀이 됐습니다. 36홀로 소개하는 자료도 있지만 개장이 확인된 것은 27홀이라, 예약 때 어느 두 코스를 도는지 함께 확인합니다."],
       ["스톤 밸리와 레전드 밸리를 한 번에 묶을 수 있나요?", "두 골프장 모두 닌빈성(구 하남성) 낌방 지역에 있어 차로 약 15~20분 거리입니다(지도 경로 추정). 하노이에서 하루씩 따로 다녀오거나, 근처에 묵으며 이틀 연속 라운드로 묶는 일정을 숙소·차량과 함께 상담합니다."],
     ],
-    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
+    related: ["guide/multi-course-consecutive-round-transfer-plan.html", "guide/multi-city-transfer-day-plan.html"]
   },
   "trang-an-golf-resort": {
     checkedAt: "2026-11-20",
@@ -751,7 +751,7 @@ export const courseGuides = {
       ["짱안 골프장은 몇 홀인가요?", "18홀 코스가 두 개입니다. 챔피언 코스는 파72 정규 코스이고, 파인 코스는 18홀이 모두 파3인 파54 코스입니다. 일반 라운드는 챔피언 코스를 기준으로 견적을 받고, 파인 코스는 따로 요청하세요."],
       ["짱안 골프장은 짱안 보트 투어 하는 곳과 같은 곳인가요?", "이름은 같지만 골프장은 닌빈성 뇨꽌 지역 끼푸에 있고, 보트 투어로 알려진 짱안 경관지구와는 차로 약 30분 떨어져 있습니다(지도 경로 추정). 라운드와 짱안·땀꼭 관광을 묶으려면 차량 동선을 함께 상담하세요."],
     ],
-    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
+    related: ["guide/multi-course-consecutive-round-transfer-plan.html", "guide/multi-city-transfer-day-plan.html"]
   },
   "amber-hills-golf-resort": {
     checkedAt: "2026-11-20",
@@ -765,7 +765,7 @@ export const courseGuides = {
       ["앰버 힐스와 옌중 골프장은 같은 곳인가요?", "같은 곳입니다. 예전 이름은 옌중(Yen Dung) 골프장이고, 2022년 4월 앰버 힐스 골프 앤 리조트로 이름을 바꿨습니다. 예전 이름으로 안내를 받았다면 같은 골프장이니, 예약서에는 지금 이름인 Amber Hills를 적으세요."],
       ["앰버 힐스에 최경주 프로가 설계한 코스가 있나요?", "골프 설계 매체에 설계가 폴 알바네즈와 최경주 프로가 함께 2단계 새 코스를 설계한다는 기사가 있지만, 그 코스의 개장 소식은 아직 확인되지 않았습니다. 지금 예약은 운영 중인 18홀 기준으로 상담합니다."],
     ],
-    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+    related: ["guide/multi-course-consecutive-round-transfer-plan.html", "guide/first-day-flight-tee-time-buffer.html"]
   },
   "golden-sands-golf-resort": {
     checkedAt: "2026-11-20",
@@ -779,7 +779,7 @@ export const courseGuides = {
       ["골든 샌즈는 몇 홀인가요?", "BRG 그룹은 전체 36홀 골프장으로 소개하지만, 2024년 9월 28일 먼저 연 것은 니클라우스 디자인의 노스 코스 18홀입니다. 두 번째 코스의 개장 소식은 아직 확인되지 않아 18홀 기준으로 상담합니다."],
       ["골든 샌즈는 호이안의 골든 샌즈 리조트와 같은 곳인가요?", "아닙니다. 골든 샌즈 골프 리조트는 후에 시내에서 동쪽으로 약 20km 떨어진 바닷가 골프장이고, 이름이 비슷한 호이안의 호텔과는 다른 곳입니다. 숙소와 골프장 주소를 따로 적어 주시면 차량 동선을 맞춰 드립니다."],
     ],
-    related: ["guide/laguna-lang-co-golf-airport-hue-route-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+    related: ["guide/laguna-lang-co-golf-airport-hue-route-plan.html", "guide/first-day-flight-tee-time-buffer.html"]
   },
   // 2026-11-21 새 상세 3곳. 홀 수·개장 시기는 아래 출처에 있는 것만, 공항 시간은 site-data.mjs driveNote(도로 경로 추정)를 따른다.
   "silk-path-dong-trieu-golf": {
@@ -793,7 +793,7 @@ export const courseGuides = {
       ["실크패스 동찌에우는 몇 홀인가요?", "2025년 1월 11일 문을 열 때 대회 기준의 챔피언십 18홀과, 처음 치는 분도 돌기 쉬운 9홀 코스를 함께 열어 모두 27홀입니다. 일반 라운드는 18홀 코스를 기준으로 견적을 받고, 9홀 코스는 따로 요청하세요."],
       ["하노이와 하롱 중 어디서 가는 게 편한가요?", "골프장은 하노이와 하롱 사이 꽝닌성 동찌에우에 있어, 하노이 시내에서 약 95km, 하이퐁 깟비 공항에서 약 65km입니다(지도 경로 추정). 하노이에서 하롱으로 넘어가는 날 중간에 라운드를 넣는 동선도 숙소·차량과 함께 상담합니다."],
     ],
-    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
+    related: ["guide/multi-course-consecutive-round-transfer-plan.html", "guide/multi-city-transfer-day-plan.html"]
   },
   "stone-highland-golf-resort": {
     checkedAt: "2026-11-22",
@@ -807,7 +807,7 @@ export const courseGuides = {
       ["스톤 하이랜드와 스톤 밸리는 같은 골프장인가요?", "아닙니다. 같은 회사(쯔엉안 골프)가 만들고 둘 다 브라이언 컬리가 설계했지만, 스톤 하이랜드는 하노이 북동쪽 박닌성(구 박장성) 비엣옌, 스톤 밸리는 하노이 남쪽 닌빈성(구 하남성)에 있어 방향이 반대입니다. 예약서와 차량 요청에 Stone Highland라는 영문 이름을 꼭 적으세요."],
       ["스톤 하이랜드는 몇 홀인가요?", "2023년 10월 1단계 18홀을 열었고, 전체는 36홀 계획입니다. 예약 대행사 소식에는 2026년 8월 두 번째 18홀(C·D 코스)이 운영을 시작했다고 나오지만 신문·공식 발표로는 아직 확인하지 못해, 예약 때 그날 운영 코스를 함께 확인합니다."],
     ],
-    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+    related: ["guide/multi-course-consecutive-round-transfer-plan.html", "guide/first-day-flight-tee-time-buffer.html"]
   },
   "van-lang-empire-golf-club": {
     checkedAt: "2026-11-21",
@@ -822,7 +822,7 @@ export const courseGuides = {
       ["반랑 엠파이어는 몇 홀인가요?", "2024년 10월 첫 9홀을 열었고, 2026년 6월 난단 기사 기준으로 18홀을 운영하고 있습니다. 전체는 36홀 계획이라 나머지 코스가 열렸는지는 예약 때 함께 확인합니다."],
       ["하노이에서 하루에 다녀올 수 있나요?", "하노이 시내에서 약 80km, 노이바이 공항에서 약 75km라 차로 1시간 반 안팎입니다(지도 경로 추정). 이른 티오프면 하노이에서 당일 왕복도 가능하고, 숙소·차량 동선은 날짜에 맞춰 함께 상담합니다."],
     ],
-    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
+    related: ["guide/multi-course-consecutive-round-transfer-plan.html", "guide/multi-city-transfer-day-plan.html"]
   },
   // 2026-11-21 새 상세 4곳(2차). 홀 수·개장 시기는 아래 출처에 있는 것만, 공항 시간은 site-data.mjs driveNote를 따른다.
   "corn-hill-golf-resort": {
@@ -837,7 +837,7 @@ export const courseGuides = {
       ["콘힐은 몇 홀인가요?", "전체 36홀(동쪽 18홀·서쪽 18홀)로 계획된 골프장이고, 지금은 2024년에 먼저 연 동쪽 18홀을 운영합니다. 서쪽 코스가 열렸는지는 예약 때 함께 확인합니다."],
       ["앰버 힐스(옌중)와 가까운가요?", "둘 다 하노이 북동쪽 옛 박장성 지역이라 방향이 같습니다. 콘힐은 루크남 쪽으로 조금 더 동쪽에 있어, 두 곳을 이틀에 나눠 치는 일정도 숙소·차량과 함께 상담합니다."],
     ],
-    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+    related: ["guide/multi-course-consecutive-round-transfer-plan.html", "guide/first-day-flight-tee-time-buffer.html"]
   },
   "royal-golf-club-ninh-binh": {
     checkedAt: "2026-11-21",
@@ -851,7 +851,7 @@ export const courseGuides = {
       ["로얄 닌빈은 몇 홀인가요?", "공식 요금표 기준으로 킹 코스 18홀과 퀸 코스 9홀, 모두 27홀을 운영합니다. 일반 라운드는 킹 18홀 기준으로 견적을 받고, 27홀은 따로 요청하세요. 자료마다 36홀·54홀(계획)로 적힌 곳도 있어 예약 때 그날 운영 코스를 확인합니다."],
       ["짱안·스톤 밸리와 같은 날 묶을 수 있나요?", "세 곳 모두 하노이 남쪽 방향이라, 닌빈에서 하루 묵으면서 이틀에 나눠 치는 일정이 편합니다. 하루 두 곳은 이동 시간이 길어 권하지 않습니다."],
     ],
-    related: ["guide/hanoi-golf-group-course-transport-plan.html", "guide/multi-city-transfer-day-plan.html"]
+    related: ["guide/multi-course-consecutive-round-transfer-plan.html", "guide/multi-city-transfer-day-plan.html"]
   },
   "flc-samson-golf-links": {
     checkedAt: "2026-11-21",
@@ -864,7 +864,7 @@ export const courseGuides = {
       ["하노이에서 당일로 다녀올 수 있나요?", "하노이 시내에서 약 175km, 차로 2시간 40분~3시간 20분이라 당일 왕복은 힘듭니다. 삼선 해변 리조트에서 하루 이상 묵는 일정을 권하고, 숙소·차량을 함께 상담합니다."],
       ["가까운 공항은 어디인가요?", "탄호아 토쑤언 공항(국내선)이 약 60km로 가장 가깝습니다. 호치민·다낭에서 국내선으로 오시면 하노이를 거치지 않아도 되고, 하노이 노이바이 공항에서는 약 200km입니다."],
     ],
-    related: ["guide/multi-city-transfer-day-plan.html", "guide/hanoi-golf-group-course-transport-plan.html"]
+    related: ["guide/multi-city-transfer-day-plan.html", "guide/multi-course-consecutive-round-transfer-plan.html"]
   },
   "royal-island-golf-villas": {
     checkedAt: "2026-11-21",
@@ -894,7 +894,7 @@ export const courseGuides = {
       ["바다 코스와 산 코스는 어떻게 다른가요?", "바다 코스는 2016년 니클라우스 디자인이 해변을 따라 설계한 18홀이고, 산 코스는 2017년 슈미트-컬리가 뒤쪽 언덕에 설계한 18홀입니다. 하루 18홀이면 원하시는 코스를 먼저 말씀해 주시고, 이틀이면 두 코스를 나눠 치는 일정을 권합니다."],
       ["한국에서 어떻게 가나요?", "꾸이년 푸깟 공항이 가장 가깝고, 호치민·하노이에서 국내선으로 갈아타는 일정이 일반적입니다. 직항·전세기는 시기마다 달라 상담 때 날짜에 맞는 항공편과 공항 차량을 함께 확인해 드립니다."],
     ],
-    related: ["guide/multi-city-transfer-day-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+    related: ["guide/multi-city-transfer-day-plan.html", "guide/first-day-flight-tee-time-buffer.html"]
   },
   "flc-quang-tri-golf-links": {
     checkedAt: "2026-11-21",
@@ -907,7 +907,7 @@ export const courseGuides = {
       ["FLC 꽝빈 골프장과 같은 곳인가요?", "네. 예전 꽝빈성의 FLC 꽝빈 골프 링크스가 2025년 성 통합 뒤 꽝찌성에 속하게 되어 FLC 꽝찌로도 부릅니다. 예약서와 차량 요청에는 두 이름을 함께 적어 드립니다."],
       ["36홀이 모두 열려 있나요?", "포레스트 듄스와 오션 듄스 두 코스로 36홀 단지라고 소개돼 있습니다. 날짜에 따라 운영 코스가 달라질 수 있어, 예약 전에 그날 열리는 코스를 확인해 드립니다."],
     ],
-    related: ["guide/multi-city-transfer-day-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+    related: ["guide/multi-city-transfer-day-plan.html", "guide/first-day-flight-tee-time-buffer.html"]
   },
   "muong-thanh-dien-lam-golf": {
     checkedAt: "2026-11-21",
@@ -920,7 +920,7 @@ export const courseGuides = {
       ["빈 공항에서 디엔럼까지 얼마나 걸리나요?", "빈 국제공항에서 약 60km, 차로 1시간~1시간 20분입니다(지도 경로 추정). 빈 시내 숙박이면 아침 일찍 출발하는 일정을 권합니다."],
       ["쑤언탄 골프장과 함께 칠 수 있나요?", "네. 두 곳 모두 므엉탄 그룹 골프장이고 빈 공항을 사이에 두고 북쪽(디엔럼)과 남쪽(쑤언탄)에 있어, 이틀에 나눠 치는 일정을 숙소·차량과 함께 상담합니다."],
     ],
-    related: ["guide/multi-city-transfer-day-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+    related: ["guide/multi-city-transfer-day-plan.html", "guide/first-day-flight-tee-time-buffer.html"]
   },
   "muong-thanh-xuan-thanh-golf": {
     checkedAt: "2026-11-21",
@@ -933,6 +933,6 @@ export const courseGuides = {
       ["빈 공항에서 쑤언탄까지 얼마나 걸리나요?", "빈 국제공항에서 약 28km, 차로 35~50분입니다(지도 경로 추정). 람강 다리를 건너 하띤성 쪽 쑤언탄 해변 관광지 안에 있습니다."],
       ["골프장 근처에 묵을 곳이 있나요?", "쑤언탄 해변 관광지 안과 빈 시내에 숙소가 있습니다. 라운드 일정과 인원을 알려 주시면 숙소·차량을 함께 상담해 드립니다."],
     ],
-    related: ["guide/multi-city-transfer-day-plan.html", "guide/arrival-day-airport-hotel-golfbag-plan.html"]
+    related: ["guide/multi-city-transfer-day-plan.html", "guide/first-day-flight-tee-time-buffer.html"]
   }
 };
