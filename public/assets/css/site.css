@@ -1347,3 +1347,34 @@ body .course-hero-copy p.hero-price strong{font-size:20px}
 .golftel-text small { display: block; color: var(--muted); font-size: 15px; line-height: 1.4; margin-top: 2px; }
 @media (max-width: 900px) { .day-check-list { grid-template-columns: repeat(2, 1fr); } .golftel-list { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 560px) { .day-check-list { grid-template-columns: 1fr; } .golftel-list { display: grid; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 72%; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 8px; } .golftel-list li { scroll-snap-align: start; } .golftel-list a { flex-direction: column; align-items: stretch; gap: 8px; } .golftel-thumb { flex: none; width: 100%; height: 132px; } }
+
+/* 저해상도 첫 사진: 넓은 화면에서 원본보다 크게 늘리지 않음(2026-11-27) */
+@media (min-width:761px){
+  .course-hero.is-lowres .course-hero-media{overflow:hidden;background:#0b120e}
+  .course-hero.is-lowres .course-hero-media::before{content:"";position:absolute;inset:-40px;background:var(--hero-img) center/cover no-repeat;filter:blur(26px) brightness(.72)}
+  .course-hero.is-lowres .course-hero-media img{position:relative;width:min(100%,var(--hero-w));height:min(100%,var(--hero-h));object-fit:cover;margin:0 auto;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
+  .course-hero.is-lowres .course-hero-media::after{z-index:1}
+}
+/* 골프 일정 바로 짜기(2026-11-27) */
+.golf-plan .plan-box { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 20px; padding: 20px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--cream); }
+.plan-controls, .plan-result, .plan-row { min-width: 0; }
+.plan-row { margin-bottom: 14px; }
+.plan-label { display: block; margin: 0 0 6px; font-weight: 800; font-size: 15px; }
+.plan-label small { font-weight: 400; color: var(--muted); font-size: 15px; }
+.plan-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.plan-chip { min-height: 44px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink); font: inherit; font-size: 15px; cursor: pointer; }
+.plan-chip[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: #fff; font-weight: 800; }
+.plan-date { min-height: 44px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 12px; font: inherit; font-size: 16px; background: #fff; max-width: 100%; }
+.plan-list { list-style: none; margin: 0 0 10px; padding: 0; display: grid; gap: 10px; }
+.plan-list a { display: flex; gap: 12px; align-items: center; padding: 10px; border-radius: 14px; background: #fff; border: 1px solid var(--line); color: inherit; text-decoration: none; }
+.plan-list a:hover { border-color: var(--green); }
+.plan-list img { flex: 0 0 96px; width: 96px; height: 64px; object-fit: cover; border-radius: 10px; }
+.plan-text { min-width: 0; }
+.plan-when { display: block; font-size: 15px; color: var(--green); font-weight: 800; }
+.plan-weekend { font-style: normal; font-weight: 400; color: #a2461a; }
+.plan-text strong { display: block; font-size: 17px; line-height: 1.35; }
+.plan-text small { display: block; font-size: 15px; color: var(--muted); line-height: 1.4; }
+.plan-note { margin: 0 0 12px; font-size: 15px; color: var(--muted); }
+.plan-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+@media (max-width: 560px) { .plan-chips { flex-wrap: nowrap; overflow-x: auto; margin: 0 -16px; padding: 0 16px 4px; scrollbar-width: none; } .plan-chips::-webkit-scrollbar { display: none; } .plan-chip { flex: 0 0 auto; } .plan-row { margin-bottom: 10px; } }
+@media (max-width: 900px) { .golf-plan .plan-box { grid-template-columns: 1fr; padding: 16px; } .plan-actions .button { flex: 1 1 100%; justify-content: center; } }
