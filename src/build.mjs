@@ -690,7 +690,7 @@ function homePlan() {
       <div class="plan-row"><p class="plan-label">고르는 기준</p><div class="plan-chips">${chips("sort", [["near", "공항 가까운 순"], ["pop", "후기 많은 순"]], "pop")}</div></div>
       <div class="plan-row"><label class="plan-label" for="plan-date">첫 라운드 날짜 <small>(몰라도 됩니다)</small></label><input type="date" id="plan-date" class="plan-date"></div>
     </div>
-    <div class="plan-result" aria-live="polite"><ol class="plan-list" id="plan-list"></ol><p class="plan-note">이동시간은 가장 가까운 공항에서 차로 걸리는 평소 기준입니다. 예약 가능 여부·티타임·요금은 카톡에서 날짜로 확인해 드립니다. 주말 티타임은 일찍 차니 날짜가 정해지면 먼저 보내 주세요.</p>
+    <div class="plan-result" aria-live="polite"><p class="plan-cap" id="plan-cap" hidden></p><ol class="plan-list" id="plan-list"></ol><p class="plan-note">이동시간은 가장 가까운 공항에서 차로 걸리는 평소 기준입니다. 예약 가능 여부·티타임·요금은 카톡에서 날짜로 확인해 드립니다. 주말 티타임은 일찍 차니 날짜가 정해지면 먼저 보내 주세요.</p>
       <div class="plan-actions"><button type="button" class="button button-quiet" id="plan-next">🔁 다른 조합 보기</button><a class="button button-kakao button-lg" id="plan-go" href="/go/quick-golf?from=plan" data-one-tap="">이 일정 그대로 카톡 견적</a></div></div></div>
     <script type="application/json" id="plan-data">${JSON.stringify(data).replace(/</g, "\\u003c")}</script></section>`;
 }

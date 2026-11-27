@@ -154,7 +154,8 @@ if (/consult-dialog|consult-form|js-consult/.test(script)) failures.push("상담
 // + 상세 하단 "이 골프장으로 견적" 한 번 복사(data-one-tap, 2026-11-22)
 // + 골프장 비교 담기 '이 골프장들로 견적' 요약 복사(.cmp-quote, 2026-11-23 총괄 '우리만 있는 기능')
 // + 골프 일정 담기 '한 번에 견적' 요약 복사(window.golfTrip, 2026-11-24 총괄 '1위 장바구니 따라잡기')
-if (count(script, /navigator\.clipboard\.writeText\(/g) !== 5 || !script.includes('querySelectorAll("[data-one-tap]")') || !script.includes("window.golfTrip") || count(script, /document\.execCommand\(/g) !== 2 || count(script, /copyPrepSummary\(/g) !== 1 || !script.includes('document.querySelector(".quick-quote")')) failures.push("클립보드 복사는 상담 준비표 요약과 빠른 견적 카드 두 곳에서만 써야 함");
+// + data-one-tap 클립보드가 막힌 브라우저용 대체 복사(execCommand, 2026-11-27 골프 일정 바로 짜기 독립 확인)
+if (count(script, /navigator\.clipboard\.writeText\(/g) !== 5 || !script.includes('querySelectorAll("[data-one-tap]")') || !script.includes("window.golfTrip") || count(script, /document\.execCommand\(/g) !== 3 || count(script, /copyPrepSummary\(/g) !== 1 || !script.includes('document.querySelector(".quick-quote")')) failures.push("클립보드 복사는 상담 준비표 요약과 빠른 견적 카드 두 곳에서만 써야 함");
 const home = await readFile(path.join(dist, "index.html"), "utf8");
 for (const required of ["id=\"home-prep-form\"", "name=\"region\"", "name=\"date\"", "name=\"people\"", "name=\"purpose\"", "id=\"home-prep-result\"", "id=\"home-prep-candidates\"", "id=\"home-prep-copy-status\""]) {
   if (!home.includes(required)) failures.push(`홈 상담 준비표 누락: ${required}`);
