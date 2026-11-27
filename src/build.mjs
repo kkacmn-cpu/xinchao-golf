@@ -1027,7 +1027,7 @@ function clubRentalPage() {
     ["치기 쉬움", "한국 골퍼가 많이 쓰는 브랜드", "테일러메이드·캘러웨이·핑·스릭슨·브리지스톤·오디세이로 치기 쉽게 맞췄습니다."],
   ];
   const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><span aria-current="page">골프채 대여</span></nav>
-    <section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/hero-golf-longthanh.webp')"><div class="shell"><p class="eyebrow">호치민 라운드 전용 · 남성용 4세트</p><h1>호치민 골프채 대여,<br>세트 번호만 고르세요</h1><p>골프백 없이 가볍게 오세요. 브랜드 클럽 4세트 중 번호만 알려 주시면 됩니다. <strong>1세트 × 1라운드 1,100,000동(약 59,000원)</strong>, 볼 5개·티는 무료로 챙겨 드립니다. 새 장갑은 별도 판매이며, 원하시면 사이즈를 맞춰 준비해 드립니다.</p><div class="hero-x-actions"><a class="button button-kakao" href="#req">1분 요청서 쓰기</a><a class="button button-glass" href="${clubGo}">카톡 바로 문의</a></div></div></section>
+    <section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/hero-golf-longthanh.webp')"><div class="shell"><p class="eyebrow">호치민 라운드 전용 · 남성용 4세트</p><h1>호치민 골프채 대여,<br>세트 번호만 고르세요</h1><p>골프백 없이 가볍게 오세요. 브랜드 클럽 4세트 중 번호만 알려 주시면 됩니다. <strong>1세트 × 1라운드 1,100,000동(약&nbsp;59,000원)</strong>, 볼&nbsp;5개·티는 무료로 챙겨 드립니다. 새 장갑은 별도 판매이며, 원하시면 사이즈를 맞춰 준비해 드립니다.</p><div class="hero-x-actions"><a class="button button-kakao" href="#req">1분 요청서 쓰기</a><a class="button button-glass" href="${clubGo}">카톡 바로 문의</a></div></div></section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">신짜오 골프채 대여</p><h2>골프장에서 빌리는 것보다 나은 세 가지</h2></div></div>
       <div class="option-grid club-perks">${perks.map(([tag, name, text]) => `<article><span>${tag}</span><h3>${name}</h3><p>${text}</p></article>`).join("")}</div>
     </section>
