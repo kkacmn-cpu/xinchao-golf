@@ -411,3 +411,59 @@ document.querySelectorAll("[data-one-tap]").forEach((link) => {
     try { a.setAttribute("data-cta", place(a)); } catch (err) {}
   }, true);
 })();
+
+// 골프 일정 바로 짜기(2026-11-27): 칩을 누를 때마다 바로 조합을 다시 그린다. 가격·예약 가능 여부는 보여 주지 않는다.
+(() => {
+  const box = document.querySelector("#plan");
+  const raw = document.querySelector("#plan-data");
+  if (!box || !raw) return;
+  let all = [];
+  try { all = JSON.parse(raw.textContent); } catch { return; }
+  const state = { area: "hcm", rounds: 2, people: "4", sort: "pop", shift: 0 };
+  const list = box.querySelector("#plan-list");
+  const go = box.querySelector("#plan-go");
+  const dateInput = box.querySelector("#plan-date");
+  const DAYS = ["일", "월", "화", "수", "목", "금", "토"];
+  const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const peopleLabel = (p) => (p === "8" ? "5~8명" : p === "9" ? "9명 이상" : `${p}명`);
+  const dayOf = (i) => {
+    if (!dateInput.value) return null;
+    const d = new Date(`${dateInput.value}T00:00:00`);
+    if (Number.isNaN(d.getTime())) return null;
+    d.setDate(d.getDate() + i);
+    return d;
+  };
+  const draw = () => {
+    const pool = all.filter((c) => c.a === state.area).sort((a, b) => (state.sort === "near" ? a.m - b.m || b.v - a.v : b.v - a.v || a.m - b.m));
+    if (!pool.length) { list.innerHTML = ""; return; }
+    const picks = [];
+    for (let i = 0; i < state.rounds; i += 1) picks.push(pool[(state.shift + i) % pool.length]);
+    const seen = new Set();
+    const lines = [];
+    list.innerHTML = picks.map((c, i) => {
+      const again = seen.has(c.s); seen.add(c.s);
+      const d = dayOf(i);
+      const when = d ? `${d.getMonth() + 1}/${d.getDate()}(${DAYS[d.getDay()]})` : `${i + 1}일째`;
+      const weekend = d && (d.getDay() === 0 || d.getDay() === 6);
+      lines.push(`${i + 1}. ${when} ${c.n}${again ? "(한 번 더)" : ""}`);
+      return `<li><a href="/golf/${c.s}.html"><img src="/assets/images/${esc(c.i)}" width="120" height="80" loading="lazy" decoding="async" alt=""><span class="plan-text"><span class="plan-when">${i + 1}라운드 · ${esc(when)}${weekend ? ' <em class="plan-weekend">주말</em>' : ""}</span><strong>${esc(c.n)}${again ? " <small>(한 번 더)</small>" : ""}</strong><small>${esc(c.h)} · ✈ ${esc(c.ap)} 공항 ${esc(c.d)}${c.r ? ` · ★ ${c.r.toFixed(1)}` : ""}</small></span></a></li>`;
+    }).join("");
+    const areaName = box.querySelector(`[data-plan="area"][data-value="${state.area}"]`)?.textContent || "";
+    go.dataset.oneTap = `[신짜오골프] 골프 일정 견적 문의\n지역: ${areaName} / 인원: ${peopleLabel(state.people)} / 라운드 ${state.rounds}번\n${lines.join("\n")}\n이 일정으로 티타임·견적 부탁드려요.`;
+    box.querySelector("#plan-next").hidden = pool.length <= state.rounds && state.shift === 0 && pool.length <= 1;
+  };
+  box.addEventListener("click", (event) => {
+    const chip = event.target.closest(".plan-chip");
+    if (chip) {
+      const key = chip.dataset.plan;
+      box.querySelectorAll(`[data-plan="${key}"]`).forEach((b) => b.setAttribute("aria-pressed", String(b === chip)));
+      state[key] = key === "rounds" ? Number(chip.dataset.value) : chip.dataset.value;
+      if (key === "area" || key === "sort") state.shift = 0;
+      draw();
+      return;
+    }
+    if (event.target.closest("#plan-next")) { state.shift += 1; draw(); }
+  });
+  dateInput.addEventListener("change", draw);
+  draw();
+})();

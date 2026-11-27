@@ -44,6 +44,10 @@ const photoAlt = (course) => course.aiStaged ? "골프 연출 이미지" : `${es
 const aiBadge = (course) => course.aiStaged ? `<span class="ai-badge">AI 연출 이미지</span>` : "";
 const focusStyle = (file) => photoFocus[file] ? ` style="object-position:${photoFocus[file]}"` : "";
 const courseHeroImage = (course) => heroImageOverride[course.slug] || course.image;
+// 첫 사진이 1200px보다 작으면(11-27 총괄: 흐린 첫 사진은 두지 않는다) 넓은 화면에서 원본보다 크게 늘리지 않고 가운데 두고, 양옆은 같은 사진을 흐리게 깐다.
+const imageWidth = (file) => { try { const b = readFileSync(new URL(`../public/assets/images/${file}`, import.meta.url)); const t = b.toString("ascii", 12, 16); if (t === "VP8X") return 1 + b.readUIntLE(24, 3); if (t === "VP8 ") return b.readUInt16LE(26) & 0x3fff; if (t === "VP8L") return 1 + (b.readUInt32LE(21) & 0x3fff); } catch {} return 0; };
+const imageHeight = (file) => { try { const b = readFileSync(new URL(`../public/assets/images/${file}`, import.meta.url)); const t = b.toString("ascii", 12, 16); if (t === "VP8X") return 1 + b.readUIntLE(27, 3); if (t === "VP8 ") return b.readUInt16LE(28) & 0x3fff; if (t === "VP8L") return 1 + ((b.readUInt32LE(21) >>> 14) & 0x3fff); } catch {} return 0; };
+const heroLowWidth = (course) => { if (!course.image) return 0; const w = imageWidth(courseHeroImage(course)); return w && w < 1200 ? w : 0; };
 const courseGalleryImages = (course) => course.image ? [course.image, ...(course.gallery || [])].filter((file) => file !== courseHeroImage(course)) : [];
 // "1시간 20분~1시간 50분", "40~60분" → 가장 짧은 분(정렬용)
 const driveMinMinutes = (drive = "") => { const first = drive.split("~")[0]; const h = first.match(/(\d+)\s*시간/); const m = first.match(/(\d+)\s*분?$/) || first.match(/(\d+)\s*분/); return (h ? +h[1] * 60 : 0) + (m && !/시간$/.test(first.trim()) ? +m[1] : 0); };
@@ -394,6 +398,7 @@ function homePage() {
       <ul class="near-row">${courses.filter((course) => course.image).sort((a, b) => driveMinMinutes(a.drive) - driveMinMinutes(b.drive)).slice(0, 10).map((course) => `<li><a href="/golf/${course.slug}.html"><img src="/assets/images/${course.image}" width="1200" height="800"${focusStyle(course.image)} loading="lazy" decoding="async" alt="${photoAlt(course)}">${aiBadge(course)}<span class="near-area">${escapeHtml(areaOf(course).name)}</span><strong>${escapeHtml(course.name)}</strong><em>✈ ${escapeHtml(airportShort(course))}에서 <b>${escapeHtml(course.drive)}</b></em></a></li>`).join("")}</ul>
       <p class="near-note">골프장마다 가장 가까운 공항에서 차로 걸리는 평소 교통 기준 시간입니다.</p>
     </div></section>
+    ${homePlan()}
     <section class="hero-facts" aria-label="신짜오골프 안내 범위"><div class="shell">
         <ul class="fact-strip">
           <li><strong>${courses.length}곳</strong><span>베트남 골프장</span></li>
@@ -670,6 +675,26 @@ function homeGolftel() {
   return `<section class="section shell home-golftel" id="golftel" aria-labelledby="home-golftel-title"><div class="section-heading"><div><p class="eyebrow">골프텔·리조트</p><h2 id="home-golftel-title">골프장 안에서 자고 바로 치는 코스 ${list.length}곳</h2></div><a class="text-link" href="/go/golf-combo">숙박+라운드 카톡 견적 →</a></div><p class="home-golftel-lead">코스 안이나 바로 옆에 골프텔·리조트가 있는 골프장입니다. 이동 없이 이틀 연속 라운드하거나 아침 첫 티타임을 잡기 좋습니다. 객실 종류와 가능한 날짜는 날짜·인원으로 확인해 드립니다.</p><ul class="golftel-list">${list.map((course) => `<li><a href="/golf/${course.slug}.html"><span class="golftel-thumb">${courseVisual(course, "course-plate-card")}</span><span class="golftel-text"><strong>${escapeHtml(course.shortName)}</strong><small>${escapeHtml(areaOf(course).name)} · ✈ 공항 ${escapeHtml(course.drive)}</small></span></a></li>`).join("")}</ul></section>`;
 }
 
+// 골프 일정 바로 짜기(2026-11-27 총괄 42차: 1위와 동점에서 이기는 '우리만 있는 기능'). 지역·라운드 수·인원·첫 날짜를 누르면
+// 그 지역 골프장으로 날짜별 조합을 바로 보여 주고, 한 번 누르면 그 일정이 든 글을 복사해 카톡(/go/quick-golf?from=plan)으로 간다.
+// 가격은 넣지 않는다(가격 값 그대로). 예약 가능 여부·티타임은 상담에서 확인한다고 적는다.
+function homePlan() {
+  const data = courses.filter((course) => course.image).map((course) => { const r = googleRatings.items.find((x) => x.slug === course.slug); return { s: course.slug, n: course.shortName, a: course.area, d: course.drive, m: driveMinMinutes(course.drive), ap: airportShort(course).replace(" 국제공항", "").replace(" 공항", ""), r: r ? r.rating : 0, v: r ? r.reviews : 0, h: course.holes.split(" ")[0], i: course.image }; });
+  const areas = golfAreas.filter((area) => data.some((x) => x.a === area.key));
+  const chips = (name, list, on) => list.map(([value, label]) => `<button type="button" class="plan-chip" data-plan="${name}" data-value="${value}" aria-pressed="${value === on}">${label}</button>`).join("");
+  return `<section class="section shell golf-plan" id="plan" aria-labelledby="plan-title"><div class="section-heading"><div><p class="eyebrow">골프 일정 바로 짜기</p><h2 id="plan-title">누르기만 하면 날짜별 골프장 조합이 나옵니다</h2></div></div>
+    <div class="plan-box"><div class="plan-controls">
+      <div class="plan-row"><p class="plan-label">지역</p><div class="plan-chips">${chips("area", areas.map((area) => [area.key, area.name]), "hcm")}</div></div>
+      <div class="plan-row"><p class="plan-label">라운드</p><div class="plan-chips">${chips("rounds", [["1", "1번"], ["2", "2번"], ["3", "3번"], ["4", "4번"]], "2")}</div></div>
+      <div class="plan-row"><p class="plan-label">인원</p><div class="plan-chips">${chips("people", [["2", "2명"], ["3", "3명"], ["4", "4명"], ["8", "5~8명"], ["9", "9명 이상"]], "4")}</div></div>
+      <div class="plan-row"><p class="plan-label">고르는 기준</p><div class="plan-chips">${chips("sort", [["near", "공항 가까운 순"], ["pop", "후기 많은 순"]], "pop")}</div></div>
+      <div class="plan-row"><label class="plan-label" for="plan-date">첫 라운드 날짜 <small>(몰라도 됩니다)</small></label><input type="date" id="plan-date" class="plan-date"></div>
+    </div>
+    <div class="plan-result" aria-live="polite"><ol class="plan-list" id="plan-list"></ol><p class="plan-note">이동시간은 가장 가까운 공항에서 차로 걸리는 평소 기준입니다. 예약 가능 여부·티타임·요금은 카톡에서 날짜로 확인해 드립니다. 주말 티타임은 일찍 차니 날짜가 정해지면 먼저 보내 주세요.</p>
+      <div class="plan-actions"><button type="button" class="button button-quiet" id="plan-next">🔁 다른 조합 보기</button><a class="button button-kakao button-lg" id="plan-go" href="/go/quick-golf?from=plan" data-one-tap="">이 일정 그대로 카톡 견적</a></div></div></div>
+    <script type="application/json" id="plan-data">${JSON.stringify(data).replace(/</g, "\\u003c")}</script></section>`;
+}
+
 // 골프장 상세 "차량" 링크: 호치민권은 그 골프장 차량 쪽, 판티엣·무이네는 무이네 차량 쪽, 나머지는 차량 상담 쪽.
 function courseVehicleLink(course) {
   if (course.area === "hcm") return `<a href="${golfRentPath(course)}">${escapeHtml(courseLabel(course))}까지 차량</a>`;
@@ -703,8 +728,8 @@ function courseDetailPage(course) {
   const guide = courseGuides[course.slug];
   const keyword = keywordCourses[course.slug];
   const content = `
-    <section class="course-hero${course.image ? "" : " is-plate"}" data-area="${course.area}">
-      ${course.image ? `<div class="course-hero-media"><img src="/assets/images/${courseHeroImage(course)}" width="1200" height="800"${focusStyle(courseHeroImage(course))} fetchpriority="high" alt="${photoAlt(course)}">${aiBadge(course)}</div>` : `<div class="course-hero-card">${courseVisual(course, "course-plate-detail", "eager")}</div>`}
+    <section class="course-hero${course.image ? "" : " is-plate"}${heroLowWidth(course) ? " is-lowres" : ""}" data-area="${course.area}">
+      ${course.image ? `<div class="course-hero-media"${heroLowWidth(course) ? ` style="--hero-w:${heroLowWidth(course)}px;--hero-h:${imageHeight(courseHeroImage(course))}px;--hero-img:url('/assets/images/${courseHeroImage(course)}')"` : ""}><img src="/assets/images/${courseHeroImage(course)}" width="1200" height="800"${focusStyle(courseHeroImage(course))} fetchpriority="high" alt="${photoAlt(course)}">${aiBadge(course)}</div>` : `<div class="course-hero-card">${courseVisual(course, "course-plate-detail", "eager")}</div>`}
       <div class="shell course-hero-copy"><p class="eyebrow">${course.region} 골프장 · ${escapeHtml(course.holes.split(" ")[0])}</p><h1>${course.name}</h1><p class="english-name large">${course.englishName}</p><p class="detail-lead">${course.summary}</p>${heroPrice(course)}${ratingLine(course)}<dl class="course-keyfacts"><div><dt>✈ ${escapeHtml(airportShort(course))}에서</dt><dd>차량 약 ${escapeHtml(course.drive)}</dd></div><div><dt>위치</dt><dd>${escapeHtml(course.access)}</dd></div>${golfComboAreas.includes(course.area) ? `<div><dt>숙소</dt><dd><a href="#stay-combo">호치민 풀빌라·아파트 함께 상담 ↓</a></dd></div>` : ""}</dl><div class="hero-x-actions"><button class="button button-kakao button-lg js-consult" type="button" data-interest="${course.name} 상담">카카오톡 한국어 상담</button><a class="button button-glass button-lg" href="/golf#airport-times">다른 골프장과 공항시간 비교</a></div></div>
     </section>${decemberCta(course)}${quickQuoteCard(course)}
     <nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><a href="/golf">베트남 골프장</a><span>›</span><a href="/golf#area-${course.area}">${escapeHtml(areaOf(course).name)}</a><span>›</span><span aria-current="page">${course.shortName}</span></nav>
