@@ -1005,7 +1005,7 @@ function clubReqCard() {
       ${reqGroup("세트", "세트 번호 <small>(여러 명이면 번호를 다르게, 여러 개 가능)</small>", clubSets.map(([no]) => reqChip(`data-v="${no}"`, no)).join("") + reqChip('data-v="세트 추천 부탁"', "추천해 주세요"), { multi: true, required: true })}
       ${reqDate()}
       ${reqPeople([1, 2, 3, 4])}
-      ${reqGroup("새 장갑", "새 장갑 필요하면 사이즈 <small>(선택 · 별도 구매 · 오른손잡이는 왼손 장갑)</small>", ["22", "23", "24", "25", "26"].map((v) => reqChip(`data-v="${v}호(별도 구매)"`, `${v}호`)).join("") + reqChip('data-v="사이즈 모름(상담)"', "잘 모름"), { multi: true })}
+      ${reqGroup("새 장갑", "새 장갑 필요하면 사이즈 <small>(선택 · 별도 판매 · 오른손잡이는 왼손 장갑)</small>", ["22", "23", "24", "25", "26"].map((v) => reqChip(`data-v="${v}호(별도 판매)"`, `${v}호`)).join("") + reqChip('data-v="사이즈 모름(상담)"', "잘 모름"), { multi: true })}
       <label class="req-text">골프장 <small>(알면)</small><input class="qq-input" type="text" data-field="골프장" placeholder="예: 롱탄, 트윈도브 / 아직 모름" autocomplete="off"></label>
       ${reqFoot("카톡으로 대여 요청 보내기")}
       <p class="qq-note">요금은 견적서에 골프 예약과 함께 항목으로 넣어 드립니다. 전달·반납 시간과 장소는 차량 배차와 함께 견적서에 적어 드립니다.</p>
@@ -1026,7 +1026,7 @@ function clubRentalPage() {
     ["치기 쉬움", "한국 골퍼가 많이 쓰는 브랜드", "테일러메이드·캘러웨이·핑·스릭슨·브리지스톤·오디세이로 치기 쉽게 맞췄습니다."],
   ];
   const content = `<nav class="breadcrumb shell" aria-label="현재 위치"><a href="/">홈</a><span>›</span><span aria-current="page">골프채 대여</span></nav>
-    <section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/hero-golf-longthanh.webp')"><div class="shell"><p class="eyebrow">호치민 라운드 전용 · 남성용 4세트</p><h1>호치민 골프채 대여,<br>세트 번호만 고르세요</h1><p>골프백 없이 가볍게 오세요. 브랜드 클럽 4세트 중 번호만 알려 주시면 서비스 볼·티까지 챙겨 드립니다. 새 장갑은 원하시면 사이즈 맞춰 준비해 드립니다(별도 구매).</p><div class="hero-x-actions"><a class="button button-kakao" href="#req">1분 요청서 쓰기</a><a class="button button-glass" href="${clubGo}">카톡 바로 문의</a></div></div></section>
+    <section class="page-hero page-hero-photo" style="--hero-img:url('/assets/images/hero-golf-longthanh.webp')"><div class="shell"><p class="eyebrow">호치민 라운드 전용 · 남성용 4세트</p><h1>호치민 골프채 대여,<br>세트 번호만 고르세요</h1><p>골프백 없이 가볍게 오세요. 브랜드 클럽 4세트 중 번호만 알려 주시면 볼·티는 무료로 챙겨 드립니다. 새 장갑은 별도 판매이며, 원하시면 사이즈를 맞춰 준비해 드립니다.</p><div class="hero-x-actions"><a class="button button-kakao" href="#req">1분 요청서 쓰기</a><a class="button button-glass" href="${clubGo}">카톡 바로 문의</a></div></div></section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">신짜오 골프채 대여</p><h2>골프장에서 빌리는 것보다 나은 세 가지</h2></div></div>
       <div class="option-grid club-perks">${perks.map(([tag, name, text]) => `<article><span>${tag}</span><h3>${name}</h3><p>${text}</p></article>`).join("")}</div>
     </section>
@@ -1036,12 +1036,12 @@ function clubRentalPage() {
     </div></section>
     ${clubReqCard()}
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">예약할 때</p><h2>이것만 보내 주시면 됩니다</h2></div></div>
-      <ol class="airport-steps"><li><strong>라운드 날짜·골프장</strong><span>골프 예약과 함께 보내 주시면 한 번에 견적 드립니다.</span></li><li><strong>빌릴 인원과 세트 번호</strong><span>1~4명, 사람마다 다른 세트 번호. 고르기 어려우면 '추천해 주세요'.</span></li><li><strong>새 장갑 <small>(원하시면)</small></strong><span>사이즈를 알려 주시면 맞춰 준비해 드립니다(별도 구매). 오른손잡이는 왼손 장갑입니다.</span></li><li><strong>견적서로 확정</strong><span>요금과 전달·반납 시간·장소를 차량 배차와 함께 견적서에 적어 드립니다.</span></li></ol>
+      <ol class="airport-steps"><li><strong>라운드 날짜·골프장</strong><span>골프 예약과 함께 보내 주시면 한 번에 견적 드립니다.</span></li><li><strong>빌릴 인원과 세트 번호</strong><span>1~4명, 사람마다 다른 세트 번호. 고르기 어려우면 '추천해 주세요'.</span></li><li><strong>새 장갑 <small>(원하시면)</small></strong><span>새 장갑은 별도 판매입니다. 사이즈를 알려 주시면 맞춰 준비해 드립니다. 오른손잡이는 왼손 장갑입니다.</span></li><li><strong>견적서로 확정</strong><span>요금과 전달·반납 시간·장소를 차량 배차와 함께 견적서에 적어 드립니다.</span></li></ol>
       <div class="guide-jump"><a class="button button-quiet" href="/golf-booking">호치민 골프 예약 방법</a><a class="button button-quiet" href="/regions/hochiminh.html">호치민 골프장 보기</a><a class="button button-quiet" href="/airport">공항 픽업·패스트트랙</a><a class="button button-quiet" href="/#combo">골프·숙소·차량 한 번에 견적</a></div>
     </section>
     <section class="section shell"><div class="section-heading"><div><p class="eyebrow">자주 묻는 질문</p><h2>골프채 대여 FAQ</h2></div></div><dl class="home-faq-list">${faqs.map(([q, a]) => `<div><dt>${escapeHtml(q)}</dt><dd>${escapeHtml(a)}</dd></div>`).join("")}</dl></section>
     <section class="cta-section"><div class="shell cta-inner"><div><p class="eyebrow">골프백 없이 가볍게</p><h2>세트 번호만 고르면,<br>카톡 한 번이면 끝</h2><p>요금은 골프 예약 견적서에 항목으로 함께 넣어 드립니다. 홈페이지에서는 결제하지 않습니다.</p></div><a class="button button-kakao button-lg" href="#req">1분 요청서 쓰기</a></div></section>`;
-  return layout({ title: "호치민 골프채 대여 | 남성용 브랜드 클럽 4세트·볼·티 서비스", description: "호치민 라운드 전용 골프채 대여. 테일러메이드·캘러웨이·핑 등 남성용 4세트 중 번호만 알려 주세요. 골프장 대여보다 저렴하고 서비스 볼·티를 드립니다. 새 장갑은 원하시면 사이즈 맞춰 준비(별도 구매).", pathname: "/club-rental", active: "services", image: "hero-golf-longthanh.webp", keywords: ["호치민 골프채 대여", "호치민 골프채 렌탈", "호치민 골프 클럽 렌탈", "베트남 골프채 대여", "호치민 골프 예약"], schema: [faqSchema(faqs), breadcrumbSchema([["홈", "/"], ["골프채 대여", "/club-rental"]])], content });
+  return layout({ title: "호치민 골프채 대여 | 남성용 브랜드 클럽 4세트·볼·티 서비스", description: "호치민 라운드 전용 골프채 대여. 테일러메이드·캘러웨이·핑 등 남성용 4세트 중 번호만 알려 주세요. 골프장 대여보다 저렴하고 볼·티는 무료입니다. 새 장갑은 별도 판매(원하시면 사이즈 맞춰 준비).", pathname: "/club-rental", active: "services", image: "hero-golf-longthanh.webp", keywords: ["호치민 골프채 대여", "호치민 골프채 렌탈", "호치민 골프 클럽 렌탈", "베트남 골프채 대여", "호치민 골프 예약"], schema: [faqSchema(faqs), breadcrumbSchema([["홈", "/"], ["골프채 대여", "/club-rental"]])], content });
 }
 
 function vehiclePage() {
