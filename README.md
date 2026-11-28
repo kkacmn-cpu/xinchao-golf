@@ -9,7 +9,7 @@ npm run build
 npm test
 ```
 
-생성 결과는 `dist/`에 저장됩니다. 별도 패키지 설치 없이 Node.js만으로 빌드됩니다.
+생성 결과는 `dist/`에 저장됩니다. 별도 라이브러리 설치 없이 Node.js만으로 빌드됩니다.
 
 프리뷰 주소: https://xinchao-golf-renewal.kkacmn.chatgpt.site
 프리뷰는 계정 로그인이 필요할 수 있습니다.
