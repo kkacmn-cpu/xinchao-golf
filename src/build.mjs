@@ -556,6 +556,12 @@ function courseGuideContent(course, guide) {
 // 키워드 쪽 제목을 따로 정하는 곳(11-21 골프 키워드 맞춤표): 손님 검색어("탄손녓 골프장 가는 법")를 제목 앞에 둔다.
 const keywordTitles = {
   "tan-son-nhat-golf-course": "탄손녓 골프장 가는 법·가격·예약 (탄손넛 골프코스, 공항에서 10~20분)",
+  // 11-28 서치콘솔: 'at-1200'·'at 1200' 검색에 6위로 노출되는데 클릭 0 → 손님이 치는 영문 표기를 제목 앞에 둔다.
+  "dalat-at-1200": "달랏 AT 1200 골프장 예약 — 리엔크엉 공항에서 가장 가까운 18홀 (The Dalat at 1200)",
+};
+// 같은 이유로 설명도 따로 정하는 곳(검색 결과에 굵게 뜨는 표기·손님이 얻는 것 먼저).
+const keywordDescriptions = {
+  "dalat-at-1200": "더 달랏 앳 1200(The Dalat at 1200, AT1200) 골프장을 한국어로 예약합니다. 리엔크엉 공항에서 가장 가까운 해발 1,200m 18홀이라 도착일·출국일 라운드에 맞추기 좋습니다. 카톡으로 날짜·인원만 보내면 가능한 티타임과 견적서를 드립니다.",
 };
 const keywordCourses = {
   "vinpearl-golf-nha-trang": "빈펄 나트랑 골프장",
@@ -767,9 +773,9 @@ function courseDetailPage(course) {
   return layout({
     // 이름에 괄호가 있으면(예: "쩌우득 골프장 (소나데지)") 괄호 안에서 다시 괄호가 겹치지 않게 "쩌우득 골프장·소나데지"로 쓴다.
     title: keywordTitles[course.slug] || (keyword ? `${keyword} 가격·예약·위치 안내 (${keyword === flatName(course.name) ? course.englishName : flatName(course.name)})` : `${course.name} 위치·공항 이동시간·예약 상담`),
-    description: keyword
+    description: keywordDescriptions[course.slug] || (keyword
       ? `${keyword}(${keyword === flatName(course.name) ? course.englishName : `${flatName(course.name)}, ${course.englishName}`}) 위치·규모(${course.holes})와 ${airportShort(course)}에서 약 ${course.drive} 이동, 요금 구성(그린피+예약대행 수수료)과 예약 방법을 한국어로 안내합니다.`
-      : `${course.name}(${course.englishName}) 위치·규모와 ${airportShort(course)}에서 차량 약 ${course.drive} 이동 정보, 한국어 골프 일정 상담 안내.`,
+      : `${course.name}(${course.englishName}) 위치·규모와 ${airportShort(course)}에서 차량 약 ${course.drive} 이동 정보, 한국어 골프 일정 상담 안내.`),
     pathname: `/golf/${course.slug}.html`,
     active: "golf",
     ...(course.image && !course.aiStaged ? { image: course.image } : {}),
