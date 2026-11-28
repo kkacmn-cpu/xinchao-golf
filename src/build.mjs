@@ -245,7 +245,7 @@ function footer(pathname = "") {
     <script src="https://company-site-monitor.vercel.app/tracker.js?site=xinchao-golf" defer></script>`;
 }
 
-// 믿음 칸(한 줄, 2026-11-22 대표님 "보완"): 첫 화면 아래와 골프장 상세 맨 아래. 가격·패키지 표현 없음.
+// 믿음 칸(한 줄, 2026-11-22 대표님 "보완"): 첫 화면 아래와 골프장 상세 맨 아래. 가격·묶음상품 표현 없음.
 const trustLine = (href = "/#ops") => `<div class="trust-line" aria-label="운영 안내"><span>🏢 운영 신짜오</span><span>📍 호치민 현지 사무실</span><span>💬 카톡 ID kkacmn</span><a href="/#ops">📱 실제 운영 화면</a></div>`.replace('href="/#ops"', `href="${href}"`);
 const courseOfPath = (pathname) => courses.find((course) => pathname === `/golf/${course.slug}.html`);
 function layout({ title, description, pathname, active, content, image, schema = [], robots, pageType, publishedTime, modifiedTime, keywords = [], preloadImage }) {
@@ -838,7 +838,7 @@ function hcmDecSections() {
     ${hcmPlanSection()}
     <section class="guide-group course-guide" id="region-dec-faq"><h2>12월 호치민 골프 자주 묻는 질문</h2><dl class="home-faq-list">${hcmDecFaq.map(([q, a]) => `<div><dt>${escapeHtml(q)}</dt><dd>${escapeHtml(a)}</dd></div>`).join("")}</dl></section>`;
 }
-// 11-26 1위 차이(베트남골프투어스 2박4일·3박4일 패키지, 베트남해피골프 3박5일 54홀·4박6일 72홀): 1위는 정해진 패키지를 판다.
+// 11-26 1위 차이(베트남골프투어스 2박4일·3박4일 묶음 일정, 베트남해피골프 3박5일 54홀·4박6일 72홀): 1위는 정해진 묶음 일정을 판다.
 // 우리는 일정 예시를 보여 주고, 출발일·인원만 고르면 라운드 전체가 '골프 일정 담기'에 한 번에 담긴다(날짜 자동). 가격·결제 없음.
 // 마지막 골프 날은 공항 10~20분 탄손넛(밤 비행기 전), 첫 라운드는 이동 짧은 곳부터.
 const hcmPlans = [
@@ -854,7 +854,7 @@ function hcmPlanSection() {
     const data = escapeHtml(JSON.stringify(list.map((c) => [c.slug, c.name])));
     return `<article class="plan-card" data-plan="${plan.key}" data-rounds="${data}"><h3>${plan.title}</h3><p>${plan.lead}</p><ol class="plan-days">${rows}</ol><div class="plan-form"><label>출발일(1일차) <input type="date" class="plan-date"></label><label>인원 <select class="plan-people">${[2, 3, 4, 6, 8, 12, 16].map((n) => `<option${n === 4 ? " selected" : ""}>${n}명</option>`).join("")}</select></label></div><button type="button" class="button plan-add" data-cta="plan-${plan.key}">이 일정 그대로 담기</button><p class="plan-note" role="status"></p></article>`;
   }).join("");
-  return `<section class="guide-group course-guide" id="region-plans"><h2>호치민 골프 일정 예시 — 출발일만 고르면 한 번에 담깁니다</h2><p>정해진 패키지가 아니라 예시입니다. 담은 뒤 아래 막대에서 골프장·날짜를 빼거나 다른 골프장 쪽에서 더 담고, '한 번에 견적'으로 카톡에 보내 주세요. 숙소·차량은 견적에서 같이 맞춰 드립니다.</p><div class="plan-grid">${cards}</div></section>`;
+  return `<section class="guide-group course-guide" id="region-plans"><h2>호치민 골프 일정 예시 — 출발일만 고르면 한 번에 담깁니다</h2><p>정해진 묶음 일정이 아니라 예시입니다. 담은 뒤 아래 막대에서 골프장·날짜를 빼거나 다른 골프장 쪽에서 더 담고, '한 번에 견적'으로 카톡에 보내 주세요. 숙소·차량은 견적에서 같이 맞춰 드립니다.</p><div class="plan-grid">${cards}</div></section>`;
 }
 function regionBoardPage(board) {
   const items = regionBoardItems(board);
