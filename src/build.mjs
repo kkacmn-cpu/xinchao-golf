@@ -1529,6 +1529,8 @@ async function build() {
     { source: "/", has: legacyHostRules, destination: `${site.siteUrl}/`, permanent: true },
     { source: `/:path((?!(?:${keepOnLegacyHost.join("|")})$).+)`, has: legacyHostRules, destination: `${site.siteUrl}/:path`, permanent: true },
     { source: "/golf/compare-regions", destination: "/regions", permanent: true },
+    // /zh 루트는 쪽이 없어 404였음(11-28 시험 손님) → 중국어 가격 안내로. 나중에 중국어 첫 쪽을 만들 수 있게 임시(307)
+    { source: "/zh", destination: "/zh/price", permanent: false },
     { source: "/blog/vietnam-golf-caddie-tip-checklist.html", destination: "/blog/hochiminh-golf-stay-selection-checklist.html", permanent: true },
     { source: "/vietnam-golf-caddie-tip-checklist.html", destination: "/blog/hochiminh-golf-stay-selection-checklist.html", permanent: true },
     ...Object.entries(legacyRedirects).map(([source, destination]) => ({ source: `/${source}`, destination, permanent: true })),

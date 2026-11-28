@@ -27,7 +27,7 @@ const expectedContentPages = 31 + courses.length + markdownPosts.length + 1 + gu
 const expectedSitemapUrls = 30 + courses.length + markdownPosts.length + 1 + guideCount + rentPageCount;
 // 붕따우 지역 게시판(/regions/vungtau.html)이 생겨 페이지·사이트맵이 1개씩 늘었다(2026-11-20).
 // 숙소 상세 19쪽(아파트 4·빌라 15)은 호치민풀빌라로 넘겨 페이지·사이트맵에서 빠지고, 상세 주소 19개 이동 규칙이 늘었다(2026-11-20).
-const expectedRedirects = 66 + markdownPosts.length + legacyGolfPaths.length + Object.keys(retiredGuides).length; // 66 = 기존 45 + 옛 주소→새 주소 2 + 숙소 상세 19, 닫힌 골프 사이트 옛 상세 주소 74, 거둔 같은 틀 안내글 42(2026-11-27)
+const expectedRedirects = 67 + markdownPosts.length + legacyGolfPaths.length + Object.keys(retiredGuides).length; // 67 = 기존 45 + 옛 주소→새 주소 2 + 숙소 상세 19 + /zh→/zh/price 1(2026-11-28), 닫힌 골프 사이트 옛 상세 주소 74, 거둔 같은 틀 안내글 42(2026-11-27)
 
 async function collect(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -192,6 +192,7 @@ for (const [slug, item] of Object.entries(retiredGuides)) {
   if (await access(path.join(dist, "guide", `${slug}.html`)).then(() => true, () => false)) failures.push(`거둔 안내글 쪽이 아직 만들어짐: ${slug}`);
 }
 if (!Array.isArray(vercel.redirects) || vercel.redirects.length !== expectedRedirects) failures.push(`301 이전 규칙 ${vercel.redirects?.length ?? 0}개 (예상 ${expectedRedirects}개)`);
+if (vercel.redirects?.filter((rule) => rule.source === "/zh" && rule.destination === "/zh/price").length !== 1) failures.push("/zh → /zh/price 이동 규칙 누락 또는 중복");
 if (vercel.redirects?.filter((rule) => rule.source === "/golf/compare-regions" && rule.destination === "/regions" && rule.permanent === true).length !== 1) failures.push("이전 지역 비교 URL의 영구 이전 규칙 누락 또는 중복");
 for (const source of ["/blog/vietnam-golf-caddie-tip-checklist.html", "/vietnam-golf-caddie-tip-checklist.html"]) {
   if (vercel.redirects?.filter((rule) => rule.source === source && rule.destination === "/blog/hochiminh-golf-stay-selection-checklist.html" && rule.permanent === true).length !== 1) failures.push(`${source}: 중복 없는 숙소 가이드 영구 이전 규칙 필요`);

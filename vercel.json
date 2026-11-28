@@ -33,6 +33,11 @@
       "permanent": true
     },
     {
+      "source": "/zh",
+      "destination": "/zh/price",
+      "permanent": false
+    },
+    {
       "source": "/blog/vietnam-golf-caddie-tip-checklist.html",
       "destination": "/blog/hochiminh-golf-stay-selection-checklist.html",
       "permanent": true
